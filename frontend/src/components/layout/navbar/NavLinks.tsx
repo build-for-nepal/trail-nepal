@@ -22,7 +22,7 @@ export function NavLinks() {
                 href={href}
                 className={[
                   "flex items-center gap-8",
-                  "relative font-poppins text-white text-base font-medium leading-6 tracking-wide transition-colors duration-200",
+                  "relative font-poppins text-base font-medium leading-6 tracking-wide transition-colors duration-200",
                   "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full",
                   "after:origin-left after:scale-x-0 after:rounded-full after:bg-brand",
                   "after:transition-transform after:duration-200",
