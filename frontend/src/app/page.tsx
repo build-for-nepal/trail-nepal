@@ -1,8 +1,8 @@
-import { Navbar } from "../features/navigation/components/navbar";
+import { Navbar } from "../features/navigation/components";
 
 export default function Home() {
   return (
-    <main className="bg-[#757171] min-h-screen">
+    <main className="bg-[#d7c8c8] min-h-screen">
       <Navbar />
     </main>
   );

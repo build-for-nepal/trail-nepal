@@ -1,8 +1,14 @@
 "use client";
 
-import type { NavLink } from "@/types";
+import { cn } from "@/lib/utils";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+type NavLink = {
+  label: string;
+  href: string;
+};
 
 const NAV_LINKS: NavLink[] = [
   { label: "Explore", href: "/explore" },
@@ -23,15 +29,14 @@ export function NavLinks() {
             <li key={href}>
               <Link
                 href={href}
-                className={[
-                  "flex items-center",
-                  "relative font-poppins text-base font-medium leading-6 tracking-wide transition-colors duration-200",
+                className={cn(
+                  "relative flex items-center font-poppins text-base font-medium leading-6 tracking-wide transition-colors duration-200",
                   "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full",
                   "after:origin-left after:scale-x-0 after:rounded-full after:bg-brand",
                   "after:transition-transform after:duration-200",
                   "hover:text-white hover:after:scale-x-100",
-                  isActive ? "text-brand after:scale-x-100" : "text-white/70",
-                ].join(" ")}
+                  isActive ? "text-white after:scale-x-100" : "text-white/70",
+                )}
               >
                 {label}
               </Link>
