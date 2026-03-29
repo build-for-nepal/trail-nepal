@@ -1,7 +1,5 @@
 import React from "react";
 
-const NavLinks = () => {
+export function NavLinks() {
   return <div>navlinks</div>;
-};
-
-export default NavLinks;
+}
