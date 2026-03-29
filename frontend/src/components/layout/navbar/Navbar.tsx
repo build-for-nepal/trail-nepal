@@ -4,10 +4,10 @@ import React from "react";
 import { NavLinks } from "./NavLinks";
 import { SearchBar } from "./SearchBar";
 
-export function Navbar() {
+export function Navbar({ children }: { children?: React.ReactNode }) {
   return (
-    <header className="sticky top-0 z-50  w-full bg-navbar-bg">
-      <div className="relative flex h-full w-full item-center px-8">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-navbar-bg">
+      <div className="relative flex h-full w-full item-center px-8 py-6">
         <Link
           href="/"
           className="shrink-0 transition-opacity duration-200  hover:opacity-80"
