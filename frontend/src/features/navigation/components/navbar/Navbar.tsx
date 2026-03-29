@@ -1,17 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { NavLinks } from "./NavLinks";
 import { SearchBar } from "./SearchBar";
 
 export function Navbar() {
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50"
-      style={{ background: "rgba(0, 0, 0, 0.20)" }}
-    >
-      <div className="flex justify-between items-center px-20 py-6 w-[1440px] mx-auto">
-        {/* Logo */}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm">
+      <div className="flex justify-between items-center px-6 md:px-20 py-6 max-w-[1440px] mx-auto w-full">
         <Link
           href="/"
           className="shrink-0 transition-opacity duration-200 hover:opacity-80"
@@ -27,7 +22,6 @@ export function Navbar() {
         </Link>
 
         <NavLinks />
-
         <SearchBar />
       </div>
     </header>
