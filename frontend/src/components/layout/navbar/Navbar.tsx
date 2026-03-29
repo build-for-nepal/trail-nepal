@@ -4,29 +4,31 @@ import React from "react";
 import { NavLinks } from "./NavLinks";
 import { SearchBar } from "./SearchBar";
 
-export function Navbar({ children }: { children?: React.ReactNode }) {
+export function Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-navbar-bg">
-      <div className="relative flex h-full w-full item-center px-8 py-6">
+    <header
+      className="fixed top-0 left-0 right-0 z-50"
+      style={{ background: "rgba(0, 0, 0, 0.20)" }}
+    >
+      <div className="flex justify-between items-center px-20 py-6 w-[1440px] mx-auto">
+        {/* Logo */}
         <Link
           href="/"
-          className="shrink-0 transition-opacity duration-200  hover:opacity-80"
+          className="shrink-0 transition-opacity duration-200 hover:opacity-80"
           aria-label="Trail Nepal home"
         >
           <Image
             src="/icons/logo.svg"
-            alt="Trial Nepal"
+            alt="Trail Nepal"
             width={49}
             height={35}
             priority
           />
         </Link>
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <NavLinks />
-        </div>
-        <div className="ml-auto flex item-center">
-          <SearchBar />
-        </div>
+
+        <NavLinks />
+
+        <SearchBar />
       </div>
     </header>
   );
