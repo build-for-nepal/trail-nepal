@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { Navbar } from "../features/navigation/components";
 
 export default function Home() {
   return (
-    <main className="flex items-center justify-center w-screen h-screen">
-      Trial Nepal
+    <main className="bg-[#d7c8c8] min-h-screen">
+      <Navbar />
     </main>
   );
 }
