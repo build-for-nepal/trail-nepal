@@ -1,9 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-
-type SearchBarProps = {
-  variant?: "light" | "dark";
-};
+import { SearchBarProps } from "@/types/homepage";
 
 export function SearchBar({ variant = "light" }: SearchBarProps) {
   const isDark = variant === "dark";
@@ -50,7 +47,7 @@ export function SearchBar({ variant = "light" }: SearchBarProps) {
         <div className="absolute left-[17px] top-[2px] h-[30px] w-[33px] pointer-events-none">
           <Image
             src="/icons/hiker.svg"
-            alt=""
+            alt="hikers image"
             width={33}
             height={30}
             className="h-full w-full"

@@ -20,3 +20,12 @@ export interface MobileCarouselProps {
   activeIndex: number;
   goToSlide: (index: number) => void;
 }
+
+export type SearchBarProps = {
+  variant?: "light" | "dark";
+};
+
+export interface NavLink {
+  label: string;
+  href: string;
+}
