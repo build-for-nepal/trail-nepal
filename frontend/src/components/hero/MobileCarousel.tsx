@@ -65,7 +65,7 @@ export const MobileCarousel = ({
   }, [activeIndex, slides, cardWidth, gap]);
 
   return (
-    <div className="absolute bottom-10 left-0 right-0 z-20 flex h-[160px] items-end justify-center lg:hidden overflow-hidden">
+    <div className="absolute bottom-10 left-0 right-0 z-20 flex h-40 items-end justify-center lg:hidden overflow-hidden">
       <div className="relative flex h-full w-full items-end justify-center">
         {slides.map((slide, index) => {
           // Calculate initial state for the very first render to prevent layout shifts
