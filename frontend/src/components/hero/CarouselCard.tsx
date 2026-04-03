@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { Slide, CardOffset } from "../../../types/homepage";
-import { TRANSITION_DURATION_MS, SHADOW_MAP } from "../constants";
+import type { Slide, CardOffset } from "../../types/homepage";
+import { TRANSITION_DURATION_MS, SHADOW_MAP } from "../../static/constants";
 import { getCardStyle } from "@/lib/helper";
 
 interface CarouselCardProps {
@@ -12,9 +12,9 @@ interface CarouselCardProps {
 }
 
 const SIZES_MAP: Record<CardOffset, string> = {
-  0: "384px", // 24rem
-  1: "256px", // 16rem
-  2: "192px", // 12rem
+  0: "384px",
+  1: "256px",
+  2: "192px",
 };
 
 export const CarouselCard = ({ slide, offset, onClick }: CarouselCardProps) => {

@@ -1,4 +1,4 @@
-import type { StackSlot, CardOffset } from "../../types/homepage";
+import type { StackSlot, CardOffset } from "../types/homepage";
 
 export const TRANSITION_DURATION_MS = 700;
 export const GAP_REM = 2.75;

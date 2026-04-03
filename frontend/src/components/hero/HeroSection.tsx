@@ -3,13 +3,12 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
-
-import { SLIDES } from "../../../static/carousel";
+import { SLIDES } from "../../static/carousel";
+import { MobileCarousel } from "./MobileCarousel";
+import { useHeroAnimation } from "@/hooks/useHeroAnimation";
 import { HeroBackground } from "./HeroBackground";
 import { HeroContent } from "./HeroContent";
 import { CarouselCard } from "./CarouselCard";
-import { MobileCarousel } from "./MobileCarousel"; // <-- IMPORT HERE
-import { useHeroAnimation } from "@/hooks/useHeroAnimation";
 
 export const HeroSection = () => {
   const router = useRouter();
@@ -89,7 +88,7 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Mobile Linear Sliding Carousel Component */}
+      {/* Mobile Sliding Carousel Component */}
       <MobileCarousel
         slides={SLIDES}
         activeIndex={activeIndex}

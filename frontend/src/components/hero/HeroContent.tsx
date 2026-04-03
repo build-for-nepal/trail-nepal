@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import type { Slide } from "../../../types/homepage";
+import type { Slide } from "../../types/homepage";
 
 interface HeroContentProps {
   slide: Slide;

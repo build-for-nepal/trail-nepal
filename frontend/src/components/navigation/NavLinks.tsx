@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NAV_LINKS } from "../nav-links.config";
+import { NAV_LINKS } from "../../static/nav-links.config";
 
 export function NavLinks() {
   const pathname = usePathname();

@@ -1,4 +1,4 @@
-import { GAP_REM, STACK_SLOTS } from "../features/hero/constants";
+import { GAP_REM, STACK_SLOTS } from "../static/constants";
 import type { CardOffset } from "../types/homepage";
 
 export interface ResolvedCardStyle {

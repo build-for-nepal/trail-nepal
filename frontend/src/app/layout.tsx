@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "../features/navigation/components/";
+import { Navbar } from "@/components/navigation/Navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],

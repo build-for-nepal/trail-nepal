@@ -1,4 +1,4 @@
-import { TRANSITION_DURATION_MS } from "@/features/hero/constants";
+import { TRANSITION_DURATION_MS } from "@/static/constants";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 export const useHeroAnimation = (totalSlides: number) => {

@@ -1,6 +1,6 @@
 import type { MutableRefObject } from "react";
 import Image from "next/image";
-import type { Slide } from "../../../types/homepage";
+import type { Slide } from "../../types/homepage";
 
 interface HeroBackgroundProps {
   slides: Slide[];
