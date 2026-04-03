@@ -1,4 +1,5 @@
 import { Slide } from "../types/homepage";
+import { Trek } from "@/types/homepage";
 
 export const SLIDES: Slide[] = [
   {
@@ -44,5 +45,41 @@ export const SLIDES: Slide[] = [
     imageSrc: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
     description:
       "Behold the 'Matterhorn of the Himalayas'. Renowned for its stunning aesthetics and technical climbing routes, towering above the Khumbu region.",
+  },
+];
+
+export const POPULAR_TREKS: Trek[] = [
+  {
+    id: "abc-trek",
+    title: "ABC Trek",
+    duration: "12-15 Days",
+    altitude: "5,345m",
+    bestTime: "Sept-Nov",
+    price: "Nrs. 15,000",
+    difficulty: "Moderate",
+    imageSrc: "/images/treks/abc.jpg",
+    href: "/treks/abc",
+  },
+  {
+    id: "ebc-trek",
+    title: "EBC Trek",
+    duration: "12-15 Days",
+    altitude: "5,345m",
+    bestTime: "Sept-Nov",
+    price: "Nrs. 15,000",
+    difficulty: "Challenging",
+    imageSrc: "/images/treks/ebc.jpg",
+    href: "/treks/ebc",
+  },
+  {
+    id: "manaslu-trek",
+    title: "Manaslu Circuit Trek",
+    duration: "12-15 Days",
+    altitude: "5,345m",
+    bestTime: "Sept-Nov",
+    price: "Nrs. 15,000",
+    difficulty: "Difficult",
+    imageSrc: "/images/treks/manaslu.jpg",
+    href: "/treks/manaslu",
   },
 ];
