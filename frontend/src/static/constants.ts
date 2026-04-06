@@ -14,3 +14,10 @@ export const SHADOW_MAP: Record<CardOffset, string> = {
   1: "shadow-[0_20px_40px_rgba(0,0,0,0.4)]",
   2: "shadow-[0_12px_28px_rgba(0,0,0,0.35)]",
 };
+
+export const PILL_COLOR_MAP: Record<string, string> = {
+  red: "#B11F12",
+  green: "#3B6D11",
+  yellow: "#854F0B",
+  blue: "#185FA5",
+};
