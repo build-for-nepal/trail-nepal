@@ -21,3 +21,8 @@ export const PILL_COLOR_MAP: Record<string, string> = {
   yellow: "#854F0B",
   blue: "#185FA5",
 };
+export const DIFFICULTY_COLORS: Record<string, string> = {
+  moderate: "#3B6D11",
+  challenging: "#B11F12",
+  difficult: "#854F0B",
+};

@@ -59,6 +59,8 @@ export const POPULAR_TREKS: Trek[] = [
     difficulty: "Moderate",
     imageSrc: "/images/treks/abc.jpg",
     href: "/treks/abc",
+    description:
+      "A stunning journey through the Annapurna sanctuary with breathtaking views of the Himalayas.",
   },
   {
     id: "ebc-trek",
@@ -70,6 +72,8 @@ export const POPULAR_TREKS: Trek[] = [
     difficulty: "Challenging",
     imageSrc: "/images/treks/ebc.jpg",
     href: "/treks/ebc",
+    description:
+      "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
   },
   {
     id: "manaslu-trek",
@@ -81,5 +85,7 @@ export const POPULAR_TREKS: Trek[] = [
     difficulty: "Difficult",
     imageSrc: "/images/treks/manaslu.jpg",
     href: "/treks/manaslu",
+    description:
+      "A remote and rugged circuit around the world's eighth highest mountain.",
   },
 ];

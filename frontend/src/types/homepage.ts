@@ -29,3 +29,24 @@ export interface NavLink {
   label: string;
   href: string;
 }
+export interface PillProps {
+  text: string;
+  color: string;
+}
+
+export interface SectionHeaderProps {
+  title: string;
+  description: string;
+}
+export interface Trek {
+  id: string;
+  title: string;
+  duration: string;
+  altitude: string;
+  bestTime: string;
+  price: string;
+  difficulty: string;
+  imageSrc: string;
+  href: string;
+  description?: string;
+}
