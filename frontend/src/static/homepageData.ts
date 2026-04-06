@@ -98,6 +98,7 @@ export const TIERS: { key: TierKey; label: string }[] = [
 
 export const COST_DATA: CostData = {
   budget: {
+    pillLabel: "Budget",
     items: [
       { label: "Accommodation", amount: 8000 },
       { label: "Food", amount: 8000 },
@@ -108,6 +109,7 @@ export const COST_DATA: CostData = {
     total: 18000,
   },
   "mid-range": {
+    pillLabel: "Mid-range",
     items: [
       { label: "Accommodation", amount: 15000 },
       { label: "Food", amount: 12000 },
@@ -118,6 +120,7 @@ export const COST_DATA: CostData = {
     total: 57000,
   },
   comfort: {
+    pillLabel: "Comfort",
     items: [
       { label: "Accommodation", amount: 25000 },
       { label: "Food", amount: 18000 },
@@ -129,9 +132,11 @@ export const COST_DATA: CostData = {
   },
 };
 
+const manasluTrek = POPULAR_TREKS.find((t) => t.id === "manaslu-trek")!;
+
 export const TREK_INFO: TrekInfoData = {
-  title: "Manaslu Circuit Trek",
-  description:
-    "Worem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-  exploreHref: "/treks/manaslu-circuit",
+  title: manasluTrek.title,
+  description: manasluTrek.description ?? "",
+  exploreHref: manasluTrek.href,
+  tier: "budget", // Add the specific tier here (budget | mid-range | comfort)
 };
