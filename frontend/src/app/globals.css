@@ -133,3 +133,29 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+  .section-wrapper {
+    @apply flex flex-col items-center gap-[60px] px-[80px] py-[100px];
+  }
+
+  .info-pill {
+    @apply inline-flex items-center justify-center gap-[10px] px-4 py-1 bg-white rounded-full text-sm font-medium whitespace-nowrap border-[1.5px];
+    font-family: "Poppins", sans-serif;
+    line-height: 120%;
+  }
+
+  .section-header {
+    @apply flex flex-col items-center gap-4 w-full text-center;
+  }
+
+  .section-header__title {
+    @apply text-[40px] font-normal leading-8 text-black;
+    font-family: "Oldenburg", serif;
+  }
+
+  .section-header__description {
+    @apply text-base font-medium text-black;
+    font-family: "Poppins", sans-serif;
+  }
+}
