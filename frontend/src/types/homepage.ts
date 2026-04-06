@@ -37,6 +37,7 @@ export interface PillProps {
 export interface SectionHeaderProps {
   title: string;
   description: string;
+  light?: boolean;
 }
 export interface Trek {
   id: string;
@@ -61,4 +62,9 @@ export interface TrekCardProps {
   season: string;
   price: string;
   href: string;
+}
+export interface FeatureItemProps {
+  icon: string;
+  title: string;
+  description: string;
 }

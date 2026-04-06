@@ -1,14 +1,9 @@
+import { FeatureItemProps } from "@/types/homepage";
 import Image from "next/image";
-
-interface FeatureItemProps {
-  icon: string;
-  title: string;
-  description: string;
-}
 
 const FeatureItem = ({ icon, title, description }: FeatureItemProps) => {
   return (
-    <div className="flex flex-col items-center text-center gap-4 px-4">
+    <div className="flex flex-col items-center gap-4 py-8 px-0 flex-1 text-center">
       <div className="w-16 h-16 relative">
         <Image src={icon} alt={title} fill className="object-contain" />
       </div>
