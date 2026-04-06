@@ -50,3 +50,15 @@ export interface Trek {
   href: string;
   description?: string;
 }
+
+export interface TrekCardProps {
+  imageUrl: string;
+  title: string;
+  description?: string;
+  difficulty: string;
+  duration: string;
+  altitude: string;
+  season: string;
+  price: string;
+  href: string;
+}
