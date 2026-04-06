@@ -68,3 +68,22 @@ export interface FeatureItemProps {
   title: string;
   description: string;
 }
+export type TierKey = "budget" | "mid-range" | "comfort";
+
+export interface CostItem {
+  label: string;
+  amount: number;
+}
+
+export interface TierCosts {
+  items: CostItem[];
+  total: number;
+}
+
+export type CostData = Record<TierKey, TierCosts>;
+
+export interface TrekInfoData {
+  title: string;
+  description: string;
+  exploreHref: string;
+}

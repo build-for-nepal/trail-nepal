@@ -1,4 +1,4 @@
-import { Slide } from "../types/homepage";
+import { CostData, Slide, TierKey, TrekInfoData } from "../types/homepage";
 import { Trek } from "@/types/homepage";
 
 export const SLIDES: Slide[] = [
@@ -89,3 +89,49 @@ export const POPULAR_TREKS: Trek[] = [
       "A remote and rugged circuit around the world's eighth highest mountain.",
   },
 ];
+
+export const TIERS: { key: TierKey; label: string }[] = [
+  { key: "budget", label: "Budget" },
+  { key: "mid-range", label: "Mid-range" },
+  { key: "comfort", label: "Comfort" },
+];
+
+export const COST_DATA: CostData = {
+  budget: {
+    items: [
+      { label: "Accommodation", amount: 8000 },
+      { label: "Food", amount: 8000 },
+      { label: "Permits", amount: 8000 },
+      { label: "Transport", amount: 8000 },
+      { label: "Guide", amount: 8000 },
+    ],
+    total: 18000,
+  },
+  "mid-range": {
+    items: [
+      { label: "Accommodation", amount: 15000 },
+      { label: "Food", amount: 12000 },
+      { label: "Permits", amount: 8000 },
+      { label: "Transport", amount: 10000 },
+      { label: "Guide", amount: 12000 },
+    ],
+    total: 57000,
+  },
+  comfort: {
+    items: [
+      { label: "Accommodation", amount: 25000 },
+      { label: "Food", amount: 18000 },
+      { label: "Permits", amount: 8000 },
+      { label: "Transport", amount: 15000 },
+      { label: "Guide", amount: 18000 },
+    ],
+    total: 84000,
+  },
+};
+
+export const TREK_INFO: TrekInfoData = {
+  title: "Manaslu Circuit Trek",
+  description:
+    "Worem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+  exploreHref: "/treks/manaslu-circuit",
+};
