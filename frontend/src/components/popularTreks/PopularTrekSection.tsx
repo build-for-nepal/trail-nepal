@@ -6,7 +6,6 @@ import Image from "next/image";
 const PopularTrekSection = () => {
   return (
     <section className="relative py-[100px] px-4 md:px-[80px] overflow-hidden">
-      {/* Hill background — sits behind everything */}
       <Image
         src="/images/hill.svg"
         alt=""
@@ -15,7 +14,6 @@ const PopularTrekSection = () => {
         aria-hidden="true"
       />
 
-      {/* Content sits above the hill */}
       <div className="relative z-10">
         <SectionHeader
           title="Popular Trek"

@@ -37,6 +37,7 @@ export interface PillProps {
 export interface SectionHeaderProps {
   title: string;
   description: string;
+  light?: boolean;
 }
 export interface Trek {
   id: string;
@@ -61,4 +62,44 @@ export interface TrekCardProps {
   season: string;
   price: string;
   href: string;
+}
+export interface FeatureItemProps {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export type TierKey = "budget" | "mid-range" | "comfort";
+
+export interface CostItem {
+  label: string;
+  amount: number;
+}
+
+export interface TierCosts {
+  items: CostItem[];
+  total: number;
+  pillLabel: string;
+}
+
+export type CostData = Record<"budget" | "mid-range" | "comfort", TierCosts>;
+
+export interface TrekInfoData {
+  title: string;
+  description: string;
+  exploreHref: string;
+  tier: "budget" | "mid-range" | "comfort";
+}
+export interface CostEstimatorProps {
+  costData: CostData;
+}
+export interface TrekInfoProps {
+  trek: TrekInfoData;
+}
+export interface CostEstimatorProps {
+  costData: CostData;
+}
+export interface CostBreakdownCardProps {
+  costs: TierCosts;
+  tier: "budget" | "mid-range" | "comfort" | string;
 }

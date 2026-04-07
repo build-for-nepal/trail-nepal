@@ -26,3 +26,29 @@ export const DIFFICULTY_COLORS: Record<string, string> = {
   challenging: "#B11F12",
   difficult: "#854F0B",
 };
+export const WHY_NEPAL_FEATURES = [
+  {
+    id: "mountains",
+    icon: "/icons/mount.svg",
+    title: "Highest Mountains",
+    description: "8 of the 14 highest peaks including Mount Everest",
+  },
+  {
+    id: "culture",
+    icon: "/icons/team-line.svg",
+    title: "Rich Culture & Villages",
+    description: "Experience traditional Sherpa and Tamang communities",
+  },
+  {
+    id: "landscapes",
+    icon: "/icons/team-line.svg",
+    title: "Diverse Landscapes",
+    description: "From subtropical forests to alpine deserts",
+  },
+  {
+    id: "trails",
+    icon: "/icons/map.svg",
+    title: "World Famous Trails",
+    description: "Some of the most renowned trekking routes on Earth",
+  },
+];
