@@ -10,7 +10,7 @@ export default function CostBreakdownCard({
     tier === "budget" ? "green"
     : tier === "mid-range" ? "blue"
     : tier === "comfort" ? "purple"
-    : "gray"; // Fallback color
+    : "gray";
 
   return (
     <div className="relative w-full rounded-[20px] bg-white px-8 py-8 shadow-sm font-poppins">
