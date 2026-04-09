@@ -1,4 +1,12 @@
-import { CostData, Slide, TierKey, TrekInfoData } from "../types/homepage";
+import type { Route } from "next";
+import {
+  Collaborator,
+  CostData,
+  Slide,
+  SocialLink,
+  TierKey,
+  TrekInfoData,
+} from "../types/homepage";
 import { Trek } from "@/types/homepage";
 
 export const SLIDES: Slide[] = [
@@ -138,5 +146,49 @@ export const TREK_INFO: TrekInfoData = {
   title: manasluTrek.title,
   description: manasluTrek.description ?? "",
   exploreHref: manasluTrek.href,
-  tier: "budget", // Add the specific tier here (budget | mid-range | comfort)
+  tier: "budget",
 };
+export const FOOTER_COLLABORATORS: Collaborator[] = [
+  {
+    name: "Build for Nepal",
+    logoSrc: "/images/collaborators/build-for-nepal.png",
+    href: "https://buildfornepal.com",
+    width: 110,
+    height: 40,
+  },
+  {
+    name: "Techgaun",
+    logoSrc: "/images/collaborators/techgaun.png",
+    href: "https://techgaun.com",
+    width: 100,
+    height: 40,
+  },
+];
+export const FOOTER_SOCIAL_LINKS: SocialLink[] = [
+  {
+    platform: "facebook",
+    href: "https://facebook.com/trailnepal",
+    ariaLabel: "Follow Trail Nepal on Facebook",
+  },
+  {
+    platform: "instagram",
+    href: "https://instagram.com/trailnepal",
+    ariaLabel: "Follow Trail Nepal on Instagram",
+  },
+  {
+    platform: "youtube",
+    href: "https://youtube.com/trailnepal",
+    ariaLabel: "Subscribe to Trail Nepal on YouTube",
+  },
+];
+
+export interface FooterLink {
+  label: string;
+  href: Route;
+}
+
+export const FOOTER_QUICK_LINKS: FooterLink[] = [
+  { label: "Explore", href: "/explore" },
+  { label: "Compare Treks", href: "/compare" },
+  { label: "Planning Tools", href: "/plan" },
+];

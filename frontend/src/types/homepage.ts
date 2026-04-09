@@ -103,3 +103,17 @@ export interface CostBreakdownCardProps {
   costs: TierCosts;
   tier: "budget" | "mid-range" | "comfort" | string;
 }
+export interface Collaborator {
+  name: string;
+  logoSrc: string;
+  href: string;
+  width: number;
+  height: number;
+}
+export type SocialPlatform = "facebook" | "instagram" | "youtube";
+
+export interface SocialLink {
+  platform: SocialPlatform;
+  href: string;
+  ariaLabel: string;
+}

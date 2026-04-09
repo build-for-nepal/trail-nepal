@@ -52,3 +52,13 @@ export const WHY_NEPAL_FEATURES = [
     description: "Some of the most renowned trekking routes on Earth",
   },
 ];
+
+export const SOCIAL_ICONS = [
+  { src: "/icons/facebook.svg", alt: "Facebook", href: "https://facebook.com" },
+  {
+    src: "/icons/instagram.svg",
+    alt: "Instagram",
+    href: "https://instagram.com",
+  },
+  { src: "/icons/youtube.svg", alt: "Youtube", href: "https://youtube.com" },
+];
