@@ -1,3 +1,7 @@
+export interface NavLinksProps {
+  className?: string;
+}
+
 export interface Slide {
   id: string;
   title: string;
@@ -21,9 +25,10 @@ export interface MobileCarouselProps {
   goToSlide: (index: number) => void;
 }
 
-export type SearchBarProps = {
+export interface SearchBarProps {
   variant?: "light" | "dark";
-};
+  className?: string;
+}
 
 export interface NavLink {
   label: string;

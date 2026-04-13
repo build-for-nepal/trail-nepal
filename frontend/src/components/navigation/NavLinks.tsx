@@ -1,12 +1,10 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "../../static/nav-links.config";
-
-interface NavLinksProps {
-  className?: string; // Add this prop
-}
+import { NavLinksProps } from "@/types/homepage";
 
 export function NavLinks({ className }: NavLinksProps) {
   const pathname = usePathname();
@@ -22,9 +20,8 @@ export function NavLinks({ className }: NavLinksProps) {
                 href={href}
                 className={cn(
                   "relative flex items-center font-poppins text-base font-medium",
-                  "whitespace-nowrap",
-                  "leading-6 tracking-wide transition-colors duration-200",
-                  "after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full",
+                  "whitespace-nowrap leading-6 tracking-wide transition-colors duration-200",
+                  "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full",
                   "after:origin-left after:scale-x-0 after:rounded-full after:bg-brand",
                   "after:transition-transform after:duration-200",
                   "hover:text-white hover:after:scale-x-100",

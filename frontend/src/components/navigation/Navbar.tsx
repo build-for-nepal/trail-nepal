@@ -6,8 +6,8 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Navbar() {
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md">
-      <div className="flex items-center justify-between px-6 py-6 lg:px-20 mx-auto w-full">
+    <header className=" absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md">
+      <div className="page-wrapper flex items-center justify-between py-6">
         <Link
           href="/"
           className="shrink-0 transition-opacity duration-200 hover:opacity-80"
@@ -22,20 +22,11 @@ export function Navbar() {
           />
         </Link>
 
-        <div className="hidden lg:block">
-          <NavLinks />
-        </div>
+        <NavLinks className="hidden lg:flex" />
 
-        <div className="flex items-center">
-          {/* Desktop Search */}
-          <div className="hidden lg:block">
-            <SearchBar />
-          </div>
-
-          {/* Mobile Trigger */}
-          <div className="lg:hidden">
-            <MobileMenu />
-          </div>
+        <div className="flex items-center gap-4">
+          <SearchBar className="hidden lg:flex w-76" />
+          <MobileMenu />
         </div>
       </div>
     </header>

@@ -2,16 +2,17 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SearchBarProps } from "@/types/homepage";
 
-export function SearchBar({ variant = "light" }: SearchBarProps) {
+export function SearchBar({ variant = "light", className }: SearchBarProps) {
   const isDark = variant === "dark";
 
   return (
     <div
       className={cn(
-        "relative flex w-full items-center gap-2 overflow-hidden rounded-[16px] border px-2 py-2 backdrop-blur-sm transition-all duration-200",
+        "relative flex  items-center gap-2 overflow-hidden rounded-[16px] border px-2 py-2 backdrop-blur-sm transition-all duration-200",
         isDark ?
-          "border-gray-300 bg-white focus-within:border-gray-400 focus-within:bg-gray-50 shadow-sm" // For the light mobile menu
-        : "border-white/25 bg-white/20 focus-within:border-white/40 focus-within:bg-white/25", // For the dark navbar
+          "border-gray-300 bg-white focus-within:border-gray-400 focus-within:bg-gray-50 shadow-sm"
+        : "border-white/25 bg-white/20 focus-within:border-white/40 focus-within:bg-white/25",
+        className,
       )}
     >
       <Image
@@ -33,8 +34,9 @@ export function SearchBar({ variant = "light" }: SearchBarProps) {
         )}
         aria-label="Search treks"
       />
+      {/* Decorative mountain + hiker illustration */}
       <div
-        className="pointer-events-none absolute bottom-0 right-0 h-[32px] w-[65px]"
+        className="pointer-events-none absolute bottom-0 right-0 h-8 w-16"
         aria-hidden="true"
       >
         <Image
@@ -44,7 +46,7 @@ export function SearchBar({ variant = "light" }: SearchBarProps) {
           height={32}
           className="absolute bottom-0 right-0 h-full w-full"
         />
-        <div className="absolute left-[17px] top-[2px] h-[30px] w-[33px] pointer-events-none">
+        <div className="absolute left-4.25 top-0.5 h-7.5 w-8.25 pointer-events-none">
           <Image
             src="/icons/hiker.svg"
             alt="hikers image"
