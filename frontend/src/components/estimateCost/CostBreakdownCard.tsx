@@ -1,6 +1,6 @@
 import Pill from "@/components/common/Pill";
 import { formatNPR } from "@/lib/utils";
-import { CostBreakdownCardProps, TierCosts } from "@/types/homepage";
+import { CostBreakdownCardProps } from "@/types/homepage";
 
 export default function CostBreakdownCard({
   costs,
