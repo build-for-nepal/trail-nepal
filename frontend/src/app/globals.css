@@ -135,8 +135,11 @@
 }
 
 @layer components {
+  .page-wrapper {
+    @apply w-full max-w-480 mx-auto px-4 md:px-10 xl:px-20;
+  }
   .section-wrapper {
-    @apply flex flex-col items-center gap-[60px] px-[80px] py-[100px];
+    @apply items-center gap-16 py-15 xl:py-25;
   }
 
   .info-pill {
