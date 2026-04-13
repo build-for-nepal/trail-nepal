@@ -1,13 +1,5 @@
-import type { RefObject } from "react";
-import type { Slide } from "../../types/homepage";
-
-interface HeroContentProps {
-  slide: Slide;
-  onPrev: () => void;
-  onNext: () => void;
-  onExplore: () => void;
-  textElemsRef: RefObject<(HTMLElement | null)[]>;
-}
+import Image from "next/image";
+import type { HeroContentProps } from "../../types/homepage";
 
 export const HeroContent = ({
   slide,
@@ -39,15 +31,14 @@ export const HeroContent = ({
       }}
       className="flex flex-col items-center lg:items-start gap-5"
     >
-      {/* Arrows - Hidden on Mobile */}
       <div className="hidden lg:flex gap-8 ml-2">
         <button
           type="button"
           onClick={onPrev}
           aria-label="Previous slide"
-          className="text-white hover:opacity-70 transition-opacity p-2 -ml-2"
+          className="text-white hover:opacity-70 transition-opacity p-2 -ml-2 cursor-pointer"
         >
-          <img
+          <Image
             src="/icons/arrow-left.svg"
             alt=""
             width={22}
@@ -59,9 +50,9 @@ export const HeroContent = ({
           type="button"
           onClick={onNext}
           aria-label="Next slide"
-          className="text-white hover:opacity-70 transition-opacity p-2"
+          className="text-white hover:opacity-70 transition-opacity p-2 cursor-pointer"
         >
-          <img
+          <Image
             src="/icons/arrow-right.svg"
             alt=""
             width={22}
@@ -73,7 +64,7 @@ export const HeroContent = ({
       <button
         type="button"
         onClick={onExplore}
-        className="font-poppins px-10 py-4 bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full transition-transform hover:-translate-y-1 shadow-lg"
+        className="font-poppins px-10 py-4 bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full transition-transform hover:-translate-y-1 shadow-lg cursor-pointer"
       >
         Explore Now
       </button>

@@ -1,11 +1,6 @@
-import type { MutableRefObject } from "react";
+import type { RefObject } from "react";
 import Image from "next/image";
-import type { Slide } from "../../types/homepage";
-
-interface HeroBackgroundProps {
-  slides: Slide[];
-  bgLayersRef: MutableRefObject<(HTMLDivElement | null)[]>;
-}
+import type { HeroBackgroundProps } from "../../types/homepage";
 
 export const HeroBackground = ({
   slides,

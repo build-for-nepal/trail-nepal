@@ -52,12 +52,16 @@ export const HeroSection = () => {
       tl.kill();
     };
   }, [activeIndex]);
-
+  // Auto-advance every 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(handleNext, 2500);
+    return () => clearTimeout(timer);
+  }, [activeIndex]);
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black">
       <HeroBackground slides={SLIDES} bgLayersRef={bgLayersRef} />
 
-      <div className="relative z-10 flex h-full w-full items-center px-4 md:px-8 lg:px-16 2xl:px-24">
+      <div className="page-wrapper relative z-10 flex h-full items-center">
         <div className="flex h-full w-full flex-col justify-center lg:grid lg:grid-cols-2 lg:items-center">
           <div className="flex w-full items-center justify-center lg:justify-start pb-24 lg:pb-0">
             <HeroContent

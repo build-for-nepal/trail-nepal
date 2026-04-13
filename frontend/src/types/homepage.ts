@@ -1,7 +1,23 @@
+import type { RefObject } from "react";
 export interface NavLinksProps {
   className?: string;
 }
-
+export interface HeroContentProps {
+  slide: Slide;
+  onPrev: () => void;
+  onNext: () => void;
+  onExplore: () => void;
+  textElemsRef: RefObject<(HTMLElement | null)[]>;
+}
+export interface CarouselCardProps {
+  slide: Slide;
+  offset: number;
+  onClick: () => void;
+}
+export interface HeroBackgroundProps {
+  slides: Slide[];
+  bgLayersRef: RefObject<(HTMLDivElement | null)[]>;
+}
 export interface Slide {
   id: string;
   title: string;
