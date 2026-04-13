@@ -21,7 +21,7 @@ const Footer = () => {
         </svg>
       </div>
 
-      <div className="mx-auto max-w-7xl">
+      <div className="page-wrapper">
         <div className="grid grid-cols-1 items-center gap-[50px] lg:grid-cols-3 lg:gap-[40px]">
           <div className="flex flex-col items-center gap-4 lg:items-start">
             <h3 className="font-poppins text-lg font-semibold lg:text-xl">
