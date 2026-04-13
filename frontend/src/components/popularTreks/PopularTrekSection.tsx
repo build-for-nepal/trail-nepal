@@ -1,11 +1,12 @@
 import { POPULAR_TREKS } from "@/static/homepageData";
 import SectionHeader from "../common/SectionHeader";
 import TrekCard from "./TrekCard";
+import TrekCarousel from "./TrekCarousel";
 import Image from "next/image";
 
 const PopularTrekSection = () => {
   return (
-    <section className="relative py-[100px] px-4 md:px-[80px] overflow-hidden">
+    <section className="relative py-[100px] overflow-hidden">
       <Image
         src="/images/hill.svg"
         alt=""
@@ -14,12 +15,13 @@ const PopularTrekSection = () => {
         aria-hidden="true"
       />
 
-      <div className="relative z-10">
+      <div className="page-wrapper relative z-10">
         <SectionHeader
           title="Popular Trek"
           description="Choose from Nepal's most iconic trekking adventures"
         />
-        <div className="mt-[60px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-[60px]">
           {POPULAR_TREKS.map((trek) => (
             <TrekCard
               key={trek.id}
@@ -34,6 +36,10 @@ const PopularTrekSection = () => {
               href={trek.href}
             />
           ))}
+        </div>
+
+        <div className="lg:hidden mt-[60px]">
+          <TrekCarousel treks={POPULAR_TREKS} />
         </div>
       </div>
     </section>

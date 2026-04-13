@@ -20,63 +20,53 @@ const TrekCard = ({
     DIFFICULTY_COLORS[difficulty.toLowerCase()] ?? "#6BBF1F";
 
   return (
-    <div className="group relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100">
-      <div className="absolute top-0 left-0 w-full h-full group-hover:h-[65%] transition-all duration-500 ease-in-out z-0">
+    <div className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
+      <div className="relative w-full flex-1 lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-full lg:group-hover:h-[calc(100%-220px)] transition-all duration-500 ease-in-out lg:z-0">
         <Image
-          src={imageUrl}
+          src={imageUrl || "/images/placeholder-trek.jpg"}
           alt={title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover transition-transform duration-700 lg:group-hover:scale-105"
+          sizes="(max-width: 1024px) 100vw, 33vw"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent bg-[length:100%_40%] bg-bottom bg-no-repeat transition-opacity duration-500 group-hover:opacity-0" />
+        {/* Desktop only — fades out on hover */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent bg-[length:100%_40%] bg-bottom bg-no-repeat lg:transition-opacity lg:duration-500 lg:group-hover:opacity-0" />
+        <div className="absolute top-3 right-3 z-10">
+          <Pill text={difficulty} color={difficultyColor} />
+        </div>
       </div>
 
-      <div className="absolute top-4 right-4 z-10">
-        <Pill text={difficulty} color={difficultyColor} />
-      </div>
-
-      <div className="absolute bottom-[80px] left-0 w-full px-5 flex flex-col justify-end z-10 transition-all duration-500">
-        <h3
-          className="font-bold text-black text-2xl mb-1"
-          style={{ fontFamily: "'poppins', serif" }}
-        >
+      <div className="flex flex-col gap-2 px-4 py-4 lg:absolute lg:bottom-0 lg:left-0 lg:w-full lg:px-5 lg:pb-5 lg:z-10">
+        <h3 className="font-poppins font-bold text-black text-lg sm:text-xl line-clamp-1">
           {title}
         </h3>
 
-        <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-in-out">
-          <div className="overflow-hidden">
-            <p className="font-poppins  text-gray-600 text-[14px] leading-snug line-clamp-3 mb-3 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-              {description}
-            </p>
-          </div>
+        {/* Hidden on desktop until hover */}
+        <div className="overflow-hidden transition-all duration-500 ease-in-out max-h-[4rem] lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[4rem] lg:group-hover:opacity-100 lg:delay-100">
+          <p className="font-poppins text-gray-600 text-[13px] leading-snug line-clamp-2">
+            {description}
+          </p>
         </div>
 
-        <div className="font-poppins flex items-center justify-between mb-4 text-black">
-          <span className="flex items-center gap-1.5 text-[13px] font-medium">
-            <Clock size={16} /> {duration}
+        <div className="font-poppins flex items-center justify-between text-black">
+          <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
+            <Clock size={13} /> {duration}
           </span>
-          <span className="flex items-center gap-1.5 text-[13px] font-medium">
-            <Mountain size={16} /> {altitude}
+          <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
+            <Mountain size={13} /> {altitude}
           </span>
-          <span className="flex items-center gap-1.5 text-[13px] font-medium">
-            <CalendarDays size={16} /> {season}
+          <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
+            <CalendarDays size={13} /> {season}
           </span>
         </div>
 
-        <div>
-          <span className="font-poppins inline-flex items-center border border-black rounded-full px-3 py-1.5 text-[13px] font-medium text-black bg-transparent">
-            ~ {price}
-          </span>
-        </div>
-      </div>
+        <span className="font-poppins inline-flex w-fit items-center border border-black rounded-full px-3 py-1 text-[12px] font-medium text-black bg-transparent">
+          ~ {price}
+        </span>
 
-      <div className=" absolute bottom-0 left-0 w-full h-[80px] px-5 pb-5 pt-1 z-20 flex items-end">
         <Link
           href={href}
-          className=" w-full py-3 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[15px] font-bold rounded-xl text-center transition-colors"
-          style={{ fontFamily: "'Poppins', sans-serif" }}
+          className="block w-full py-3 mt-1 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl text-center transition-colors"
         >
           See More
         </Link>
