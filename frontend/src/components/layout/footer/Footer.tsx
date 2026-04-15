@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { NavLinks } from "../navigation/NavLinks";
-import SectionHeader from "../common/SectionHeader";
+import SectionHeader from "../../common/SectionHeader";
 import { SOCIAL_ICONS } from "@/static/constants";
 
 const Footer = () => {

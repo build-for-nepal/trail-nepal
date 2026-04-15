@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Playfair_Display, Oldenburg } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navigation/Navbar";
+import { Navbar } from "@/components/layout/navigation/Navbar";
 
 const oldenburg = Oldenburg({ weight: "400", subsets: ["latin"] });
 

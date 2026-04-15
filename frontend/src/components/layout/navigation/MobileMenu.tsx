@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { NAV_LINKS } from "../../static/nav-links.config";
+import { NAV_LINKS } from "../../../static/nav-links.config";
 import { SearchBar } from "./SearchBar";
 import {
   Sheet,

@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_LINKS } from "../../static/nav-links.config";
+import { NAV_LINKS } from "../../../static/nav-links.config";
 import { NavLinksProps } from "@/types/homepage";
 
 export function NavLinks({ className }: NavLinksProps) {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SearchBar } from "../navigation/SearchBar";
+import { SearchBar } from "../../layout/navigation/SearchBar";
 import { TrekInfoData } from "@/types/homepage";
 
 interface TrekInfoProps {

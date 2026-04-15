@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 
-import { TRANSITION_DURATION_MS } from "../../static/constants";
+import { TRANSITION_DURATION_MS } from "../../../static/constants";
 import { MobileCarouselProps } from "@/types/homepage";
 
 export const MobileCarousel = ({
