@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 import Image from "next/image";
-import type { HeroBackgroundProps } from "../../types/homepage";
+import type { HeroBackgroundProps } from "../../../types/homepage";
 
 export const HeroBackground = ({
   slides,

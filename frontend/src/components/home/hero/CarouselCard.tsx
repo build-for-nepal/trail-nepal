@@ -5,12 +5,12 @@ import type {
   Slide,
   CardOffset,
   CarouselCardProps,
-} from "../../types/homepage";
+} from "../../../types/homepage";
 import {
   TRANSITION_DURATION_MS,
   SHADOW_MAP,
   SIZES_MAP,
-} from "../../static/constants";
+} from "../../../static/constants";
 import { getCardStyle } from "@/lib/helper";
 
 export const CarouselCard = ({ slide, offset, onClick }: CarouselCardProps) => {

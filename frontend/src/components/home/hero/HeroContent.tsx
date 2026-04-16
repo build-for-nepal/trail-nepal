@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { HeroContentProps } from "../../types/homepage";
+import type { HeroContentProps } from "../../../types/homepage";
 
 export const HeroContent = ({
   slide,

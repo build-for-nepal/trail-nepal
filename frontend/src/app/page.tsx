@@ -1,9 +1,7 @@
-import EstimateCostSection from "@/components/estimateCost/EstimateCostSection";
-import Footer from "@/components/footer/Footer";
-// import Footer from "@/components/footer/Footer";
-// import { Footer } from "@/components/footer/Footer";
-import { HeroSection } from "@/components/hero/HeroSection";
-import PopularTrekSection from "@/components/popularTreks/PopularTrekSection";
+import EstimateCostSection from "@/components/home/estimateCost/EstimateCostSection";
+import Footer from "@/components/layout/footer/Footer";
+import { HeroSection } from "@/components/home/hero/HeroSection";
+import PopularTrekSection from "@/components/home/popularTreks/PopularTrekSection";
 import WhyTrialNepalSection from "@/components/whyTrialNepal/WhyTrialNepalSection";
 
 export default function Home() {
