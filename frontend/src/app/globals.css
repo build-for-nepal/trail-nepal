@@ -60,8 +60,7 @@
   --color-accent-blue-light: #e8f0fe;
   --color-surface-100: #ffffff;
   --color-border-subtle: #f3f4f6;
-  /* Add these to your existing @theme inline block */
-  --color-surface-200: #e5e7eb; /* Fixes your .input class reference */
+  --color-surface-200: #e5e7eb;
 
   --color-difficulty-easy: #5fa85a;
   --color-difficulty-moderate: #e0a030;
@@ -73,12 +72,11 @@
   --spacing-card-width: 305.99px;
   --spacing-card-image: 240px;
   --radius-card: 1rem;
-  --color-brand-primary: #8eb125; /* The specific green from your image */
+  --color-brand-primary: #8eb125;
   --color-surface-100: #ffffff;
   --color-text-primary: #111827;
   --color-text-secondary: #4b5563;
 
-  /* Semantic Status Colors */
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
