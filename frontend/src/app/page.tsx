@@ -1,7 +1,7 @@
-import EstimateCostSection from "@/components/homepage/estimateCost/EstimateCostSection";
+import EstimateCostSection from "@/components/home/estimateCost/EstimateCostSection";
 import Footer from "@/components/layout/footer/Footer";
-import { HeroSection } from "@/components/homepage/hero/HeroSection";
-import PopularTrekSection from "@/components/homepage/popularTreks/PopularTrekSection";
+import { HeroSection } from "@/components/home/hero/HeroSection";
+import PopularTrekSection from "@/components/home/popularTreks/PopularTrekSection";
 import WhyTrialNepalSection from "@/components/whyTrialNepal/WhyTrialNepalSection";
 
 export default function Home() {

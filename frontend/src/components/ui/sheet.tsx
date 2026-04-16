@@ -20,7 +20,7 @@ type OverlayProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>;
 
 type ContentRef = ComponentRef<typeof SheetPrimitive.Content>;
 type ContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content> & {
-  side?: "top" | "right";
+  side?: "top" | "left" | "right";
 };
 
 type TitleRef = ComponentRef<typeof SheetPrimitive.Title>;
