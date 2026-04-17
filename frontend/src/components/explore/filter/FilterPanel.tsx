@@ -5,7 +5,7 @@ import { FILTER_OPTIONS } from "@/static/explorepageData";
 import { FilterPanelProps } from "@/types/explorepage";
 import { FilterGroup } from "./FilterGroup";
 
-const ELEVATION_MAX = 4848;
+const ELEVATION_MAX = 6000;
 
 export const FilterPanel = ({
   filters,
@@ -13,15 +13,17 @@ export const FilterPanel = ({
   onRangeChange,
   onReset,
 }: FilterPanelProps) => {
-  // --- Local State for Budget Inputs to prevent lag while typing ---
+  // --- Local State for Inputs to prevent lag while typing/sliding ---
   const [localMin, setLocalMin] = useState(filters.minPrice);
   const [localMax, setLocalMax] = useState(filters.maxPrice);
+  const [localElevation, setLocalElevation] = useState(filters.maxElevation);
 
   // Sync local inputs if parent resets the filters
   useEffect(() => {
     setLocalMin(filters.minPrice);
     setLocalMax(filters.maxPrice);
-  }, [filters.minPrice, filters.maxPrice]);
+    setLocalElevation(filters.maxElevation);
+  }, [filters.minPrice, filters.maxPrice, filters.maxElevation]);
 
   // Wait 500ms after the user stops typing to apply Min price
   useEffect(() => {
@@ -44,92 +46,91 @@ export const FilterPanel = ({
   }, [localMax, filters.maxPrice, onRangeChange]);
 
   return (
-    <div className="flex flex-col gap-6 p-0 pb-10">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold">Filters</h2>
+    <div className="flex flex-col h-full bg-white rounded-lg">
+      {/* Header - Fixed at top */}
+      <div className="flex justify-between items-center p-4 ">
+        <h2 className="text-base font-bold">Filters</h2>
         <button
           onClick={onReset}
-          className="text-xs text-gray-500 hover:text-black transition-colors px-2 py-1"
+          className="text-xs text-gray-500 hover:text-black transition-colors px-2 py-0.5"
         >
           Reset
         </button>
       </div>
 
-      <FilterGroup
-        title="Region"
-        options={FILTER_OPTIONS.regions}
-        selected={filters.regions}
-        onToggle={(v) => onToggle("regions", v)}
-      />
-      <FilterGroup
-        title="Duration"
-        options={FILTER_OPTIONS.durations}
-        selected={filters.durations}
-        onToggle={(v) => onToggle("durations", v)}
-      />
-      <FilterGroup
-        title="Difficulty"
-        options={FILTER_OPTIONS.difficulties}
-        selected={filters.difficulties}
-        onToggle={(v) => onToggle("difficulties", v)}
-      />
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+        <FilterGroup
+          title="Region"
+          options={FILTER_OPTIONS.regions}
+          selected={filters.regions}
+          onToggle={(v) => onToggle("regions", v)}
+        />
+        <FilterGroup
+          title="Duration"
+          options={FILTER_OPTIONS.durations}
+          selected={filters.durations}
+          onToggle={(v) => onToggle("durations", v)}
+        />
+        <FilterGroup
+          title="Difficulty"
+          options={FILTER_OPTIONS.difficulties}
+          selected={filters.difficulties}
+          onToggle={(v) => onToggle("difficulties", v)}
+        />
 
-      {/* Budget */}
-      <div className="flex flex-col gap-2">
-        <h3 className="text-[14px] font-bold text-gray-800">Budget Range</h3>
-        <div className="flex items-center gap-3">
-          <input
-            type="number"
-            value={localMin}
-            onChange={(e) => setLocalMin(e.target.value)}
-            placeholder="Min"
-            className="w-full border rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#376BB6]"
-          />
-          <span className="text-gray-400 font-medium">-</span>
-          <input
-            type="number"
-            value={localMax}
-            onChange={(e) => setLocalMax(e.target.value)}
-            placeholder="Max"
-            className="w-full border rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#376BB6]"
-          />
+        {/* Budget */}
+        <div className="flex flex-col gap-1.5">
+          <h3 className="text-[13px] font-bold text-gray-800">Budget Range</h3>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              value={localMin}
+              onChange={(e) => setLocalMin(e.target.value)}
+              placeholder="Min"
+              className="w-full border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-[#376BB6]"
+            />
+            <span className="text-gray-400 font-medium">-</span>
+            <input
+              type="number"
+              value={localMax}
+              onChange={(e) => setLocalMax(e.target.value)}
+              placeholder="Max"
+              className="w-full border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-[#376BB6]"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Custom Elevation Slider (Using Shadcn/Radix Primitives) */}
-      <div className="flex flex-col gap-5 pt-3 mt-2 border-t border-gray-100">
-        <h3 className="text-[15px] font-bold text-gray-800">Elevation</h3>
+        {/* Elevation */}
+        <div className="flex flex-col gap-3 pt-2 border-t border-gray-100 pb-10">
+          <h3 className="text-[13px] font-bold text-gray-800">Elevation</h3>
+          <div className="relative w-full pt-1 pb-6">
+            <SliderPrimitive.Root
+              className="relative flex w-full touch-none select-none items-center cursor-pointer"
+              min={0}
+              max={ELEVATION_MAX}
+              step={1}
+              value={[localElevation]}
+              onValueChange={(val) => setLocalElevation(val[0])}
+              onValueCommit={(val) => onRangeChange("maxElevation", val[0])}
+            >
+              <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-gray-200">
+                <SliderPrimitive.Range className="absolute h-full bg-[#376BB6]" />
+              </SliderPrimitive.Track>
+              <SliderPrimitive.Thumb className="flex size-7 items-center justify-center rounded-full bg-[#ECF1F9] shadow-sm hover:shadow-md focus:outline-none">
+                <Mountain className="size-4 text-[#376BB6] fill-[#376BB6]" />
+              </SliderPrimitive.Thumb>
+            </SliderPrimitive.Root>
 
-        <div className="relative w-full mb-8 pt-2">
-          <SliderPrimitive.Root
-            className="relative flex w-full touch-none select-none items-center cursor-pointer"
-            min={0}
-            max={ELEVATION_MAX}
-            step={1}
-            value={[filters.maxElevation]}
-            onValueChange={(val) => onRangeChange("maxElevation", val[0])}
-          >
-            {/* Track Background */}
-            <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-gray-200">
-              {/* Active Track Fill */}
-              <SliderPrimitive.Range className="absolute h-full bg-[#376BB6]" />
-            </SliderPrimitive.Track>
-
-            {/* Custom Mountain Thumb */}
-            <SliderPrimitive.Thumb className="flex size-8 items-center justify-center rounded-full bg-[#ECF1F9] shadow-sm hover:shadow-md focus:outline-none">
-              <Mountain className="size-[18px] text-[#376BB6] fill-[#376BB6]" />
-            </SliderPrimitive.Thumb>
-          </SliderPrimitive.Root>
-
-          {/* Static Labels Row (Min, Selected Value rigidly in Middle, Max) */}
-          <div className="absolute top-10 w-full flex justify-between items-center px-1">
-            <span className="text-[13px] text-[#292D32]/80">0m</span>
-            <span className="text-[14px] font-medium text-[#376BB6]">
-              {filters.maxElevation.toLocaleString()}m
-            </span>
-            <span className="text-[13px] text-[#292D32]/80">
-              {ELEVATION_MAX.toLocaleString()}m
-            </span>
+            <div className="absolute bottom-0 w-full flex justify-between items-center px-1">
+              <span className="text-[11px] text-[#292D32]/80">0m</span>
+              <span className="text-[12px] font-medium text-[#376BB6]">
+                {localElevation.toLocaleString()}m
+              </span>
+              <span className="text-[11px] text-[#292D32]/80">
+                {ELEVATION_MAX.toLocaleString()}m
+              </span>
+            </div>
           </div>
         </div>
       </div>

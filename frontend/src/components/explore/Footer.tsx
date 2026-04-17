@@ -6,7 +6,7 @@ import SectionHeader from "../common/SectionHeader";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full bg-[#376BB6] text-white mt-[40px] md:mt-[70px] lg:mt-[100px] px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-[60px] lg:pt-[50px] lg:pb-[28px]">
+    <footer className="relative w-full bg-[#376BB6] text-white mt-[40px] md:mt-[70px] lg:mt-[100px] px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
       {/* Wave Curve */}
       <div className="absolute bottom-full left-0 w-full overflow-hidden leading-none z-10">
         <svg

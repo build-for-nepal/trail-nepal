@@ -3,7 +3,7 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { SlidersHorizontal } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
 import { FilterState } from "@/types/explorepage";
 import { useFilters } from "@/hooks/useFilters";
 import { FilterPanel } from "./FilterPanel";
@@ -39,9 +39,16 @@ export default function FilterSidebar({
             <SlidersHorizontal size={16} /> Filters
           </button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-80 p-4">
+        {/* Changed: Removed h-fit, added h-full, and updated width/rounded logic */}
+        <SheetContent
+          side="left"
+          className="w-[85vw] max-w-[320px] p-0 h-full border-none"
+        >
           <VisuallyHidden>
             <DialogTitle>Filters</DialogTitle>
+            <DialogDescription>
+              Filter products by category, price, and other attributes.
+            </DialogDescription>
           </VisuallyHidden>
           <Content />
         </SheetContent>
@@ -51,7 +58,7 @@ export default function FilterSidebar({
 
   return (
     <div
-      className="sticky z-10 w-70"
+      className="sticky z-10 w-72 self-start flex-shrink-0 overflow-visible"
       style={{ top: `calc(${headerHeight}px + 24px)` }}
     >
       <Content />
