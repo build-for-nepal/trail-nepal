@@ -26,41 +26,45 @@ export default function TrekCard({
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? "text-brand-primary";
 
   return (
-    <div className="flex w-full flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
-      {/* Top Half: Image */}
-      <div className="relative h-[250px] w-full bg-gray-100">
+    <div className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
+      {/* Image — aspect-ratio drives height, not a fixed px value */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[3/2] overflow-hidden bg-gray-100 flex-shrink-0">
         <Image
           src={imageUrl || "/images/placeholder-trek.jpg"}
           alt={title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
-        {/* Difficulty Pill */}
         <div
-          className={`absolute right-4 top-4 rounded-full bg-white px-4 py-1.5 text-[13px] font-bold shadow-sm ${difficultyTextColor}`}
+          className={`absolute right-4 top-4 rounded-full bg-white px-4 py-1.5 text-[10px] font-bold shadow-sm ${difficultyTextColor}`}
         >
           {difficulty}
         </div>
       </div>
 
-      {/* Bottom Half: Content Flow */}
-      <div className="flex flex-col gap-5 p-6">
+      {/* Content — flex-1 so all cards in a row stretch to equal height */}
+      <div className="flex flex-1 flex-col gap-3 p-[18px]">
+        {/* Title + Region */}
         <div className="flex flex-col gap-0.5">
-          <h3 className="font-otomanopee line-clamp-1 text-[22px] sm:text-[24px] font-bold tracking-tight text-text-primary">
+          <h3 className="font-otomanopee line-clamp-1 text-[18px] font-bold tracking-tight text-text-primary">
             {title}
           </h3>
-          <p className="text-[15px] font-medium text-text-secondary/80">
+          <p className="text-[12px] font-medium text-text-secondary/80">
             {region}
           </p>
         </div>
 
-        <p className="line-clamp-3 text-[14px] leading-relaxed text-text-secondary/90">
+        {/* Description — fixed 3 lines always */}
+        <p className="line-clamp-3 text-[12px] leading-relaxed text-text-secondary/90">
           {description}
         </p>
 
-        {/* Metrics/Icons */}
-        <div className="flex items-center justify-between pt-1 text-[13px] font-medium text-text-primary">
+        {/* Spacer — pushes metrics/price/button to the bottom */}
+        <div className="flex-1" />
+
+        {/* Metrics */}
+        <div className="flex items-center justify-between pt-1 text-[10px] font-medium text-text-primary">
           <span className="flex items-center gap-1.5">
             <Clock className="size-4" strokeWidth={2.2} />
             {duration}
@@ -75,15 +79,15 @@ export default function TrekCard({
           </span>
         </div>
 
-        {/* Price Tag */}
-        <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[14px] font-bold text-text-primary">
+        {/* Price */}
+        <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
           ~ Nrs. {price.toLocaleString()}
         </div>
 
-        {/* Action Button */}
+        {/* CTA — always pinned at bottom */}
         <Link
           href={href}
-          className="mt-1 flex w-full items-center justify-center rounded-[16px] bg-brand-primary py-3.5 text-[15px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
+          className="mt-1 flex w-full items-center justify-center rounded-[16px] bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
         >
           See More
         </Link>

@@ -4,7 +4,7 @@ import Footer from "@/components/explore/Footer";
 
 export default function ExplorePage() {
   return (
-    <main className="w-full flex flex-col bg-[var(--color-surface-page)]">
+    <main className="w-full flex flex-col bg-gray-100">
       <ExploreHeader />
       <ExploreLayout />
       <Footer />
