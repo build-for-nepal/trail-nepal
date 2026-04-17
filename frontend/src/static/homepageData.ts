@@ -1,4 +1,5 @@
 import type { Route } from "next";
+import { POPULAR_TREKS } from "../static/trek";
 import {
   Collaborator,
   CostData,
@@ -7,7 +8,6 @@ import {
   TierKey,
   TrekInfoData,
 } from "../types/homepage";
-import { Trek } from "@/types/homepage";
 
 export const SLIDES: Slide[] = [
   {
@@ -56,48 +56,6 @@ export const SLIDES: Slide[] = [
   },
 ];
 
-export const POPULAR_TREKS: Trek[] = [
-  {
-    id: "abc-trek",
-    title: "ABC Trek",
-    duration: "12-15 Days",
-    altitude: "5,345m",
-    bestTime: "Sept-Nov",
-    price: "Nrs. 19,000",
-    difficulty: "Moderate",
-    imageSrc: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
-    href: "/treks/abc",
-    description:
-      "A stunning journey through the Annapurna sanctuary with breathtaking views of the Himalayas.",
-  },
-  {
-    id: "ebc-trek",
-    title: "EBC Trek",
-    duration: "12-15 Days",
-    altitude: "5,345m",
-    bestTime: "Sept-Nov",
-    price: "Nrs. 30,000",
-    difficulty: "Challenging",
-    imageSrc: "/images/rajan-dahal--I64We8WuBs-unsplash.jpg",
-    href: "/treks/ebc",
-    description:
-      "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
-  },
-  {
-    id: "manaslu-trek",
-    title: "Manaslu Circuit Trek",
-    duration: "12-15 Days",
-    altitude: "5,345m",
-    bestTime: "Sept-Nov",
-    price: "Nrs. 10,000",
-    difficulty: "Difficult",
-    imageSrc: "/images/erik-OwJ6Cn_DnHM-unsplash.jpg",
-    href: "/treks/manaslu",
-    description:
-      "A remote and rugged circuit around the world's eighth highest mountain.",
-  },
-];
-
 export const TIERS: { key: TierKey; label: string }[] = [
   { key: "budget", label: "Budget" },
   { key: "mid-range", label: "Mid-range" },
@@ -140,12 +98,12 @@ export const COST_DATA: CostData = {
   },
 };
 
-const manasluTrek = POPULAR_TREKS.find((t) => t.id === "manaslu-trek")!;
+const manasluTrek = POPULAR_TREKS.find((t) => t.id === "manaslu-circuit")!;
 
 export const TREK_INFO: TrekInfoData = {
   title: manasluTrek.title,
   description: manasluTrek.description ?? "",
-  exploreHref: manasluTrek.href,
+  exploreHref: `/treks/${manasluTrek.id}`, // FIX: dynamically generate href
   tier: "budget",
 };
 export const FOOTER_COLLABORATORS: Collaborator[] = [

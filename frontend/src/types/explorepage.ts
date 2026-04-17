@@ -17,20 +17,6 @@ export type Region =
   | "Manaslu Region"
   | string;
 
-export interface Trek {
-  id: string;
-  title: string;
-  description: string;
-  difficulty: DifficultyLevel;
-  duration: string;
-  altitude: string;
-  season: string;
-  price: number;
-  imageUrl: string;
-  region: Region;
-  href: string;
-}
-
 export interface FilterState {
   regions: string[];
   durations: string[];

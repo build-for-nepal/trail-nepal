@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import TrekCard from "./TrekCard";
-import { Trek } from "@/types/homepage";
+import { Trek } from "@/types/trek";
 
 const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -91,17 +91,7 @@ const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
       >
         {loopedTreks.map((trek, i) => (
           <div key={`${trek.id}-${i}`} className="shrink-0 w-[304px]">
-            <TrekCard
-              imageUrl={trek.imageSrc}
-              title={trek.title}
-              description={trek.description}
-              difficulty={trek.difficulty}
-              duration={trek.duration}
-              altitude={trek.altitude}
-              season={trek.bestTime}
-              price={trek.price}
-              href={trek.href}
-            />
+            <TrekCard {...trek} href={`/treks/${trek.id}`} />
           </div>
         ))}
       </div>
