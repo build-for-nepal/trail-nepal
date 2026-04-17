@@ -8,7 +8,7 @@ export default function EstimateCostSection() {
   const trekCosts = COST_DATA[trekTier];
 
   return (
-    <section className="relative bg-[url('/images/ESbg.png')] bg-lightgray bg-center bg-cover bg-no-repeat pb-[350px] [background-clip:content-box]">
+    <section className="relative bg-[url('/images/ESbg.png')] bg-lightgray bg-center bg-cover bg-no-repeat -pb-[350px] [background-clip:content-box]">
       <div className="absolute inset-0 bottom-[350px]" aria-hidden="true" />
 
       <div className="relative z-10 flex w-full flex-col items-center px-6 pb-[60px] pt-[80px] gap-[60px] lg:min-h-[1000px] lg:px-[80px] lg:pb-[200px] lg:pt-[100px]">
@@ -27,6 +27,7 @@ export default function EstimateCostSection() {
           </div>
         </div>
       </div>
+      <div className="  h-[40px] md:h-[70px] lg:h-[100px] -mb-[40px] md:-mb-[70px] lg:-mb-[100px]" />
     </section>
   );
 }

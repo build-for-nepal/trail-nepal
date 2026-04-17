@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { FilterState } from "@/types/explorepage";
 import FilterSidebar from "../filter/FilterSidebar";
 import TrekCard from "./TrekCard";
-import { TREKS } from "@/static/explorepageData";
+import { TREKS } from "@/static/trek";
 
 export default function ExploreLayout() {
   const [filtered, setFiltered] = useState(TREKS);
@@ -39,7 +39,7 @@ export default function ExploreLayout() {
       });
     }
 
-    // 4. Budget
+    // 4. Budget (Works perfectly because t.price is a number!)
     if (f.minPrice)
       result = result.filter((t) => t.price >= Number(f.minPrice));
     if (f.maxPrice)
@@ -72,7 +72,13 @@ export default function ExploreLayout() {
           {/* Grid Area */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 items-stretch">
             {filtered.length > 0 ?
-              filtered.map((trek) => <TrekCard key={trek.id} {...trek} />)
+              filtered.map((trek) => (
+                <TrekCard
+                  key={trek.id}
+                  {...trek}
+                  href={`/treks/${trek.id}`} // Dynamically inject the correct URL here
+                />
+              ))
             : <div className="col-span-full py-32 text-center text-lg font-medium text-text-secondary">
                 No treks found matching your filters.
               </div>

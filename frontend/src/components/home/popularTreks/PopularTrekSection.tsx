@@ -1,4 +1,4 @@
-import { POPULAR_TREKS } from "@/static/homepageData";
+import { POPULAR_TREKS } from "@/static/trek";
 import SectionHeader from "../../common/SectionHeader";
 import TrekCard from "./TrekCard";
 import TrekCarousel from "./TrekCarousel";
@@ -23,18 +23,7 @@ const PopularTrekSection = () => {
 
         <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-[60px]">
           {POPULAR_TREKS.map((trek) => (
-            <TrekCard
-              key={trek.id}
-              imageUrl={trek.imageSrc}
-              title={trek.title}
-              description={trek.description}
-              difficulty={trek.difficulty}
-              duration={trek.duration}
-              altitude={trek.altitude}
-              season={trek.bestTime}
-              price={trek.price}
-              href={trek.href}
-            />
+            <TrekCard key={trek.id} {...trek} href={`/treks/${trek.id}`} />
           ))}
         </div>
 

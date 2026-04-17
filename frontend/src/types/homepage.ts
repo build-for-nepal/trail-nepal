@@ -60,30 +60,30 @@ export interface SectionHeaderProps {
   description: string;
   light?: boolean;
 }
-export interface Trek {
-  id: string;
-  title: string;
-  duration: string;
-  altitude: string;
-  bestTime: string;
-  price: string;
-  difficulty: string;
-  imageSrc: string;
-  href: string;
-  description?: string;
-}
+// export interface Trek {
+//   id: string;
+//   title: string;
+//   duration: string;
+//   altitude: string;
+//   bestTime: string;
+//   price: string;
+//   difficulty: string;
+//   imageSrc: string;
+//   href: string;
+//   description?: string;
+// }
 
-export interface TrekCardProps {
-  imageUrl: string;
-  title: string;
-  description?: string;
-  difficulty: string;
-  duration: string;
-  altitude: string;
-  season: string;
-  price: string;
-  href: string;
-}
+// export interface TrekCardProps {
+//   imageUrl: string;
+//   title: string;
+//   description?: string;
+//   difficulty: string;
+//   duration: string;
+//   altitude: string;
+//   season: string;
+//   price: string;
+//   href: string;
+// }
 export interface FeatureItemProps {
   icon: string;
   title: string;

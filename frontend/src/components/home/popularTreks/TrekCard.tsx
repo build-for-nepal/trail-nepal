@@ -3,7 +3,8 @@ import Link from "next/link";
 import Pill from "@/components/common/Pill";
 import { DIFFICULTY_COLORS } from "@/static/constants";
 import { Clock, Mountain, CalendarDays } from "lucide-react";
-import { TrekCardProps } from "@/types/homepage";
+import { ExploreTrekCardProps } from "@/types/trek";
+// import { TrekCardProps } from "@/types/homepage";
 
 const TrekCard = ({
   imageUrl,
@@ -15,7 +16,7 @@ const TrekCard = ({
   season,
   price,
   href,
-}: TrekCardProps) => {
+}: ExploreTrekCardProps) => {
   const difficultyColor =
     DIFFICULTY_COLORS[difficulty.toLowerCase()] ?? "#6BBF1F";
 

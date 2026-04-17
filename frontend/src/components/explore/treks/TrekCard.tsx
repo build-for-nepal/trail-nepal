@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Mountain, CalendarDays } from "lucide-react";
-import { Trek } from "@/types/explorepage";
+import { ExploreTrekCardProps } from "@/types/trek";
 
 const DIFFICULTY_TEXT_COLORS: Record<string, string> = {
   easy: "text-success",
   moderate: "text-brand-primary",
   challenging: "text-warning",
   difficult: "text-danger",
+  strenuous: "text-danger",
 };
 
 export default function TrekCard({
@@ -21,7 +22,7 @@ export default function TrekCard({
   price,
   region,
   href,
-}: Trek) {
+}: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? "text-brand-primary";
 
@@ -79,7 +80,6 @@ export default function TrekCard({
           </span>
         </div>
 
-        {/* Price */}
         <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
           ~ Nrs. {price.toLocaleString()}
         </div>
