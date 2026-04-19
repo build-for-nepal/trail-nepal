@@ -17,6 +17,7 @@ import SectionHeader from "../common/SectionHeader";
 import { cn } from "@/lib/utils";
 import { TrekDay } from "@/types/details";
 import { trekDays } from "@/static/details";
+import { TREK_DETAILS } from "@/static/trekDetails";
 
 const AccordionItem = ({
   day,
@@ -246,7 +247,10 @@ const StatPill = ({
   </span>
 );
 
-const TrekTimeline = () => {
+const TrekTimeline = ({ trekId }: { trekId?: string }) => {
+  const days =
+    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : trekDays;
+
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -274,13 +278,13 @@ const TrekTimeline = () => {
       />
 
       <div className="flex flex-col w-full gap-3">
-        {trekDays.map((day, index) => (
-          <div key={day.id} className="accordion-item">
+        {days.map((day, index) => (
+          <div key={day.id ?? index} className="accordion-item">
             <AccordionItem
               day={day}
               index={index}
               isFirst={index === 0}
-              isLast={index === trekDays.length - 1}
+              isLast={index === days.length - 1}
             />
           </div>
         ))}
