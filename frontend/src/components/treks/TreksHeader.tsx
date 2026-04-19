@@ -1,4 +1,20 @@
-export function TreksHeader() {
+import { TREK_DETAILS } from "@/static/trekDetails";
+
+type Props = {
+  trekId?: string;
+};
+
+const dummyData = {
+  name: "Annapurna Base Camp",
+  region: "Khumbu region",
+  overview:
+    "Journey to the base of the worlds highest mountain through Sherpa villages and stunning landscapes",
+};
+
+const TreksHeader = ({ trekId }: Props) => {
+  const displayData =
+    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId] : dummyData;
+
   return (
     <header
       role="banner"
@@ -24,17 +40,21 @@ export function TreksHeader() {
               text-3xl sm:text-4xl xl:text-[48px]
             "
           >
-            Annapurna Base Camp
+            {displayData.name}
           </h1>
 
-          <p className="text-white/70 text-xs font-semibold sm:text-2xl pt-2 pb-4">
-            Khumbu region
-          </p>
+          {/* {displayData?.region && (
+            <p className="text-white/70 text-xs font-semibold sm:text-2xl pt-2 pb-4">
+              {displayData?.region}
+            </p>
+          )} */}
           <p className="text-white/70 text-xs font-semibold sm:text-lg">
-            Journey to the base of the world's highest mountain through Sherpa villages and stunning Himalayan landscapes.
+            {displayData?.overview.slice(0, 150)}
           </p>
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default TreksHeader;

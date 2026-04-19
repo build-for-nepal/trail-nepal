@@ -32,7 +32,7 @@ const TreksHero = () => {
   ];
   return (
     <div>
-      <div className="flex justify-around items-center py-10 px-20 bg-secondary-blue">
+      <div className="grid grid-cols-2 xl:flex xl:justify-around items-center py-10 px-1 bg-secondary-blue gap-8 xl:gap-0">
         {stats.map((stat) => (
           <div className="flex flex-col items-center" key={stat.title}>
             <div className="text-4xl">{stat.icon}</div>
@@ -57,22 +57,22 @@ const TreksHero = () => {
             The trek offers spectacular views of Everest, Lhotse, Nuptse, and
             Ama Dablam.
           </p>
-        <p>
-          The Everest Base Camp trek is one of the most iconic treks in the
-          world. Following in the footsteps of legendary mountaineers, you'll
-          trek through the Khumbu Valley, passing through traditional Sherpa
-          villages, ancient monasteries, and breathtaking mountain scenery. The
-          trek offers spectacular views of Everest, Lhotse, Nuptse, and Ama
-          Dablam.
-        </p>
-        <p>
-          The Everest Base Camp trek is one of the most iconic treks in the
-          world. Following in the footsteps of legendary mountaineers, you'll
-          trek through the Khumbu Valley, passing through traditional Sherpa
-          villages, ancient monasteries, and breathtaking mountain scenery. The
-          trek offers spectacular views of Everest, Lhotse, Nuptse, and Ama
-          Dablam.
-        </p>
+          <p>
+            The Everest Base Camp trek is one of the most iconic treks in the
+            world. Following in the footsteps of legendary mountaineers, you'll
+            trek through the Khumbu Valley, passing through traditional Sherpa
+            villages, ancient monasteries, and breathtaking mountain scenery.
+            The trek offers spectacular views of Everest, Lhotse, Nuptse, and
+            Ama Dablam.
+          </p>
+          <p>
+            The Everest Base Camp trek is one of the most iconic treks in the
+            world. Following in the footsteps of legendary mountaineers, you'll
+            trek through the Khumbu Valley, passing through traditional Sherpa
+            villages, ancient monasteries, and breathtaking mountain scenery.
+            The trek offers spectacular views of Everest, Lhotse, Nuptse, and
+            Ama Dablam.
+          </p>
         </div>
       </div>
     </div>
