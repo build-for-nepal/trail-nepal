@@ -14,7 +14,7 @@ export const SLIDES: Slide[] = [
     id: "everest-base-camp",
     title: "EBC Trek",
     imageAlt: "The iconic Everest Base Camp rock marker at 5364 meters",
-    imageSrc: "/images/rajan-dahal--I64We8WuBs-unsplash.jpg",
+    imageSrc: "/images/ebc.jpg",
     description:
       "Stand at the foot of the world's highest peak. Journey through the Khumbu Valley to witness the legendary 5,364m marker and the moving spirit of global explorers.",
   },

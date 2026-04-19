@@ -86,3 +86,30 @@ export const trekDays: TrekDay[] = [
     price: "Nrs. 2,200",
   },
 ];
+
+export const gearChecklist = {
+  essentials: [
+    { item: "Waterproof Shell Jacket", weight: "0.6kg" },
+    { item: "Base Layers (2 sets)", weight: "0.5kg" },
+    { item: "Trekking Pants", weight: "0.4kg" },
+    { item: "Warm Hat & Gloves", weight: "0.2kg" },
+    { item: "Trekking Socks (4 pairs)", weight: "0.3kg" },
+    { item: "Trekking Boots", weight: "1.2kg" },
+    { item: "Trekking Poles", weight: "0.5kg" },
+    { item: "Headlamp + Batteries", weight: "0.2kg" },
+    { item: "First Aid Kit", weight: "0.4kg" },
+    { item: "Water Purification", weight: "0.1kg" },
+    { item: "Sun Protection (SPF 50+)", weight: "0.15kg" },
+    { item: "Sleeping Bag (-10°C)", weight: "1.5kg" },
+  ],
+  optional: [
+    { item: "Fleece Jacket", weight: "0.5kg" },
+    { item: "Sun Hat", weight: "0.1kg" },
+    { item: "Gaiters", weight: "0.3kg" },
+    { item: "Camera", weight: "0.8kg" },
+    { item: "Trekking Towel", weight: "0.2kg" },
+    { item: "Portable Power Bank", weight: "0.3kg" },
+    { item: "Lightweight Camp Shoes", weight: "0.4kg" },
+    { item: "Neck Gaiter / Buff", weight: "0.05kg" },
+  ],
+};

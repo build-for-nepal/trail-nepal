@@ -1,3 +1,5 @@
+import { GearChecklist, TrekDay } from "./details";
+
 export interface Trek {
   id: string;
   title: string;
@@ -37,11 +39,13 @@ export interface TrekDetail {
     startingPoint: string;
   };
   overview: string;
-  timeline: TrekTimelineEvent[];
+  // timeline: TrekTimelineEvent[];
+  timeline: TrekDay[];
   expectations: { title: string; description: string }[];
   seasonalPlanning: { month: string; condition: string }[];
   gallery: TrekImage[];
-  gearChecklist: { essentials: { item: string; weight: string }[] };
+  // gearChecklist: { essentials: { item: string; weight: string }[] };
+  gearChecklist: GearChecklist;
 }
 export interface ExploreTrekCardProps extends Trek {
   href: string;

@@ -28,7 +28,7 @@ export const TREKS: Trek[] = [
     altitude: "5,364m", // fixed altitude
     season: "Sept-Nov",
     price: 30000,
-    imageUrl: "/images/rajan-dahal--I64We8WuBs-unsplash.jpg",
+    imageUrl: "/images/ebc.jpg",
     isPopular: true,
   },
   {
