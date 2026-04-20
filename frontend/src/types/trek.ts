@@ -1,5 +1,4 @@
-import { GearChecklist, TrekDay } from "./details";
-
+//EXPLORE PAGE TYPES
 export interface Trek {
   id: string;
   title: string;
@@ -14,11 +13,34 @@ export interface Trek {
   isPopular: boolean;
 }
 
-export interface TrekTimelineEvent {
-  day: string;
+export interface ExploreTrekCardProps extends Trek {
+  href: string;
+}
+
+//TREK DETAIL PAGE TYPES
+
+export interface TrekAccommodation {
+  name: string;
+  phone?: string;
+}
+
+export interface TrekStat {
+  elevation?: string;
+  duration?: string;
+  distance?: string;
+  walk?: string;
+  note?: string;
+}
+
+export interface TrekTimelineDay {
+  day?: string;
+  id?: string | number;
   title: string;
-  description: string;
-  stats: { elevation: string; duration: string };
+  description?: string;
+  content?: string;
+  accommodations?: TrekAccommodation[];
+  stats?: TrekStat;
+  price?: string;
 }
 
 export interface TrekImage {
@@ -28,9 +50,20 @@ export interface TrekImage {
   type: "hero" | "landscape" | "portrait";
 }
 
+export interface GearItem {
+  item: string;
+  weight: string;
+}
+
+export interface GearChecklist {
+  essentials: GearItem[];
+  optional?: GearItem[];
+}
+
 export interface TrekDetail {
   id: string;
   name: string;
+  region: string;
   meta: {
     duration: string;
     difficulty: string;
@@ -39,14 +72,9 @@ export interface TrekDetail {
     startingPoint: string;
   };
   overview: string;
-  // timeline: TrekTimelineEvent[];
-  timeline: TrekDay[];
+  timeline: TrekTimelineDay[];
   expectations: { title: string; description: string }[];
   seasonalPlanning: { month: string; condition: string }[];
   gallery: TrekImage[];
-  // gearChecklist: { essentials: { item: string; weight: string }[] };
   gearChecklist: GearChecklist;
-}
-export interface ExploreTrekCardProps extends Trek {
-  href: string;
 }

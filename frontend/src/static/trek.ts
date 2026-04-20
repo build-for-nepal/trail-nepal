@@ -1,7 +1,5 @@
-// constants/treks.ts
 import { Trek } from "@/types/trek";
 
-// Master list of all treks for cards
 export const TREKS: Trek[] = [
   {
     id: "abc-trek",
@@ -11,21 +9,21 @@ export const TREKS: Trek[] = [
       "A stunning journey through the Annapurna sanctuary with breathtaking views of the Himalayas.",
     difficulty: "Moderate",
     duration: "12-15 Days",
-    altitude: "4,130m", // fixed altitude
+    altitude: "4,130m",
     season: "Sept-Nov",
     price: 19000,
     imageUrl: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
     isPopular: true,
   },
   {
-    id: "ebc-trek", // IMPORTANT: Matches detail dictionary key below
+    id: "ebc-trek",
     title: "EBC Trek",
     region: "Khumbu Valley",
     description:
       "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
     difficulty: "Strenuous",
     duration: "14 Days",
-    altitude: "5,364m", // fixed altitude
+    altitude: "5,364m",
     season: "Sept-Nov",
     price: 30000,
     imageUrl: "/images/ebc.jpg",
@@ -39,7 +37,7 @@ export const TREKS: Trek[] = [
       "A remote and rugged circuit around the world's eighth highest mountain.",
     difficulty: "Difficult",
     duration: "14-18 Days",
-    altitude: "5,160m", // fixed altitude
+    altitude: "5,160m",
     season: "Sept-Nov",
     price: 20000,
     imageUrl: "/images/erik-OwJ6Cn_DnHM-unsplash.jpg",

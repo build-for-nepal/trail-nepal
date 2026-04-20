@@ -15,8 +15,7 @@ import { ChevronDown } from "lucide-react";
 
 import SectionHeader from "../common/SectionHeader";
 import { cn } from "@/lib/utils";
-import { TrekDay } from "@/types/details";
-import { trekDays } from "@/static/details";
+import { TrekTimelineDay } from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
 
 const AccordionItem = ({
@@ -25,7 +24,7 @@ const AccordionItem = ({
   isFirst,
   isLast,
 }: {
-  day: TrekDay;
+  day: TrekTimelineDay;
   index: number;
   isFirst: boolean;
   isLast: boolean;
@@ -93,31 +92,30 @@ const AccordionItem = ({
         open ? "shadow-sm" : "hover:shadow-sm",
       )}
     >
-      {/* ── Header ── */}
+      {/* Header */}
       <button
         onClick={toggle}
         className="w-full flex items-center gap-3 px-5 py-4 text-left focus:outline-none cursor-pointer"
         aria-expanded={open}
       >
-        {/* leading icon */}
         <span className="shrink-0 w-5 h-5 flex items-center justify-center">
-          {isFirst ? (
+          {isFirst ?
             <Image src={startRoute} alt="start" width={18} height={18} />
-          ) : isLast ? (
+          : isLast ?
             <Image src={FlagLine} alt="finish" width={18} height={18} />
-          ) : (
-            <span
+          : <span
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: "#376BB6" }}
             />
-          )}
+          }
         </span>
 
         <span
           className="flex-1 text-sm sm:text-[15px] font-semibold tracking-tight text-black/80"
           style={{ fontFamily: "'Oldenburg', serif" }}
         >
-          {day.title}
+          {/* Dynamically adds 'Day 01 :' if 'day' property exists, else falls back to just title */}
+          {day.day ? `Day ${day.day} : ${day.title}` : day.title}
         </span>
 
         <span
@@ -129,21 +127,20 @@ const AccordionItem = ({
         </span>
       </button>
 
-      {/* ── Body ── */}
+      {/* Body */}
       <div
         ref={bodyRef}
         className="overflow-hidden"
         style={{ display: open ? "block" : "none" }}
       >
         <div className="px-5 pb-5 flex flex-col gap-4">
-          {/* description */}
-          {day.content && (
+          {/* Handles both new 'description' and old 'content' fields dynamically */}
+          {(day.description || day.content) && (
             <p className="text-sm text-black/90 leading-relaxed cursor-text select-text">
-              {day.content}
+              {day.description || day.content}
             </p>
           )}
 
-          {/* accommodation — mapped from data */}
           {day.accommodations && day.accommodations.length > 0 && (
             <div>
               <p className="text-xs font-semibold text-black/70 uppercase tracking-wider mb-2 cursor-text select-text">
@@ -171,28 +168,28 @@ const AccordionItem = ({
             </div>
           )}
 
-          {/* divider */}
           {(day.stats || day.price) && (
             <div className="h-px bg-[#E2E8F0] w-full" />
           )}
 
-          {/* stats + price */}
           {(day.stats || day.price) && (
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {day.stats && (
                 <>
-                  {day.stats.distance && (
+                  {/* Map 'duration' or legacy 'walk' to the clock icon */}
+                  {(day.stats.duration || day.stats.walk) && (
                     <StatPill
                       icon={clock}
                       alt="time"
-                      value={day.stats.distance}
+                      value={(day.stats.duration || day.stats.walk) as string}
                     />
                   )}
-                  {day.stats.walk && (
+                  {/* Map 'distance' to the map line icon */}
+                  {day.stats.distance && (
                     <StatPill
                       icon={mapLine}
                       alt="distance"
-                      value={day.stats.walk}
+                      value={day.stats.distance}
                     />
                   )}
                   {day.stats.elevation && (
@@ -240,16 +237,18 @@ const StatPill = ({
   value: string;
 }) => (
   <span className="flex items-center justify-center gap-1 text-xs text-black cursor-text select-text">
-    {icon ? (
+    {icon ?
       <Image src={icon} alt={alt ?? "stats"} width={14} height={14} />
-    ) : null}
+    : null}
     {value}
   </span>
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
+  // If no trekId or data is found, it will default to an empty array to avoid crashes.
+
   const days =
-    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : trekDays;
+    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -267,6 +266,8 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
     { scope: sectionRef },
   );
 
+  if (!days || days.length === 0) return null;
+
   return (
     <div
       ref={sectionRef}
@@ -279,7 +280,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
       <div className="flex flex-col w-full gap-3">
         {days.map((day, index) => (
-          <div key={day.id ?? index} className="accordion-item">
+          <div key={day.id || day.day || index} className="accordion-item">
             <AccordionItem
               day={day}
               index={index}
