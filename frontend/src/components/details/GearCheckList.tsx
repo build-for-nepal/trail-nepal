@@ -6,7 +6,12 @@ import Image from "next/image";
 import gearBag from "@/assets/details/gearbag.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { GearCategory, GearCategoryKey, GearChecklist } from "@/types/trek";
+import {
+  CheckItemProps,
+  GearCategory,
+  GearCategoryKey,
+  GearChecklist,
+} from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
 
 // Fallback data if no trekId is provided
@@ -25,15 +30,6 @@ const getWeightMeta = (kg: number): { label: string; color: string } => {
   if (kg < 12) return { label: "Heavy Load", color: "#f59e0b" };
   return { label: "Over Limit", color: "#ef4444" };
 };
-
-interface CheckItemProps {
-  id: string;
-  name: string;
-  weight: number;
-  checked: boolean;
-  onToggle: (id: string) => void;
-  showBottomBorder: boolean;
-}
 
 const CheckItem = ({
   id,

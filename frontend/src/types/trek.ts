@@ -95,3 +95,12 @@ export interface GearCategory {
   label: string;
   items: CheckItemData[];
 }
+
+export interface CheckItemProps {
+  id: string;
+  name: string;
+  weight: number;
+  checked: boolean;
+  onToggle: (id: string) => void;
+  showBottomBorder: boolean;
+}
