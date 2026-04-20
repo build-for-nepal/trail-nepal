@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 //EXPLORE PAGE TYPES
 export interface Trek {
   id: string;
@@ -103,4 +105,13 @@ export interface CheckItemProps {
   checked: boolean;
   onToggle: (id: string) => void;
   showBottomBorder: boolean;
+}
+export type SeasonStatus = "peak" | "danger" | "caution";
+
+export interface MonthData {
+  title: string;
+  value: string;
+  fullDescription: string;
+  status: SeasonStatus;
+  icon: LucideIcon;
 }

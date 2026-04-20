@@ -2,11 +2,7 @@ import React from "react";
 import SectionHeader from "../common/SectionHeader";
 import { Sun, Snowflake, CloudRain, LucideIcon } from "lucide-react";
 import { TREK_DETAILS } from "@/static/trekDetails";
-import { MonthData, SeasonStatus } from "@/types/trek";
-
-type Props = {
-  trekId: string;
-};
+import { MonthData, Props, SeasonStatus } from "@/types/trek";
 
 const statusStyles: Record<
   SeasonStatus,
@@ -31,34 +27,30 @@ const statusStyles: Record<
 
 const parseSeasonData = (
   condition: string,
-): { status: SeasonStatus; icon: LucideIcon } => {
+): { status: "peak" | "caution" | "danger"; icon: LucideIcon } => {
   const lowerCaseDesc = condition.toLowerCase();
 
   if (
-    lowerCaseDesc.includes("rain") ||
-    lowerCaseDesc.includes("monsoon") ||
-    lowerCaseDesc.includes("wet")
+    lowerCaseDesc.includes("heavy rain") ||
+    lowerCaseDesc.includes("peak monsoon") ||
+    lowerCaseDesc.includes("extremely cold") ||
+    lowerCaseDesc.includes("heavy snow")
   ) {
-    if (lowerCaseDesc.includes("beginning") || lowerCaseDesc.includes("post")) {
-      return { status: "caution", icon: CloudRain };
-    }
-    return { status: "danger", icon: CloudRain };
+    const isCold =
+      lowerCaseDesc.includes("snow") || lowerCaseDesc.includes("cold");
+    return { status: "danger", icon: isCold ? Snowflake : CloudRain };
   }
 
   if (
-    lowerCaseDesc.includes("cold") ||
-    lowerCaseDesc.includes("snow") ||
+    lowerCaseDesc.includes("monsoon") ||
     lowerCaseDesc.includes("freezing") ||
-    lowerCaseDesc.includes("winter")
+    lowerCaseDesc.includes("winter") ||
+    lowerCaseDesc.includes("cloudy") ||
+    lowerCaseDesc.includes("muddy")
   ) {
-    if (
-      lowerCaseDesc.includes("extreme") ||
-      lowerCaseDesc.includes("heavy") ||
-      lowerCaseDesc.includes("freezing")
-    ) {
-      return { status: "danger", icon: Snowflake };
-    }
-    return { status: "caution", icon: Snowflake };
+    const isCold =
+      lowerCaseDesc.includes("freezing") || lowerCaseDesc.includes("winter");
+    return { status: "caution", icon: isCold ? Snowflake : CloudRain };
   }
 
   return { status: "peak", icon: Sun };

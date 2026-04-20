@@ -1,5 +1,4 @@
 import { Calendar, Activity, Clock, MapPin, Mountain } from "lucide-react";
-import React from "react";
 import SectionHeader from "../common/SectionHeader";
 import { TREK_DETAILS } from "@/static/trekDetails";
 import { Props } from "@/types/trek";
