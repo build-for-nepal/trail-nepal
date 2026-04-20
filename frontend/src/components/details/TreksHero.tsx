@@ -1,0 +1,80 @@
+import { Calendar, Activity, Clock, MapPin, Mountain } from "lucide-react";
+import React from "react";
+import SectionHeader from "../common/SectionHeader";
+import { TREK_DETAILS } from "@/static/trekDetails";
+import { Props } from "@/types/trek";
+
+const TreksHero = ({ trekId }: Props) => {
+  const data = TREK_DETAILS[trekId];
+  if (!data) return null;
+
+  const { meta, overview } = data;
+
+  const cleanSeason = meta.bestSeasons?.split(",")[0] || "";
+  const cleanStartingPoint = meta.startingPoint?.split(" (")[0] || "";
+
+  const stats = [
+    {
+      icon: <Clock className="h-5 w-5 md:h-6 md:w-6 text-white" />,
+      title: "Duration",
+      value: meta.duration,
+    },
+    {
+      icon: <Activity className="h-5 w-5 md:h-6 md:w-6 text-white" />,
+      title: "Difficulty",
+      value: meta.difficulty,
+    },
+    {
+      icon: <Mountain className="h-5 w-5 md:h-6 md:w-6 text-white" />,
+      title: "Elevation",
+      value: meta.maxElevation,
+    },
+    {
+      icon: <Calendar className="h-5 w-5 md:h-6 md:w-6 text-white" />,
+      title: "Best Season",
+      value: cleanSeason,
+    },
+    {
+      icon: <MapPin className="h-5 w-5 md:h-6 md:w-6 text-white" />,
+      title: "Starting Point",
+      value: cleanStartingPoint,
+    },
+  ];
+
+  return (
+    <section className="w-full flex flex-col">
+      <div className="page-wrapper bg-[#4276b2] w-full h-[100px] md:h-[140px] flex items-center justify-center">
+        <div className="page-wrapper w-full  mx-auto px-2 sm:px-8">
+          <div className="flex flex-row justify-between md:justify-around items-center w-full">
+            {stats.map((stat) => (
+              <div
+                className="flex flex-col items-center justify-center px-1"
+                key={stat.title}
+              >
+                <div className="mb-1 md:mb-2">{stat.icon}</div>
+                <div className="text-[12px] sm:text-[14px] md:text-[22px] font-bold text-white tracking-wide mb-0.5 md:mb-1 text-center whitespace-nowrap">
+                  {stat.title}
+                </div>
+                <div className="text-[9px] sm:text-[12px] md:text-sm text-white/90 text-center whitespace-nowrap">
+                  {stat.value}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="page-wrapper mx-auto flex flex-col px-6 sm:px-10 lg:px-20 py-12 lg:py-20 gap-8 w-full">
+        <SectionHeader
+          title="Trek Overview"
+          description="Everything you need to know about the journey"
+        />
+        <div className="space-y-6 text-gray-700 leading-relaxed md:text-lg">
+          <p>{overview}</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TreksHero;

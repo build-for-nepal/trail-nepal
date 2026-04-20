@@ -1,16 +1,12 @@
 import React from "react";
 import SectionHeader from "../common/SectionHeader";
-import { Sun, Snowflake, CloudRain } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { Sun, Snowflake, CloudRain, LucideIcon } from "lucide-react";
+import { TREK_DETAILS } from "@/static/trekDetails";
+import { MonthData, SeasonStatus } from "@/types/trek";
 
-type SeasonStatus = "peak" | "danger" | "caution";
-
-interface Month {
-  title: string;
-  value: string;
-  status: SeasonStatus;
-  icon: LucideIcon;
-}
+type Props = {
+  trekId: string;
+};
 
 const statusStyles: Record<
   SeasonStatus,
@@ -33,102 +29,119 @@ const statusStyles: Record<
   },
 };
 
+const parseSeasonData = (
+  condition: string,
+): { status: SeasonStatus; icon: LucideIcon } => {
+  const lowerCaseDesc = condition.toLowerCase();
 
-const months: Month[] = [
-  { title: "JAN", value: "Extreme Cold", status: "danger", icon: Snowflake },
-  { title: "FEB", value: "High Winds", status: "danger", icon: Snowflake },
-  { title: "MAR", value: "Thawing", status: "caution", icon: Sun },
-  { title: "APR", value: "Optimal", status: "peak", icon: Sun },
-  { title: "MAY", value: "Peak Window", status: "peak", icon: Sun },
-  { title: "JUN", value: "Pre-Monsoon", status: "caution", icon: CloudRain },
-  { title: "JUL", value: "Monsoon", status: "danger", icon: CloudRain },
-  { title: "AUG", value: "Monsoon", status: "danger", icon: CloudRain },
-  { title: "SEP", value: "Clearing", status: "caution", icon: Sun },
-  { title: "OCT", value: "Post-Monsoon", status: "peak", icon: Sun },
-  { title: "NOV", value: "Dry & Cold", status: "peak", icon: Sun },
-  { title: "DEC", value: "Wintering", status: "danger", icon: Snowflake },
-];
+  if (
+    lowerCaseDesc.includes("rain") ||
+    lowerCaseDesc.includes("monsoon") ||
+    lowerCaseDesc.includes("wet")
+  ) {
+    if (lowerCaseDesc.includes("beginning") || lowerCaseDesc.includes("post")) {
+      return { status: "caution", icon: CloudRain };
+    }
+    return { status: "danger", icon: CloudRain };
+  }
 
-const TreksSeason: React.FC = () => {
+  if (
+    lowerCaseDesc.includes("cold") ||
+    lowerCaseDesc.includes("snow") ||
+    lowerCaseDesc.includes("freezing") ||
+    lowerCaseDesc.includes("winter")
+  ) {
+    if (
+      lowerCaseDesc.includes("extreme") ||
+      lowerCaseDesc.includes("heavy") ||
+      lowerCaseDesc.includes("freezing")
+    ) {
+      return { status: "danger", icon: Snowflake };
+    }
+    return { status: "caution", icon: Snowflake };
+  }
+
+  return { status: "peak", icon: Sun };
+};
+
+const TreksSeason = ({ trekId }: Props) => {
+  const data = TREK_DETAILS[trekId];
+  if (!data || !data.seasonalPlanning) return null;
+
+  const months: MonthData[] = data.seasonalPlanning.map((item) => {
+    const parsedParams = parseSeasonData(item.condition);
+
+    return {
+      title: item.month.toUpperCase(),
+
+      value: item.condition.split(" / ")[0],
+      fullDescription: item.condition,
+      status: parsedParams.status,
+      icon: parsedParams.icon,
+    };
+  });
+
   return (
-    /*
-      Responsive padding:
-      small screens → px-6
-      medium → px-10
-      large → px-20
-    */
-    <div className=" py-16 lg:py-24">
-  <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20 flex flex-col gap-14">
+    <section className="w-full  flex flex-col justify-center py-16 lg:py-24 bg-white">
+      <div className="page-wrapper mx-auto w-full  px-6 sm:px-10 lg:px-20 flex flex-col gap-14">
+        <SectionHeader
+          title="When Should I go?"
+          description={`Climbing windows and weather for ${data.name.split(" (")[0]}`}
+        />
 
-      <SectionHeader
-        title="When Should I go?"
-        description="Climbing windows for Trek regions."
-      />
-
-      <div className="flex flex-col gap-6">
-
-        {/* Legend (Peak / Danger / Caution) */}
-        {/* Wraps automatically on small screens */}
-        <div className="flex flex-wrap gap-6 justify-start lg:justify-end text-sm sm:text-base">
-
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-            PEAK
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-wrap gap-6 justify-start lg:justify-end text-sm sm:text-base">
+            <div className="flex items-center gap-2 font-semibold">
+              <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
+              PEAK
+            </div>
+            <div className="flex items-center gap-2 font-semibold">
+              <span className="w-3 h-3 rounded-full bg-rose-500"></span>
+              DANGER
+            </div>
+            <div className="flex items-center gap-2 font-semibold">
+              <span className="w-3 h-3 rounded-full bg-amber-400"></span>
+              CAUTION
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="w-3 h-3 rounded-full bg-rose-500"></span>
-            DANGER
-          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+            {months.map((month) => {
+              const style = statusStyles[month.status];
+              const Icon = month.icon;
 
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="w-3 h-3 rounded-full bg-amber-400"></span>
-            CAUTION
-          </div>
-
-        </div>
-
-        {/* Months Grid */}
-        {/* Responsive grid columns */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-
-          {months.map((month) => {
-
-            const style = statusStyles[month.status];
-            const Icon = month.icon;
-
-            return (
-              <div
-                key={month.title}
-                className={`flex flex-col py-6 rounded-xl items-center gap-2 relative overflow-hidden ${style.bg}`}
-              >
-
-                {/* Month label */}
-                <div className="font-semibold text-base sm:text-lg">
-                  {month.title}
-                </div>
-
-                {/* Weather icon */}
-                <Icon className={style.text} size={26} />
-
-                {/* Status text */}
-                <div className={`text-xs sm:text-sm font-medium ${style.text}`}>
-                  {month.value}
-                </div>
-
-                {/* Bottom colored bar */}
+              return (
                 <div
-                  className={`absolute bottom-0 left-0 w-full h-1 ${style.border}`}
-                />
+                  key={month.title}
+                  title={month.fullDescription} // Shows full text on hover
+                  className={`flex flex-col py-6 px-2 rounded-xl items-center text-center gap-2 relative overflow-hidden transition-transform hover:-translate-y-1 cursor-help shadow-sm ${style.bg}`}
+                >
+                  <div className="font-bold text-base sm:text-lg tracking-wider text-gray-800">
+                    {month.title}
+                  </div>
 
-              </div>
-            );
-          })}
+                  <Icon
+                    className={`${style.text} my-1`}
+                    size={28}
+                    strokeWidth={2.5}
+                  />
+
+                  <div
+                    className={`text-[11px] sm:text-xs font-bold uppercase tracking-wide leading-snug ${style.text}`}
+                  >
+                    {month.value}
+                  </div>
+
+                  <div
+                    className={`absolute bottom-0 left-0 w-full h-1.5 ${style.border}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-
       </div>
-    </div>
-    </div>
+    </section>
   );
 };
 
