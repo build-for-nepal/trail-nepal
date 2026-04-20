@@ -1,10 +1,11 @@
 import { Gallery } from "@/components/details/Gallery";
 import GearCheckList from "@/components/details/GearCheckList";
 import TrekTimeline from "@/components/details/TrekTimeline";
-import TreksExpect from "@/components/treks/TreksExpect";
+import TreksExpect from "@/components/details/TreksExpect";
 import TreksHeader from "@/components/details/TreksHeader";
 import TreksSeason from "@/components/treks/TreksSeason";
 import TreksHero from "@/components/details/TreksHero";
+import Footer from "@/components/layout/footer/Footer";
 
 type Props = {
   params: Promise<{
@@ -20,10 +21,11 @@ export default async function TrekDetailPage({ params }: Props) {
       <TreksHeader trekId={id} />
       <TreksHero trekId={id} />
       <TrekTimeline trekId={id} />
+      <TreksSeason trekId={id} />
+      <TreksExpect trekId={id} />
       <Gallery trekId={id} />
-      <TreksSeason />
-      <TreksExpect />
       <GearCheckList trekId={id} />
+      <Footer />
     </main>
   );
 }
