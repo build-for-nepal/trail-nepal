@@ -2,20 +2,6 @@ import { Trek } from "@/types/trek";
 
 export const TREKS: Trek[] = [
   {
-    id: "abc-trek",
-    title: "ABC Trek",
-    region: "Annapurna Region",
-    description:
-      "A stunning journey through the Annapurna sanctuary with breathtaking views of the Himalayas.",
-    difficulty: "Moderate",
-    duration: "12-15 Days",
-    altitude: "4,130m",
-    season: "Sept-Nov",
-    price: 19000,
-    imageUrl: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
-    isPopular: true,
-  },
-  {
     id: "ebc-trek",
     title: "EBC Trek",
     region: "Khumbu Valley",
@@ -53,34 +39,8 @@ export const TREKS: Trek[] = [
     altitude: "3,870m",
     season: "Mar-May",
     price: 10000,
-    imageUrl: "/images/ebc.jpg",
-    isPopular: false,
-  },
-  {
-    id: "gokyo-lakes",
-    title: "Gokyo Lakes Trek",
-    region: "Khumbu Valley",
-    description: "Worem ipsum dolor sit amet, consectetur adipiscing elit.",
-    difficulty: "Moderate",
-    duration: "12-14 Days",
-    altitude: "5,357m",
-    season: "Oct-Nov",
-    price: 18000,
-    imageUrl: "/images/ebc.jpg",
-    isPopular: false,
-  },
-  {
-    id: "kanchenjunga",
-    title: "Kanchenjunga Trek",
-    region: "Other Region",
-    description: "Worem ipsum dolor sit amet, consectetur adipiscing elit.",
-    difficulty: "Difficult",
-    duration: "20-24 Days",
-    altitude: "5,143m",
-    season: "Apr-May",
-    price: 28000,
-    imageUrl: "/images/ebc.jpg",
-    isPopular: false,
+    imageUrl: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
+    isPopular: true,
   },
 ];
 

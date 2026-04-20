@@ -248,4 +248,208 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       ],
     },
   },
+  "manaslu-circuit": {
+    id: "manaslu-circuit",
+    name: "Manaslu Circuit Trek",
+    region: "Manaslu Region",
+    meta: {
+      duration: "14 Days",
+      difficulty: "Challenging",
+      maxElevation: "5,106m",
+      bestSeasons: "March - May, September - November",
+      startingPoint: "Kathmandu",
+    },
+    overview:
+      "The Manaslu Circuit is Nepal's most compelling wilderness loop, tracing a complete circle around Manaslu — the world's eighth-highest peak at 8,163 metres. The journey transitions dramatically from subtropical river gorges with cascading waterfalls to high alpine landscapes and windswept silence. Following the Budhi Gandaki river, you'll traverse terrain inhabited by Gurung, Nubri, and Tsum communities with deep-rooted Tibetan Buddhist traditions. As a restricted area trek, it offers a much quieter, more pristine alternative to the Everest or Annapurna regions. The climax of the adventure is the crossing of the formidable Larkya La Pass at 5,106 metres, offering a breathtaking panoramic view before descending into the lush meadows of Bimthang.",
+    timeline: [
+      {
+        day: "01",
+        title: "Kathmandu to Soti Khola",
+        description:
+          "Early departure from Kathmandu by jeep through Arughat and along the Budhi Gandaki river valley.",
+        stats: {
+          elevation: "700m",
+          duration: "7-8 hours (drive)",
+          distance: "-",
+        },
+      },
+      {
+        day: "02",
+        title: "Soti Khola to Machha Khola",
+        description:
+          "Trail through banana groves, millet fields, and Gurung settlements crossing suspension bridges.",
+        stats: { elevation: "930m", duration: "5-6 hours", distance: "14km" },
+      },
+      {
+        day: "03",
+        title: "Machha Khola to Jagat",
+        description:
+          "Trail follows the river through Khorlabesi and Tatopani hot springs before reaching Jagat.",
+        stats: { elevation: "1,340m", duration: "6-7 hours", distance: "22km" },
+      },
+      {
+        day: "04",
+        title: "Jagat to Deng",
+        description:
+          "The valley narrows and Tibetan cultural influence becomes visible along the trail.",
+        stats: { elevation: "1,860m", duration: "6-7 hours", distance: "19km" },
+      },
+      {
+        day: "05",
+        title: "Deng to Namrung",
+        description:
+          "Steady climb through villages and dense forests with views of Sringi Himal.",
+        stats: { elevation: "2,630m", duration: "6-7 hours", distance: "18km" },
+      },
+      {
+        day: "06",
+        title: "Namrung to Samagaon via Lho",
+        description:
+          "Manaslu's massive south face becomes visible at Lho village before reaching Samagaon.",
+        stats: { elevation: "3,530m", duration: "6-7 hours", distance: "18km" },
+      },
+      {
+        day: "07",
+        title: "Acclimatization Day – Samagaon",
+        description:
+          "Hike to Pungyen Gompa or toward Manaslu Base Camp for acclimatization.",
+        stats: {
+          elevation: "3,530m",
+          duration: "4-5 hours",
+          distance: "5km",
+          note: "Acclimatization Indicated",
+        },
+      },
+      {
+        day: "08",
+        title: "Samagaon to Samdo",
+        description:
+          "Trail crosses open glacial valleys toward the Tibetan border settlement.",
+        stats: { elevation: "3,875m", duration: "3-4 hours", distance: "9km" },
+      },
+      {
+        day: "09",
+        title: "Acclimatization Day – Samdo",
+        description:
+          "Acclimatization hike toward the old Tibet trade route for high altitude adjustment.",
+        stats: {
+          elevation: "3,875m",
+          duration: "3-4 hours",
+          distance: "4km",
+          note: "Acclimatization Indicated",
+        },
+      },
+      {
+        day: "10",
+        title: "Samdo to Dharamsala",
+        description:
+          "Climb across alpine terrain to Larkya La Base Camp (also known as Phedi).",
+        stats: { elevation: "4,460m", duration: "3-4 hours", distance: "7km" },
+      },
+      {
+        day: "11",
+        title: "Dharamsala to Bimthang via Larkya La",
+        description:
+          "Cross Larkya La Pass at 5,106m with panoramic Himalayan views before descending to Bimthang.",
+        stats: {
+          elevation: "5,106m",
+          duration: "8-10 hours",
+          distance: "22km",
+        },
+      },
+      {
+        day: "12",
+        title: "Bimthang to Tilje",
+        description:
+          "Long descent through rhododendron forest into the Marsyangdi valley.",
+        stats: { elevation: "2,300m", duration: "6-7 hours", distance: "20km" },
+      },
+      {
+        day: "13",
+        title: "Tilje to Dharapani",
+        description:
+          "Walk to Dharapani where the Manaslu and Annapurna trails meet.",
+        stats: { elevation: "1,860m", duration: "3-4 hours", distance: "8km" },
+      },
+      {
+        day: "14",
+        title: "Drive to Kathmandu",
+        description:
+          "Return via Besisahar with a long scenic drive back to the capital.",
+        stats: {
+          elevation: "1,400m",
+          duration: "8-10 hours (drive)",
+          distance: "-",
+        },
+      },
+    ],
+    expectations: [
+      {
+        title: "Remote Wilderness Loop",
+        description:
+          "Experience one of Nepal's most pristine trails with far fewer crowds than Everest or Annapurna.",
+      },
+      {
+        title: "The Larkya La Pass",
+        description:
+          "Conquer the 5,106m pass for unmatched views of Himlung Himal, Cheo Himal, and the massive Manaslu.",
+      },
+      {
+        title: "Cultural Fusion",
+        description:
+          "Witness the transition from Hindu-influenced lower villages to the ancient Tibetan Buddhist culture of the high valley.",
+      },
+      {
+        title: "Challenging Endurance",
+        description:
+          "Test your limits with a strenuous trek requiring stamina for multiple high-altitude days and basic teahouse living.",
+      },
+    ],
+    seasonalPlanning: [
+      { month: "Jan", condition: "Closed / Heavy Snow on Larkya La" },
+      { month: "Feb", condition: "Closed / Extreme Cold / Pass Blocked" },
+      {
+        month: "Mar",
+        condition: "Good / Spring Blooms / Moderate Temperatures",
+      },
+      { month: "Apr", condition: "Peak Season / Clear Skies / Stable Weather" },
+      {
+        month: "May",
+        condition: "Warm / Rhododendron Forests / Clear Mornings",
+      },
+      { month: "Jun", condition: "Beginning of Monsoon / Cloudy / Leeches" },
+      { month: "Jul", condition: "Danger / Heavy Rain / Landslide Risk" },
+      { month: "Aug", condition: "Peak Monsoon / Wet & Muddy Trails" },
+      {
+        month: "Sep",
+        condition: "Post-Monsoon / Crisp Air / Fresh Landscapes",
+      },
+      { month: "Oct", condition: "Perfect / Best Visibility / Most Popular" },
+      { month: "Nov", condition: "Excellent / Cool & Stable / Golden Peaks" },
+      { month: "Dec", condition: "Closing / Winter Chill / High Pass Snow" },
+    ],
+    gallery: [
+      {
+        id: "m_img_01",
+        url: "/images/erik-OwJ6Cn_DnHM-unsplash.jpg",
+        alt: "Manaslu Peak and Larkya La Pass",
+        type: "hero",
+      },
+    ],
+    gearChecklist: {
+      essentials: [
+        { item: "Down Jacket (800+ Fill Power)", weight: "0.7kg" },
+        { item: "Sleeping Bag (Comfort -20°C)", weight: "1.5kg" },
+        { item: "Crampons or Micro-spikes (for the Pass)", weight: "0.4kg" },
+        { item: "Waterproof Trekking Boots", weight: "1.3kg" },
+        { item: "Hard-Shell Rain Jacket", weight: "0.5kg" },
+        { item: "Thermal Base Layers", weight: "0.4kg" },
+      ],
+      optional: [
+        { item: "Trekking Poles", weight: "0.5kg" },
+        { item: "Power Bank", weight: "0.4kg" },
+        { item: "Headlamp", weight: "0.1kg" },
+      ],
+    },
+  },
 };
