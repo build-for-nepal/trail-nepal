@@ -78,3 +78,29 @@ export interface TrekDetail {
   gallery: TrekImage[];
   gearChecklist: GearChecklist;
 }
+
+export interface Props {
+  trekId: string;
+}
+
+export interface CheckItemData {
+  id: string;
+  name: string;
+  weight: number;
+  checked: boolean;
+}
+export type GearCategoryKey = "essential" | "optional";
+export interface GearCategory {
+  key: GearCategoryKey;
+  label: string;
+  items: CheckItemData[];
+}
+
+export interface CheckItemProps {
+  id: string;
+  name: string;
+  weight: number;
+  checked: boolean;
+  onToggle: (id: string) => void;
+  showBottomBorder: boolean;
+}
