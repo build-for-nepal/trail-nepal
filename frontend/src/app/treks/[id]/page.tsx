@@ -1,3 +1,4 @@
+import { Gallery } from "@/components/details/Gallery";
 import GearCheckList from "@/components/details/GearCheckList";
 import TrekTimeline from "@/components/details/TrekTimeline";
 import TreksHeader from "@/components/treks/TreksHeader";
@@ -17,6 +18,7 @@ export default async function TrekDetailPage({ params }: Props) {
       <TreksHeader trekId={id} />
       <TreksLayout />
       <TrekTimeline trekId={id} />
+      <Gallery trekId={id} />
       <GearCheckList trekId={id} />
     </main>
   );

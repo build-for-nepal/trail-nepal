@@ -1,28 +1,13 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import SectionHeader from "../common/SectionHeader";
 import Image from "next/image";
 import gearBag from "@/assets/details/gearbag.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { GearChecklist } from "@/types/trek";
+import { GearCategory, GearCategoryKey, GearChecklist } from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
-
-type GearCategoryKey = "essential" | "optional";
-
-interface CheckItemData {
-  id: string;
-  name: string;
-  weight: number;
-  checked: boolean;
-}
-
-interface GearCategory {
-  key: GearCategoryKey;
-  label: string;
-  items: CheckItemData[];
-}
 
 // Fallback data if no trekId is provided
 const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
