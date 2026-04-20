@@ -21,6 +21,15 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Trail Nepal",
+  icons: {
+    icon: [
+      {
+        url: "/icons/logo.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: [{ url: "icons/logo.png" }],
+  },
   description: "Discover and plan treks in Nepal",
 };
 

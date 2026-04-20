@@ -195,7 +195,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       },
       {
         id: "img_02",
-        url: "/images/ebc/ABC1.png",
+        url: "/images/ebc/Lukla.png",
         alt: "Namche Bazaar Sherpa Capital",
         type: "landscape",
       },
@@ -207,19 +207,19 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       },
       {
         id: "img_04",
-        url: "/images/ebc/Lukla.png",
+        url: "/images/ebc/Peak.png",
         alt: "Trekking over Hillary Suspension Bridge",
         type: "landscape",
       },
       {
         id: "img_05",
-        url: "/images/ebc/Lukla.png",
+        url: "/images/ebc/Namche.png",
         alt: "Trekking over Hillary Suspension Bridge",
         type: "landscape",
       },
       {
         id: "img_06",
-        url: "/images/ebc/Lukla1.png",
+        url: "/images/ebc/ABC1.png",
         alt: "Trekking over Hillary Suspension Bridge",
         type: "landscape",
       },
