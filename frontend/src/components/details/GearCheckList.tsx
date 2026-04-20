@@ -6,9 +6,32 @@ import Image from "next/image";
 import gearBag from "@/assets/details/gearbag.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { GearCategory, GearCategoryKey, GearChecklist } from "@/types/details";
-import { gearChecklist as FALLBACK_GEAR_CHECKLIST } from "@/static/details";
+import { GearChecklist } from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
+
+type GearCategoryKey = "essential" | "optional";
+
+interface CheckItemData {
+  id: string;
+  name: string;
+  weight: number;
+  checked: boolean;
+}
+
+interface GearCategory {
+  key: GearCategoryKey;
+  label: string;
+  items: CheckItemData[];
+}
+
+// Fallback data if no trekId is provided
+const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
+  essentials: [
+    { item: "Waterproof Shell Jacket", weight: "0.6kg" },
+    { item: "Sleeping Bag (-10°C)", weight: "1.5kg" },
+  ],
+  optional: [{ item: "Fleece Jacket", weight: "0.5kg" }],
+};
 
 const getWeightMeta = (kg: number): { label: string; color: string } => {
   if (kg === 0) return { label: "Empty", color: "#9ca3af" };
@@ -84,18 +107,18 @@ interface Props {
 
 const GearCheckList = ({ trekId }: Props) => {
   const gearChecklist =
-    trekId && TREK_DETAILS[trekId]
-      ? TREK_DETAILS[trekId].gearChecklist
-      : FALLBACK_GEAR_CHECKLIST;
+    trekId && TREK_DETAILS[trekId] ?
+      TREK_DETAILS[trekId].gearChecklist
+    : FALLBACK_GEAR_CHECKLIST;
 
   const parseWeightToKg = (weightStr: string): number => {
     const value = parseFloat(weightStr);
-    if (weightStr.includes("kg")) return value;
-    if (weightStr.includes("g")) return value / 1000;
+    if (isNaN(value)) return 0;
+    if (weightStr.toLowerCase().includes("kg")) return value;
+    if (weightStr.toLowerCase().includes("g")) return value / 1000;
     return value;
   };
 
-  // Transform data to GearCategory format
   const transformToGearCategories = (data: GearChecklist): GearCategory[] => {
     const categories: GearCategory[] = [];
 
@@ -128,13 +151,8 @@ const GearCheckList = ({ trekId }: Props) => {
     return categories;
   };
 
-  // Use passed data or fallback to second data format
   const initialCategories = useMemo(() => {
-    const data =
-      gearChecklist?.essentials?.length || gearChecklist?.optional?.length
-        ? gearChecklist
-        : FALLBACK_GEAR_CHECKLIST;
-    return transformToGearCategories(data);
+    return transformToGearCategories(gearChecklist);
   }, [gearChecklist]);
 
   const [categories, setCategories] =
@@ -144,14 +162,14 @@ const GearCheckList = ({ trekId }: Props) => {
   const toggle = (categoryKey: GearCategoryKey, itemId: string) => {
     setCategories((prev) =>
       prev.map((cat) =>
-        cat.key === categoryKey
-          ? {
-              ...cat,
-              items: cat.items.map((item) =>
-                item.id === itemId ? { ...item, checked: !item.checked } : item,
-              ),
-            }
-          : cat,
+        cat.key === categoryKey ?
+          {
+            ...cat,
+            items: cat.items.map((item) =>
+              item.id === itemId ? { ...item, checked: !item.checked } : item,
+            ),
+          }
+        : cat,
       ),
     );
   };
@@ -197,16 +215,16 @@ const GearCheckList = ({ trekId }: Props) => {
               width: `${stats.progressPct}%`,
               background: "linear-gradient(90deg, #60a5fa, #2563eb)",
               boxShadow:
-                stats.progressPct > 0
-                  ? "0 2px 8px rgba(37,99,235,0.4)"
-                  : "none",
+                stats.progressPct > 0 ?
+                  "0 2px 8px rgba(37,99,235,0.4)"
+                : "none",
             }}
           />
         </div>
       </div>
 
       <div className="bg-white rounded-2xl">
-        <div className="flex min-h-130">
+        <div className="flex min-h-[520px]">
           {/* left sidebar */}
           <aside className="w-44 sm:w-52 shrink-0 flex flex-col">
             <div className="py-3 flex flex-col gap-1">
@@ -219,9 +237,9 @@ const GearCheckList = ({ trekId }: Props) => {
                     onClick={() => setActiveTab(cat.key)}
                     className={[
                       "w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer",
-                      isActive
-                        ? "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
-                        : "text-gray-600 hover:bg-white border border-transparent",
+                      isActive ?
+                        "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
+                      : "text-gray-600 hover:bg-white border border-transparent",
                     ].join(" ")}
                   >
                     <span
@@ -230,9 +248,7 @@ const GearCheckList = ({ trekId }: Props) => {
                       {cat.label}
                     </span>
                     <span
-                      className={`block text-xs mt-0.5 ${
-                        isActive ? "text-green-600" : "text-gray-400"
-                      }`}
+                      className={`block text-xs mt-0.5 ${isActive ? "text-green-600" : "text-gray-400"}`}
                     >
                       {packedCount}/{cat.items.length}
                     </span>
@@ -278,7 +294,6 @@ const GearCheckList = ({ trekId }: Props) => {
               </span>
             </div>
 
-            {/* Checklist Items */}
             <div className="flex-1 overflow-y-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 divide-y divide-gray-100">
                 {items.map((item, idx) => {
