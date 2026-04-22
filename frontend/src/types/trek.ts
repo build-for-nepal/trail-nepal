@@ -1,5 +1,21 @@
 import { LucideIcon } from "lucide-react";
 
+import type { FeatureCollection, LineString, MultiLineString } from "geojson";
+
+//Routes types
+export interface RouteProperties {
+  id: string;
+  name: string;
+  difficulty: "easy" | "moderate" | "hard" | "extreme" | null;
+  maxElevationM: number | null;
+}
+
+// Routes can be a single line or multiple connected lines (from OSM)
+export type TrekRouteCollection = FeatureCollection<
+  LineString | MultiLineString,
+  RouteProperties
+>;
+
 //EXPLORE PAGE TYPES
 export interface Trek {
   id: string;
