@@ -54,7 +54,7 @@ export const HeroSection = () => {
   }, [activeIndex]);
   // Auto-advance every 3 seconds
   useEffect(() => {
-    const timer = setTimeout(handleNext, 2500);
+    const timer = setTimeout(handleNext, 4500);
     return () => clearTimeout(timer);
   }, [activeIndex]);
   return (

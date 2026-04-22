@@ -14,45 +14,45 @@ export const SLIDES: Slide[] = [
     id: "everest-base-camp",
     title: "EBC Trek",
     imageAlt: "The iconic Everest Base Camp rock marker at 5364 meters",
-    imageSrc: "/images/ebc.jpg",
+    imageSrc: "/images/Carousel/ebc.jpg",
     description:
       "Stand at the foot of the world's highest peak. Journey through the Khumbu Valley to witness the legendary 5,364m marker and the moving spirit of global explorers.",
   },
   {
-    id: "annapurna-sanctuary",
+    id: "annapurna-base-camp",
     title: "ABC Trek",
     imageAlt:
       "Majestic snow-capped Himalayan peaks piercing through a sea of clouds",
-    imageSrc: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
+    imageSrc: "/images/Carousel/annapurna.jpg",
     description:
-      "Experience the sanctuary of the gods. Watch the sun ignite the Annapurna massif as clouds dance through the deep glacial valleys below.",
+      "A breathtaking journey into a natural amphitheater of towering peaks deep in the heart of the Annapurna Himalaya.",
   },
   {
-    id: "gokyo-lakes",
-    title: "Gokyo Trek",
+    id: "langtang-trek",
+    title: "Langtang Valley Trek",
     imageAlt:
       "A serene high-altitude turquoise lake nestled between rugged mountain ridges",
-    imageSrc: "/images/erik-OwJ6Cn_DnHM-unsplash.jpg",
+    imageSrc: "/images/Carousel/langtang.jpg",
     description:
-      "Discover the turquoise gems of the Himalayas. Trek beside the world's highest freshwater lakes under the watchful gaze of Cho Oyu.",
+      "A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.",
   },
   {
-    id: "KBC Trek",
-    title: "GP Trek",
+    id: "manaslu-circuit",
+    title: "Manaslu Circuit Trek",
     imageAlt:
       "A massive mountain face glowing with brilliant orange light during sunset",
-    imageSrc: "/images/sounak-mukherjee-X1aOlIRUacM-unsplash.jpg",
+    imageSrc: "/images/Carousel/manaslu.jpg",
     description:
-      "Witness the fire of the mountains. Behold the breathtaking 'Golden Hour' where the setting sun paints the towering summits in brilliant shades of amber and gold.",
+      "A remote Himalayan adventure circling one of the world’s highest mountains through Tibetan influenced villages and high mountain passes.",
   },
   {
-    id: "ama-dablam",
-    title: "AD Trek",
+    id: "mardi-himal",
+    title: "Mardi Himal Trek",
     imageAlt:
       "The striking pyramid peak of Ama Dablam soaring above the clouds",
-    imageSrc: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
+    imageSrc: "/images/Carousel/mardihimal.jpg",
     description:
-      "Behold the 'Matterhorn of the Himalayas'. Renowned for its stunning aesthetics and technical climbing routes, towering above the Khumbu region.",
+      "A short yet spectacular ridge trek offering close-up views of Machapuchare and the Annapurna range.",
   },
 ];
 
