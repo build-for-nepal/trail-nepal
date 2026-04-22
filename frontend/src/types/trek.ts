@@ -13,6 +13,7 @@ export interface Trek {
   imageUrl: string;
   description: string;
   isPopular: boolean;
+  keywords: string[];
 }
 
 export interface ExploreTrekCardProps extends Trek {

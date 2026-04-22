@@ -5,15 +5,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS } from "../../../static/nav-links.config";
 import { NavLinksProps } from "@/types/homepage";
+import { useEffect, useState } from "react";
 
 export function NavLinks({ className }: NavLinksProps) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  // This only runs on the client after the first render
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <nav aria-label="Main navigation">
       <ul className={cn("flex items-center gap-8 md:gap-10", className)}>
         {NAV_LINKS.map(({ label, href }) => {
-          const isActive = pathname === href || pathname.startsWith(`${href}/`);
+          // Only calculate isActive if we are on the client
+          const isActive =
+            mounted && (pathname === href || pathname.startsWith(`${href}/`));
+
           return (
             <li key={href}>
               <Link

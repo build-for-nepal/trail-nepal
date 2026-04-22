@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavLinks } from "./NavLinks";
-import { SearchBar } from "./SearchBar";
 import { MobileMenu } from "./MobileMenu";
+import { SearchBarInner } from "@/components/search/SearchBarInner";
+import { SearchBar } from "@/components/search/SearchBar";
 
 export function Navbar() {
   return (
@@ -25,6 +26,7 @@ export function Navbar() {
         <NavLinks className="hidden lg:flex" />
 
         <div className="flex items-center gap-4">
+          {/* <SearchBar className="hidden lg:flex w-76" /> */}
           <SearchBar className="hidden lg:flex w-76" />
           <MobileMenu />
         </div>

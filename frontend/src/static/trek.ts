@@ -14,6 +14,7 @@ export const TREKS: Trek[] = [
     price: 30000,
     imageUrl: "/images/ebc.jpg",
     isPopular: true,
+    keywords: ["everest base camp", "ebc", "khumbu", "everest"],
   },
   {
     id: "manaslu-circuit",
@@ -28,6 +29,7 @@ export const TREKS: Trek[] = [
     price: 20000,
     imageUrl: "/images/erik-OwJ6Cn_DnHM-unsplash.jpg",
     isPopular: true,
+    keywords: ["manaslu", "circuit", "manaslu circuit"],
   },
   {
     id: "langtang-valley",
@@ -41,6 +43,7 @@ export const TREKS: Trek[] = [
     price: 10000,
     imageUrl: "/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg",
     isPopular: true,
+    keywords: ["langtang", "langtang valley"],
   },
 ];
 
