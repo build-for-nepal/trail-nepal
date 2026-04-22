@@ -27,7 +27,7 @@ export function SearchBarInner({
   const debouncedQuery = useDebounce(inputValue, 300);
   const results = useTrekSearch(debouncedQuery);
 
-  // Sync debounced query to URL — keeps both SearchBar instances in sync
+  // Sync debounced query to URL, keeps both SearchBar instances in sync
   useEffect(() => {
     const params = new URLSearchParams();
     if (debouncedQuery) params.set("q", debouncedQuery);
