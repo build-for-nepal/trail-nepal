@@ -17,6 +17,7 @@ import SectionHeader from "../common/SectionHeader";
 import { cn } from "@/lib/utils";
 import { TrekTimelineDay } from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
+import TrekkingMap from "./TrekkingMap";
 
 const AccordionItem = ({
   day,
@@ -328,7 +329,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
         : /* Map Placeholder Container */
           <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
             {/* build this component */}
-            {/* <TrekkingMap trekId={trekId} /> */}
+            <TrekkingMap trekId={trekId} />
           </div>
         }
       </div>
