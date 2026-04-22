@@ -12,7 +12,7 @@ import {
 export const SLIDES: Slide[] = [
   {
     id: "everest-base-camp",
-    title: "EBC Trek",
+    title: "Everest Base Camp Trek",
     imageAlt: "The iconic Everest Base Camp rock marker at 5364 meters",
     imageSrc: "/images/Carousel/ebc.jpg",
     description:
@@ -20,7 +20,7 @@ export const SLIDES: Slide[] = [
   },
   {
     id: "annapurna-base-camp",
-    title: "ABC Trek",
+    title: "Annapurna Base Camp Trek",
     imageAlt:
       "Majestic snow-capped Himalayan peaks piercing through a sea of clouds",
     imageSrc: "/images/Carousel/annapurna.jpg",
