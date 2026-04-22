@@ -8,12 +8,13 @@ export const HeroContent = ({
   onExplore,
   textElemsRef,
 }: HeroContentProps) => (
-  <div className="w-full max-w-xl flex flex-col justify-center mt-24 lg:mt-0 items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
-    <h1
+  <div className="w-full max-w-2xl flex flex-col mt-24 lg:mt-0 items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
+   <div className="min-h-[100px] lg:min-h-[220px] xl:min-h-[320px]">
+     <h1
       ref={(el) => {
         textElemsRef.current[0] = el;
       }}
-      className="font-otomanopee text-6xl md:text-8xl font-bold text-white mb-6 tracking-wide drop-shadow-lg"
+      className="font-otomanopee text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold text-white mb-6 tracking-wide drop-shadow-lg "
     >
       {slide.title}
     </h1>
@@ -21,15 +22,14 @@ export const HeroContent = ({
       ref={(el) => {
         textElemsRef.current[1] = el;
       }}
-      className="font-poppins text-base md:text-lg text-gray-200 mb-8 leading-relaxed max-w-[90%]"
+      className="font-poppins text-sm md:text-base lg:text-sm xl:text-lg text-gray-200 mb-8 leading-relaxed max-w-[90%] lg:max-w-[70%]"
     >
       {slide.description}
     </p>
+    </div>
     <div
-      ref={(el) => {
-        textElemsRef.current[2] = el;
-      }}
-      className="flex flex-col items-center lg:items-start gap-5"
+   
+      className="flex flex-col items-center lg:items-start gap-5 pb-8"
     >
       <div className="hidden lg:flex gap-8 ml-2">
         <button
@@ -61,6 +61,7 @@ export const HeroContent = ({
           />
         </button>
       </div>
+    </div>
       <button
         type="button"
         onClick={onExplore}
@@ -68,6 +69,5 @@ export const HeroContent = ({
       >
         Explore Now
       </button>
-    </div>
   </div>
 );

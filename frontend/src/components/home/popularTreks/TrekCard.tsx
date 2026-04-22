@@ -44,7 +44,7 @@ const TrekCard = ({
 
         {/* Hidden on desktop until hover */}
         <div className="overflow-hidden transition-all duration-500 ease-in-out max-h-[4rem] lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[4rem] lg:group-hover:opacity-100 lg:delay-100">
-          <p className="font-poppins text-gray-600 text-[13px] leading-snug line-clamp-2">
+          <p className="font-poppins text-gray-600 text-[13px] leading-snug line-clamp-1">
             {description}
           </p>
         </div>
