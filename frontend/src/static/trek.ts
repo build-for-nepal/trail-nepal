@@ -7,7 +7,7 @@ export const TREKS: Trek[] = [
     region: "Khumbu Valley",
     description:
       "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
-    difficulty: "Strenuous",
+    difficulty: "Difficult",
     duration: "14 Days",
     altitude: "5,364m",
     season: "Sept-Nov",

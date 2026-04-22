@@ -13,7 +13,7 @@ export const HeroContent = ({
       ref={(el) => {
         textElemsRef.current[0] = el;
       }}
-      className="font-poppins text-6xl md:text-8xl font-bold text-white mb-6 tracking-wide drop-shadow-lg"
+      className="font-otomanopee text-6xl md:text-8xl font-bold text-white mb-6 tracking-wide drop-shadow-lg"
     >
       {slide.title}
     </h1>
