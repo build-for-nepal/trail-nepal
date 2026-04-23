@@ -1,14 +1,20 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { SOCIAL_ICONS } from "@/static/constants";
 import SectionHeader from "@/components/common/SectionHeader";
 import { NavLinks } from "../navigation/NavLinks";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathName = usePathname();
+  const isHomepage = pathName === "/";
+
   return (
     <footer className=" relative w-full bg-[#376BB6] text-white mt-[40px] md:mt-[70px] lg:mt-[100px] px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
       {/* Wave Curve */}
-      <div className="bg-[#949072] absolute bottom-full left-0 w-full overflow-hidden leading-none z-10">
+      <div className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 430 38"
