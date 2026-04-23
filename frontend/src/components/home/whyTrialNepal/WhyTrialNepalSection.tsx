@@ -1,4 +1,4 @@
-import SectionHeader from "../common/SectionHeader";
+import SectionHeader from "../../common/SectionHeader";
 import FeatureItem from "./FeatureItem";
 import { WHY_NEPAL_FEATURES } from "@/static/constants";
 

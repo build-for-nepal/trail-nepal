@@ -35,7 +35,8 @@ export const TREKS: Trek[] = [
     id: "langtang-valley",
     title: "Langtang Valley Trek",
     region: "Langtang Region",
-    description: "Worem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.",
     difficulty: "Easy",
     duration: "7-10 Days",
     altitude: "3,870m",

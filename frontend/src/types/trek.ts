@@ -59,6 +59,7 @@ export interface TrekTimelineDay {
   content?: string;
   accommodations?: TrekAccommodation[];
   stats?: TrekStat;
+  coordinates?: [number, number];
   price?: string;
 }
 

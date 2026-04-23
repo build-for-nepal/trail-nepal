@@ -25,6 +25,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         //   { name: "Yeti Mountain Home (Luxury)" },
         // ],
         stats: { elevation: "2,610m", duration: "3-4 hours", distance: "8km" },
+        coordinates: [27.737, 86.712],
         // price: "NPR 4,500",
       },
       {
@@ -33,7 +34,9 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Today is a rigorous climb that serves as your introduction to the high Himalayas. You will crisscross the Dudh Koshi river multiple times over high suspension bridges, including the famous Hillary Bridge. After passing through the entrance of Sagarmatha National Park at Monjo, the trail drops to the riverbed before beginning a long, zig-zagging ascent through dense forests. Halfway up, you may catch your very first glimpse of Mount Everest peeking through the trees. The day ends as you emerge into the horseshoe-shaped amphitheater of Namche Bazaar, the vibrant commercial hub of the Khumbu region.",
         // accommodations: [{ name: "Hotel Namche" }, { name: "Khumbu Lodge" }],
+
         stats: { elevation: "3,440m", duration: "6-7 hours", distance: "11km" },
+        coordinates: [27.805068, 86.7105936],
         // price: "NPR 5,500",
       },
       {
@@ -48,6 +51,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "4km",
           note: "Acclimatization Indicated",
         },
+        coordinates: [27.805068, 86.7105936],
         // price: "NPR 6,000",
       },
       {
@@ -60,6 +64,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         //   { name: "Hotel Himalayan" },
         // ],
         stats: { elevation: "3,860m", duration: "5-6 hours", distance: "10km" },
+        coordinates: [27.8352264, 86.7641614],
         // price: "NPR 5,000",
       },
       {
@@ -72,6 +77,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         //   { name: "Hotel Good Luck" },
         // ],
         stats: { elevation: "4,410m", duration: "5-6 hours", distance: "11km" },
+        coordinates: [27.8873288, 86.8259632],
         // price: "NPR 5,500",
       },
       {
@@ -86,6 +92,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "5km",
           note: "Acclimatization Indicated",
         },
+        coordinates: [27.8873288, 86.8259632],
         // price: "NPR 5,500",
       },
       {
@@ -98,6 +105,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         //   { name: "Oxygen Altitude Home" },
         // ],
         stats: { elevation: "4,940m", duration: "5-6 hours", distance: "8km" },
+        coordinates: [27.9477818, 86.8105368],
         // price: "NPR 6,000",
       },
       {
@@ -115,40 +123,44 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "15km",
           note: "EBC elevation is 5,364m, sleeping at Gorak Shep",
         },
+        coordinates: [28.0029111, 86.855732],
         // price: "NPR 6,500",
       },
-      {
-        day: "09",
-        title: "Gorak Shep to Kala Patthar & Pheriche",
-        description:
-          "Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.",
-        // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
-        stats: {
-          elevation: "4,371m",
-          duration: "7-8 hours",
-          distance: "13km",
-          note: "Sleeping elevation",
-        },
-        // price: "NPR 5,000",
-      },
-      {
-        day: "10",
-        title: "Pheriche to Namche Bazaar",
-        description:
-          "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
-        // accommodations: [{ name: "Hotel Namche" }],
-        stats: { elevation: "3,440m", duration: "6-7 hours", distance: "14km" },
-        // price: "NPR 5,500",
-      },
-      {
-        day: "11",
-        title: "Namche Bazaar to Lukla",
-        description:
-          "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
-        // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
-        stats: { elevation: "2,860m", duration: "7-8 hours", distance: "18km" },
-        // price: "NPR 5,000",
-      },
+      // {
+      //   day: "09",
+      //   title: "Gorak Shep to Kala Patthar & Pheriche",
+      //   description:
+      //     "Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.",
+      //   // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
+      //   stats: {
+      //     elevation: "4,371m",
+      //     duration: "7-8 hours",
+      //     distance: "13km",
+      //     note: "Sleeping elevation",
+      //   },
+      //   coordinates: [27.893, 86.818],
+      //   // price: "NPR 5,000",
+      // },
+      // {
+      //   day: "10",
+      //   title: "Pheriche to Namche Bazaar",
+      //   description:
+      //     "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
+      //   // accommodations: [{ name: "Hotel Namche" }],
+      //   stats: { elevation: "3,440m", duration: "6-7 hours", distance: "14km" },
+      //   coordinates: [27.806, 86.714],
+      //   // price: "NPR 5,500",
+      // },
+      // {
+      //   day: "11",
+      //   title: "Namche Bazaar to Lukla",
+      //   description:
+      //     "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
+      //   // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
+      //   stats: { elevation: "2,860m", duration: "7-8 hours", distance: "18km" },
+      //   coordinates: [27.686, 86.73],
+      //   // price: "NPR 5,000",
+      // },
     ],
     expectations: [
       {
@@ -272,6 +284,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: "7-8 hours (drive)",
           distance: "N/A",
         },
+        coordinates: [28.0483558, 84.8143192],
       },
       {
         day: "02",
@@ -279,6 +292,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "The trail opens through banana groves, millet fields, and small Gurung settlements, crossing several suspension bridges above the rushing Budhi Gandaki. Subtropical and humid",
         stats: { elevation: "930m", duration: "5-6 hours", distance: "14km" },
+        coordinates: [28.1363198, 84.8550124],
       },
       {
         day: "03",
@@ -286,6 +300,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "A longer day tracking the river closely through Khorlabesi and Tatopani, where natural hot springs sit right beside the trail worth a quick soak. Jagat is the first official checkpoint where permits are inspected, a proper stone-paved village with a small monastery.",
         stats: { elevation: "1,340m", duration: "6-7 hours", distance: "22km" },
+        coordinates: [28.2191381, 84.8754899],
       },
       {
         day: "04",
@@ -293,6 +308,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "The valley narrows and the Tibetan cultural influence begins mani walls, prayer flags, and stone-carved chortens appear along the trail. The route passes through Phillim, a large Nubri village with a working gompa, before descending to Deng across a high suspension bridge. ",
         stats: { elevation: "1,860m", duration: "6-7 hours", distance: "19km" },
+        coordinates: [28.3756597, 84.8860943],
       },
       {
         day: "05",
@@ -300,6 +316,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Climbing steadily through Rana and Bihi, small villages where locals still wear traditional chuba robes. The forest thickens with oak and rhododendron and the air cools noticeably. Namrung sits on a commanding ridge with the first clear views of Sringi Himal (7,161m).",
         stats: { elevation: "2,630m", duration: "6-7 hours", distance: "18km" },
+        coordinates: [28.5353815, 84.7834682],
       },
       {
         day: "06",
@@ -307,6 +324,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "The standout day of the lower circuit. At Lho village, Manaslu's south face appears with sudden, staggering scale: a wall of ice and granite rising nearly 5,000 vertical metres. The Ribung Gompa above Lho is worth a short detour. The trail continues through Shyala before descending into Samagaon, the largest village in the Nubri region with a beautifully preserved gompa at its edge. ",
         stats: { elevation: "3,180m", duration: "5-6 hours", distance: "N/A" },
+        coordinates: [28.5841331, 84.6450536],
       },
       {
         day: "07",
@@ -319,6 +337,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "5km",
           note: "Acclimatization Indicated",
         },
+        coordinates: [28.5841331, 84.6450536],
       },
       {
         day: "08",
@@ -326,6 +345,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Short by distance but meaningful in altitude. The trail leaves the treeline immediately, crossing open moraines through a wide glacial valley. Samdo is a tiny settlement of around 50 households near the Tibetan border cold nights, extraordinary skies. ",
         stats: { elevation: "3,860m", duration: "3-4 hours", distance: "9km" },
+        coordinates: [28.6470636, 84.6325197],
       },
       {
         day: "09",
@@ -338,6 +358,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "4km",
           note: "Acclimatization Indicated",
         },
+        coordinates: [28.6470636, 84.6325197],
       },
       {
         day: "10",
@@ -345,6 +366,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "A short but serious climb across open alpine terrain to Dharamsala, a wind-exposed collection of stone shelters with one basic lodge and no electricity. Arrive early, eat well, drink plenty of water, and sleep by 8pm. Tomorrow starts before dawn.",
         stats: { elevation: "4,200m", duration: "3-4 hours", distance: "7km" },
+        coordinates: [28.6584715, 84.582265],
       },
       {
         day: "11",
@@ -356,6 +378,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: "8-10 hours",
           distance: "22km",
         },
+        coordinates: [28.6024945, 84.4600261],
       },
       {
         day: "12",
@@ -363,6 +386,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "A long descent back through rhododendron and bamboo forest, passing Dudh Pokhari lake and the village of Kharche before reaching Tilje in the lower Marsyangdi valley. The air thickens, the body recovers, apple orchards replace glaciers. ",
         stats: { elevation: "2,300m", duration: "6-7 hours", distance: "20km" },
+        coordinates: [28.5446263, 84.3809759],
       },
       {
         day: "13",
@@ -370,6 +394,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Walk to Dharapani where the Manaslu and Annapurna trails meet.",
         stats: { elevation: "1,860m", duration: "3-4 hours", distance: "8km" },
+        coordinates: [28.5298499, 84.3497295],
       },
       {
         day: "14",
@@ -381,6 +406,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: "8-10 hours (drive)",
           distance: "-",
         },
+        coordinates: [27.717, 85.324],
       },
     ],
     expectations: [
@@ -502,6 +528,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Drive from Kathmandu to Syafrubesi, the usual starting point of the Langtang Valley Trek. There are two common road routes to reach Syafrubesi. The usual public bus route goes via Kalanki - Nagdhunga - Galchi - Betrawati - Dhunche before reaching Syafrubesi. Private vehicles and jeeps may also use the Tokha-side road via Tokha - Chhahare / Dhikure - Trishuli - Dhunche - Syafrubesi, which can be shorter and more efficient in good road conditions. Public buses usually leave early in the morning, while private jeeps offer more flexibility and a faster ride.\n\nAlternative Route:\nIf you have a private vehicle, you can continue beyond Syafrubesi for about 45 minutes to 1 hour to reach Sherpagaun. This is a more scenic option and gives you the choice to stay either in Syafrubesi or in Sherpagaun, depending on your transport arrangement and arrival time.\n\nTransport Note:\nPublic buses usually depart from the Gongabu / Machhapokhari area in the morning. Shared jeeps also leave from the same area and are fast		er than buses, while private jeeps can start directly from your hotel or arranged pickup point.",
         stats: { elevation: "1,460m / 2,563m", duration: "7-10 hours(drive)" },
+        coordinates: [28.1657291, 85.3418267],
       },
       {
         day: "02",
@@ -512,6 +539,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           elevation: "2,470m",
           duration: "6-7 hours from Syafrubesi / 4-5 hours from Sherpagaun",
         },
+        coordinates: [28.1612117, 85.4296495],
       },
 
       {
@@ -520,6 +548,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Leaving the forest behind, the trail climbs past riverside sections and open clearings toward Ghodatabela, where the valley begins to feel broader and more alpine. As you continue higher, mountain views start to open up and the cultural atmosphere becomes stronger with chortens, mani walls, and traditional settlements. By the time you reach Langtang Village, you are fully in the heart of the valley, surrounded by dramatic peaks and a distinctly Tibetan-influenced mountain landscape.",
         stats: { elevation: "3,430m", duration: "6-7 hours" },
+        coordinates: [28.2157142, 85.5030007],
       },
       {
         day: "04",
@@ -530,6 +559,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           elevation: "3,870m",
           duration: "3-4 hours trek / 1-2 hours exploration",
         },
+        coordinates: [28.2124247, 85.5672161],
       },
       {
         day: "05",
@@ -537,24 +567,27 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           "Today is the highlight of the trek. You start early for the climb above Kyanjin Gompa toward Kyanjin Ri, one of the best viewpoints in Langtang. The trail is steep from the beginning and the first major viewpoint is Lower Kyanjin Ri at around 4,400m. This lower point already offers excellent views of Langtang Lirung, the valley below, surrounding ridges, and glacial terrain. From here, those feeling strong can continue higher to the main Kyanjin Ri viewpoint at 4,773m. The final section is steeper and more demanding because of the altitude, but the panorama becomes even wider and more dramatic. After spending time at the viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a relaxed afternoon and overnight stay.",
         stats: { elevation: "4,773m", duration: "4-6 hours round trip" },
+        coordinates: [28.2124247, 85.5672161],
       },
-      {
-        day: "06",
-        title: "Kyanjin Gompa to Lama Hotel",
-        description:
-          "After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.",
-        stats: { elevation: "2,470m", duration: "6-7 hours" },
-      },
-      {
-        day: "07",
-        title: "Lama Hotel to Syabrubesi and drive to Kathmandu",
-        description:
-          "Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.",
-        stats: {
-          elevation: "1,400m",
-          duration: "4-5 hours trek + 7-8 hours drive",
-        },
-      },
+      // {
+      //   day: "06",
+      //   title: "Kyanjin Gompa to Lama Hotel",
+      //   description:
+      //     "After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.",
+      //   stats: { elevation: "2,470m", duration: "6-7 hours" },
+      //   coordinates: [28.1612117, 85.4296495],
+      // },
+      // {
+      //   day: "07",
+      //   title: "Lama Hotel to Syabrubesi and drive to Kathmandu",
+      //   description:
+      //     "Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.",
+      //   stats: {
+      //     elevation: "1,400m",
+      //     duration: "4-5 hours trek + 7-8 hours drive",
+      //   },
+      //   coordinates: [28.1657291, 85.3418267],
+      // },
     ],
 
     expectations: [
@@ -566,17 +599,17 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       {
         title: "Tamang Culture and Buddhist Heritage",
         description:
-        "Experience the living culture of the Tamang people, whose villages give Langtang Valley its unique identity. Along the trail, you will see prayer flags, mani walls, chortens, monasteries, and homes shaped by a strong Tibetan Buddhist influence. Tamang culture is also expressed through language, oral storytelling, hospitality, music, and dance, especially the rhythm of the damphu and the traditional Tamang selo performed during community gatherings and celebrations. One of the most important festivals is Sonam Lhosar, the Tamang New Year, usually celebrated in January or February, when families come together for blessings, feasting, music, and cultural performances. Trekking through Langtang is therefore not only a mountain journey, but also a chance to better understand a resilient Himalayan community and its deeply rooted traditions.",
+          "Experience the living culture of the Tamang people, whose villages give Langtang Valley its unique identity. Along the trail, you will see prayer flags, mani walls, chortens, monasteries, and homes shaped by a strong Tibetan Buddhist influence. Tamang culture is also expressed through language, oral storytelling, hospitality, music, and dance, especially the rhythm of the damphu and the traditional Tamang selo performed during community gatherings and celebrations. One of the most important festivals is Sonam Lhosar, the Tamang New Year, usually celebrated in January or February, when families come together for blessings, feasting, music, and cultural performances. Trekking through Langtang is therefore not only a mountain journey, but also a chance to better understand a resilient Himalayan community and its deeply rooted traditions.",
       },
       {
-         title: "Kyanjin Gompa and Kyanjin Ri",
+        title: "Kyanjin Gompa and Kyanjin Ri",
         description:
           "Stay in one of Nepal’s most beautiful high-mountain settlements and climb to a panoramic ridge above the valley for the trek’s best views.",
       },
       // {
-    	// title: "Visit the Kyanjin Cheese Factory",
-    	// description:
-     	//  "Explore the famous cheese factory at Kyanjin, an iconic local highlight of the trek, and learn how mountain dairy traditions have supported livelihoods in Langtang for generations.The factory works with milk from local yak and chauri herders, turning high-altitude mountain milk into cheese and butter using a long-established Himalayan dairy tradition. This makes the visit more than just a tasting stop — it is also a chance to understand how local pastoral life supports the mountain economy. The cheese produced here has long been associated with Nepal’s wider dairy network, and yak cheese is also marketed nationally through the government-owned Dairy Development Corporation (DDC). At the same time, production in Kyanjin remains closely tied to local demand, trekking tourism, and seasonal supply, so the factory still feels personal, authentic, and deeply connected to the valley itself.",
+      // title: "Visit the Kyanjin Cheese Factory",
+      // description:
+      //  "Explore the famous cheese factory at Kyanjin, an iconic local highlight of the trek, and learn how mountain dairy traditions have supported livelihoods in Langtang for generations.The factory works with milk from local yak and chauri herders, turning high-altitude mountain milk into cheese and butter using a long-established Himalayan dairy tradition. This makes the visit more than just a tasting stop — it is also a chance to understand how local pastoral life supports the mountain economy. The cheese produced here has long been associated with Nepal’s wider dairy network, and yak cheese is also marketed nationally through the government-owned Dairy Development Corporation (DDC). At the same time, production in Kyanjin remains closely tied to local demand, trekking tourism, and seasonal supply, so the factory still feels personal, authentic, and deeply connected to the valley itself.",
       // },
       // {
       //  title: "Learn About Langtang’s Earthquake Recovery",
@@ -589,9 +622,9 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       // "If you are interested in science, Langtang offers more than scenic trekking. The valley is one of Nepal’s best-monitored and most research-active mountain regions, with ongoing work related to Yala Glacier, Lirung Glacier, permafrost, the hydrology of the Langtang River, climate change, and post-earthquake socio-economic change. Along the route and around the upper valley, researchers have installed meteorological stations, hydrological stations, and temperature sensors, making Langtang an important living laboratory for understanding how Himalayan mountain systems are changing.",
       // },
       {
-       title: "Optional Extra Day to Tserko Ri",
-       description:
-       "If you stay one more night in Kyanjin Gompa, you can add a day hike to Tserko Ri, one of the most spectacular viewpoints in the Langtang region. The trail climbs into a more open and rugged alpine landscape, and the reward is a huge Himalayan panorama with glaciers, icefalls, sweeping valley views, and an even more remote high-mountain feeling. Tserko Ri is longer and more demanding than Kyanjin Ri, but its beauty makes it a highly rewarding extension for trekkers who have the time and energy.",
+        title: "Optional Extra Day to Tserko Ri",
+        description:
+          "If you stay one more night in Kyanjin Gompa, you can add a day hike to Tserko Ri, one of the most spectacular viewpoints in the Langtang region. The trail climbs into a more open and rugged alpine landscape, and the reward is a huge Himalayan panorama with glaciers, icefalls, sweeping valley views, and an even more remote high-mountain feeling. Tserko Ri is longer and more demanding than Kyanjin Ri, but its beauty makes it a highly rewarding extension for trekkers who have the time and energy.",
       },
       // {
       //   title: "Short but Powerful Himalayan Trek",
@@ -601,7 +634,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
     ],
 
     seasonalPlanning: [
-       { month: "Jan", condition: "Extremely Cold / Heavy Snow on Passes" },
+      { month: "Jan", condition: "Extremely Cold / Heavy Snow on Passes" },
       { month: "Feb", condition: "Freezing Temperatures / Quiet Trails" },
       { month: "Mar", condition: "Spring Bloom / Vibrant Rhododendrons" },
       { month: "Apr", condition: "Perfect Climbing Weather / Peak Season" },

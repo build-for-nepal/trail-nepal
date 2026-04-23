@@ -7,7 +7,6 @@ type Props = {
 };
 
 const TreksExpect = ({ trekId }: Props) => {
-  // Fetch dynamic data
   const data = TREK_DETAILS[trekId];
   if (!data || !data.expectations) return null;
 

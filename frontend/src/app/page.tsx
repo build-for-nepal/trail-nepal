@@ -2,7 +2,7 @@ import EstimateCostSection from "@/components/home/estimateCost/EstimateCostSect
 import Footer from "@/components/layout/footer/Footer";
 import { HeroSection } from "@/components/home/hero/HeroSection";
 import PopularTrekSection from "@/components/home/popularTreks/PopularTrekSection";
-import WhyTrialNepalSection from "@/components/whyTrialNepal/WhyTrialNepalSection";
+import WhyTrialNepalSection from "@/components/home/whyTrialNepal/WhyTrialNepalSection";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <HeroSection />
       <PopularTrekSection />
       <WhyTrialNepalSection />
-      <EstimateCostSection />
+      {/* <EstimateCostSection /> */}
       <Footer />
     </main>
   );
