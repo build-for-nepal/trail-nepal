@@ -6,6 +6,7 @@ import TreksHeader from "@/components/details/TreksHeader";
 import TreksSeason from "@/components/details/TreksSeason";
 import TreksHero from "@/components/details/TreksHero";
 import Footer from "@/components/layout/footer/Footer";
+import TrialUpdate from "@/components/details/TrialUpdate";
 
 type Props = {
   params: Promise<{
@@ -24,6 +25,7 @@ export default async function TrekDetailPage({ params }: Props) {
       <TreksSeason trekId={id} />
       <TreksExpect trekId={id} />
       <Gallery trekId={id} />
+      <TrialUpdate trekId={id} />
       <GearCheckList trekId={id} />
       <Footer />
     </main>
