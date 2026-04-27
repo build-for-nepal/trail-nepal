@@ -7,6 +7,13 @@ import TreksSeason from "@/components/details/TreksSeason";
 import TreksHero from "@/components/details/TreksHero";
 import Footer from "@/components/layout/footer/Footer";
 import TrialUpdate from "@/components/details/TrialUpdate";
+import { TREK_DETAILS } from "@/static/trekDetails";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return Object.keys(TREK_DETAILS).map((id) => ({ id }));
+}
 
 type Props = {
   params: Promise<{
