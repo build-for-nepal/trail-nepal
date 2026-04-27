@@ -750,7 +750,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: "6km",
           note: "Sleeping elevation gain limited to ~600m for safer acclimatization",
         },
-        coordinates: [28.4933, 83.8854],
+        coordinates: [28.4933, 83.893],
       },
       {
         day: "04",
