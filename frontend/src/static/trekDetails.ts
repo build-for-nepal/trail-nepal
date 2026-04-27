@@ -879,4 +879,275 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       ],
     },
   },
+  "abc-trek": {
+    id: "annapurna-base-camp-ascent",
+    name: "Annapurna Base Camp (Direct Ascent)",
+    region: "Annapurna Region",
+    meta: {
+      duration: "4 Days ",
+      difficulty: "Moderate to Challenging",
+      maxElevation: "4,130m",
+      bestSeasons: "March - May, September - November",
+      startingPoint: "Pokhara / Jhinu Trailhead",
+    },
+    overview:
+      "This route represents the direct, dramatic ascent into the Annapurna Sanctuary, bypassing the lower foothill loops to take you straight into the heart of the Himalayas. Starting from the suspension bridges of Jhinu Danda, the trail climbs the steep stone staircases of Chhomrong before plunging into the V-shaped Modi Khola gorge. Over four days of upward trekking, you will transition from lush, subtropical bamboo and rhododendron forests into a harsh, icy alpine environment. The climax of the upward journey brings you past the towering sheer face of Machhapuchhre (Fishtail) and through the sanctuary gates, ending at Annapurna Base Camp (4,130m) where you are completely surrounded by a 360-degree wall of 7,000m and 8,000m peaks.",
+    timeline: [
+      {
+        day: "01",
+        title: "Pokhara to Chhomrong",
+        description:
+          "An early jeep ride from Pokhara winds along the rough road to the Matkyu/Jhinu Danda trailhead (~2 hrs). Drop down through forest to cross the Kyumnu Khola on a steel suspension bridge, then begin the trek's first real test: thousands of stone steps climbing the ridge to Chhomrong. This sprawling Gurung village is the gateway to the Sanctuary — last reliable ATM, last bakery, and your first head-on view of Annapurna South and Hiunchuli.",
+        stats: {
+          elevation: "2,170m",
+          duration: "2 hrs drive, 3-4 hrs trek",
+          distance: "5km",
+        },
+        coordinates: [28.4200417, 83.8176077],
+      },
+      {
+        day: "02",
+        title: "Chhomrong to Dovan",
+        description:
+          "Descend the long stone staircase to the Chhomrong Khola, cross the suspension bridge, and grind back up to Sinuwa (2,360m) on the opposite ridge. The trail then levels out and contours through Bamboo (2,310m) — a popular alternate stop — before plunging into damp, mossy forests of bamboo, oak, and rhododendron all the way to the small clearing at Dovan.",
+        stats: { elevation: "2,600m", duration: "5-6 hours", distance: "9km" },
+        coordinates: [28.4697078, 83.8694284],
+      },
+      {
+        day: "03",
+        title: "Dovan to Deurali (Acclimatization Day)",
+        description:
+          "A deliberately short day to protect acclimatization. The valley narrows into a steep gorge as you pass the sacred Hinku Cave overhang and cross avalanche chutes (closed in heavy winter snow). Reach Deurali by lunch, drop your pack, and take a slow afternoon walk uphill toward the sanctuary gates before returning to sleep low. This split is the single most important change for AMS prevention on the route.",
+        stats: {
+          elevation: "3,200m",
+          duration: "3-4 hours",
+          distance: "6km",
+          note: "Sleeping elevation gain limited to ~600m for safer acclimatization",
+        },
+        coordinates: [28.4933, 83.893],
+      },
+      {
+        day: "04",
+        title: "Deurali to Machhapuchhre Base Camp (MBC)",
+        description:
+          "The treeline ends abruptly above Deurali, replaced by sparse alpine grass, glacial moraines, and the first long views into the Sanctuary. The climb is steady but never brutal. As you cross the threshold of the inner sanctuary, the staggering fluted face of Machhapuchhre (the 'Fishtail') rises directly above your lodge at MBC. Watch for blue sheep and Himalayan tahr on the slopes opposite.",
+        stats: {
+          elevation: "3,700m",
+          duration: "2-3 hours",
+          distance: "4km",
+          note: "Hydrate aggressively; symptoms of mild AMS often appear here",
+        },
+        coordinates: [28.5132035, 83.9060408],
+      },
+      {
+        day: "05",
+        title: "MBC to Annapurna Base Camp (ABC)",
+        description:
+          "A short, awe-inspiring morning walk takes you into the true heart of the Sanctuary. The trail climbs gently alongside the lateral moraine of the South Annapurna Glacier. As you crest the final rise into ABC, you are completely enveloped by a 360° amphitheatre of giants — Hiunchuli, Annapurna South, Annapurna I (8,091m), Khangsar Kang, Tare Kang, Singu Chuli, and Machhapuchhre — culminating at the towering, icy South Face of Annapurna I.",
+        stats: {
+          elevation: "4,130m",
+          duration: "2-3 hours",
+          distance: "3km",
+          note: "Target arrival before noon; clouds typically roll in by 1pm",
+        },
+        coordinates: [28.5308115, 83.8777275],
+      },
+      // {
+      //   day: "06",
+      //   title: "ABC to Bamboo (Descent)",
+      //   description:
+      //     "Wake before dawn for the alpenglow show — the South Face of Annapurna I lighting up gold is the moment most trekkers come for. After breakfast, retrace your steps down through MBC, Deurali, and Dovan. Knees take a beating on the long stone stairs, so pace yourself. Bamboo's lower, warmer, oxygen-rich air is a noticeable relief after three nights at altitude.",
+      //   stats: {
+      //     elevation: "2,310m",
+      //     duration: "6-7 hours",
+      //     distance: "16km",
+      //     note: "Trekking poles strongly recommended for the descent",
+      //   },
+      //   coordinates: [28.4801, 83.8589],
+      // },
+      // {
+      //   day: "07",
+      //   title: "Bamboo to Jhinu Danda & Drive to Pokhara",
+      //   description:
+      //     "Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.",
+      //   stats: {
+      //     elevation: "1,780m",
+      //     duration: "5-6 hrs trek, 2-3 hrs drive",
+      //     distance: "11km",
+      //     note: "Hot springs entry: NPR 150 per person",
+      //   },
+      //   coordinates: [28.385, 83.8197],
+      // },
+    ],
+    expectations: [
+      {
+        title: "The Annapurna Sanctuary",
+        description:
+          "Step into a natural glacial amphitheater surrounded by 7,000m to 8,000m peaks, offering one of the most awe-inspiring 360-degree mountain panoramas on earth.",
+      },
+      {
+        title: "The Modi Khola Gorge",
+        description:
+          "Experience the dramatic shift in landscape as you trek up a single, deep river gorge that transforms from humid bamboo forests into an icy alpine basin.",
+      },
+      {
+        title: "Rich Gurung Heritage",
+        description:
+          "Walk through pristine stone-paved villages like Chhomrong, experiencing the legendary hospitality and culture of the local Gurung communities.",
+      },
+      {
+        title: "Intense Vertical Gains",
+        description:
+          "Be prepared for the famous 'Nepali flat'—thousands of steep stone staircases that test your leg endurance on the way up to the sanctuary.",
+      },
+    ],
+    seasonalPlanning: [
+      {
+        month: "Jan",
+        condition: "Deep Winter / Heavy Snow / Very Cold at ABC",
+      },
+      {
+        month: "Feb",
+        condition: "Late Winter / Cold but Clear / Avalanche Risk High",
+      },
+      {
+        month: "Mar",
+        condition: "Excellent / Spring Begins / Rhododendrons Blooming",
+      },
+      {
+        month: "Apr",
+        condition: "Peak Season / Warm / Vibrant Forests / Clear Views",
+      },
+      {
+        month: "May",
+        condition: "Very Warm / Pre-Monsoon Haze / Beautiful Blooms",
+      },
+      {
+        month: "Jun",
+        condition: "Monsoon Starts / Wet / Obscured Views / Leeches",
+      },
+      {
+        month: "Jul",
+        condition: "Peak Monsoon / Muddy Trails / Flight Delays",
+      },
+      {
+        month: "Aug",
+        condition: "Heavy Rain / Lush Valleys but Poor Mountain Views",
+      },
+      {
+        month: "Sep",
+        condition: "Post-Monsoon / Washing Away Dust / Crystal Clear",
+      },
+      {
+        month: "Oct",
+        condition: "Perfect / Ideal Weather / Most Popular Time",
+      },
+      {
+        month: "Nov",
+        condition: "Excellent / Cooler Temperatures / Stunning Visibility",
+      },
+      {
+        month: "Dec",
+        condition: "Start of Winter / Cold Nights / Quiet Trails",
+      },
+    ],
+    gallery: [
+      {
+        id: "abc_img_01",
+        url: "/images/abc/image.png",
+        alt: "Panoramic view of the Annapurna Sanctuary",
+        type: "hero",
+      },
+      {
+        id: "abc_img_02",
+        url: "/images/abc/annapurna.jpg",
+        alt: "Machhapuchhre (Fishtail) peak towering over MBC",
+        type: "portrait",
+      },
+      {
+        id: "abc_img_03",
+        url: "/images/abc/annapurna1.jpg",
+        alt: "Trekking through a blooming rhododendron forest",
+        type: "landscape",
+      },
+      {
+        id: "abc_img_04",
+        url: "/images/abc/image0.png",
+        alt: "The stone terraces of Chhomrong village",
+        type: "landscape",
+      },
+      {
+        id: "abc_img_05",
+        url: "/images/abc/image1.png",
+        alt: "The stone terraces of Chhomrong village",
+        type: "landscape",
+      },
+      {
+        id: "abc_img_06",
+        url: "/images/abc/image3.png",
+        alt: "The stone terraces of Chhomrong village",
+        type: "landscape",
+      },
+    ],
+    gearChecklist: {
+      essentials: [
+        {
+          item: "Down Jacket (800+ Fill Power) — critical at ABC (4,130m)",
+          weight: "0.7kg",
+        },
+        {
+          item: "Sleeping Bag (Comfort -10°C, lower limit -15°C)",
+          weight: "1.4kg",
+        },
+        {
+          item: "Waterproof Trekking Boots (broken-in, ankle support)",
+          weight: "1.3kg",
+        },
+
+        { item: "Thermal Base Layers (merino top + bottom)", weight: "0.4kg" },
+        {
+          item: "Hard-Shell Wind/Rain Jacket (Gore-Tex or equivalent)",
+          weight: "0.5kg",
+        },
+        { item: "Fleece Mid-Layer", weight: "0.4kg" },
+        { item: "Insulated Gloves + Liner Gloves", weight: "0.2kg" },
+        { item: "Wool Beanie + Buff/Neck Gaiter", weight: "0.15kg" },
+        {
+          item: "Headlamp + Spare Batteries (lodges cut power early)",
+          weight: "0.15kg",
+        },
+        {
+          item: "High SPF Sunscreen & Polarized UV400 Sunglasses",
+          weight: "0.1kg",
+        },
+      ],
+      optional: [
+        {
+          item: "Trekking Poles (saves knees on the 3,000+ stone stairs)",
+          weight: "0.5kg",
+        },
+        {
+          item: "Power Bank 20,000mAh (charging at ABC is NPR 300–500/hour)",
+          weight: "0.4kg",
+        },
+        { item: "Water Purification Tablets / SteriPEN", weight: "0.1kg" },
+        {
+          item: "Sleeping Bag Liner (+5°C warmth, hygiene in tea houses)",
+          weight: "0.25kg",
+        },
+        {
+          item: "Gaiters (snow above Deurali in shoulder seasons)",
+          weight: "0.2kg",
+        },
+        {
+          item: "Diamox / Altitude Meds (consult doctor first)",
+          weight: "0.05kg",
+        },
+        {
+          item: "Quick-dry Towel + Wet Wipes (no showers past Bamboo)",
+          weight: "0.2kg",
+        },
+      ],
+    },
+  },
 };

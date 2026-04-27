@@ -46,6 +46,26 @@ export const TREKS: Trek[] = [
     isPopular: true,
     keywords: ["langtang", "langtang valley"],
   },
+  {
+    id: "abc-trek",
+    title: "Annapurna Base Camp Trek",
+    region: "Annapurna Region",
+    description:
+      "A breathtaking trek through terraced fields, rhododendron forests, and Gurung villages, leading to the heart of the Annapurna Sanctuary surrounded by towering Himalayan peaks.",
+    difficulty: "Moderate",
+    duration: "7-12 Days",
+    altitude: "4,130m",
+    season: "Mar-May, Sep-Nov",
+    price: 12000,
+    imageUrl: "/images/abc/annapurna.jpg",
+    isPopular: false,
+    keywords: [
+      "annapurna",
+      "annapurna base camp",
+      "abc",
+      "annapurna sanctuary",
+    ],
+  },
 ];
 
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
