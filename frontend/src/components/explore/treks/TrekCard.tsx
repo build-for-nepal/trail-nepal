@@ -76,7 +76,7 @@ export default function TrekCard({
           </span>
           <span className="flex items-center gap-1.5">
             <CalendarDays className="size-4" strokeWidth={2.2} />
-            {season}
+            {season.replace(/-/g, "\u2011")}
           </span>
         </div>
 
