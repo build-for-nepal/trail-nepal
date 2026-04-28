@@ -16,7 +16,7 @@ export interface CarouselCardProps {
 }
 export interface HeroBackgroundProps {
   slides: Slide[];
-  bgLayersRef: RefObject<(HTMLDivElement | null)[]>;
+  activeIndex: number;
 }
 export interface Slide {
   id: string;

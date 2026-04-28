@@ -14,7 +14,7 @@ export const SLIDES: Slide[] = [
     id: "everest-base-camp",
     title: "Everest Base Camp Trek",
     imageAlt: "The iconic Everest Base Camp rock marker at 5364 meters",
-    imageSrc: "/images/Carousel/ebc.jpg",
+    imageSrc: "/images/Carousel/ebc.webp",
     description:
       "Stand at the foot of the world's highest peak. Journey through the Khumbu Valley to witness the legendary 5,364m marker and the moving spirit of global explorers.",
   },
@@ -23,7 +23,7 @@ export const SLIDES: Slide[] = [
     title: "Annapurna Base Camp Trek",
     imageAlt:
       "Majestic snow-capped Himalayan peaks piercing through a sea of clouds",
-    imageSrc: "/images/Carousel/annapurna.jpg",
+    imageSrc: "/images/Carousel/annapurna.webp",
     description:
       "A breathtaking journey into a natural amphitheater of towering peaks deep in the heart of the Annapurna Himalaya.",
   },
@@ -32,7 +32,7 @@ export const SLIDES: Slide[] = [
     title: "Langtang Valley Trek",
     imageAlt:
       "A serene high-altitude turquoise lake nestled between rugged mountain ridges",
-    imageSrc: "/images/Carousel/langtang.jpg",
+    imageSrc: "/images/Carousel/langtang.webp",
     description:
       "A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.",
   },
@@ -41,7 +41,7 @@ export const SLIDES: Slide[] = [
     title: "Manaslu Circuit Trek",
     imageAlt:
       "A massive mountain face glowing with brilliant orange light during sunset",
-    imageSrc: "/images/Carousel/manaslu.jpg",
+    imageSrc: "/images/Carousel/manaslu.webp",
     description:
       "A remote Himalayan adventure circling one of the world’s highest mountains through Tibetan influenced villages and high mountain passes.",
   },
@@ -50,7 +50,7 @@ export const SLIDES: Slide[] = [
     title: "Mardi Himal Trek",
     imageAlt:
       "The striking pyramid peak of Ama Dablam soaring above the clouds",
-    imageSrc: "/images/Carousel/mardihimal.jpg",
+    imageSrc: "/images/Carousel/mardihimal.webp",
     description:
       "A short yet spectacular ridge trek offering close-up views of Machapuchare and the Annapurna range.",
   },
