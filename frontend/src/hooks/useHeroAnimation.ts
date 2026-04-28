@@ -7,29 +7,32 @@ export const useHeroAnimation = (totalSlides: number) => {
   const isAnimating = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Cleanup timers safely
   useEffect(() => {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      isAnimating.current = false;
     };
   }, []);
 
   const goToSlide = useCallback(
     (next: number) => {
+      // Normalize negative indexes to safely wrap around endlessly
+      const normalizedNext = ((next % totalSlides) + totalSlides) % totalSlides;
+
       if (
-        !Number.isInteger(next) ||
-        next < 0 ||
-        next >= totalSlides ||
+        !Number.isInteger(normalizedNext) ||
         isAnimating.current ||
-        next === activeIndexRef.current
-      )
+        normalizedNext === activeIndexRef.current
+      ) {
         return;
+      }
 
       isAnimating.current = true;
-      activeIndexRef.current = next;
-      setActiveIndex(next);
+      activeIndexRef.current = normalizedNext;
+      setActiveIndex(normalizedNext);
 
       if (timerRef.current) clearTimeout(timerRef.current);
+
       timerRef.current = setTimeout(() => {
         isAnimating.current = false;
         timerRef.current = null;
@@ -38,15 +41,13 @@ export const useHeroAnimation = (totalSlides: number) => {
     [totalSlides],
   );
 
-  const handleNext = useCallback(
-    () => goToSlide((activeIndexRef.current + 1) % totalSlides),
-    [totalSlides, goToSlide],
-  );
+  const handleNext = useCallback(() => {
+    goToSlide(activeIndexRef.current + 1);
+  }, [goToSlide]);
 
-  const handlePrev = useCallback(
-    () => goToSlide((activeIndexRef.current - 1 + totalSlides) % totalSlides),
-    [totalSlides, goToSlide],
-  );
+  const handlePrev = useCallback(() => {
+    goToSlide(activeIndexRef.current - 1);
+  }, [goToSlide]);
 
   return { activeIndex, handleNext, handlePrev, goToSlide };
 };
