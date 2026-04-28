@@ -76,13 +76,13 @@ export default function TrekCard({
           </span>
           <span className="flex items-center gap-1.5">
             <CalendarDays className="size-4" strokeWidth={2.2} />
-            {season}
+            {season.replace(/-/g, "\u2011")}
           </span>
         </div>
 
-        <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
+        {/* <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
           ~ Nrs. {price.toLocaleString()}
-        </div>
+        </div> */}
 
         {/* CTA — always pinned at bottom */}
         <Link
