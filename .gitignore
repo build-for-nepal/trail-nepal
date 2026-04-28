@@ -33,3 +33,13 @@ backend/prisma/dev.db
 *.sw?
 .DS_Store
 Thumbs.db
+
+# Pre-compression image backups (created by frontend/scripts/compress-images.mjs)
+frontend/public/images/_originals/
+frontend/public/images/**/_originals/
+
+# Local Claude Code project config
+.claude/
+
+# Local-only image compression script
+frontend/scripts/compress-images.mjs

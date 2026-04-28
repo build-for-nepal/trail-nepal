@@ -541,6 +541,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         },
         coordinates: [28.1612117, 85.4296495],
       },
+
       {
         day: "03",
         title: "Lama Hotel to Langtang Village",
