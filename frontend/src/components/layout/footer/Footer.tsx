@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { SOCIAL_ICONS } from "@/static/constants";
-import SectionHeader from "@/components/common/SectionHeader";
-import { NavLinks } from "../navigation/NavLinks";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import React from 'react';
+import Image from 'next/image';
+import { SOCIAL_ICONS } from '@/static/constants';
+import SectionHeader from '@/components/common/SectionHeader';
+import { NavLinks } from '../navigation/NavLinks';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const Footer = () => {
   const pathName = usePathname();
-  const isHomepage = pathName === "/";
+  const isHomepage = pathName === '/';
 
   return (
     <footer className=" relative w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
@@ -80,14 +80,14 @@ const Footer = () => {
                 Presented by
               </p>
               <div className="flex items-center justify-center rounded-md bg-white px-7 py-2">
-               <Link href="https://buildfornepal.org/" target="_blank">
-                <Image
-                  src="/icons/BNF.svg"
-                  alt="Build For Nepal"
-                  width={80}
-                  height={28}
-                  className="h-7 w-auto object-contain"
-                />
+                <Link href="https://buildfornepal.org/" target="_blank">
+                  <Image
+                    src="/icons/BNF.svg"
+                    alt="Build For Nepal"
+                    width={80}
+                    height={28}
+                    className="h-7 w-auto object-contain"
+                  />
                 </Link>
               </div>
             </div>

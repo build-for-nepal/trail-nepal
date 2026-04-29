@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
-import gsap from "gsap";
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import gsap from 'gsap';
 
-import { TRANSITION_DURATION_MS } from "../../../static/constants";
-import { MobileCarouselProps } from "@/types/homepage";
+import { TRANSITION_DURATION_MS } from '../../../static/constants';
+import { MobileCarouselProps } from '@/types/homepage';
 
 const CARD_WIDTH = 106.875;
 const CARD_HEIGHT = 126.563;
@@ -34,15 +34,11 @@ export const MobileCarousel = ({
         const isActive = offset === 0;
         const isVisible = Math.abs(offset) <= 2;
         const targetScale = isActive ? 1.15 : 1;
-        const targetOpacity = !isVisible
-          ? 0
-          : Math.abs(offset) === 2
-            ? 0.5
-            : 1;
+        const targetOpacity = !isVisible ? 0 : Math.abs(offset) === 2 ? 0.5 : 1;
         const targetZIndex = isActive ? 30 : 20 - Math.abs(offset);
 
         if (isVisible) {
-          gsap.set(el, { display: "block", zIndex: targetZIndex });
+          gsap.set(el, { display: 'block', zIndex: targetZIndex });
         }
 
         gsap.to(el, {
@@ -50,11 +46,11 @@ export const MobileCarousel = ({
           scale: targetScale,
           opacity: targetOpacity,
           duration: DURATION_S,
-          ease: "power3.out",
+          ease: 'power3.out',
           force3D: true,
-          overwrite: "auto",
+          overwrite: 'auto',
           onComplete: () => {
-            if (!isVisible) gsap.set(el, { display: "none" });
+            if (!isVisible) gsap.set(el, { display: 'none' });
           },
         });
       });
@@ -84,19 +80,18 @@ export const MobileCarousel = ({
               }}
               onClick={() => goToSlide(index)}
               style={{
-                display: isVisible ? "block" : "none",
+                display: isVisible ? 'block' : 'none',
                 width: `${CARD_WIDTH}px`,
                 height: `${CARD_HEIGHT}px`,
                 bottom: 0,
                 transform: `translate3d(${xOffset}px, 0, 0) scale(${isActive ? 1.15 : 1})`,
-                transformOrigin: "bottom center",
-                opacity:
-                  Math.abs(offset) === 2 ? 0.5 : isVisible ? 1 : 0,
+                transformOrigin: 'bottom center',
+                opacity: Math.abs(offset) === 2 ? 0.5 : isVisible ? 1 : 0,
                 zIndex: isActive ? 30 : 20 - Math.abs(offset),
-                borderRadius: "9px",
-                border: "1.125px solid #FFF",
-                willChange: "transform, opacity",
-                backfaceVisibility: "hidden",
+                borderRadius: '9px',
+                border: '1.125px solid #FFF',
+                willChange: 'transform, opacity',
+                backfaceVisibility: 'hidden',
               }}
               className="absolute overflow-hidden shadow-xl"
             >
@@ -106,8 +101,8 @@ export const MobileCarousel = ({
                 fill
                 sizes="120px"
                 quality={70}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "low"}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'low'}
                 className="object-cover"
               />
             </button>

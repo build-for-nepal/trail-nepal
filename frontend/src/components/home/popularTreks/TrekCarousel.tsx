@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useRef, useEffect } from "react";
-import TrekCard from "./TrekCard";
-import { Trek } from "@/types/trek";
+import { useRef, useEffect } from 'react';
+import TrekCard from './TrekCard';
+import { Trek } from '@/types/trek';
 
 const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -87,7 +87,7 @@ const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
       <div
         ref={trackRef}
         className="flex gap-4 md:gap-6 px-4 md:px-10 pb-4 will-change-transform"
-        style={{ width: "max-content" }}
+        style={{ width: 'max-content' }}
       >
         {loopedTreks.map((trek, i) => (
           <div key={`${trek.id}-${i}`} className="shrink-0 w-[304px]">

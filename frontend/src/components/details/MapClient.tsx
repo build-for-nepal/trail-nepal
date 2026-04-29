@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import L from "leaflet";
+import { useEffect, useState } from 'react';
+import L from 'leaflet';
 import {
   MapContainer,
   TileLayer,
@@ -12,11 +12,11 @@ import {
   ScaleControl,
   Marker,
   Tooltip,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
-import { TrekTimelineDay } from "@/types/trek";
-import { TREK_DETAILS } from "@/static/trekDetails";
+import { TrekTimelineDay } from '@/types/trek';
+import { TREK_DETAILS } from '@/static/trekDetails';
 
 function MapUpdater({ data }: { data: any }) {
   const map = useMap();
@@ -29,7 +29,7 @@ function MapUpdater({ data }: { data: any }) {
           map.flyToBounds(bounds, { padding: [50, 50], duration: 1.5 });
         }
       } catch (e) {
-        console.error("Error calculating route bounds", e);
+        console.error('Error calculating route bounds', e);
       }
     }
   }, [data, map]);
@@ -74,7 +74,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
   // Creates the dynamic HTML circle markers for the map
   const createDayIcon = (dayNumber: string) => {
     return L.divIcon({
-      className: "bg-transparent! border-none!",
+      className: 'bg-transparent! border-none!',
       html: `
         <div class="flex items-center justify-center w-7 h-7 rounded-full shadow-lg border-2 border-white bg-[#84b829] text-white hover:bg-white hover:text-[#84b829] hover:scale-125 transition-all duration-300">
           <span class="text-xs font-bold">${dayNumber}</span>
@@ -95,11 +95,11 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
     layer.on({
       mouseover: (e) => {
         const line = e.target;
-        line.setStyle({ color: "#a5d848", weight: 6 });
+        line.setStyle({ color: '#a5d848', weight: 6 });
       },
       mouseout: (e) => {
         const line = e.target;
-        line.setStyle({ color: "#84b829", weight: 4 });
+        line.setStyle({ color: '#84b829', weight: 4 });
       },
     });
   };
@@ -114,7 +114,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
       maxBoundsViscosity={0.8}
       scrollWheelZoom={true}
       zoomControl={false}
-      style={{ height: "100%", width: "100%", zIndex: 0 }}
+      style={{ height: '100%', width: '100%', zIndex: 0 }}
     >
       <MapUpdater data={data} />
       <FocusHandler focusTarget={activeCoords} />
@@ -151,10 +151,10 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
             key={`${trekId}-casing`}
             data={data}
             style={{
-              color: "#ffffff",
+              color: '#ffffff',
               weight: 7,
               opacity: 0.9,
-              lineCap: "round",
+              lineCap: 'round',
             }}
           />
           {/* Main Green Trail */}
@@ -163,10 +163,10 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
             data={data}
             onEachFeature={onEachFeature}
             style={{
-              color: "#84b829",
+              color: '#84b829',
               weight: 4,
-              lineCap: "round",
-              className: "cursor-pointer transition-all duration-300",
+              lineCap: 'round',
+              className: 'cursor-pointer transition-all duration-300',
             }}
           />
         </>
@@ -207,7 +207,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
                       Elevation
                     </span>
                     <strong className="text-gray-800">
-                      {dayObj.stats?.elevation || "N/A"}
+                      {dayObj.stats?.elevation || 'N/A'}
                     </strong>
                   </div>
                   <div>
@@ -215,7 +215,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
                       Distance
                     </span>
                     <strong className="text-gray-800">
-                      {dayObj.stats?.distance || "N/A"}
+                      {dayObj.stats?.distance || 'N/A'}
                     </strong>
                   </div>
                   <div className="col-span-2 pt-1 border-t border-gray-100">
@@ -223,7 +223,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
                       Est. Time
                     </span>
                     <strong className="text-gray-800">
-                      {dayObj.stats?.duration || "N/A"}
+                      {dayObj.stats?.duration || 'N/A'}
                     </strong>
                   </div>
                 </div>

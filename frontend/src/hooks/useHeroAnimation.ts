@@ -1,5 +1,5 @@
-import { TRANSITION_DURATION_MS } from "@/static/constants";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { TRANSITION_DURATION_MS } from '@/static/constants';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 export const useHeroAnimation = (totalSlides: number) => {
   const [activeIndex, setActiveIndex] = useState(0);

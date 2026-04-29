@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
-import updateMountain from "@/assets/details/updateMountain.svg";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import TrialUpdateReviews from "./TrialUpdateReviews";
+import { cn } from '@/lib/utils';
+import updateMountain from '@/assets/details/updateMountain.svg';
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import TrialUpdateReviews from './TrialUpdateReviews';
 
 export interface Props {
   trekId: string;
@@ -10,7 +10,7 @@ export interface Props {
 
 const TrialUpdate = ({ trekId }: Props) => {
   return (
-    <div className={cn("page-wrapper", "flex flex-col gap-10")}>
+    <div className={cn('page-wrapper', 'flex flex-col gap-10')}>
       <div className="relative w-full h-80 md:h-60 rounded-2xl overflow-hidden shadow-lg">
         <Image
           src={updateMountain}

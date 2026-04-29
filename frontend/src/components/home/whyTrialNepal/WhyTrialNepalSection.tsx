@@ -1,6 +1,6 @@
-import SectionHeader from "../../common/SectionHeader";
-import FeatureItem from "./FeatureItem";
-import { WHY_NEPAL_FEATURES } from "@/static/constants";
+import SectionHeader from '../../common/SectionHeader';
+import FeatureItem from './FeatureItem';
+import { WHY_NEPAL_FEATURES } from '@/static/constants';
 
 const WhyNepalSection = () => {
   return (

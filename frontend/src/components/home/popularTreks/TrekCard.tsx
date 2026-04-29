@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import Pill from "@/components/common/Pill";
-import { DIFFICULTY_COLORS } from "@/static/constants";
-import { Clock, Mountain, CalendarDays } from "lucide-react";
-import { ExploreTrekCardProps } from "@/types/trek";
+import Image from 'next/image';
+import Link from 'next/link';
+import Pill from '@/components/common/Pill';
+import { DIFFICULTY_COLORS } from '@/static/constants';
+import { Clock, Mountain, CalendarDays } from 'lucide-react';
+import { ExploreTrekCardProps } from '@/types/trek';
 // import { TrekCardProps } from "@/types/homepage";
 
 const TrekCard = ({
@@ -18,13 +18,13 @@ const TrekCard = ({
   href,
 }: ExploreTrekCardProps) => {
   const difficultyColor =
-    DIFFICULTY_COLORS[difficulty.toLowerCase()] ?? "#6BBF1F";
+    DIFFICULTY_COLORS[difficulty.toLowerCase()] ?? '#6BBF1F';
 
   return (
     <div className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
       <div className="relative w-full flex-1 lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-full lg:group-hover:h-[calc(100%-220px)] transition-all duration-500 ease-in-out lg:z-0">
         <Image
-          src={imageUrl || "/images/placeholder-trek.jpg"}
+          src={imageUrl || '/images/placeholder-trek.jpg'}
           alt={title}
           fill
           className="object-cover transition-transform duration-700 lg:group-hover:scale-105"

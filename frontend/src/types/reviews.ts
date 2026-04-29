@@ -1,4 +1,4 @@
-export type ImageType = "hero" | "landscape" | "portrait" | "detail";
+export type ImageType = 'hero' | 'landscape' | 'portrait' | 'detail';
 
 export interface TrailImage {
   id: string;
@@ -8,14 +8,14 @@ export interface TrailImage {
 }
 
 export type ReviewTag =
-  | "Great views"
-  | "Well marked trail"
-  | "Good food"
-  | "Friendly locals"
-  | "Challenging terrain"
-  | "Good accommodation"
-  | "Worth the effort"
-  | "Beautiful flora";
+  | 'Great views'
+  | 'Well marked trail'
+  | 'Good food'
+  | 'Friendly locals'
+  | 'Challenging terrain'
+  | 'Good accommodation'
+  | 'Worth the effort'
+  | 'Beautiful flora';
 
 export interface TrailReview {
   id: string;

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { SlidersHorizontal } from "lucide-react";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
-import { FilterState } from "@/types/explorepage";
-import { useFilters } from "@/hooks/useFilters";
-import { FilterPanel } from "./FilterPanel";
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { SlidersHorizontal } from 'lucide-react';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { DialogTitle, DialogDescription } from '@radix-ui/react-dialog';
+import { FilterState } from '@/types/explorepage';
+import { useFilters } from '@/hooks/useFilters';
+import { FilterPanel } from './FilterPanel';
 
 export default function FilterSidebar({
   mobile,

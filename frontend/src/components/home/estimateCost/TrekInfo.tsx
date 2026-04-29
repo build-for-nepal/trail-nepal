@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { SearchBar } from "../../layout/navigation/SearchBar";
-import { TrekInfoData } from "@/types/homepage";
+import Link from 'next/link';
+import { SearchBar } from '../../layout/navigation/SearchBar';
+import { TrekInfoData } from '@/types/homepage';
 
 interface TrekInfoProps {
   trek: TrekInfoData;

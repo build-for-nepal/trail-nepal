@@ -1,17 +1,17 @@
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { SearchBarProps } from "@/types/homepage";
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import { SearchBarProps } from '@/types/homepage';
 
-export function SearchBar({ variant = "light", className }: SearchBarProps) {
-  const isDark = variant === "dark";
+export function SearchBar({ variant = 'light', className }: SearchBarProps) {
+  const isDark = variant === 'dark';
 
   return (
     <div
       className={cn(
-        "relative flex  items-center gap-2 overflow-hidden rounded-[16px] border px-2 py-2 backdrop-blur-sm transition-all duration-200",
-        isDark ?
-          "border-gray-300 bg-white focus-within:border-gray-400 focus-within:bg-gray-50 shadow-sm"
-        : "border-white/25 bg-white/20 focus-within:border-white/40 focus-within:bg-white/25",
+        'relative flex  items-center gap-2 overflow-hidden rounded-[16px] border px-2 py-2 backdrop-blur-sm transition-all duration-200',
+        isDark
+          ? 'border-gray-300 bg-white focus-within:border-gray-400 focus-within:bg-gray-50 shadow-sm'
+          : 'border-white/25 bg-white/20 focus-within:border-white/40 focus-within:bg-white/25',
         className,
       )}
     >
@@ -20,17 +20,17 @@ export function SearchBar({ variant = "light", className }: SearchBarProps) {
         alt=""
         width={20}
         height={20}
-        className={cn("shrink-0", isDark && "invert opacity-70")}
+        className={cn('shrink-0', isDark && 'invert opacity-70')}
         aria-hidden="true"
       />
       <input
         type="search"
         placeholder="Search"
         className={cn(
-          "flex-1 border-none bg-transparent font-poppins text-sm font-normal leading-5 outline-none [&::-webkit-search-cancel-button]:hidden",
-          isDark ?
-            "text-gray-900 placeholder:text-gray-500"
-          : "text-white placeholder:text-white/60",
+          'flex-1 border-none bg-transparent font-poppins text-sm font-normal leading-5 outline-none [&::-webkit-search-cancel-button]:hidden',
+          isDark
+            ? 'text-gray-900 placeholder:text-gray-500'
+            : 'text-white placeholder:text-white/60',
         )}
         aria-label="Search treks"
       />

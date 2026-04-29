@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { ChevronRight } from "lucide-react";
-import type { Trek } from "@/types/trek";
+} from '@/components/ui/command';
+import { ChevronRight } from 'lucide-react';
+import type { Trek } from '@/types/trek';
 
 interface SearchSuggestionsProps {
   results: Trek[];

@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { Menu } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { NAV_LINKS } from "../../../static/nav-links.config";
-import { SearchBar } from "./SearchBar";
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Menu } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { NAV_LINKS } from '../../../static/nav-links.config';
+import { SearchBar } from './SearchBar';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,10 +67,10 @@ export function MobileMenu() {
                     <Link
                       href={href}
                       className={cn(
-                        "block font-poppins text-[16px] font-normal tracking-tight transition-all",
-                        isActive ? "text-[#8cc63f]" : (
-                          "text-[#1e293b] hover:pl-2"
-                        ),
+                        'block font-poppins text-[16px] font-normal tracking-tight transition-all',
+                        isActive
+                          ? 'text-[#8cc63f]'
+                          : 'text-[#1e293b] hover:pl-2',
                       )}
                     >
                       {label}

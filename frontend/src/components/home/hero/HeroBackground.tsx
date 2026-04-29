@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import type { HeroBackgroundProps } from "../../../types/homepage";
-import { TRANSITION_DURATION_MS } from "../../../static/constants";
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import type { HeroBackgroundProps } from '../../../types/homepage';
+import { TRANSITION_DURATION_MS } from '../../../static/constants';
 
 type IdleHandle = number;
 type RequestIdleCallback = (
@@ -51,9 +51,9 @@ export const HeroBackground = ({
             style={{
               opacity: isActive ? 1 : 0,
               transition: `opacity ${TRANSITION_DURATION_MS}ms ease-in-out`,
-              willChange: "opacity",
-              transform: "translateZ(0)",
-              backfaceVisibility: "hidden",
+              willChange: 'opacity',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
             }}
             className="absolute inset-0"
           >
@@ -65,8 +65,8 @@ export const HeroBackground = ({
                 sizes="100vw"
                 quality={70}
                 preload={index === 0}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "low"}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'low'}
                 className="object-cover"
               />
             )}

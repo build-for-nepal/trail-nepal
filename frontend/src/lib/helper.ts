@@ -1,5 +1,5 @@
-import { GAP_REM, STACK_SLOTS } from "../static/constants";
-import type { CardOffset } from "../types/homepage";
+import { GAP_REM, STACK_SLOTS } from '../static/constants';
+import type { CardOffset } from '../types/homepage';
 
 export interface ResolvedCardStyle {
   leftRem: number;
@@ -8,7 +8,7 @@ export interface ResolvedCardStyle {
   heightRem: number;
   zIndex: number;
   opacity: number;
-  pointerEvents: "none" | "auto";
+  pointerEvents: 'none' | 'auto';
 }
 
 export const DERIVED_LEFT_REM: Readonly<number[]> = STACK_SLOTS.reduce<
@@ -45,7 +45,7 @@ export function getCardStyle(offset: number): ResolvedCardStyle {
     heightRem: slot.heightRem,
     zIndex: slot.zIndex,
     opacity: 1,
-    pointerEvents: offset === 0 ? "none" : "auto",
+    pointerEvents: offset === 0 ? 'none' : 'auto',
   };
 }
 
@@ -58,7 +58,7 @@ function hiddenLeft(): ResolvedCardStyle {
     heightRem: slot.heightRem,
     zIndex: 0,
     opacity: 0,
-    pointerEvents: "none",
+    pointerEvents: 'none',
   };
 }
 
@@ -71,6 +71,6 @@ function hiddenRight(): ResolvedCardStyle {
     heightRem: slot.heightRem,
     zIndex: 0,
     opacity: 0,
-    pointerEvents: "none",
+    pointerEvents: 'none',
   };
 }

@@ -1,5 +1,5 @@
-import { memo } from "react";
-import type { HeroContentProps } from "../../../types/homepage";
+import { memo } from 'react';
+import type { HeroContentProps } from '../../../types/homepage';
 
 const ArrowLeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -34,7 +34,7 @@ const ArrowRightIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const focusRing =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
 
 export const HeroContent = memo(function HeroContent({
   slide,

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import { FilterState } from "@/types/explorepage";
-import FilterSidebar from "../filter/FilterSidebar";
-import TrekCard from "./TrekCard";
-import { TREKS } from "@/static/trek";
+import { useState, useCallback } from 'react';
+import { FilterState } from '@/types/explorepage';
+import FilterSidebar from '../filter/FilterSidebar';
+import TrekCard from './TrekCard';
+import { TREKS } from '@/static/trek';
 
 export default function ExploreLayout() {
   const [filtered, setFiltered] = useState(TREKS);
@@ -29,11 +29,11 @@ export default function ExploreLayout() {
         const days = daysMatch ? parseInt(daysMatch[0], 10) : 0;
 
         return f.durations.some((bucket) => {
-          if (bucket === "0-3 days") return days >= 0 && days <= 3;
-          if (bucket === "3-5 days") return days >= 3 && days <= 5;
-          if (bucket === "5-10 days") return days >= 5 && days <= 10;
-          if (bucket === "10-15 days") return days >= 10 && days <= 15;
-          if (bucket === "15+ days") return days >= 15;
+          if (bucket === '0-3 days') return days >= 0 && days <= 3;
+          if (bucket === '3-5 days') return days >= 3 && days <= 5;
+          if (bucket === '5-10 days') return days >= 5 && days <= 10;
+          if (bucket === '10-15 days') return days >= 10 && days <= 15;
+          if (bucket === '15+ days') return days >= 15;
           return false;
         });
       });
@@ -47,7 +47,7 @@ export default function ExploreLayout() {
 
     // 5. Elevation
     result = result.filter((t) => {
-      const alt = Number(t.altitude.replace(/[^0-9]/g, ""));
+      const alt = Number(t.altitude.replace(/[^0-9]/g, ''));
       return isNaN(alt) || alt <= f.maxElevation;
     });
 
@@ -71,7 +71,7 @@ export default function ExploreLayout() {
 
           {/* Grid Area */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 items-stretch">
-            {filtered.length > 0 ?
+            {filtered.length > 0 ? (
               filtered.map((trek) => (
                 <TrekCard
                   key={trek.id}
@@ -79,10 +79,11 @@ export default function ExploreLayout() {
                   href={`/treks/${trek.id}`} // Dynamically inject the correct URL here
                 />
               ))
-            : <div className="col-span-full py-32 text-center text-lg font-medium text-text-secondary">
+            ) : (
+              <div className="col-span-full py-32 text-center text-lg font-medium text-text-secondary">
                 No treks found matching your filters.
               </div>
-            }
+            )}
           </div>
         </div>
       </div>

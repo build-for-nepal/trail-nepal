@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import type { Trek } from "@/types/trek";
-import { TREKS } from "@/static/trek";
+import { useMemo } from 'react';
+import type { Trek } from '@/types/trek';
+import { TREKS } from '@/static/trek';
 
 export function useTrekSearch(query: string): Trek[] {
   return useMemo(() => {

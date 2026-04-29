@@ -1,35 +1,35 @@
-"use client";
+'use client';
 
-import { useState, useMemo } from "react";
-import SectionHeader from "../common/SectionHeader";
-import Image from "next/image";
-import gearBag from "@/assets/details/gearbag.svg";
-import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
+import { useState, useMemo } from 'react';
+import SectionHeader from '../common/SectionHeader';
+import Image from 'next/image';
+import gearBag from '@/assets/details/gearbag.svg';
+import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
 import {
   CheckItemProps,
   GearCategory,
   GearCategoryKey,
   GearChecklist,
-} from "@/types/trek";
-import { TREK_DETAILS } from "@/static/trekDetails";
-import { gearCheckListDescriptions } from "@/static/constants";
+} from '@/types/trek';
+import { TREK_DETAILS } from '@/static/trekDetails';
+import { gearCheckListDescriptions } from '@/static/constants';
 
 // Fallback data if no trekId is provided
 const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
   essentials: [
-    { item: "Waterproof Shell Jacket", weight: "0.6kg" },
-    { item: "Sleeping Bag (-10°C)", weight: "1.5kg" },
+    { item: 'Waterproof Shell Jacket', weight: '0.6kg' },
+    { item: 'Sleeping Bag (-10°C)', weight: '1.5kg' },
   ],
-  optional: [{ item: "Fleece Jacket", weight: "0.5kg" }],
+  optional: [{ item: 'Fleece Jacket', weight: '0.5kg' }],
 };
 
 const getWeightMeta = (kg: number): { label: string; color: string } => {
-  if (kg === 0) return { label: "Empty", color: "#9ca3af" };
-  if (kg < 3) return { label: "Light Load", color: "#3b82f6" };
-  if (kg < 7) return { label: "Optimal Load", color: "#22c55e" };
-  if (kg < 12) return { label: "Heavy Load", color: "#f59e0b" };
-  return { label: "Over Limit", color: "#ef4444" };
+  if (kg === 0) return { label: 'Empty', color: '#9ca3af' };
+  if (kg < 3) return { label: 'Light Load', color: '#3b82f6' };
+  if (kg < 7) return { label: 'Optimal Load', color: '#22c55e' };
+  if (kg < 12) return { label: 'Heavy Load', color: '#f59e0b' };
+  return { label: 'Over Limit', color: '#ef4444' };
 };
 
 const CheckItem = ({
@@ -42,41 +42,41 @@ const CheckItem = ({
 }: CheckItemProps) => (
   <div
     className={[
-      "flex items-center gap-2.5 px-5 py-3 transition-colors duration-150",
-      showBottomBorder ? "border-b border-gray-100" : "",
-      checked ? "bg-green-50" : "hover:bg-gray-50",
-    ].join(" ")}
+      'flex items-center gap-2.5 px-5 py-3 transition-colors duration-150',
+      showBottomBorder ? 'border-b border-gray-100' : '',
+      checked ? 'bg-green-50' : 'hover:bg-gray-50',
+    ].join(' ')}
   >
     <Checkbox
       id={id}
       checked={checked}
       onCheckedChange={() => onToggle(id)}
       className={cn(
-        "w-4.5 h-4.5 cursor-pointer transition-all transform duration-700 ease-in-out",
+        'w-4.5 h-4.5 cursor-pointer transition-all transform duration-700 ease-in-out',
         checked &&
-          "bg-green-500 border-green-500 data-checked:bg-green-500 data-checked:border-green-500",
+          'bg-green-500 border-green-500 data-checked:bg-green-500 data-checked:border-green-500',
       )}
       style={{
-        backgroundColor: checked ? "#22c55e" : undefined,
-        borderColor: checked ? "#22c55e" : undefined,
+        backgroundColor: checked ? '#22c55e' : undefined,
+        borderColor: checked ? '#22c55e' : undefined,
       }}
     />
 
     <label
       htmlFor={id}
       className={[
-        "flex-1 text-sm truncate transition-colors duration-150 cursor-pointer",
-        checked ? "text-green-700 font-medium" : "text-gray-600",
-      ].join(" ")}
+        'flex-1 text-sm truncate transition-colors duration-150 cursor-pointer',
+        checked ? 'text-green-700 font-medium' : 'text-gray-600',
+      ].join(' ')}
     >
       {name}
     </label>
 
     <span
       className={[
-        "text-xs font-semibold tabular-nums whitespace-nowrap",
-        checked ? "text-green-500" : "text-gray-400",
-      ].join(" ")}
+        'text-xs font-semibold tabular-nums whitespace-nowrap',
+        checked ? 'text-green-500' : 'text-gray-400',
+      ].join(' ')}
     >
       {weight.toFixed(2)}kg
     </span>
@@ -96,8 +96,8 @@ const GearCheckList = ({ trekId }: Props) => {
   const parseWeightToKg = (weightStr: string): number => {
     const value = parseFloat(weightStr);
     if (isNaN(value)) return 0;
-    if (weightStr.toLowerCase().includes("kg")) return value;
-    if (weightStr.toLowerCase().includes("g")) return value / 1000;
+    if (weightStr.toLowerCase().includes('kg')) return value;
+    if (weightStr.toLowerCase().includes('g')) return value / 1000;
     return value;
   };
 
@@ -106,8 +106,8 @@ const GearCheckList = ({ trekId }: Props) => {
 
     if (data?.essentials && data.essentials.length > 0) {
       categories.push({
-        key: "essential",
-        label: "Essential",
+        key: 'essential',
+        label: 'Essential',
         items: data.essentials.map((item, idx) => ({
           id: `essential-${idx}`,
           name: item.item,
@@ -119,8 +119,8 @@ const GearCheckList = ({ trekId }: Props) => {
 
     if (data?.optional && data.optional.length > 0) {
       categories.push({
-        key: "optional",
-        label: "Optional",
+        key: 'optional',
+        label: 'Optional',
         items: data.optional.map((item, idx) => ({
           id: `optional-${idx}`,
           name: item.item,
@@ -139,7 +139,7 @@ const GearCheckList = ({ trekId }: Props) => {
 
   const [categories, setCategories] =
     useState<GearCategory[]>(initialCategories);
-  const [activeTab, setActiveTab] = useState<GearCategoryKey>("essential");
+  const [activeTab, setActiveTab] = useState<GearCategoryKey>('essential');
 
   const toggle = (categoryKey: GearCategoryKey, itemId: string) => {
     setCategories((prev) =>
@@ -191,7 +191,7 @@ const GearCheckList = ({ trekId }: Props) => {
         description="Make sure you have everything you need"
       />
 
-      <div className={cn("flex flex-col items-center gap-1.5")}>
+      <div className={cn('flex flex-col items-center gap-1.5')}>
         <div className="w-full max-w-lg flex justify-between text-sm">
           <span className="text-gray-500 font-medium">Progress</span>
           <span className="font-semibold text-gray-700">
@@ -203,11 +203,11 @@ const GearCheckList = ({ trekId }: Props) => {
             className="h-full rounded-full transition-[width] duration-500 ease-out"
             style={{
               width: `${stats.progressPct}%`,
-              background: "linear-gradient(90deg, #60a5fa, #2563eb)",
+              background: 'linear-gradient(90deg, #60a5fa, #2563eb)',
               boxShadow:
                 stats.progressPct > 0
-                  ? "0 2px 8px rgba(37,99,235,0.4)"
-                  : "none",
+                  ? '0 2px 8px rgba(37,99,235,0.4)'
+                  : 'none',
             }}
           />
         </div>
@@ -231,14 +231,14 @@ const GearCheckList = ({ trekId }: Props) => {
                     key={cat.key}
                     onClick={() => setActiveTab(cat.key)}
                     className={[
-                      "w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer",
+                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer',
                       isActive
-                        ? "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
-                        : "text-gray-600 hover:bg-white border border-transparent",
-                    ].join(" ")}
+                        ? 'bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]'
+                        : 'text-gray-600 hover:bg-white border border-transparent',
+                    ].join(' ')}
                   >
                     <span
-                      className={`block text-sm ${isActive ? "font-bold" : "font-medium"}`}
+                      className={`block text-sm ${isActive ? 'font-bold' : 'font-medium'}`}
                     >
                       {cat.label}
                     </span>
@@ -273,7 +273,7 @@ const GearCheckList = ({ trekId }: Props) => {
             </div>
           </aside>
 
-          <div className={cn("flex flex-col w-full")}>
+          <div className={cn('flex flex-col w-full')}>
             {/* categories (on top): hidden after md  */}
             <div className=" flex gap-1 md:hidden">
               {categories.map((cat) => {
@@ -283,14 +283,14 @@ const GearCheckList = ({ trekId }: Props) => {
                     key={cat.key}
                     onClick={() => setActiveTab(cat.key)}
                     className={[
-                      "w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer",
+                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer',
                       isActive
-                        ? "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
-                        : "text-gray-600 hover:bg-white border border-transparent",
-                    ].join(" ")}
+                        ? 'bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]'
+                        : 'text-gray-600 hover:bg-white border border-transparent',
+                    ].join(' ')}
                   >
                     <span
-                      className={`block text-sm ${isActive ? "font-bold" : "font-medium"}`}
+                      className={`block text-sm ${isActive ? 'font-bold' : 'font-medium'}`}
                     >
                       {cat.label}
                     </span>
@@ -307,7 +307,7 @@ const GearCheckList = ({ trekId }: Props) => {
                     {activeCategory.label}
                   </h2>
                   <span className="text-xs font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
-                    {items.filter((i) => i.checked).length} / {items.length}{" "}
+                    {items.filter((i) => i.checked).length} / {items.length}{' '}
                     packed
                   </span>
                 </div>

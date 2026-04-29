@@ -1,36 +1,36 @@
-import type { Metadata } from "next";
-import { Poppins, Playfair_Display, Oldenburg } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "@/components/layout/navigation/Navbar";
+import type { Metadata } from 'next';
+import { Poppins, Playfair_Display, Oldenburg } from 'next/font/google';
+import './globals.css';
+import { Navbar } from '@/components/layout/navigation/Navbar';
 
-const oldenburg = Oldenburg({ weight: "400", subsets: ["latin"] });
+const oldenburg = Oldenburg({ weight: '400', subsets: ['latin'] });
 
 const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-poppins",
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-poppins',
+  display: 'swap',
 });
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-playfair",
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-playfair',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Trail Nepal",
+  title: 'Trail Nepal',
   icons: {
     icon: [
       {
-        url: "/icons/logo.svg",
-        type: "image/svg+xml",
+        url: '/icons/logo.svg',
+        type: 'image/svg+xml',
       },
     ],
-    apple: [{ url: "icons/logo.png" }],
+    apple: [{ url: 'icons/logo.png' }],
   },
-  description: "Discover and plan treks in Nepal",
+  description: 'Discover and plan treks in Nepal',
 };
 
 export default function RootLayout({
