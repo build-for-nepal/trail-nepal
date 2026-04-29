@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useRouter } from "next/navigation";
-import gsap from "gsap";
-import { MobileCarousel } from "./MobileCarousel";
-import { useHeroAnimation } from "@/hooks/useHeroAnimation";
-import { HeroBackground } from "./HeroBackground";
-import { HeroContent } from "./HeroContent";
-import { CarouselCard } from "./CarouselCard";
-import { SLIDES } from "@/static/homepageData";
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import gsap from 'gsap';
+import { MobileCarousel } from './MobileCarousel';
+import { useHeroAnimation } from '@/hooks/useHeroAnimation';
+import { HeroBackground } from './HeroBackground';
+import { HeroContent } from './HeroContent';
+import { CarouselCard } from './CarouselCard';
+import { SLIDES } from '@/static/homepageData';
 
 const AUTO_ADVANCE_MS = 4500;
 
@@ -36,9 +36,9 @@ export const HeroSection = () => {
         opacity: 1,
         duration: 0.5,
         stagger: 0.08,
-        ease: "power3.out",
+        ease: 'power3.out',
         force3D: true,
-        clearProps: "transform,willChange",
+        clearProps: 'transform,willChange',
       },
     );
     return () => {
@@ -51,13 +51,12 @@ export const HeroSection = () => {
     return () => window.clearTimeout(id);
   }, [activeIndex, handleNext]);
 
-  const handleExplore = useCallback(() => router.push("/explore"), [router]);
+  const handleExplore = useCallback(() => router.push('/explore'), [router]);
 
   const desktopCards = useMemo(
     () =>
       SLIDES.map((slide, index) => {
-        const rawOffset =
-          (index - activeIndex + SLIDES.length) % SLIDES.length;
+        const rawOffset = (index - activeIndex + SLIDES.length) % SLIDES.length;
         const offset = rawOffset === SLIDES.length - 1 ? -1 : rawOffset;
         return { slide, index, offset };
       }),

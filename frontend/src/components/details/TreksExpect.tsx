@@ -1,6 +1,6 @@
-import React from "react";
-import SectionHeader from "../common/SectionHeader";
-import { TREK_DETAILS } from "@/static/trekDetails";
+import React from 'react';
+import SectionHeader from '../common/SectionHeader';
+import { TREK_DETAILS } from '@/static/trekDetails';
 
 type Props = {
   trekId: string;
@@ -12,9 +12,9 @@ const TreksExpect = ({ trekId }: Props) => {
 
   // Find a portrait image from the gallery for the left side, or fallback to the first image
   const imageSrc =
-    data.gallery?.find((img) => img.type === "portrait")?.url ||
+    data.gallery?.find((img) => img.type === 'portrait')?.url ||
     data.gallery?.[0]?.url ||
-    "/images/ABC.jpg";
+    '/images/ABC.jpg';
 
   return (
     <div className="w-full bg-[#EBF0F8]">

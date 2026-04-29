@@ -1,7 +1,7 @@
-import SectionHeader from "@/components/common/SectionHeader";
-import TrekInfo from "./TrekInfo";
-import CostBreakdownCard from "./CostBreakdownCard";
-import { COST_DATA, TREK_INFO } from "@/static/homepageData";
+import SectionHeader from '@/components/common/SectionHeader';
+import TrekInfo from './TrekInfo';
+import CostBreakdownCard from './CostBreakdownCard';
+import { COST_DATA, TREK_INFO } from '@/static/homepageData';
 
 export default function EstimateCostSection() {
   const trekTier = TREK_INFO.tier;

@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import type { RefObject } from 'react';
 export interface NavLinksProps {
   className?: string;
 }
@@ -42,7 +42,7 @@ export interface MobileCarouselProps {
 }
 
 export interface SearchBarProps {
-  variant?: "light" | "dark";
+  variant?: 'light' | 'dark';
   className?: string;
 }
 
@@ -90,7 +90,7 @@ export interface FeatureItemProps {
   description: string;
 }
 
-export type TierKey = "budget" | "mid-range" | "comfort";
+export type TierKey = 'budget' | 'mid-range' | 'comfort';
 
 export interface CostItem {
   label: string;
@@ -103,13 +103,13 @@ export interface TierCosts {
   pillLabel: string;
 }
 
-export type CostData = Record<"budget" | "mid-range" | "comfort", TierCosts>;
+export type CostData = Record<'budget' | 'mid-range' | 'comfort', TierCosts>;
 
 export interface TrekInfoData {
   title: string;
   description: string;
   exploreHref: string;
-  tier: "budget" | "mid-range" | "comfort";
+  tier: 'budget' | 'mid-range' | 'comfort';
 }
 export interface CostEstimatorProps {
   costData: CostData;
@@ -122,7 +122,7 @@ export interface CostEstimatorProps {
 }
 export interface CostBreakdownCardProps {
   costs: TierCosts;
-  tier: "budget" | "mid-range" | "comfort" | string;
+  tier: 'budget' | 'mid-range' | 'comfort' | string;
 }
 export interface Collaborator {
   name: string;
@@ -131,7 +131,7 @@ export interface Collaborator {
   width: number;
   height: number;
 }
-export type SocialPlatform = "facebook" | "instagram" | "youtube";
+export type SocialPlatform = 'facebook' | 'instagram' | 'youtube';
 
 export interface SocialLink {
   platform: SocialPlatform;

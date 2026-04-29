@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { TrekRouteCollection } from "@/types/trek";
+import { useState, useEffect } from 'react';
+import { TrekRouteCollection } from '@/types/trek';
 
 export function useTrekkingData(trekId?: string) {
   const [data, setData] = useState<TrekRouteCollection | null>(null);
@@ -27,9 +27,9 @@ export function useTrekkingData(trekId?: string) {
         const geojson = (await res.json()) as TrekRouteCollection;
         setData(geojson);
       } catch (err: any) {
-        if (err.name === "AbortError") return;
+        if (err.name === 'AbortError') return;
         setError(err);
-        console.error("Error loading map data:", err);
+        console.error('Error loading map data:', err);
       } finally {
         setIsLoading(false);
       }

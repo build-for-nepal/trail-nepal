@@ -1,5 +1,5 @@
-import { FeatureItemProps } from "@/types/homepage";
-import Image from "next/image";
+import { FeatureItemProps } from '@/types/homepage';
+import Image from 'next/image';
 
 const FeatureItem = ({ icon, title, description }: FeatureItemProps) => {
   return (

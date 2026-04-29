@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { overallRating, trailReviews } from "@/static/reviews";
-import SectionHeader from "../common/SectionHeader";
-import OverallReview from "./OverallReview";
-import TrailUpdateCard from "./TrailUpdateCard";
+import { overallRating, trailReviews } from '@/static/reviews';
+import SectionHeader from '../common/SectionHeader';
+import OverallReview from './OverallReview';
+import TrailUpdateCard from './TrailUpdateCard';
 
 const TrialUpdateReviews = () => {
   return (
@@ -17,8 +17,8 @@ const TrialUpdateReviews = () => {
         {/* overall rating */}
         <OverallReview
           data={overallRating}
-          onExplore={() => console.log("explore")}
-          onShareUpdate={() => console.log("share trail update")}
+          onExplore={() => console.log('explore')}
+          onShareUpdate={() => console.log('share trail update')}
         />
 
         {/* review cards */}

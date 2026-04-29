@@ -2,19 +2,19 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   regions: [],
   durations: [],
   difficulties: [],
-  minPrice: "",
-  maxPrice: "",
+  minPrice: '',
+  maxPrice: '',
   maxElevation: 6000,
 };
 
-export type DifficultyLevel = "Easy" | "Moderate" | "Challenging" | "Difficult";
+export type DifficultyLevel = 'Easy' | 'Moderate' | 'Challenging' | 'Difficult';
 
 export type Region =
-  | "All"
-  | "Khumbu Valley"
-  | "Annapurna Region"
-  | "Langtang Region"
-  | "Manaslu Region"
+  | 'All'
+  | 'Khumbu Valley'
+  | 'Annapurna Region'
+  | 'Langtang Region'
+  | 'Manaslu Region'
   | string;
 
 export interface FilterState {
@@ -28,11 +28,11 @@ export interface FilterState {
 export type FilterPanelProps = {
   filters: FilterState;
   onToggle: (
-    key: "regions" | "durations" | "difficulties",
+    key: 'regions' | 'durations' | 'difficulties',
     value: string,
   ) => void;
   onRangeChange: (
-    key: "minPrice" | "maxPrice" | "maxElevation",
+    key: 'minPrice' | 'maxPrice' | 'maxElevation',
     value: string | number,
   ) => void;
   onReset: () => void;

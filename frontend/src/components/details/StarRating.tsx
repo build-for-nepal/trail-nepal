@@ -1,6 +1,6 @@
-import React from "react";
-import { Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface StarRatingProps {
   rating?: number;
@@ -10,7 +10,7 @@ interface StarRatingProps {
 
 const StarRating = ({ rating = 0, size = 16, className }: StarRatingProps) => {
   return (
-    <div className={cn("flex items-center gap-0.5", className)}>
+    <div className={cn('flex items-center gap-0.5', className)}>
       {Array.from({ length: 5 }).map((_, i) => {
         const filled = i < Math.floor(rating);
         const half = !filled && i < rating;
@@ -26,7 +26,7 @@ const StarRating = ({ rating = 0, size = 16, className }: StarRatingProps) => {
             {(filled || half) && (
               <span
                 className="absolute inset-0 overflow-hidden"
-                style={{ width: half ? "50%" : "100%" }}
+                style={{ width: half ? '50%' : '100%' }}
               >
                 <Star
                   size={size}

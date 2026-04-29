@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { NavLinks } from "./NavLinks";
-import { MobileMenu } from "./MobileMenu";
-import { SearchBarInner } from "@/components/search/SearchBarInner";
-import { SearchBar } from "@/components/search/SearchBar";
+import Image from 'next/image';
+import Link from 'next/link';
+import { NavLinks } from './NavLinks';
+import { MobileMenu } from './MobileMenu';
+import { SearchBarInner } from '@/components/search/SearchBarInner';
+import { SearchBar } from '@/components/search/SearchBar';
 
 export function Navbar() {
   return (

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useRef, useEffect } from "react";
-import SectionHeader from "../common/SectionHeader";
-import { TREK_DETAILS } from "@/static/trekDetails";
-import { Props } from "@/types/trek";
+import Image from 'next/image';
+import { useRef, useEffect } from 'react';
+import SectionHeader from '../common/SectionHeader';
+import { TREK_DETAILS } from '@/static/trekDetails';
+import { Props } from '@/types/trek';
 
 const BENTO_PATTERN = [
-  "row-span-2",
-  "row-span-1",
-  "row-span-1",
-  "row-span-1",
-  "row-span-1",
+  'row-span-2',
+  'row-span-1',
+  'row-span-1',
+  'row-span-1',
+  'row-span-1',
 ];
 
 export const Gallery = ({ trekId }: Props) => {
@@ -31,8 +31,8 @@ export const Gallery = ({ trekId }: Props) => {
       }
     };
 
-    element.addEventListener("wheel", onWheel, { passive: false });
-    return () => element.removeEventListener("wheel", onWheel);
+    element.addEventListener('wheel', onWheel, { passive: false });
+    return () => element.removeEventListener('wheel', onWheel);
   }, []);
 
   if (!galleryData || galleryData.length === 0) return null;
@@ -69,7 +69,7 @@ export const Gallery = ({ trekId }: Props) => {
               >
                 <Image
                   src={image.url}
-                  alt={image.alt || "Gallery Image"}
+                  alt={image.alt || 'Gallery Image'}
                   fill
                   className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
                   sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 33vw"
