@@ -13,11 +13,9 @@ const Footer = () => {
   const isHomepage = pathName === '/';
 
   return (
-    <footer className=" relative w-full bg-[#376BB6] text-white mt-[40px] md:mt-[70px] lg:mt-[100px] px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
+    <footer className=" relative w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
       {/* Wave Curve */}
-      <div
-        className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10`}
-      >
+      <div className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10 h-[40px] md:h-[70px] lg:h-[100px]`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 430 38"
@@ -74,6 +72,7 @@ const Footer = () => {
           </div>
 
           {/* Right: Collaborations */}
+
           <div className="flex flex-row items-center justify-center lg:justify-end lg:shrink-0 gap-6">
             {/* Presented by */}
             <div className="flex flex-col items-center gap-2">
@@ -99,14 +98,14 @@ const Footer = () => {
                 Collaboration with
               </p>
               <div className="flex items-center justify-center rounded-md bg-white px-3 py-2">
-                <Link href="https://techgaun.com.np/" target="_blank">
-                  <Image
-                    src="/icons/TG.svg"
-                    alt="Tech Gaun"
-                    width={80}
-                    height={28}
-                    className="h-7 w-auto object-contain"
-                  />
+                <Link href="https://techgaun.com" target="_blank">
+                <Image
+                  src="/icons/TG.svg"
+                  alt="Tech Gaun"
+                  width={80}
+                  height={28}
+                  className="h-7 w-auto object-contain"
+                />
                 </Link>
               </div>
             </div>
