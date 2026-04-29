@@ -66,3 +66,10 @@ export const SOCIAL_ICONS = [
   },
   { src: "/icons/youtube.svg", alt: "Youtube", href: "https://youtube.com" },
 ];
+
+export const gearCheckListDescriptions = {
+  essential:
+    "Critical items required for safety, comfort, and completing your trek.",
+  optional:
+    "Additional gear to enhance comfort, convenience, and overall experience.",
+};
