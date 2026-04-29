@@ -13,6 +13,7 @@ import {
   GearChecklist,
 } from "@/types/trek";
 import { TREK_DETAILS } from "@/static/trekDetails";
+import { gearCheckListDescriptions } from "@/static/constants";
 
 // Fallback data if no trekId is provided
 const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
@@ -88,9 +89,9 @@ interface Props {
 
 const GearCheckList = ({ trekId }: Props) => {
   const gearChecklist =
-    trekId && TREK_DETAILS[trekId] ?
-      TREK_DETAILS[trekId].gearChecklist
-    : FALLBACK_GEAR_CHECKLIST;
+    trekId && TREK_DETAILS[trekId]
+      ? TREK_DETAILS[trekId].gearChecklist
+      : FALLBACK_GEAR_CHECKLIST;
 
   const parseWeightToKg = (weightStr: string): number => {
     const value = parseFloat(weightStr);
@@ -143,14 +144,14 @@ const GearCheckList = ({ trekId }: Props) => {
   const toggle = (categoryKey: GearCategoryKey, itemId: string) => {
     setCategories((prev) =>
       prev.map((cat) =>
-        cat.key === categoryKey ?
-          {
-            ...cat,
-            items: cat.items.map((item) =>
-              item.id === itemId ? { ...item, checked: !item.checked } : item,
-            ),
-          }
-        : cat,
+        cat.key === categoryKey
+          ? {
+              ...cat,
+              items: cat.items.map((item) =>
+                item.id === itemId ? { ...item, checked: !item.checked } : item,
+              ),
+            }
+          : cat,
       ),
     );
   };
@@ -175,6 +176,14 @@ const GearCheckList = ({ trekId }: Props) => {
 
   const items = activeCategory.items;
 
+  const findDescription = (label: string) => {
+    return (
+      gearCheckListDescriptions[
+        label.toLowerCase() as keyof typeof gearCheckListDescriptions
+      ] || null
+    );
+  };
+
   return (
     <div className="page-wrapper flex flex-col gap-16 py-20">
       <SectionHeader
@@ -182,7 +191,7 @@ const GearCheckList = ({ trekId }: Props) => {
         description="Make sure you have everything you need"
       />
 
-      <div className="flex flex-col items-center gap-1.5">
+      <div className={cn("flex flex-col items-center gap-1.5")}>
         <div className="w-full max-w-lg flex justify-between text-sm">
           <span className="text-gray-500 font-medium">Progress</span>
           <span className="font-semibold text-gray-700">
@@ -196,21 +205,26 @@ const GearCheckList = ({ trekId }: Props) => {
               width: `${stats.progressPct}%`,
               background: "linear-gradient(90deg, #60a5fa, #2563eb)",
               boxShadow:
-                stats.progressPct > 0 ?
-                  "0 2px 8px rgba(37,99,235,0.4)"
-                : "none",
+                stats.progressPct > 0
+                  ? "0 2px 8px rgba(37,99,235,0.4)"
+                  : "none",
             }}
           />
+        </div>
+        {/* hidden after md */}
+        <div className="w-full max-w-lg md:hidden flex justify-end">
+          <p className="text-sm text-center text-gray-500">
+            Weight: {stats.totalWeight.toFixed(1)} kg
+          </p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl">
-        <div className="flex min-h-[520px]">
-          {/* left sidebar */}
-          <aside className="w-44 sm:w-52 shrink-0 flex flex-col">
+        <div className="flex min-h-130">
+          {/* categories (on left side): hidden on mobile */}
+          <aside className="w-44 sm:w-52 shrink-0 hidden md:flex flex-col">
             <div className="py-3 flex flex-col gap-1">
               {categories.map((cat) => {
-                const packedCount = cat.items.filter((i) => i.checked).length;
                 const isActive = cat.key === activeTab;
                 return (
                   <button
@@ -218,20 +232,15 @@ const GearCheckList = ({ trekId }: Props) => {
                     onClick={() => setActiveTab(cat.key)}
                     className={[
                       "w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer",
-                      isActive ?
-                        "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
-                      : "text-gray-600 hover:bg-white border border-transparent",
+                      isActive
+                        ? "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
+                        : "text-gray-600 hover:bg-white border border-transparent",
                     ].join(" ")}
                   >
                     <span
                       className={`block text-sm ${isActive ? "font-bold" : "font-medium"}`}
                     >
                       {cat.label}
-                    </span>
-                    <span
-                      className={`block text-xs mt-0.5 ${isActive ? "text-green-600" : "text-gray-400"}`}
-                    >
-                      {packedCount}/{cat.items.length}
                     </span>
                   </button>
                 );
@@ -264,39 +273,75 @@ const GearCheckList = ({ trekId }: Props) => {
             </div>
           </aside>
 
-          {/* right section: checklist */}
-          <section className="flex-1 flex flex-col shadow-md rounded-xl">
-            <div className="sticky top-0 z-10 bg-white border border-gray-100 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-base font-semibold text-gray-800">
-                {activeCategory.label}
-              </h2>
-              <span className="text-xs font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
-                {items.filter((i) => i.checked).length} / {items.length} packed
-              </span>
+          <div className={cn("flex flex-col w-full")}>
+            {/* categories (on top): hidden after md  */}
+            <div className=" flex gap-1 md:hidden">
+              {categories.map((cat) => {
+                const isActive = cat.key === activeTab;
+                return (
+                  <button
+                    key={cat.key}
+                    onClick={() => setActiveTab(cat.key)}
+                    className={[
+                      "w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer",
+                      isActive
+                        ? "bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]"
+                        : "text-gray-600 hover:bg-white border border-transparent",
+                    ].join(" ")}
+                  >
+                    <span
+                      className={`block text-sm ${isActive ? "font-bold" : "font-medium"}`}
+                    >
+                      {cat.label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="flex-1 overflow-y-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 divide-y divide-gray-100">
-                {items.map((item, idx) => {
-                  const isLastInColumn =
-                    (idx + 1) % 2 === 0 || idx === items.length - 1;
-                  const showBorder = !isLastInColumn && idx < items.length - 1;
-
-                  return (
-                    <CheckItem
-                      key={item.id}
-                      id={item.id}
-                      name={item.name}
-                      weight={item.weight}
-                      checked={item.checked}
-                      onToggle={(id) => toggle(activeCategory.key, id)}
-                      showBottomBorder={showBorder}
-                    />
-                  );
-                })}
+            {/* checklist */}
+            <section className="flex-1 flex flex-col shadow-md rounded-xl">
+              <div className="sticky top-0 z-10 bg-white border border-gray-100 px-6 py-4 flex flex-col gap-2">
+                <div className="flex w-full justify-between">
+                  <h2 className="text-base font-semibold text-gray-800">
+                    {activeCategory.label}
+                  </h2>
+                  <span className="text-xs font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                    {items.filter((i) => i.checked).length} / {items.length}{" "}
+                    packed
+                  </span>
+                </div>
+                {findDescription(activeCategory.label) && (
+                  <p className="text-[12px] text-gray-600">
+                    {findDescription(activeCategory.label)}
+                  </p>
+                )}
               </div>
-            </div>
-          </section>
+
+              <div className="flex-1 overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 divide-y divide-gray-100">
+                  {items.map((item, idx) => {
+                    const isLastInColumn =
+                      (idx + 1) % 2 === 0 || idx === items.length - 1;
+                    const showBorder =
+                      !isLastInColumn && idx < items.length - 1;
+
+                    return (
+                      <CheckItem
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        weight={item.weight}
+                        checked={item.checked}
+                        onToggle={(id) => toggle(activeCategory.key, id)}
+                        showBottomBorder={showBorder}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>

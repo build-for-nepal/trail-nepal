@@ -1,12 +1,4 @@
-import { Gallery } from "@/components/details/Gallery";
-import GearCheckList from "@/components/details/GearCheckList";
-import TrekTimeline from "@/components/details/TrekTimeline";
-import TreksExpect from "@/components/details/TreksExpect";
-import TreksHeader from "@/components/details/TreksHeader";
-import TreksSeason from "@/components/details/TreksSeason";
-import TreksHero from "@/components/details/TreksHero";
-import Footer from "@/components/layout/footer/Footer";
-import TrialUpdate from "@/components/details/TrialUpdate";
+import TrekDetailsContent from "@/components/details/TrekDetailsContent";
 import { TREK_DETAILS } from "@/static/trekDetails";
 
 export const dynamicParams = false;
@@ -25,16 +17,8 @@ export default async function TrekDetailPage({ params }: Props) {
   const { id } = await params;
 
   return (
-    <main className="w-full flex flex-col bg-(--color-surface-page)">
-      <TreksHeader trekId={id} />
-      <TreksHero trekId={id} />
-      <TrekTimeline trekId={id} />
-      <TreksSeason trekId={id} />
-      <TreksExpect trekId={id} />
-      <Gallery trekId={id} />
-      <TrialUpdate trekId={id} />
-      <GearCheckList trekId={id} />
-      <Footer />
+    <main className="">
+      <TrekDetailsContent trekId={id} />
     </main>
   );
 }
