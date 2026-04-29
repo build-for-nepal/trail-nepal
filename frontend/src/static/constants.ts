@@ -39,13 +39,13 @@ export const WHY_NEPAL_FEATURES = [
   },
   {
     id: "culture",
-    icon: "/icons/team-line.svg",
+    icon: "/icons/village.svg",
     title: "Rich Culture & Villages",
     description: "Experience traditional Sherpa and Tamang communities",
   },
   {
     id: "landscapes",
-    icon: "/icons/team-line.svg",
+    icon: "/icons/diverse_landscape.svg",
     title: "Diverse Landscapes",
     description: "From subtropical forests to alpine deserts",
   },
