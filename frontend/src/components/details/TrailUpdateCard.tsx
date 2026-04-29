@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import StarRating from "./StarRating";
-import { TrailReview } from "@/types/reviews";
+import React from 'react';
+import Image from 'next/image';
+import StarRating from './StarRating';
+import { TrailReview } from '@/types/reviews';
 
 interface TrailUpdateCardProps {
   review: TrailReview;
@@ -12,10 +12,10 @@ const TrailUpdateCard = ({ review }: TrailUpdateCardProps) => {
   const tags = review.tags ?? [];
 
   const formattedDate = review.date
-    ? new Date(review.date).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
+    ? new Date(review.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
       })
     : null;
 
@@ -58,7 +58,7 @@ const TrailUpdateCard = ({ review }: TrailUpdateCardProps) => {
 
       {review.body && (
         <div className="space-y-2 mb-3">
-          {review.body.split("\n\n").map((para, i) => (
+          {review.body.split('\n\n').map((para, i) => (
             <p key={i} className="text-sm text-gray-700 leading-relaxed">
               {para}
             </p>
@@ -75,7 +75,7 @@ const TrailUpdateCard = ({ review }: TrailUpdateCardProps) => {
             >
               <Image
                 src={img.url}
-                alt={img.alt ?? "trail image"}
+                alt={img.alt ?? 'trail image'}
                 fill
                 className="object-cover"
                 sizes="80px"

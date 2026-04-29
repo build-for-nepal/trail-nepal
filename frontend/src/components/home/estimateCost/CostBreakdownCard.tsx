@@ -1,16 +1,19 @@
-import Pill from "@/components/common/Pill";
-import { formatNPR } from "@/lib/utils";
-import { CostBreakdownCardProps } from "@/types/homepage";
+import Pill from '@/components/common/Pill';
+import { formatNPR } from '@/lib/utils';
+import { CostBreakdownCardProps } from '@/types/homepage';
 
 export default function CostBreakdownCard({
   costs,
   tier,
 }: CostBreakdownCardProps) {
   const pillColor =
-    tier === "budget" ? "green"
-    : tier === "mid-range" ? "blue"
-    : tier === "comfort" ? "purple"
-    : "gray";
+    tier === 'budget'
+      ? 'green'
+      : tier === 'mid-range'
+        ? 'blue'
+        : tier === 'comfort'
+          ? 'purple'
+          : 'gray';
 
   return (
     <div className="relative w-full rounded-[20px] bg-white px-8 py-8 shadow-sm font-poppins">

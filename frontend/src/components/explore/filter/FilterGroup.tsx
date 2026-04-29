@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { Props } from "@/static/explorepageData";
+import { Checkbox } from '@/components/ui/checkbox';
+import { Props } from '@/static/explorepageData';
 
 export const FilterGroup = ({ title, options, selected, onToggle }: Props) => (
   <div className="flex flex-col gap-1">
@@ -12,7 +12,7 @@ export const FilterGroup = ({ title, options, selected, onToggle }: Props) => (
         >
           <Checkbox
             checked={
-              item === "All" ? selected.length === 0 : selected.includes(item)
+              item === 'All' ? selected.length === 0 : selected.includes(item)
             }
             onCheckedChange={() => onToggle(item)}
             className="size-3.5 shrink-0 rounded-[3px] border-gray-400 data-[state=checked]:bg-gray-800"

@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import StarRating from "./StarRating";
-import { OverallRating } from "@/types/reviews";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import StarRating from './StarRating';
+import { OverallRating } from '@/types/reviews';
 
 interface OverallReviewProps {
   data?: OverallRating;
@@ -36,7 +36,7 @@ const OverallReview = ({
       <StarRating rating={average} size={18} />
 
       <p className="text-xs text-gray-500">
-        {totalReviews} {totalReviews === 1 ? "review" : "reviews"}
+        {totalReviews} {totalReviews === 1 ? 'review' : 'reviews'}
       </p>
 
       <div className="w-full border-t border-gray-100" />

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Mountain } from "lucide-react";
-import * as SliderPrimitive from "@radix-ui/react-slider";
-import { FILTER_OPTIONS } from "@/static/explorepageData";
-import { FilterPanelProps } from "@/types/explorepage";
-import { FilterGroup } from "./FilterGroup";
+import { useState, useEffect } from 'react';
+import { Mountain } from 'lucide-react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
+import { FILTER_OPTIONS } from '@/static/explorepageData';
+import { FilterPanelProps } from '@/types/explorepage';
+import { FilterGroup } from './FilterGroup';
 
 const ELEVATION_MAX = 6000;
 
@@ -29,7 +29,7 @@ export const FilterPanel = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (localMin !== filters.minPrice) {
-        onRangeChange("minPrice", localMin);
+        onRangeChange('minPrice', localMin);
       }
     }, 500);
     return () => clearTimeout(timeout);
@@ -39,7 +39,7 @@ export const FilterPanel = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (localMax !== filters.maxPrice) {
-        onRangeChange("maxPrice", localMax);
+        onRangeChange('maxPrice', localMax);
       }
     }, 500);
     return () => clearTimeout(timeout);
@@ -64,19 +64,19 @@ export const FilterPanel = ({
           title="Region"
           options={FILTER_OPTIONS.regions}
           selected={filters.regions}
-          onToggle={(v) => onToggle("regions", v)}
+          onToggle={(v) => onToggle('regions', v)}
         />
         <FilterGroup
           title="Duration"
           options={FILTER_OPTIONS.durations}
           selected={filters.durations}
-          onToggle={(v) => onToggle("durations", v)}
+          onToggle={(v) => onToggle('durations', v)}
         />
         <FilterGroup
           title="Difficulty"
           options={FILTER_OPTIONS.difficulties}
           selected={filters.difficulties}
-          onToggle={(v) => onToggle("difficulties", v)}
+          onToggle={(v) => onToggle('difficulties', v)}
         />
 
         {/* Budget */}
@@ -112,7 +112,7 @@ export const FilterPanel = ({
               step={1}
               value={[localElevation]}
               onValueChange={(val) => setLocalElevation(val[0])}
-              onValueCommit={(val) => onRangeChange("maxElevation", val[0])}
+              onValueCommit={(val) => onRangeChange('maxElevation', val[0])}
             >
               <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-gray-200">
                 <SliderPrimitive.Range className="absolute h-full bg-[#376BB6]" />

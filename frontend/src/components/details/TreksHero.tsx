@@ -1,7 +1,7 @@
-import { Calendar, Activity, Clock, MapPin, Mountain } from "lucide-react";
-import SectionHeader from "../common/SectionHeader";
-import { TREK_DETAILS } from "@/static/trekDetails";
-import { Props } from "@/types/trek";
+import { Calendar, Activity, Clock, MapPin, Mountain } from 'lucide-react';
+import SectionHeader from '../common/SectionHeader';
+import { TREK_DETAILS } from '@/static/trekDetails';
+import { Props } from '@/types/trek';
 
 const TreksHero = ({ trekId }: Props) => {
   const data = TREK_DETAILS[trekId];
@@ -9,33 +9,33 @@ const TreksHero = ({ trekId }: Props) => {
 
   const { meta, overview } = data;
 
-  const cleanSeason = meta.bestSeasons?.split(",")[0] || "";
-  const cleanStartingPoint = meta.startingPoint?.split(" (")[0] || "";
+  const cleanSeason = meta.bestSeasons?.split(',')[0] || '';
+  const cleanStartingPoint = meta.startingPoint?.split(' (')[0] || '';
 
   const stats = [
     {
       icon: <Clock className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: "Duration",
+      title: 'Duration',
       value: meta.duration,
     },
     {
       icon: <Activity className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: "Difficulty",
+      title: 'Difficulty',
       value: meta.difficulty,
     },
     {
       icon: <Mountain className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: "Elevation",
+      title: 'Elevation',
       value: meta.maxElevation,
     },
     {
       icon: <Calendar className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: "Best Season",
+      title: 'Best Season',
       value: cleanSeason,
     },
     {
       icon: <MapPin className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: "Starting Point",
+      title: 'Starting Point',
       value: cleanStartingPoint,
     },
   ];
@@ -56,13 +56,13 @@ const TreksHero = ({ trekId }: Props) => {
               <div
                 key={rowIndex}
                 className={`grid grid-cols-2 gap-4 ${
-                  row.length === 1 ? "flex justify-center" : ""
+                  row.length === 1 ? 'flex justify-center' : ''
                 }`}
               >
                 {row.map((stat) => (
                   <div
                     className={`flex flex-col items-center justify-center px-1 ${
-                      row.length === 1 ? "col-span-2 max-w-50 mx-auto" : ""
+                      row.length === 1 ? 'col-span-2 max-w-50 mx-auto' : ''
                     }`}
                     key={stat.title}
                   >

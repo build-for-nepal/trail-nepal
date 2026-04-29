@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import { useTrekkingData } from "@/hooks/useTrekkingData";
+import dynamic from 'next/dynamic';
+import { useTrekkingData } from '@/hooks/useTrekkingData';
 
 // Dynamically import the entire Map Client to entirely disable SSR for Leaflet
 // This safely bypasses all hook and compound component TS errors
-const MapClient = dynamic(() => import("./MapClient"), { ssr: false });
+const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
 
 interface TrekkingMapProps {
   trekId?: string;
@@ -30,12 +30,12 @@ export default function TrekkingMap({ trekId }: TrekkingMapProps) {
     let firstCoord;
 
     // Handle standard single continuous line (LineString)
-    if (geom.type === "LineString" && geom.coordinates?.length > 0) {
+    if (geom.type === 'LineString' && geom.coordinates?.length > 0) {
       firstCoord = geom.coordinates[0];
     }
     // Handle broken/segmented lines from Overpass Turbo (MultiLineString)
     else if (
-      geom.type === "MultiLineString" &&
+      geom.type === 'MultiLineString' &&
       geom.coordinates?.[0]?.length > 0
     ) {
       firstCoord = geom.coordinates[0][0];

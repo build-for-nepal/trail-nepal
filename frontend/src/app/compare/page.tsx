@@ -1,5 +1,5 @@
-import SectionHeader from "@/components/common/SectionHeader";
-import Image from "next/image";
+import SectionHeader from '@/components/common/SectionHeader';
+import Image from 'next/image';
 
 export default function Compare() {
   return (

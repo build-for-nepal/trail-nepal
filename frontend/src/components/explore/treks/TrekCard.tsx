@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Clock, Mountain, CalendarDays } from "lucide-react";
-import { ExploreTrekCardProps } from "@/types/trek";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Clock, Mountain, CalendarDays } from 'lucide-react';
+import { ExploreTrekCardProps } from '@/types/trek';
 
 const DIFFICULTY_TEXT_COLORS: Record<string, string> = {
-  easy: "text-success",
-  moderate: "text-brand-primary",
-  challenging: "text-warning",
-  difficult: "text-danger",
-  strenuous: "text-danger",
+  easy: 'text-success',
+  moderate: 'text-brand-primary',
+  challenging: 'text-warning',
+  difficult: 'text-danger',
+  strenuous: 'text-danger',
 };
 
 export default function TrekCard({
@@ -24,14 +24,14 @@ export default function TrekCard({
   href,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
-    DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? "text-brand-primary";
+    DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
 
   return (
     <div className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
       {/* Image — aspect-ratio drives height, not a fixed px value */}
       <div className="relative w-full aspect-[16/9] sm:aspect-[3/2] overflow-hidden bg-gray-100 flex-shrink-0">
         <Image
-          src={imageUrl || "/images/placeholder-trek.jpg"}
+          src={imageUrl || '/images/placeholder-trek.jpg'}
           alt={title}
           fill
           className="object-cover"

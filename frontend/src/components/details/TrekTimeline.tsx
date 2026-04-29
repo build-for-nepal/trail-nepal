@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import startRoute from "@/assets/details/routestart.svg";
-import FlagLine from "@/assets/details/flagline.svg";
-import clock from "@/assets/details/clock.svg";
-import mapLine from "@/assets/details/mapline.svg";
-import blackMountain from "@/assets/details/blackmountain.svg";
-import alertLine from "@/assets/details/alertline.svg";
-import moneyBag from "@/assets/details/moneybag.svg";
-import Image from "next/image";
-import { ChevronDown } from "lucide-react";
-import { Map, List } from "lucide-react";
-import SectionHeader from "../common/SectionHeader";
-import { cn } from "@/lib/utils";
-import { TrekTimelineDay } from "@/types/trek";
-import { TREK_DETAILS } from "@/static/trekDetails";
-import TrekkingMap from "./TrekkingMap";
+import { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import startRoute from '@/assets/details/routestart.svg';
+import FlagLine from '@/assets/details/flagline.svg';
+import clock from '@/assets/details/clock.svg';
+import mapLine from '@/assets/details/mapline.svg';
+import blackMountain from '@/assets/details/blackmountain.svg';
+import alertLine from '@/assets/details/alertline.svg';
+import moneyBag from '@/assets/details/moneybag.svg';
+import Image from 'next/image';
+import { ChevronDown } from 'lucide-react';
+import { Map, List } from 'lucide-react';
+import SectionHeader from '../common/SectionHeader';
+import { cn } from '@/lib/utils';
+import { TrekTimelineDay } from '@/types/trek';
+import { TREK_DETAILS } from '@/static/trekDetails';
+import TrekkingMap from './TrekkingMap';
 
 const AccordionItem = ({
   day,
@@ -39,7 +39,7 @@ const AccordionItem = ({
     () => {
       if (!bodyRef.current) return;
       gsap.set(bodyRef.current, {
-        height: open ? "auto" : 0,
+        height: open ? 'auto' : 0,
         opacity: open ? 1 : 0,
       });
     },
@@ -50,17 +50,17 @@ const AccordionItem = ({
     if (!bodyRef.current || !chevronRef.current) return;
 
     if (!open) {
-      gsap.set(bodyRef.current, { height: "auto", display: "block" });
+      gsap.set(bodyRef.current, { height: 'auto', display: 'block' });
       const fullH = bodyRef.current.scrollHeight;
       gsap.fromTo(
         bodyRef.current,
         { height: 0, opacity: 0 },
-        { height: fullH, opacity: 1, duration: 0.45, ease: "power3.out" },
+        { height: fullH, opacity: 1, duration: 0.45, ease: 'power3.out' },
       );
       gsap.to(chevronRef.current, {
         rotate: 180,
         duration: 0.35,
-        ease: "power2.out",
+        ease: 'power2.out',
       });
     } else {
       const currentH = bodyRef.current.scrollHeight;
@@ -69,15 +69,15 @@ const AccordionItem = ({
         height: 0,
         opacity: 0,
         duration: 0.45,
-        ease: "power3.inOut",
+        ease: 'power3.inOut',
         onComplete: () => {
-          if (bodyRef.current) gsap.set(bodyRef.current, { display: "none" });
+          if (bodyRef.current) gsap.set(bodyRef.current, { display: 'none' });
         },
       });
       gsap.to(chevronRef.current, {
         rotate: 0,
         duration: 0.35,
-        ease: "power2.out",
+        ease: 'power2.out',
       });
     }
 
@@ -88,9 +88,9 @@ const AccordionItem = ({
     <div
       ref={containerRef}
       className={cn(
-        "bg-white overflow-hidden transition-shadow duration-200",
-        "border border-[#E2E8F0] rounded-2xl",
-        open ? "shadow-sm" : "hover:shadow-sm",
+        'bg-white overflow-hidden transition-shadow duration-200',
+        'border border-[#E2E8F0] rounded-2xl',
+        open ? 'shadow-sm' : 'hover:shadow-sm',
       )}
     >
       {/* Header */}
@@ -100,15 +100,16 @@ const AccordionItem = ({
         aria-expanded={open}
       >
         <span className="shrink-0 w-5 h-5 flex items-center justify-center">
-          {isFirst ?
+          {isFirst ? (
             <Image src={startRoute} alt="start" width={18} height={18} />
-          : isLast ?
+          ) : isLast ? (
             <Image src={FlagLine} alt="finish" width={18} height={18} />
-          : <span
+          ) : (
+            <span
               className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: "#376BB6" }}
+              style={{ backgroundColor: '#376BB6' }}
             />
-          }
+          )}
         </span>
 
         <span
@@ -122,7 +123,7 @@ const AccordionItem = ({
         <span
           ref={chevronRef}
           className="shrink-0 text-black"
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
         >
           <ChevronDown size={18} strokeWidth={2} />
         </span>
@@ -132,7 +133,7 @@ const AccordionItem = ({
       <div
         ref={bodyRef}
         className="overflow-hidden"
-        style={{ display: open ? "block" : "none" }}
+        style={{ display: open ? 'block' : 'none' }}
       >
         <div className="px-5 pb-5 flex flex-col gap-4">
           {/* Handles both new 'description' and old 'content' fields dynamically */}
@@ -238,9 +239,9 @@ const StatPill = ({
   value: string;
 }) => (
   <span className="flex items-center justify-center gap-1 text-xs text-black cursor-text select-text">
-    {icon ?
-      <Image src={icon} alt={alt ?? "stats"} width={14} height={14} />
-    : null}
+    {icon ? (
+      <Image src={icon} alt={alt ?? 'stats'} width={14} height={14} />
+    ) : null}
     {value}
   </span>
 );
@@ -248,8 +249,8 @@ const StatPill = ({
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   // If no trekId or data is found, it will default to an empty array to avoid crashes.
 
-  const [activeView, setActiveView] = useState<"journey" | "overview">(
-    "overview",
+  const [activeView, setActiveView] = useState<'journey' | 'overview'>(
+    'overview',
   );
 
   const days =
@@ -259,14 +260,14 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
   useGSAP(
     () => {
-      if (activeView === "overview") {
-        gsap.from(".accordion-item", {
+      if (activeView === 'overview') {
+        gsap.from('.accordion-item', {
           y: 24,
           opacity: 0,
           duration: 0.5,
           stagger: 0.09,
-          ease: "power3.out",
-          clearProps: "transform,opacity",
+          ease: 'power3.out',
+          clearProps: 'transform,opacity',
         });
       }
     },
@@ -287,24 +288,24 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
       <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
         <button
-          onClick={() => setActiveView("journey")}
+          onClick={() => setActiveView('journey')}
           className={cn(
-            "flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
-            activeView === "journey" ?
-              "bg-[#84b829] text-white shadow-md"
-            : "text-gray-500 hover:text-gray-900",
+            'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+            activeView === 'journey'
+              ? 'bg-[#84b829] text-white shadow-md'
+              : 'text-gray-500 hover:text-gray-900',
           )}
         >
           <Map size={18} />
           Journey
         </button>
         <button
-          onClick={() => setActiveView("overview")}
+          onClick={() => setActiveView('overview')}
           className={cn(
-            "flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
-            activeView === "overview" ?
-              "bg-[#84b829] text-white shadow-md"
-            : "text-gray-500 hover:text-gray-900",
+            'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+            activeView === 'overview'
+              ? 'bg-[#84b829] text-white shadow-md'
+              : 'text-gray-500 hover:text-gray-900',
           )}
         >
           <List size={18} />
@@ -313,7 +314,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       </div>
 
       <div className="w-full">
-        {activeView === "overview" ?
+        {activeView === 'overview' ? (
           <div className="flex flex-col w-full gap-3">
             {days.map((day, index) => (
               <div key={day.id || day.day || index} className="accordion-item">
@@ -326,12 +327,13 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
               </div>
             ))}
           </div>
-        : /* Map Placeholder Container */
+        ) : (
+          /* Map Placeholder Container */
           <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
             {/* build this component */}
             <TrekkingMap trekId={trekId} />
           </div>
-        }
+        )}
       </div>
     </div>
   );

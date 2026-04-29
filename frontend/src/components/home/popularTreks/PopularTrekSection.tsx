@@ -1,8 +1,8 @@
-import { POPULAR_TREKS } from "@/static/trek";
-import SectionHeader from "../../common/SectionHeader";
-import TrekCard from "./TrekCard";
-import TrekCarousel from "./TrekCarousel";
-import Image from "next/image";
+import { POPULAR_TREKS } from '@/static/trek';
+import SectionHeader from '../../common/SectionHeader';
+import TrekCard from './TrekCard';
+import TrekCarousel from './TrekCarousel';
+import Image from 'next/image';
 
 const PopularTrekSection = () => {
   return (

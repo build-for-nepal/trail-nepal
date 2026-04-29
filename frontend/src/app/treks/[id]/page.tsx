@@ -1,5 +1,5 @@
-import TrekDetailsContent from "@/components/details/TrekDetailsContent";
-import { TREK_DETAILS } from "@/static/trekDetails";
+import TrekDetailsContent from '@/components/details/TrekDetailsContent';
+import { TREK_DETAILS } from '@/static/trekDetails';
 
 export const dynamicParams = false;
 

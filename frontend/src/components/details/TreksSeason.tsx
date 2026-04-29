@@ -1,59 +1,59 @@
-import React from "react";
-import SectionHeader from "../common/SectionHeader";
-import { Sun, Snowflake, CloudRain, LucideIcon } from "lucide-react";
-import { TREK_DETAILS } from "@/static/trekDetails";
-import { MonthData, Props, SeasonStatus } from "@/types/trek";
+import React from 'react';
+import SectionHeader from '../common/SectionHeader';
+import { Sun, Snowflake, CloudRain, LucideIcon } from 'lucide-react';
+import { TREK_DETAILS } from '@/static/trekDetails';
+import { MonthData, Props, SeasonStatus } from '@/types/trek';
 
 const statusStyles: Record<
   SeasonStatus,
   { bg: string; text: string; border: string }
 > = {
   peak: {
-    bg: "bg-emerald-50",
-    text: "text-emerald-600",
-    border: "bg-emerald-500",
+    bg: 'bg-emerald-50',
+    text: 'text-emerald-600',
+    border: 'bg-emerald-500',
   },
   danger: {
-    bg: "bg-rose-50",
-    text: "text-rose-500",
-    border: "bg-rose-500",
+    bg: 'bg-rose-50',
+    text: 'text-rose-500',
+    border: 'bg-rose-500',
   },
   caution: {
-    bg: "bg-amber-50",
-    text: "text-amber-500",
-    border: "bg-amber-400",
+    bg: 'bg-amber-50',
+    text: 'text-amber-500',
+    border: 'bg-amber-400',
   },
 };
 
 const parseSeasonData = (
   condition: string,
-): { status: "peak" | "caution" | "danger"; icon: LucideIcon } => {
+): { status: 'peak' | 'caution' | 'danger'; icon: LucideIcon } => {
   const lowerCaseDesc = condition.toLowerCase();
 
   if (
-    lowerCaseDesc.includes("heavy rain") ||
-    lowerCaseDesc.includes("peak monsoon") ||
-    lowerCaseDesc.includes("extremely cold") ||
-    lowerCaseDesc.includes("heavy snow")
+    lowerCaseDesc.includes('heavy rain') ||
+    lowerCaseDesc.includes('peak monsoon') ||
+    lowerCaseDesc.includes('extremely cold') ||
+    lowerCaseDesc.includes('heavy snow')
   ) {
     const isCold =
-      lowerCaseDesc.includes("snow") || lowerCaseDesc.includes("cold");
-    return { status: "danger", icon: isCold ? Snowflake : CloudRain };
+      lowerCaseDesc.includes('snow') || lowerCaseDesc.includes('cold');
+    return { status: 'danger', icon: isCold ? Snowflake : CloudRain };
   }
 
   if (
-    lowerCaseDesc.includes("monsoon") ||
-    lowerCaseDesc.includes("freezing") ||
-    lowerCaseDesc.includes("winter") ||
-    lowerCaseDesc.includes("cloudy") ||
-    lowerCaseDesc.includes("muddy")
+    lowerCaseDesc.includes('monsoon') ||
+    lowerCaseDesc.includes('freezing') ||
+    lowerCaseDesc.includes('winter') ||
+    lowerCaseDesc.includes('cloudy') ||
+    lowerCaseDesc.includes('muddy')
   ) {
     const isCold =
-      lowerCaseDesc.includes("freezing") || lowerCaseDesc.includes("winter");
-    return { status: "caution", icon: isCold ? Snowflake : CloudRain };
+      lowerCaseDesc.includes('freezing') || lowerCaseDesc.includes('winter');
+    return { status: 'caution', icon: isCold ? Snowflake : CloudRain };
   }
 
-  return { status: "peak", icon: Sun };
+  return { status: 'peak', icon: Sun };
 };
 
 const TreksSeason = ({ trekId }: Props) => {
@@ -66,7 +66,7 @@ const TreksSeason = ({ trekId }: Props) => {
     return {
       title: item.month.toUpperCase(),
 
-      value: item.condition.split(" / ")[0],
+      value: item.condition.split(' / ')[0],
       fullDescription: item.condition,
       status: parsedParams.status,
       icon: parsedParams.icon,
@@ -78,7 +78,7 @@ const TreksSeason = ({ trekId }: Props) => {
       <div className="page-wrapper mx-auto w-full  px-6 sm:px-10 lg:px-20 flex flex-col gap-14">
         <SectionHeader
           title="When Should I go?"
-          description={`Climbing windows and weather for ${data.name.split(" (")[0]}`}
+          description={`Climbing windows and weather for ${data.name.split(' (')[0]}`}
         />
 
         <div className="flex flex-col gap-8">

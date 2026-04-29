@@ -1,12 +1,12 @@
-import { LucideIcon } from "lucide-react";
+import { LucideIcon } from 'lucide-react';
 
-import type { FeatureCollection, LineString, MultiLineString } from "geojson";
+import type { FeatureCollection, LineString, MultiLineString } from 'geojson';
 
 //Routes types
 export interface RouteProperties {
   id: string;
   name: string;
-  difficulty: "easy" | "moderate" | "hard" | "extreme" | null;
+  difficulty: 'easy' | 'moderate' | 'hard' | 'extreme' | null;
   maxElevationM: number | null;
 }
 
@@ -25,7 +25,7 @@ export interface Trek {
   altitude: string;
   season: string;
   price: number;
-  difficulty: "Easy" | "Moderate" | "Challenging" | "Difficult" | "Strenuous";
+  difficulty: 'Easy' | 'Moderate' | 'Challenging' | 'Difficult' | 'Strenuous';
   imageUrl: string;
   description: string;
   isPopular: boolean;
@@ -67,7 +67,7 @@ export interface TrekImage {
   id: string;
   url: string;
   alt: string;
-  type: "hero" | "landscape" | "portrait";
+  type: 'hero' | 'landscape' | 'portrait';
 }
 
 export interface GearItem {
@@ -109,7 +109,7 @@ export interface CheckItemData {
   weight: number;
   checked: boolean;
 }
-export type GearCategoryKey = "essential" | "optional";
+export type GearCategoryKey = 'essential' | 'optional';
 export interface GearCategory {
   key: GearCategoryKey;
   label: string;
@@ -124,7 +124,7 @@ export interface CheckItemProps {
   onToggle: (id: string) => void;
   showBottomBorder: boolean;
 }
-export type SeasonStatus = "peak" | "danger" | "caution";
+export type SeasonStatus = 'peak' | 'danger' | 'caution';
 
 export interface MonthData {
   title: string;
