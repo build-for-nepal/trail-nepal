@@ -6,6 +6,7 @@ import { SOCIAL_ICONS } from "@/static/constants";
 import SectionHeader from "@/components/common/SectionHeader";
 import { NavLinks } from "../navigation/NavLinks";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const Footer = () => {
   const pathName = usePathname();
@@ -71,32 +72,40 @@ const Footer = () => {
           </div>
 
           {/* Right: Collaborations */}
-          <div className="flex flex-col items-center lg:items-end">
-            <div className="flex w-fit flex-col items-center lg:items-start">
-              <p className="mb-2 font-poppins text-[11px] uppercase tracking-wider text-white/90">
-                In collaboration with
+          <div className="flex flex-row items-center justify-center lg:justify-end lg:shrink-0 gap-6">
+            {/* Presented by */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90">
+                Presented by
               </p>
+              <div className="flex items-center justify-center rounded-md bg-white px-7 py-2">
+               <Link href="https://buildfornepal.org/" target="_blank">
+                <Image
+                  src="/icons/BNF.svg"
+                  alt="Build For Nepal"
+                  width={80}
+                  height={28}
+                  className="h-7 w-auto object-contain"
+                />
+                </Link>
+              </div>
+            </div>
 
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center rounded-md bg-white px-2 py-1.5">
-                  <Image
-                    src="/icons/BNF.svg"
-                    alt="Build For Nepal"
-                    width={40}
-                    height={20}
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
-
-                <div className="flex items-center justify-center rounded-md bg-white px-2 py-1.5">
-                  <Image
-                    src="/icons/TG.svg"
-                    alt="Tech Gaun"
-                    width={40}
-                    height={20}
-                    className="h-5 w-auto object-contain"
-                  />
-                </div>
+            {/* Collaboration with */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90">
+                Collaboration with
+              </p>
+              <div className="flex items-center justify-center rounded-md bg-white px-3 py-2">
+                <Link href="https://techgaun.com.np/" target="_blank">
+                <Image
+                  src="/icons/TG.svg"
+                  alt="Tech Gaun"
+                  width={80}
+                  height={28}
+                  className="h-7 w-auto object-contain"
+                />
+                </Link>
               </div>
             </div>
           </div>
