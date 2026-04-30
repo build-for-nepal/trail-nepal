@@ -66,6 +66,67 @@ export const TREKS: Trek[] = [
       'annapurna sanctuary',
     ],
   },
+  
+{
+    id: 'gokyo-valley-trek',
+    title: 'Gokyo Valley Trek',
+    region: 'Khumbu Region',
+    description:
+      "The quieter alternative glacial lakes, Nepal's longest glacier, and four 8,000m peaks from a single summit.",
+    difficulty: 'Difficult',
+    duration: '13-14 Days',
+    altitude: '5,357m',
+    season: 'Mar - May, Sep - Nov',
+    price: 12000,
+    imageUrl: '/images/gokyo/gokyo.webp',
+    isPopular: false,
+    keywords: [
+      'gokyo valley',
+      'gokyo',
+      'gok',
+      'valley',
+    ],
+  },
+  {
+    id: 'ghorepani-poon-hill-trek',
+    title: 'Ghorepani Poon Hill Trek',
+    region: 'Annapurna Region',
+    description:
+      'Beginner-friendly on paper, genuinely jaw-dropping in practice."',
+    difficulty: 'Difficult',
+    duration: '13-14 Days',
+    altitude: '5,357m',
+    season: 'Mar - May, Sep - Nov',
+    price: 12000,
+    imageUrl: '/images/poonhill/poonhill.webp',
+    isPopular: false,
+    keywords: [
+      'ghorepani poon hill trek',
+      'poonhill',
+      'ghorepani',
+      'poon',
+    ],
+  },
+  {
+    id: 'mardi-himal-trek',
+    title: 'Mardi Himal Trek',
+    region: 'Annapurna Region',
+    description:
+      "Intimate, uncrowded, and closer to Machapuchare's perfect pyramid than any other trail in the Annapurna region.",
+    difficulty: 'Moderate',
+    duration: '6-7 Days',
+    altitude: '5,357m',
+    season: 'Mar - May, Sep - Dec',
+    price: 12000,
+    imageUrl: '/images/mardi/mardi.webp',
+    isPopular: false,
+    keywords: [
+      'mardi himal trek',
+      'mardi',
+      
+    ],
+  },
+  
 ];
 
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
