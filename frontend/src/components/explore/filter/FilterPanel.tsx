@@ -80,7 +80,7 @@ export const FilterPanel = ({
         />
 
         {/* Budget */}
-        <div className="flex flex-col gap-1.5">
+        {/* <div className="flex flex-col gap-1.5">
           <h3 className="text-[13px] font-bold text-gray-800">Budget Range</h3>
           <div className="flex items-center gap-2">
             <input
@@ -99,7 +99,7 @@ export const FilterPanel = ({
               className="w-full border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-[#376BB6]"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Elevation */}
         <div className="flex flex-col gap-3 pt-2 border-t border-gray-100 pb-10">

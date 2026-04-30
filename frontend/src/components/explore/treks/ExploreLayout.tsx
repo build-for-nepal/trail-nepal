@@ -58,7 +58,7 @@ export default function ExploreLayout() {
     <section className="relative min-h-screen w-full pb-[80px]">
       <div className="mx-auto flex w-full max-w-[1920px] gap-8 px-4 pt-8 md:px-[80px] md:pt-[60px] items-start">
         {/* Desktop Sidebar — self-contained, never stretches */}
-        <aside className="hidden lg:block flex-shrink-0">
+        <aside className="sticky top-[112px] hidden lg:block flex-shrink-0 self-start">
           <FilterSidebar onFilter={handleFilter} />
         </aside>
 

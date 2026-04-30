@@ -61,9 +61,9 @@ const TrekCard = ({
           </span>
         </div>
 
-        <span className="font-poppins inline-flex w-fit items-center border border-black rounded-full px-3 py-1 text-[12px] font-medium text-black bg-transparent">
+        {/* <span className="font-poppins inline-flex w-fit items-center border border-black rounded-full px-3 py-1 text-[12px] font-medium text-black bg-transparent">
           ~ {price}
-        </span>
+        </span> */}
 
         <Link
           href={href}
