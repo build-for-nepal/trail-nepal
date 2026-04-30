@@ -17,7 +17,7 @@ import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
-import TrekkingMap from './TrekkingMap';
+import TrekkingMap from './map/TrekkingMap';
 
 const AccordionItem = ({
   day,

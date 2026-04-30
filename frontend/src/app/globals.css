@@ -62,7 +62,8 @@
   --color-surface-100: #ffffff;
   --color-border-subtle: #f3f4f6;
   --color-surface-200: #e5e7eb;
-
+  --color-trail: #84b829;
+  --color-trail-hover: #a5d848;
   --color-difficulty-easy: #5fa85a;
   --color-difficulty-moderate: #e0a030;
   --color-difficulty-challenging: #d4622a;

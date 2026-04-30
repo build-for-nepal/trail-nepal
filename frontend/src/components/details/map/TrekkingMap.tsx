@@ -2,14 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import { useTrekkingData } from '@/hooks/useTrekkingData';
+import { TrekkingMapProps } from '@/types/map';
 
-// Dynamically import the entire Map Client to entirely disable SSR for Leaflet
-// This safely bypasses all hook and compound component TS errors
 const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
-
-interface TrekkingMapProps {
-  trekId?: string;
-}
 
 export default function TrekkingMap({ trekId }: TrekkingMapProps) {
   const { data, isLoading, error } = useTrekkingData(trekId);
