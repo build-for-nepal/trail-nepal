@@ -80,9 +80,9 @@ export default function TrekCard({
           </span>
         </div>
 
-        <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
+        {/* <div className="w-fit rounded-full border-[1.5px] border-text-primary px-4 py-1.5 text-[10px] font-bold text-text-primary">
           ~ Nrs. {price.toLocaleString()}
-        </div>
+        </div> */}
 
         {/* CTA — always pinned at bottom */}
         <Link
