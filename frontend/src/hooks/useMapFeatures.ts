@@ -9,7 +9,12 @@ const TRAIL_GREEN = '#84b829';
 const TRAIL_GREEN_DARK = '#4a7c1f';
 const MARKER_ORANGE = '#f59e0b';
 
-function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+function haversineKm(
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number,
+): number {
   const R = 6371;
   const toRad = (d: number) => (d * Math.PI) / 180;
   const dLat = toRad(lat2 - lat1);
@@ -78,7 +83,9 @@ export function useMapInit(center: [number, number]) {
 
     sources['terrain-dem'] = {
       type: 'raster-dem',
-      tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+      tiles: [
+        'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png',
+      ],
       encoding: 'terrarium',
     };
 
@@ -94,7 +101,10 @@ export function useMapInit(center: [number, number]) {
       fadeDuration: 0,
     });
 
-    m.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
+    m.addControl(
+      new maplibregl.ScaleControl({ unit: 'metric' }),
+      'bottom-left',
+    );
 
     m.on('load', () => {
       // Always keep terrain loaded — invisible at pitch=0 but required for
@@ -110,7 +120,11 @@ export function useMapInit(center: [number, number]) {
         id: 'trail-casing',
         type: 'line',
         source: 'trail',
-        paint: { 'line-color': '#ffffff', 'line-width': 7, 'line-opacity': 0.85 },
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 7,
+          'line-opacity': 0.85,
+        },
         layout: { 'line-cap': 'round', 'line-join': 'round' },
       });
 
@@ -179,14 +193,17 @@ export function useTrailData(
   useEffect(() => {
     if (!mapLoaded || !map || !data || fittedDataRef.current === data) return;
 
-    const source = map.getSource('trail') as maplibregl.GeoJSONSource | undefined;
+    const source = map.getSource('trail') as
+      | maplibregl.GeoJSONSource
+      | undefined;
     source?.setData(data);
     fitToBounds(map, data);
     fittedDataRef.current = data;
 
     const allCoords: GeoJSON.Position[] = [];
     data.features.forEach((f) => {
-      if (f.geometry.type === 'LineString') allCoords.push(...f.geometry.coordinates);
+      if (f.geometry.type === 'LineString')
+        allCoords.push(...f.geometry.coordinates);
       else if (f.geometry.type === 'MultiLineString')
         f.geometry.coordinates.forEach((seg) => allCoords.push(...seg));
     });
@@ -239,7 +256,10 @@ export function useTrekMarkers(
     let hideTimer: ReturnType<typeof setTimeout> | null = null;
 
     const clearHideTimer = () => {
-      if (hideTimer !== null) { clearTimeout(hideTimer); hideTimer = null; }
+      if (hideTimer !== null) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
     };
 
     const scheduleHide = (innerEl: HTMLElement) => {
@@ -254,7 +274,11 @@ export function useTrekMarkers(
       if (!dayObj.coordinates) return;
       const [lat, lng] = dayObj.coordinates;
 
-      const { wrapper, inner } = makeCircleMarkerEl(dayObj.day ?? '', MARKER_ORANGE, true);
+      const { wrapper, inner } = makeCircleMarkerEl(
+        dayObj.day ?? '',
+        MARKER_ORANGE,
+        true,
+      );
 
       wrapper.addEventListener('mouseenter', () => {
         clearHideTimer();
