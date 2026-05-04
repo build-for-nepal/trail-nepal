@@ -4,9 +4,10 @@ import { LayerKey, LayerSwitcherProps } from '@/types/map';
 export default function LayerSwitcher({
   activeLayer,
   onChange,
+  className,
 }: LayerSwitcherProps) {
   return (
-    <div className="absolute bottom-10 left-2 z-10 flex gap-2">
+    <div className={`absolute left-2 z-10 flex gap-2 ${className ?? 'bottom-10'}`}>
       {(Object.entries(LAYERS) as [LayerKey, (typeof LAYERS)[LayerKey]][]).map(
         ([key, cfg]) => (
           <button
@@ -17,7 +18,7 @@ export default function LayerSwitcher({
             <div
               className={`w-14 h-14 rounded-lg overflow-hidden shadow-md transition-all duration-150 border-2 border-white ${
                 activeLayer === key
-                  ? 'ring-2 ring-offset-1 ring-[var(--color-trail)] scale-105'
+                  ? 'ring-2 ring-offset-1 ring-(--color-trail) scale-105'
                   : 'hover:border-gray-300'
               }`}
             >
@@ -31,7 +32,7 @@ export default function LayerSwitcher({
             </div>
             <span
               className={`text-[10px] font-semibold drop-shadow-sm ${
-                activeLayer === key ? 'text-[var(--color-trail)]' : 'text-white'
+                activeLayer === key ? 'text-(--color-trail)' : 'text-white'
               }`}
             >
               {cfg.label}

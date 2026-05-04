@@ -17,4 +17,5 @@ export interface TrekkingMapProps {
 export interface LayerSwitcherProps {
   activeLayer: LayerKey;
   onChange: (key: LayerKey) => void;
+  className?: string;
 }

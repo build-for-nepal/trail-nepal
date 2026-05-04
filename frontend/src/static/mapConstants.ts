@@ -19,13 +19,6 @@ export const LAYERS: Record<
     ],
     attribution: '© Esri',
   },
-  terrain: {
-    label: 'Natural Terrain',
-    tiles: [
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-    ],
-    attribution: '© <a href="https://www.esri.com/">Esri</a>',
-  },
   topo: {
     label: 'Topographical',
     tiles: [
@@ -35,10 +28,16 @@ export const LAYERS: Record<
     ],
     attribution: 'Map data: © OSM | Style: OpenTopoMap',
   },
+  terrain: {
+    label: 'Terrain',
+    tiles: [
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+    ],
+    attribution: '© <a href="https://www.esri.com/">Esri</a>',
+  },
 };
 
 export const POPUP_STYLES = `
-  .trail-popup .maplibregl-popup-content { padding: 0; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; }
-  .trail-popup .maplibregl-popup-tip { border-top-color: #376bb6; }
-  .trail-popup-header { background-color: #376bb6; }
+  .trail-popup .maplibregl-popup-content { padding: 0; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.25); overflow: hidden; }
+  .trail-popup .maplibregl-popup-tip { border-top-color: var(--color-trail) !important; }
 `;

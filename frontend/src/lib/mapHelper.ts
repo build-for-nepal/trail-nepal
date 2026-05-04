@@ -23,8 +23,6 @@ export function fitToBounds(m: maplibregl.Map, data: GeoJSONData) {
       m.fitBounds(bounds, {
         padding: 120,
         duration: 2000,
-        pitch: 62,
-        bearing: -15,
       });
   } catch (e) {
     console.error('Error fitting bounds', e);
@@ -33,23 +31,25 @@ export function fitToBounds(m: maplibregl.Map, data: GeoJSONData) {
 
 export function buildPopupHTML(day: TrekTimelineDay): string {
   return `
-    <div class="bg-white rounded-xl overflow-hidden w-56">
-      <div class="trail-popup-header px-3 py-2 text-white">
-        <span class="text-[10px] uppercase font-bold tracking-wider opacity-90">Day ${day.day}</span>
-        <h4 class="text-sm font-semibold leading-tight mt-0.5">${day.title}</h4>
+    <div style="width:220px;font-family:system-ui,sans-serif;border-radius:12px;overflow:hidden;">
+      <div style="background:var(--color-trail);padding:10px 12px;">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.75);margin-bottom:3px;">Day ${day.day}</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;">${day.title}</div>
       </div>
-      <div class="p-3 grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
-        <div>
-          <span class="block text-gray-500 mb-0.5 text-[10px] uppercase">Elevation</span>
-          <strong class="text-gray-800">${day.stats?.elevation ?? 'N/A'}</strong>
-        </div>
-        <div>
-          <span class="block text-gray-500 mb-0.5 text-[10px] uppercase">Distance</span>
-          <strong class="text-gray-800">${day.stats?.distance ?? 'N/A'}</strong>
-        </div>
-        <div class="col-span-2 pt-1 border-t border-gray-100">
-          <span class="block text-gray-500 mb-0.5 text-[10px] uppercase">Est. Time</span>
-          <strong class="text-gray-800">${day.stats?.duration ?? 'N/A'}</strong>
+      <div style="padding:10px 12px;background:#fff;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;">
+          <div>
+            <div style="font-size:9px;font-weight:600;text-transform:uppercase;color:#9ca3af;margin-bottom:2px;">Elevation</div>
+            <div style="font-size:12px;font-weight:700;color:#111827;">${day.stats?.elevation ?? 'N/A'}</div>
+          </div>
+          <div>
+            <div style="font-size:9px;font-weight:600;text-transform:uppercase;color:#9ca3af;margin-bottom:2px;">Distance</div>
+            <div style="font-size:12px;font-weight:700;color:#111827;">${day.stats?.distance ?? 'N/A'}</div>
+          </div>
+          <div style="grid-column:span 2;padding-top:7px;border-top:1px solid #f3f4f6;">
+            <div style="font-size:9px;font-weight:600;text-transform:uppercase;color:#9ca3af;margin-bottom:2px;">Est. Time</div>
+            <div style="font-size:12px;font-weight:700;color:#111827;">${day.stats?.duration ?? 'N/A'}</div>
+          </div>
         </div>
       </div>
     </div>`;
