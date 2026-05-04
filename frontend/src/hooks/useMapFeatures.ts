@@ -9,13 +9,6 @@ const TRAIL_GREEN = '#84b829';
 const TRAIL_GREEN_DARK = '#4a7c1f';
 const MARKER_ORANGE = '#f59e0b';
 
-export type ElevationPoint = {
-  dist: number; // cumulative km from trail start
-  elev: number; // metres above sea level
-  lng: number;
-  lat: number;
-};
-
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
   const toRad = (d: number) => (d * Math.PI) / 180;
@@ -288,72 +281,4 @@ export function useTrekMarkers(
       markersRef.current.push(marker);
     });
   }, [mapLoaded, timeline, map]);
-}
-
-// ─── Hook 4: Real elevation profile via queryTerrainElevation ────────────────
-
-export function useElevationData(
-  map: maplibregl.Map | null,
-  mapLoaded: boolean,
-  data: GeoJSONData | null,
-) {
-  const [elevPoints, setElevPoints] = useState<ElevationPoint[] | null>(null);
-  const [elevLoading, setElevLoading] = useState(false);
-  const resolvedRef = useRef(false);
-
-  useEffect(() => {
-    if (!mapLoaded || !map || !data || resolvedRef.current) return;
-
-    const allCoords: GeoJSON.Position[] = [];
-    data.features.forEach((f) => {
-      if (f.geometry.type === 'LineString') allCoords.push(...f.geometry.coordinates);
-      else if (f.geometry.type === 'MultiLineString')
-        f.geometry.coordinates.forEach((seg) => allCoords.push(...seg));
-    });
-    if (allCoords.length < 2) return;
-
-    // Sample ~80 evenly-spaced points so the request isn't too heavy
-    const TARGET = 80;
-    const step = Math.max(1, Math.floor(allCoords.length / TARGET));
-    const sampled: GeoJSON.Position[] = [];
-    for (let i = 0; i < allCoords.length; i += step) sampled.push(allCoords[i]);
-    const last = allCoords[allCoords.length - 1];
-    if (sampled[sampled.length - 1] !== last) sampled.push(last);
-
-    setElevLoading(true);
-    let attempts = 0;
-
-    const tryQuery = () => {
-      attempts++;
-      const pts: ElevationPoint[] = [];
-      let cumDist = 0;
-      let allOk = true;
-
-      for (let i = 0; i < sampled.length; i++) {
-        const [lng, lat] = sampled[i];
-        const elev = map.queryTerrainElevation([lng, lat], { exaggerated: false });
-        if (elev === null) { allOk = false; break; }
-        if (i > 0) {
-          const [pLng, pLat] = sampled[i - 1];
-          cumDist += haversineKm(pLat, pLng, lat, lng);
-        }
-        pts.push({ dist: cumDist, elev, lng, lat });
-      }
-
-      if (allOk && pts.length > 1) {
-        resolvedRef.current = true;
-        setElevLoading(false);
-        setElevPoints(pts);
-      } else if (attempts < 20) {
-        setTimeout(tryQuery, 800);
-      } else {
-        setElevLoading(false); // Give up gracefully
-      }
-    };
-
-    // Give the DEM tiles ~1 s to load before the first attempt
-    setTimeout(tryQuery, 1000);
-  }, [data, mapLoaded, map]);
-
-  return { elevPoints, elevLoading };
 }
