@@ -66,8 +66,8 @@ export const TREKS: Trek[] = [
       'annapurna sanctuary',
     ],
   },
-  
-{
+
+  {
     id: 'gokyo-valley-trek',
     title: 'Gokyo Valley Trek',
     region: 'Khumbu Region',
@@ -80,12 +80,7 @@ export const TREKS: Trek[] = [
     price: 12000,
     imageUrl: '/images/gokyo/gokyo.webp',
     isPopular: false,
-    keywords: [
-      'gokyo valley',
-      'gokyo',
-      'gok',
-      'valley',
-    ],
+    keywords: ['gokyo valley', 'gokyo', 'gok', 'valley'],
   },
   {
     id: 'ghorepani-poon-hill-trek',
@@ -100,12 +95,7 @@ export const TREKS: Trek[] = [
     price: 12000,
     imageUrl: '/images/poonhill/poonhill.webp',
     isPopular: false,
-    keywords: [
-      'ghorepani poon hill trek',
-      'poonhill',
-      'ghorepani',
-      'poon',
-    ],
+    keywords: ['ghorepani poon hill trek', 'poonhill', 'ghorepani', 'poon'],
   },
   {
     id: 'mardi-himal-trek',
@@ -120,13 +110,8 @@ export const TREKS: Trek[] = [
     price: 12000,
     imageUrl: '/images/mardi/mardi.webp',
     isPopular: false,
-    keywords: [
-      'mardi himal trek',
-      'mardi',
-      
-    ],
+    keywords: ['mardi himal trek', 'mardi'],
   },
-  
 ];
 
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);

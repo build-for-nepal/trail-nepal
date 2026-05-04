@@ -15,7 +15,9 @@ const Footer = () => {
   return (
     <footer className=" relative w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
       {/* Wave Curve */}
-      <div className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10 h-[40px] md:h-[70px] lg:h-[100px]`}>
+      <div
+        className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10 h-[40px] md:h-[70px] lg:h-[100px]`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 430 38"
@@ -99,13 +101,13 @@ const Footer = () => {
               </p>
               <div className="flex items-center justify-center rounded-md bg-white px-3 py-2">
                 <Link href="https://techgaun.com" target="_blank">
-                <Image
-                  src="/icons/TG.svg"
-                  alt="Tech Gaun"
-                  width={80}
-                  height={28}
-                  className="h-7 w-auto object-contain"
-                />
+                  <Image
+                    src="/icons/TG.svg"
+                    alt="Tech Gaun"
+                    width={80}
+                    height={28}
+                    className="h-7 w-auto object-contain"
+                  />
                 </Link>
               </div>
             </div>
