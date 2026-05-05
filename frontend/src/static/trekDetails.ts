@@ -396,18 +396,18 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: { elevation: '1,860m', duration: '3-4 hours', distance: '8km' },
         coordinates: [28.5298499, 84.3497295],
       },
-      {
-        day: '14',
-        title: 'Drive to Kathmandu',
-        description:
-          'Return via Besisahar with a long scenic drive back to the capital.',
-        stats: {
-          elevation: '1,400m',
-          duration: '8-10 hours (drive)',
-          distance: '-',
-        },
-        coordinates: [27.717, 85.324],
-      },
+      // {
+      //   day: '14',
+      //   title: 'Drive to Kathmandu',
+      //   description:
+      //     'Return via Besisahar with a long scenic drive back to the capital.',
+      //   stats: {
+      //     elevation: '1,400m',
+      //     duration: '8-10 hours (drive)',
+      //     distance: '-',
+      //   },
+      //   coordinates: [27.717, 85.324],
+      // },
     ],
     expectations: [
       {

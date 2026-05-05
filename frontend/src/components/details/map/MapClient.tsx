@@ -1,13 +1,15 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Plus, Minus, Navigation } from 'lucide-react';
 
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { GeoJSONData, LayerKey } from '@/types/map';
-import { useMapInit, useTrailData, useTrekMarkers } from '@/hooks/useMapFeatures';
+import { ElevationPoint } from '@/types/trek';
+import { useMapInit, useTrailData, useTrekMarkers, useHoverMarker } from '@/hooks/useMapFeatures';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
+import ElevationProfile from './ElevationProfile';
 
 interface MapClientProps {
   data: GeoJSONData | null;
@@ -49,6 +51,23 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline);
+
+  // Load dummy elevation profile from public
+  const [elevationPoints, setElevationPoints] = useState<ElevationPoint[]>([]);
+  useEffect(() => {
+    fetch('/data/elevation-sample.json')
+      .then((r) => r.json())
+      .then(setElevationPoints)
+      .catch(() => {});
+  }, []);
+
+  // Blue dot on trail on chart hover
+  const [hoverCoord, setHoverCoord] = useState<[number, number] | null>(null);
+  useHoverMarker(map, mapLoaded, hoverCoord);
+
+  const handleElevHover = useCallback((pt: ElevationPoint | null) => {
+    setHoverCoord(pt ? [pt.lng, pt.lat] : null);
+  }, []);
 
   // Layer switcher
   const [activeLayer, setActiveLayer] = useState<LayerKey>('satellite');
@@ -154,7 +173,11 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
         </ControlBtn>
       </div>
 
-<div ref={containerRef} className="h-full w-full" />
+      {elevationPoints.length > 0 && (
+        <ElevationProfile points={elevationPoints} onHover={handleElevHover} />
+      )}
+
+      <div ref={containerRef} className="h-full w-full" />
     </div>
   );
 }

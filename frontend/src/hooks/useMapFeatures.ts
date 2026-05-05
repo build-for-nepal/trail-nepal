@@ -154,21 +154,6 @@ export function useMapInit(center: [number, number]) {
         m.addImage('trail-arrow', ctx.getImageData(0, 0, arrowSize, arrowSize));
       }
 
-      m.addLayer({
-        id: 'trail-arrows',
-        type: 'symbol',
-        source: 'trail',
-        layout: {
-          'symbol-placement': 'line',
-          'symbol-spacing': 80,
-          'icon-image': 'trail-arrow',
-          'icon-size': 0.85,
-          'icon-rotation-alignment': 'map',
-          'icon-allow-overlap': true,
-          'icon-ignore-placement': true,
-        },
-      });
-
       setMapLoaded(true);
     });
 
@@ -212,17 +197,17 @@ export function useTrailData(
       startMarkerRef.current?.remove();
       endMarkerRef.current?.remove();
 
-      const [startLng, startLat] = allCoords[0];
-      const { wrapper: startEl } = makeCircleMarkerEl('S', TRAIL_GREEN_DARK);
-      startMarkerRef.current = new maplibregl.Marker({ element: startEl })
-        .setLngLat([startLng, startLat])
-        .addTo(map);
+      // const [startLng, startLat] = allCoords[0];
+      // const { wrapper: startEl } = makeCircleMarkerEl('S', TRAIL_GREEN_DARK);
+      // startMarkerRef.current = new maplibregl.Marker({ element: startEl })
+      //   .setLngLat([startLng, startLat])
+      //   .addTo(map);
 
-      const [endLng, endLat] = allCoords[allCoords.length - 1];
-      const { wrapper: endEl } = makeCircleMarkerEl('E', '#c0392b');
-      endMarkerRef.current = new maplibregl.Marker({ element: endEl })
-        .setLngLat([endLng, endLat])
-        .addTo(map);
+      // const [endLng, endLat] = allCoords[allCoords.length - 1];
+      // const { wrapper: endEl } = makeCircleMarkerEl('E', '#c0392b');
+      // endMarkerRef.current = new maplibregl.Marker({ element: endEl })
+      //   .setLngLat([endLng, endLat])
+      //   .addTo(map);
     }
   }, [data, mapLoaded, map]);
 }
@@ -305,4 +290,47 @@ export function useTrekMarkers(
       markersRef.current.push(marker);
     });
   }, [mapLoaded, timeline, map]);
+}
+
+// ─── Hook 4: Blue hover-dot on the trail ─────────────────────────────────────
+
+export function useHoverMarker(
+  map: maplibregl.Map | null,
+  mapLoaded: boolean,
+  coord: [number, number] | null,
+) {
+  useEffect(() => {
+    if (!map || !mapLoaded) return;
+    if (map.getSource('hover-point')) return;
+
+    map.addSource('hover-point', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] },
+    });
+    map.addLayer({
+      id: 'hover-point-layer',
+      type: 'circle',
+      source: 'hover-point',
+      paint: {
+        'circle-radius': 8,
+        'circle-color': '#3b82f6',
+        'circle-stroke-color': '#ffffff',
+        'circle-stroke-width': 2.5,
+      },
+    });
+  }, [map, mapLoaded]);
+
+  useEffect(() => {
+    if (!map || !mapLoaded) return;
+    const src = map.getSource('hover-point') as maplibregl.GeoJSONSource | undefined;
+    if (!src) return;
+    if (coord) {
+      src.setData({
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: coord }, properties: {} }],
+      });
+    } else {
+      src.setData({ type: 'FeatureCollection', features: [] });
+    }
+  }, [map, mapLoaded, coord]);
 }

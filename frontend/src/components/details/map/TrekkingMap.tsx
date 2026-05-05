@@ -7,7 +7,7 @@ import { TrekkingMapProps } from '@/types/map';
 const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
 
 export default function TrekkingMap({ trekId }: TrekkingMapProps) {
-  const { data, isLoading, error } = useTrekkingData(trekId);
+  const { data: rawData, isLoading, error } = useTrekkingData(trekId);
 
   if (error) {
     return (
@@ -15,6 +15,17 @@ export default function TrekkingMap({ trekId }: TrekkingMapProps) {
         Failed to load map data for {trekId}.
       </div>
     );
+  }
+
+  // Filter data for specific trek
+  let data = rawData;
+  if (rawData && trekId === 'abc-trek') {
+    data = {
+      ...rawData,
+      features: rawData.features.filter(
+        (f) => (f.properties as any)?.ref === 'ABC' || (f.properties as any)?.name === 'Annapurna Base Camp Trek'
+      ),
+    };
   }
 
   // Default to Nepal Center
