@@ -35,7 +35,7 @@ export const Gallery = ({ trekId }: Props) => {
       if (atStart || atEnd) return;
 
       e.preventDefault();
-      element.scrollLeft += e.deltaY;
+      element.scrollBy({ left: e.deltaY * 2.5, behavior: 'smooth' });
     };
 
     element.addEventListener('wheel', onWheel, { passive: false });
