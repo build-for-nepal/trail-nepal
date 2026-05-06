@@ -25,10 +25,17 @@ export const Gallery = ({ trekId }: Props) => {
     if (!element) return;
 
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY !== 0 && e.deltaX === 0) {
-        e.preventDefault();
-        element.scrollLeft += e.deltaY;
-      }
+      if (e.deltaY === 0 || e.deltaX !== 0) return;
+
+      const atStart = element.scrollLeft === 0 && e.deltaY < 0;
+      const atEnd =
+        element.scrollLeft + element.clientWidth >= element.scrollWidth &&
+        e.deltaY > 0;
+
+      if (atStart || atEnd) return;
+
+      e.preventDefault();
+      element.scrollLeft += e.deltaY;
     };
 
     element.addEventListener('wheel', onWheel, { passive: false });
