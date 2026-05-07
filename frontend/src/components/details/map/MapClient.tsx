@@ -7,7 +7,7 @@ import { Layers, Plus, Minus, Navigation } from 'lucide-react';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { GeoJSONData, LayerKey } from '@/types/map';
 import { ElevationPoint } from '@/types/trek';
-import { useMapInit, useTrailData, useTrekMarkers, useHoverMarker } from '@/hooks/useMapFeatures';
+import { useMapInit, useTrailData, useTrekMarkers, useHikerMarker } from '@/hooks/useMapFeatures';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
 import ElevationProfile from './ElevationProfile';
 
@@ -52,18 +52,19 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline);
 
-  // Load dummy elevation profile from public
+  // Load elevation profile for the current trek
   const [elevationPoints, setElevationPoints] = useState<ElevationPoint[]>([]);
   useEffect(() => {
-    fetch('/data/elevation-sample.json')
+    if (!trekId) return;
+    fetch(`/data/elevation/${trekId}-elevation.json`)
       .then((r) => r.json())
       .then(setElevationPoints)
       .catch(() => {});
-  }, []);
+  }, [trekId]);
 
-  // Blue dot on trail on chart hover
+  // Hiker marker on trail on chart hover
   const [hoverCoord, setHoverCoord] = useState<[number, number] | null>(null);
-  useHoverMarker(map, mapLoaded, hoverCoord);
+  useHikerMarker(map, mapLoaded, hoverCoord);
 
   const handleElevHover = useCallback((pt: ElevationPoint | null) => {
     setHoverCoord(pt ? [pt.lng, pt.lat] : null);

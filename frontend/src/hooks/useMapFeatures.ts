@@ -6,24 +6,7 @@ import { LAYERS } from '@/static/mapConstants';
 import { buildPopupHTML, fitToBounds } from '@/lib/mapHelper';
 
 const TRAIL_GREEN = '#84b829';
-const TRAIL_GREEN_DARK = '#4a7c1f';
 const MARKER_ORANGE = '#f59e0b';
-
-function haversineKm(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number,
-): number {
-  const R = 6371;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
 
 /**
  * Returns a wrapper element (given to MapLibre) containing an inner visual circle.
@@ -292,45 +275,176 @@ export function useTrekMarkers(
   }, [mapLoaded, timeline, map]);
 }
 
-// ─── Hook 4: Blue hover-dot on the trail ─────────────────────────────────────
+// ─── Hook 4: Animated hiker on the trail ─────────────────────────────────────
 
-export function useHoverMarker(
+function injectHikerStyles() {
+  if (typeof document === 'undefined' || document.getElementById('hiker-marker-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'hiker-marker-styles';
+  style.textContent = `
+    @keyframes hiker-bob {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      30%       { transform: translateY(-4px) rotate(1deg); }
+      60%       { transform: translateY(-2px) rotate(0deg); }
+    }
+    @keyframes hiker-shadow-pulse {
+      0%, 100% { transform: translateX(-50%) scaleX(1);   opacity: 0.35; }
+      30%       { transform: translateX(-50%) scaleX(0.7); opacity: 0.2;  }
+    }
+    @keyframes hiker-ring-pulse {
+      0%   { transform: translate(-50%, 50%) scale(0.4); opacity: 1;  }
+      100% { transform: translate(-50%, 50%) scale(3);   opacity: 0;  }
+    }
+    .hiker-body        { animation: hiker-bob          0.65s ease-in-out infinite; display:inline-block; }
+    .hiker-shadow-anim { animation: hiker-shadow-pulse 0.65s ease-in-out infinite; }
+    .hiker-ring-anim   { animation: hiker-ring-pulse   1.5s  ease-out  infinite;  }
+  `;
+  document.head.appendChild(style);
+}
+
+function createHikerEl(): HTMLElement {
+  injectHikerStyles();
+
+  // The wrapper's bottom-center is the map anchor point (exactly on the trail).
+  // Ring and shadow are positioned at the very bottom so they sit ON the coordinate.
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'position:relative;width:44px;height:56px;pointer-events:none;transform-origin:bottom center;';
+
+  // Pulsing ring — centered on the anchor point (bottom of wrapper)
+  const ring = document.createElement('div');
+  ring.className = 'hiker-ring-anim';
+  ring.style.cssText = `
+    position:absolute;bottom:0;left:50%;
+    width:16px;height:16px;border-radius:50%;
+    background:#8dc63f;opacity:0.7;
+  `;
+
+  // Solid dot on trail — 6px circle centered at the anchor
+  const dot = document.createElement('div');
+  dot.style.cssText = `
+    position:absolute;bottom:-3px;left:50%;
+    transform:translateX(-50%);
+    width:8px;height:8px;border-radius:50%;
+    background:#5a8f20;border:2px solid white;
+    box-shadow:0 1px 4px rgba(0,0,0,0.5);
+    z-index:2;
+  `;
+
+  // Ground shadow — oval just above dot
+  const shadow = document.createElement('div');
+  shadow.className = 'hiker-shadow-anim';
+  shadow.style.cssText = `
+    position:absolute;bottom:6px;left:50%;
+    width:18px;height:5px;border-radius:50%;
+    background:rgba(0,0,0,0.22);
+  `;
+
+  // Hiker figure — anchored above the dot
+  const figure = document.createElement('div');
+  figure.className = 'hiker-figure hiker-body';
+  figure.style.cssText = `
+    position:absolute;bottom:10px;left:50%;
+    transform:translateX(-50%);
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+    transform-origin:bottom center;
+  `;
+  figure.innerHTML = `
+    <svg width="32" height="44" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="15" cy="5" r="4.5" fill="#f5c07a" stroke="#c8862a" stroke-width="0.8"/>
+      <ellipse cx="15" cy="2.5" rx="6" ry="1.8" fill="#5a8f20"/>
+      <rect x="11" y="0.5" width="8" height="3.5" rx="1.5" fill="#6fb12e"/>
+      <rect x="17" y="9" width="6" height="9" rx="2" fill="#8dc63f" stroke="#5a8f20" stroke-width="0.7"/>
+      <rect x="18" y="11" width="4" height="2" rx="0.8" fill="#5a8f20" opacity="0.6"/>
+      <line x1="15" y1="9.5" x2="15" y2="22" stroke="#3d6e9e" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="15" y1="12" x2="9" y2="18" stroke="#3d6e9e" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="15" y1="12" x2="21" y2="17" stroke="#3d6e9e" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="21" y1="17" x2="25" y2="42" stroke="#9b6f2f" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="25" cy="42" r="1.5" fill="#7a5220"/>
+      <line x1="15" y1="22" x2="10" y2="36" stroke="#2d4a6e" stroke-width="3" stroke-linecap="round"/>
+      <line x1="10" y1="36" x2="7"  y2="44" stroke="#2d4a6e" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="6.5" cy="44.5" rx="4" ry="2" fill="#4a3728"/>
+      <line x1="15" y1="22" x2="19" y2="34" stroke="#2d4a6e" stroke-width="3" stroke-linecap="round"/>
+      <line x1="19" y1="34" x2="21" y2="42" stroke="#2d4a6e" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="22" cy="43" rx="4" ry="2" fill="#4a3728"/>
+    </svg>
+  `;
+
+  wrapper.appendChild(ring);
+  wrapper.appendChild(shadow);
+  wrapper.appendChild(dot);
+  wrapper.appendChild(figure);
+  return wrapper;
+}
+
+// Returns a scale factor so the hiker appears consistently sized relative to
+// the terrain regardless of zoom level. Calibrated at zoom 12.
+function hikerScale(zoom: number): number {
+  return Math.max(0.45, Math.min(2.2, Math.pow(2, (zoom - 12) * 0.35)));
+}
+
+export function useHikerMarker(
   map: maplibregl.Map | null,
   mapLoaded: boolean,
   coord: [number, number] | null,
 ) {
+  const markerRef   = useRef<maplibregl.Marker | null>(null);
+  const prevCoordRef = useRef<[number, number] | null>(null);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => { markerRef.current?.remove(); markerRef.current = null; };
+  }, []);
+
+  // Zoom-based scaling — keep this separate so it doesn't re-run on coord change
   useEffect(() => {
     if (!map || !mapLoaded) return;
-    if (map.getSource('hover-point')) return;
 
-    map.addSource('hover-point', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: [] },
-    });
-    map.addLayer({
-      id: 'hover-point-layer',
-      type: 'circle',
-      source: 'hover-point',
-      paint: {
-        'circle-radius': 8,
-        'circle-color': '#3b82f6',
-        'circle-stroke-color': '#ffffff',
-        'circle-stroke-width': 2.5,
-      },
-    });
+    const onZoom = () => {
+      const el = markerRef.current?.getElement();
+      if (!el) return;
+      const s = hikerScale(map.getZoom());
+      el.style.transform = `scale(${s})`;
+    };
+
+    map.on('zoom', onZoom);
+    return () => { map.off('zoom', onZoom); };
   }, [map, mapLoaded]);
 
+  // Position / create / remove the marker
   useEffect(() => {
     if (!map || !mapLoaded) return;
-    const src = map.getSource('hover-point') as maplibregl.GeoJSONSource | undefined;
-    if (!src) return;
-    if (coord) {
-      src.setData({
-        type: 'FeatureCollection',
-        features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: coord }, properties: {} }],
-      });
+
+    if (!coord) {
+      markerRef.current?.remove();
+      markerRef.current = null;
+      prevCoordRef.current = null;
+      return;
+    }
+
+    // Facing direction: longitude increasing → eastward → face right
+    let facingRight = true;
+    if (prevCoordRef.current) {
+      facingRight = coord[0] >= prevCoordRef.current[0];
+    }
+    prevCoordRef.current = coord;
+
+    if (!markerRef.current) {
+      const el = createHikerEl();
+      // Apply initial scale
+      const s = hikerScale(map.getZoom());
+      el.style.transform = `scale(${s})`;
+
+      markerRef.current = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+        .setLngLat(coord)
+        .addTo(map);
     } else {
-      src.setData({ type: 'FeatureCollection', features: [] });
+      markerRef.current.setLngLat(coord);
+    }
+
+    // Flip hiker direction
+    const figureEl = markerRef.current.getElement().querySelector('.hiker-figure') as HTMLElement | null;
+    if (figureEl) {
+      figureEl.style.transform = `translateX(-50%) scaleX(${facingRight ? 1 : -1})`;
     }
   }, [map, mapLoaded, coord]);
 }

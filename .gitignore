@@ -43,3 +43,8 @@ frontend/public/images/**/_originals/
 
 # Local-only image compression script
 frontend/scripts/compress-images.mjs
+
+# Local data/dev scripts (not for production)
+count-coords.js
+fix-trek-data.js
+frontend/scripts/fetch-elevation.js

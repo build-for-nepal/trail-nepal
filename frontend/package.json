@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "prepare": "husky",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "fetch:elevation": "node scripts/fetch-elevation.js"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
