@@ -17,7 +17,7 @@ import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
-import TrekkingMap from './TrekkingMap';
+import TrekkingMap from './map/TrekkingMap';
 
 const AccordionItem = ({
   day,
@@ -249,9 +249,7 @@ const StatPill = ({
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   // If no trekId or data is found, it will default to an empty array to avoid crashes.
 
-  const [activeView, setActiveView] = useState<'journey' | 'overview'>(
-    'overview',
-  );
+  const [activeView, setActiveView] = useState<'journey' | 'overview'>('journey');
 
   const days =
     trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];

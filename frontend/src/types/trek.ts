@@ -2,6 +2,13 @@ import { LucideIcon } from 'lucide-react';
 
 import type { FeatureCollection, LineString, MultiLineString } from 'geojson';
 
+export interface ElevationPoint {
+  d: number;   // cumulative km
+  e: number;   // elevation metres
+  lat: number;
+  lng: number;
+}
+
 //Routes types
 export interface RouteProperties {
   id: string;
