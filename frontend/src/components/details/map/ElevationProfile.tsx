@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback } from 'react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { ElevationPoint } from '@/types/trek';
 
 interface Props {
@@ -8,17 +9,21 @@ interface Props {
   onHover: (point: ElevationPoint | null) => void;
 }
 
-// Chart geometry
-const CW = 560;
-const CH = 178;
+// SVG logical coordinate space (viewBox)
+const CW = 520;
+const CH = 120; // reduced height
 const PL = 44;
 const PR = 68;
-const PT = 14;
-const PB = 30;
-const TW = PL + CW + PR; // 672
-const TH = PT + CH + PB; // 222
+const PT = 12;
+const PB = 26;
+const TW = PL + CW + PR; // 632 — viewBox width only, not rendered width
+const TH = PT + CH + PB; // 158
 
-// App theme
+const HANDLE_H    = 44;
+const SPARKLINE_W = 100;
+const SPARKLINE_H = 20;
+
+// Theme
 const GREEN       = '#8dc63f';
 const GREEN_DARK  = '#5a8f20';
 const GREEN_MID   = '#6fb12e';
@@ -28,19 +33,16 @@ const TEXT_MID    = '#6b7280';
 const TEXT_LIGHT  = '#9ca3af';
 const BORDER      = '#e5e7eb';
 
-function statAscent(points: ElevationPoint[]) {
-  return Math.round(
-    points.reduce((s, p, i) => (i > 0 ? s + Math.max(0, p.e - points[i - 1].e) : s), 0),
-  );
+function statAscent(pts: ElevationPoint[]) {
+  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, p.e - pts[i - 1].e) : s), 0));
 }
-function statDescent(points: ElevationPoint[]) {
-  return Math.round(
-    points.reduce((s, p, i) => (i > 0 ? s + Math.max(0, points[i - 1].e - p.e) : s), 0),
-  );
+function statDescent(pts: ElevationPoint[]) {
+  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, pts[i - 1].e - p.e) : s), 0));
 }
 
 export default function ElevationProfile({ points, onHover }: Props) {
-  const svgRef = useRef<SVGSVGElement>(null);
+  const svgRef                = useRef<SVGSVGElement>(null);
+  const [open, setOpen]       = useState(false);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
   if (!points.length) return null;
@@ -50,11 +52,10 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const minE    = Math.min(...elevs);
   const maxE    = Math.max(...elevs);
   const range   = maxE - minE || 1;
-
-  // Derived stats (cheap, no memoization needed at this call depth)
   const ascent  = statAscent(points);
   const descent = statDescent(points);
 
+  // Chart coordinate helpers — work in SVG logical space
   const toX = (d: number) => PL + (d / maxDist) * CW;
   const toY = (e: number) => PT + CH - ((e - minE) / range) * CH;
 
@@ -62,14 +63,14 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const lineD   = `M ${pathPts}`;
   const areaD   = `M ${toX(0)} ${toY(minE)} ${pathPts} L ${toX(maxDist)} ${toY(minE)} Z`;
 
-  // Y-axis: 4 evenly spaced gridlines + labels
-  const ySteps  = 4;
+  // Y gridlines (3 steps = 4 lines)
+  const ySteps  = 3;
   const yLabels = Array.from({ length: ySteps + 1 }, (_, i) => {
     const frac = i / ySteps;
     return { e: minE + frac * range, y: toY(minE + frac * range) };
   });
 
-  // X-axis ticks
+  // X ticks
   const xTicks = [0, 0.25, 0.5, 0.75, 1].map((t) => ({
     x: PL + t * CW,
     label: `${(t * maxDist).toFixed(0)} km`,
@@ -79,7 +80,6 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const hx      = hovered ? toX(hovered.d) : 0;
   const hy      = hovered ? toY(hovered.e) : 0;
 
-  // Grade at hovered point
   let grade = 0;
   if (hovered && hoverIdx !== null && hoverIdx > 0) {
     const prev  = points[hoverIdx - 1];
@@ -87,6 +87,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
     if (distM > 0) grade = ((hovered.e - prev.e) / distM) * 100;
   }
 
+  // Mouse tracking — scaleX maps actual rendered px → SVG logical px
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<SVGSVGElement>) => {
       const svg = svgRef.current;
@@ -96,7 +97,6 @@ export default function ElevationProfile({ points, onHover }: Props) {
       const mx     = (e.clientX - rect.left) * scaleX;
       const frac   = Math.max(0, Math.min(1, (mx - PL) / CW));
       const target = frac * maxDist;
-
       let best = 0, bestDiff = Infinity;
       points.forEach((p, i) => {
         const diff = Math.abs(p.d - target);
@@ -113,214 +113,205 @@ export default function ElevationProfile({ points, onHover }: Props) {
     onHover(null);
   }, [onHover]);
 
-  // Tooltip: flip to left when near right edge
+  // Tooltip: flip left when near right edge
   const tipX = hovered ? (hx > PL + CW * 0.62 ? hx - 176 : hx + 14) : 0;
-  const tipY  = PT + 2;
-
-  // Grade color
   const gradeColor =
-    Math.abs(grade) > 15 ? '#dc2626'
-    : Math.abs(grade) > 8 ? '#d97706'
-    : GREEN;
+    Math.abs(grade) > 15 ? '#dc2626' : Math.abs(grade) > 8 ? '#d97706' : GREEN;
+
+  // Sparkline (downsampled for performance)
+  const sparkStep = Math.max(1, Math.floor(points.length / 60));
+  const sparkPts  = points
+    .filter((_, i) => i % sparkStep === 0)
+    .map((p) => {
+      const sx = (p.d / maxDist) * SPARKLINE_W;
+      const sy = SPARKLINE_H - ((p.e - minE) / range) * SPARKLINE_H;
+      return `${sx.toFixed(1)},${sy.toFixed(1)}`;
+    })
+    .join(' L ');
+  const sparkD     = `M ${sparkPts}`;
+  const sparkAreaD = `M 0 ${SPARKLINE_H} ${sparkPts} L ${SPARKLINE_W} ${SPARKLINE_H} Z`;
+
+
+  // Expanded max-height: handle + 1px border + chart SVG
+  const expandedH = HANDLE_H + 1 + TH;
 
   return (
-    <div
-      className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 rounded-2xl bg-white/96 backdrop-blur-md shadow-2xl select-none border border-gray-100 overflow-hidden"
-      style={{ width: TW }}
-    >
-      {/* ── Stats header ─────────────────────────────────────────── */}
-      <div className="flex items-center gap-0 border-b border-gray-100">
-        {/* Label pill */}
-        <div className="flex items-center gap-1.5 px-4 py-2.5 border-r border-gray-100 shrink-0">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M1 12L5 5l3 4 2-3 3 6H1Z" fill={GREEN} opacity=".25"/>
-            <path d="M1 12L5 5l3 4 2-3 3 6" stroke={GREEN_DARK} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+    // ── Outer positioner — bottom-left, responsive width ─────────────────────
+    // right-3 leaves 12px margin; controls column is 52px (button+gap) on the right
+    // so chart stops well before the controls on any screen size
+    <div className="absolute bottom-3 left-3 z-10 select-none w-[min(580px,calc(100vw-76px))]">
+      <div
+        className="rounded-2xl bg-white/96 backdrop-blur-md shadow-2xl border border-gray-100 overflow-hidden"
+        style={{
+          transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1)',
+          maxHeight: open ? `${expandedH + 2}px` : `${HANDLE_H}px`,
+        }}
+      >
+        {/* ── Handle bar ───────────────────────────────────────────────────── */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="w-full flex items-center gap-2.5 px-3.5 hover:bg-gray-50/70 transition-colors duration-150 min-w-0"
+          style={{ height: HANDLE_H }}
+        >
+          {/* Mountain icon */}
+          <svg width="15" height="13" viewBox="0 0 16 14" fill="none" className="shrink-0">
+            <path d="M1 13L5 5l3 5 2-4 5 7H1Z" fill={GREEN} opacity=".2" />
+            <path d="M1 13L5 5l3 5 2-4 5 7" stroke={GREEN_DARK} strokeWidth="1.6"
+              strokeLinejoin="round" strokeLinecap="round" fill="none" />
           </svg>
-          <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase whitespace-nowrap">
-            Elevation
-          </span>
-        </div>
 
-        {/* Stat chips */}
-        <div className="flex items-center divide-x divide-gray-100 flex-1">
-          <StatChip label="Distance"  value={`${maxDist.toFixed(1)} km`}  color={TEXT_DARK} />
-          <StatChip label="Max Alt"   value={`${Math.round(maxE).toLocaleString()} m`} color={TEXT_DARK} />
-          <StatChip label="Ascent"    value={`↑ ${ascent.toLocaleString()} m`}   color={GREEN_DARK} />
-          <StatChip label="Descent"   value={`↓ ${descent.toLocaleString()} m`}  color={RED_DESCENT} />
-          <StatChip label="Low Point" value={`${Math.round(minE).toLocaleString()} m`} color={TEXT_MID} />
+          {/* Labeled stat chips */}
+          <div className="flex items-center gap-2.5 min-w-0 overflow-hidden">
+            <div className="flex flex-col items-start shrink-0">
+              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">Distance</span>
+              <span className="text-[11px] font-bold text-gray-800 leading-tight">{maxDist.toFixed(1)} km</span>
+            </div>
+            <div className="w-px h-6 bg-gray-200 shrink-0" />
+            <div className="flex flex-col items-start shrink-0">
+              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">Max Elev</span>
+              <span className="text-[11px] font-bold text-gray-800 leading-tight">{Math.round(maxE).toLocaleString()} m</span>
+            </div>
+            <div className="w-px h-6 bg-gray-200 shrink-0" />
+            <div className="flex flex-col items-start shrink-0">
+              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">Ascent</span>
+              <span className="text-[11px] font-bold leading-tight" style={{ color: GREEN_DARK }}>↑{ascent.toLocaleString()} m</span>
+            </div>
+            <div className="w-px h-6 bg-gray-200 shrink-0 hidden sm:block" />
+            <div className="hidden sm:flex flex-col items-start shrink-0">
+              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">Descent</span>
+              <span className="text-[11px] font-bold leading-tight" style={{ color: RED_DESCENT }}>↓{descent.toLocaleString()} m</span>
+            </div>
+          </div>
+
+          {/* Sparkline — only visible when collapsed */}
+          <div className="flex-1 flex justify-end items-center">
+            {!open && (
+              <svg
+                width={SPARKLINE_W}
+                height={SPARKLINE_H}
+                viewBox={`0 0 ${SPARKLINE_W} ${SPARKLINE_H}`}
+                className="shrink-0 opacity-75"
+              >
+                <defs>
+                  <linearGradient id="spark-area-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%"   stopColor={GREEN} stopOpacity="0.3" />
+                    <stop offset="100%" stopColor={GREEN} stopOpacity="0"   />
+                  </linearGradient>
+                </defs>
+                <path d={sparkAreaD} fill="url(#spark-area-grad)" />
+                <path d={sparkD} fill="none" stroke={GREEN} strokeWidth="1.4"
+                  strokeLinejoin="round" strokeLinecap="round" />
+              </svg>
+            )}
+          </div>
+
+          {/* Chevron */}
+          <div className="shrink-0 text-gray-400 ml-1">
+            {open
+              ? <ChevronDown className="w-3.5 h-3.5" />
+              : <ChevronUp   className="w-3.5 h-3.5" />}
+          </div>
+        </button>
+
+        {/* ── Chart (only shown when open) ─────────────────────────────────── */}
+        <div className="border-t border-gray-100">
+          <svg
+            ref={svgRef}
+            viewBox={`0 0 ${TW} ${TH}`}
+            width="100%"
+            height={TH}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ display: 'block', cursor: 'crosshair' }}
+          >
+            <defs>
+              <clipPath id="ep-clip">
+                <rect x={PL} y={PT} width={CW} height={CH} />
+              </clipPath>
+              <linearGradient id="ep-area-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%"   stopColor={GREEN} stopOpacity="0.26" />
+                <stop offset="60%"  stopColor={GREEN} stopOpacity="0.06" />
+                <stop offset="100%" stopColor={GREEN} stopOpacity="0"    />
+              </linearGradient>
+              <linearGradient id="ep-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stopColor={GREEN_DARK} />
+                <stop offset="100%" stopColor={GREEN_MID}  />
+              </linearGradient>
+            </defs>
+
+            {/* Grid lines */}
+            {yLabels.map((l, i) => (
+              <line key={i} x1={PL} y1={l.y} x2={PL + CW} y2={l.y}
+                stroke={BORDER}
+                strokeWidth={i === 0 || i === ySteps ? '1' : '0.75'}
+                strokeDasharray={i === 0 || i === ySteps ? undefined : '4 5'}
+                opacity="0.9"
+              />
+            ))}
+
+            {/* Area fill + elevation line */}
+            <path d={areaD} fill="url(#ep-area-grad)" clipPath="url(#ep-clip)" />
+            <path d={lineD} fill="none" stroke="url(#ep-line-grad)"
+              strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round"
+              clipPath="url(#ep-clip)" />
+
+            {/* Hover ruler */}
+            {hovered && (
+              <line x1={hx} y1={PT} x2={hx} y2={PT + CH}
+                stroke={GREEN} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
+            )}
+
+            {/* Hover dot */}
+            {hovered && (
+              <g>
+                <circle cx={hx} cy={hy} r="8"  fill={GREEN} opacity="0.1" />
+                <circle cx={hx} cy={hy} r="5"  fill="white" stroke={GREEN} strokeWidth="2.2" />
+                <circle cx={hx} cy={hy} r="2"  fill={GREEN} />
+              </g>
+            )}
+
+            {/* Tooltip */}
+            {hovered && (
+              <g transform={`translate(${tipX},${PT + 2})`}>
+                <rect width="168" height="66" rx="8"
+                  fill="white" stroke={GREEN} strokeWidth="1.2"
+                  filter="drop-shadow(0 4px 12px rgba(141,198,63,0.2))" />
+                <text x="11" y="20" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.8">DISTANCE</text>
+                <text x="11" y="33" fontSize="12" fontWeight="800" fill={GREEN_DARK} fontFamily="system-ui,sans-serif">{hovered.d.toFixed(1)} km</text>
+                <text x="96" y="20" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.8">ELEVATION</text>
+                <text x="96" y="33" fontSize="12" fontWeight="800" fill={TEXT_DARK} fontFamily="system-ui,sans-serif">{Math.round(hovered.e).toLocaleString()} m</text>
+                <line x1="11" y1="41" x2="157" y2="41" stroke={BORDER} strokeWidth="0.75" />
+                <text x="11" y="53" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.8">GRADE</text>
+                <text x="11" y="63" fontSize="11" fontWeight="700" fill={gradeColor} fontFamily="system-ui,sans-serif">
+                  {grade > 0 ? '+' : ''}{grade.toFixed(1)}%
+                </text>
+                <text x="52" y="63" fontSize="9" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif">
+                  {Math.abs(grade) > 15 ? '⚠ steep' : Math.abs(grade) > 8 ? 'moderate' : 'gentle'}
+                </text>
+              </g>
+            )}
+
+            {/* Y-axis labels (every other step) */}
+            {yLabels.filter((_, i) => i % 2 === 0).map((l, i) => (
+              <text key={i}
+                x={PL + CW + 8}
+                y={Math.max(PT + 8, Math.min(PT + CH, l.y + 4))}
+                fontSize="8" fill={TEXT_MID} fontFamily="system-ui,sans-serif" fontWeight="500">
+                {Math.round(l.e).toLocaleString()} m
+              </text>
+            ))}
+
+            {/* X-axis labels */}
+            {xTicks.map((t) => (
+              <text key={t.label} x={t.x} y={PT + CH + 16}
+                fontSize="8" textAnchor="middle" fill={TEXT_MID}
+                fontFamily="system-ui,sans-serif" fontWeight="500">
+                {t.label}
+              </text>
+            ))}
+          </svg>
         </div>
       </div>
-
-      {/* ── SVG Chart ────────────────────────────────────────────── */}
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${TW} ${TH}`}
-        width={TW}
-        height={TH}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ display: 'block', cursor: 'crosshair' }}
-      >
-        <defs>
-          <clipPath id="ep-clip">
-            <rect x={PL} y={PT} width={CW} height={CH} />
-          </clipPath>
-
-          {/* Area fill: green fades to transparent */}
-          <linearGradient id="ep-area-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stopColor={GREEN}      stopOpacity="0.28" />
-            <stop offset="65%"  stopColor={GREEN}      stopOpacity="0.07" />
-            <stop offset="100%" stopColor={GREEN}      stopOpacity="0"    />
-          </linearGradient>
-
-          {/* Line: dark-green → bright-green left-to-right */}
-          <linearGradient id="ep-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stopColor={GREEN_DARK} />
-            <stop offset="100%" stopColor={GREEN_MID}  />
-          </linearGradient>
-
-          {/* Tooltip gradient */}
-          <linearGradient id="ep-tip-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stopColor="#ffffff" />
-            <stop offset="100%" stopColor="#f8fdf2" />
-          </linearGradient>
-        </defs>
-
-        {/* Horizontal grid lines */}
-        {yLabels.map((l, i) => (
-          <line
-            key={i}
-            x1={PL} y1={l.y} x2={PL + CW} y2={l.y}
-            stroke={BORDER}
-            strokeWidth={i === 0 || i === ySteps ? '1' : '0.75'}
-            strokeDasharray={i === 0 || i === ySteps ? undefined : '4 5'}
-            opacity="0.9"
-          />
-        ))}
-
-        {/* Area fill */}
-        <path d={areaD} fill="url(#ep-area-grad)" clipPath="url(#ep-clip)" />
-
-        {/* Elevation line */}
-        <path
-          d={lineD}
-          fill="none"
-          stroke="url(#ep-line-grad)"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          clipPath="url(#ep-clip)"
-        />
-
-        {/* Hover: vertical dashed ruler */}
-        {hovered && (
-          <line
-            x1={hx} y1={PT} x2={hx} y2={PT + CH}
-            stroke={GREEN} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.65"
-          />
-        )}
-
-        {/* Hover: dot with outer ring */}
-        {hovered && (
-          <g>
-            <circle cx={hx} cy={hy} r="10" fill={GREEN} opacity="0.12" />
-            <circle cx={hx} cy={hy} r="6"  fill="white" stroke={GREEN} strokeWidth="2.5" />
-            <circle cx={hx} cy={hy} r="2.5" fill={GREEN} />
-          </g>
-        )}
-
-        {/* Tooltip card */}
-        {hovered && (
-          <g transform={`translate(${tipX},${tipY})`}>
-            <rect
-              width="172" height="72" rx="9"
-              fill="url(#ep-tip-grad)"
-              stroke={GREEN} strokeWidth="1.2"
-              filter="drop-shadow(0 4px 14px rgba(141,198,63,0.22))"
-            />
-            {/* Top accent bar */}
-            <rect width="172" height="3" rx="1.5" fill={GREEN} />
-
-            {/* Distance */}
-            <text x="12" y="21" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.9">
-              DISTANCE
-            </text>
-            <text x="12" y="35" fontSize="13" fontWeight="800" fill={GREEN_DARK} fontFamily="system-ui,sans-serif">
-              {hovered.d.toFixed(1)} km
-            </text>
-
-            {/* Elevation */}
-            <text x="98" y="21" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.9">
-              ELEVATION
-            </text>
-            <text x="98" y="35" fontSize="13" fontWeight="800" fill={TEXT_DARK} fontFamily="system-ui,sans-serif">
-              {Math.round(hovered.e).toLocaleString()} m
-            </text>
-
-            {/* Divider */}
-            <line x1="12" y1="43" x2="160" y2="43" stroke={BORDER} strokeWidth="0.75" />
-
-            {/* Grade */}
-            <text x="12" y="56" fontSize="7" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif" fontWeight="600" letterSpacing="0.9">
-              GRADE
-            </text>
-            <text x="12" y="68" fontSize="11" fontWeight="700" fill={gradeColor} fontFamily="system-ui,sans-serif">
-              {grade > 0 ? '+' : ''}{grade.toFixed(1)}%
-            </text>
-
-            {/* Grade label */}
-            <text x="55" y="68" fontSize="9" fill={TEXT_LIGHT} fontFamily="system-ui,sans-serif">
-              {Math.abs(grade) > 15 ? '⚠ steep' : Math.abs(grade) > 8 ? 'moderate' : 'gentle'}
-            </text>
-          </g>
-        )}
-
-        {/* Y-axis labels (every other step) */}
-        {yLabels
-          .filter((_, i) => i % 2 === 0)
-          .map((l, i) => (
-            <text
-              key={i}
-              x={PL + CW + 8}
-              y={Math.max(PT + 8, Math.min(PT + CH, l.y + 4))}
-              fontSize="8.5"
-              fill={TEXT_MID}
-              fontFamily="system-ui,sans-serif"
-              fontWeight="500"
-            >
-              {Math.round(l.e).toLocaleString()} m
-            </text>
-          ))}
-
-        {/* X-axis distance labels */}
-        {xTicks.map((t) => (
-          <text
-            key={t.label}
-            x={t.x}
-            y={PT + CH + 19}
-            fontSize="8.5"
-            textAnchor="middle"
-            fill={TEXT_MID}
-            fontFamily="system-ui,sans-serif"
-            fontWeight="500"
-          >
-            {t.label}
-          </text>
-        ))}
-      </svg>
-    </div>
-  );
-}
-
-function StatChip({ label, value, color }: { label: string; value: string; color: string }) {
-  return (
-    <div className="flex flex-col items-center px-4 py-2 flex-1">
-      <span className="text-[8.5px] font-semibold tracking-widest text-gray-400 uppercase leading-none mb-0.5">
-        {label}
-      </span>
-      <span className="text-[11px] font-bold leading-none" style={{ color }}>
-        {value}
-      </span>
     </div>
   );
 }

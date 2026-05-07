@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Layers, Plus, Minus, Navigation } from 'lucide-react';
+import { Layers, Plus, Minus, Navigation, Maximize2, Minimize2 } from 'lucide-react';
 
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { GeoJSONData, LayerKey } from '@/types/map';
@@ -44,6 +44,7 @@ function ControlBtn({
 }
 
 export default function MapClient({ data, center, trekId }: MapClientProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
 
   const trekInfo = trekId ? TREK_DETAILS?.[trekId] : null;
@@ -86,7 +87,24 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
     [map],
   );
 
-  // 3D toggle — terrain stays loaded for elevation queries; only pitch changes
+  // Fullscreen toggle
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const handleFullscreen = useCallback(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+    }
+  }, []);
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  // 3D toggle
   const [is3D, setIs3D] = useState(false);
   const handle3DToggle = useCallback(() => {
     if (!map) return;
@@ -99,15 +117,15 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
   }, [map, is3D]);
 
   return (
-    <div className="relative h-full w-full">
+    <div ref={wrapperRef} className="relative h-full w-full">
       <style>{POPUP_STYLES}</style>
 
-      {/* Invisible overlay to close layer picker on outside click */}
+      {/* Invisible overlay to close layer picker */}
       {showLayerPicker && (
         <div className="absolute inset-0 z-9" onClick={() => setShowLayerPicker(false)} />
       )}
 
-      {/* Right-side controls */}
+      {/* Right-side controls — Layers, 3D, Zoom, North, Fullscreen */}
       <div className="absolute top-3 right-3 z-10 flex flex-col gap-2">
         {/* Layers button + picker */}
         <div className="relative">
@@ -171,6 +189,16 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
           title="Reset to north"
         >
           <Navigation className="h-4.25 w-4.25" />
+        </ControlBtn>
+
+        {/* Fullscreen */}
+        <ControlBtn
+          onClick={handleFullscreen}
+          title={isFullscreen ? 'Exit full view' : 'Full view'}
+        >
+          {isFullscreen
+            ? <Minimize2 className="h-4 w-4" />
+            : <Maximize2 className="h-4 w-4" />}
         </ControlBtn>
       </div>
 
