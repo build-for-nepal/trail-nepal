@@ -85,6 +85,11 @@ export function useMapInit(center: [number, number]) {
       attributionControl: { compact: false },
     });
 
+    m.scrollZoom.disable();
+    m.boxZoom.disable();
+    m.dragPan.disable();
+    m.touchZoomRotate.disable();
+    m.doubleClickZoom.disable();
     m.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'top-left');
 
     m.on('load', () => {
@@ -276,7 +281,11 @@ export function useTrekMarkers(
 // ─── Hook 4: Animated hiker on the trail ─────────────────────────────────────
 
 function injectHikerStyles() {
-  if (typeof document === 'undefined' || document.getElementById('hiker-marker-styles')) return;
+  if (
+    typeof document === 'undefined' ||
+    document.getElementById('hiker-marker-styles')
+  )
+    return;
   const style = document.createElement('style');
   style.id = 'hiker-marker-styles';
   style.textContent = `
@@ -305,7 +314,8 @@ function createHikerEl(): HTMLElement {
 
   // The wrapper's bottom-center is the map anchor point (exactly on the trail).
   const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position:relative;width:32px;height:42px;pointer-events:none;transform-origin:bottom center;';
+  wrapper.style.cssText =
+    'position:relative;width:32px;height:42px;pointer-events:none;transform-origin:bottom center;';
 
   // Pulsing ring — centered on the anchor point
   const ring = document.createElement('div');
@@ -384,12 +394,15 @@ export function useHikerMarker(
   mapLoaded: boolean,
   coord: [number, number] | null,
 ) {
-  const markerRef   = useRef<maplibregl.Marker | null>(null);
+  const markerRef = useRef<maplibregl.Marker | null>(null);
   const prevCoordRef = useRef<[number, number] | null>(null);
 
   // Cleanup on unmount
   useEffect(() => {
-    return () => { markerRef.current?.remove(); markerRef.current = null; };
+    return () => {
+      markerRef.current?.remove();
+      markerRef.current = null;
+    };
   }, []);
 
   // Zoom-based scaling — keep this separate so it doesn't re-run on coord change
@@ -404,7 +417,9 @@ export function useHikerMarker(
     };
 
     map.on('zoom', onZoom);
-    return () => { map.off('zoom', onZoom); };
+    return () => {
+      map.off('zoom', onZoom);
+    };
   }, [map, mapLoaded]);
 
   // Position / create / remove the marker
@@ -431,7 +446,10 @@ export function useHikerMarker(
       const s = hikerScale(map.getZoom());
       el.style.transform = `scale(${s})`;
 
-      markerRef.current = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+      markerRef.current = new maplibregl.Marker({
+        element: el,
+        anchor: 'bottom',
+      })
         .setLngLat(coord)
         .addTo(map);
     } else {
@@ -439,7 +457,9 @@ export function useHikerMarker(
     }
 
     // Flip hiker direction
-    const figureEl = markerRef.current.getElement().querySelector('.hiker-figure') as HTMLElement | null;
+    const figureEl = markerRef.current
+      .getElement()
+      .querySelector('.hiker-figure') as HTMLElement | null;
     if (figureEl) {
       figureEl.style.transform = `translateX(-50%) scaleX(${facingRight ? 1 : -1})`;
     }
