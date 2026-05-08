@@ -138,8 +138,10 @@ const AccordionItem = ({
         <div className="px-5 pb-5 flex flex-col gap-4">
           {/* Handles both new 'description' and old 'content' fields dynamically */}
           {(day.description || day.content) && (
-            <p className="text-sm text-black/90 leading-relaxed cursor-text select-text">
-              {day.description || day.content}
+            <p className="text-sm text-black/90 leading-relaxed cursor-text select-text space-y-4"  dangerouslySetInnerHTML={{
+    __html: (day.description || day.content || ''),
+  }}>
+              {/* {day.description || day.content} */}
             </p>
           )}
 

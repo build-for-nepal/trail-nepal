@@ -526,7 +526,18 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         day: '01',
         title: 'Kathmandu to Syafrubesi',
         description:
-          'Drive from Kathmandu to Syafrubesi, the usual starting point of the Langtang Valley Trek. There are two common road routes to reach Syafrubesi. The usual public bus route goes via Kalanki - Nagdhunga - Galchi - Betrawati - Dhunche before reaching Syafrubesi. Private vehicles and jeeps may also use the Tokha-side road via Tokha - Chhahare / Dhikure - Trishuli - Dhunche - Syafrubesi, which can be shorter and more efficient in good road conditions. Public buses usually leave early in the morning, while private jeeps offer more flexibility and a faster ride.\n\nAlternative Route:\nIf you have a private vehicle, you can continue beyond Syafrubesi for about 45 minutes to 1 hour to reach Sherpagaun. This is a more scenic option and gives you the choice to stay either in Syafrubesi or in Sherpagaun, depending on your transport arrangement and arrival time.\n\nTransport Note:\nPublic buses usually depart from the Gongabu / Machhapokhari area in the morning. Shared jeeps also leave from the same area and are fast		er than buses, while private jeeps can start directly from your hotel or arranged pickup point.',
+        `<p>Drive from Kathmandu to Syafrubesi, the usual starting point of the Langtang Valley Trek. There are
+two common road routes to reach Syafrubesi. The usual public bus route goes via Kalanki - Nagdhunga -
+Galchi - Betrawati - Dhunche before reaching Syafrubesi. Private vehicles and jeeps may also use the
+Tokha-side road via Tokha - Dhikure - Trishuli - Dhunche - Syafrubesi, which can be shorter and more
+efficient in good road conditions. Public buses usually leave early in the morning, while private jeeps
+offer more flexibility and a faster ride'</p> <p>Transport Note: Public buses usually depart from the Gongabu / Machhapokhari area in the morning.
+Shared jeeps also leave from the same area and are faster than buses, while private jeeps can start
+directly from your hotel or arranged pickup point </p> <p><i>Alternative Option: Continue to Sherpagaun</i></p> <p>If you have a private vehicle, you can drive about 45 minutes to 1 hour beyond Syafrubesi to
+Sherpagaun. Spending the night in Sherpagaun at an altitude of 2,563 m on Day 1 makes the trek more
+efficient, as you can comfortably reach Langtang Village in a single day on Day 2. This helps reduce the
+overall walking time and gives you more time to enjoy and explore both Langtang Village and Kyanjin
+Gompa.</p>`,
         stats: { elevation: '1,460m / 2,563m', duration: '7-10 hours(drive)' },
         coordinates: [28.1657291, 85.3418267],
       },
@@ -534,7 +545,13 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         day: '02',
         title: 'Syafrubesi to Rimche / Lama Hotel',
         description:
-          'Begin trekking from Syafrubesi and follow the classic trail along the Langtang Khola through bamboo, oak, and rhododendron forest. The trail climbs steadily toward Rimche, with several suspension bridges and riverside sections along the way. Rimche has only limited accommodation, so many trekkers continue another 15-30 minutes to Lama Hotel, where there are more lodge options.\n\nIf you continued to Sherpagaun on Day 1 by private jeep, today’s walk becomes more scenic and generally easier. The upper trail from Sherpagaun toward Rimche offers better views, less steep climbing, more gradual walking, and some downhill sections before reaching Rimche and Lama Hotel.',
+         ` Begin trekking from Syafrubesi and follow the classic trail along the Langtang Khola through beautiful
+bamboo, oak, and rhododendron forest. This lower section of the valley is rich in wildlife, and if you are
+especially lucky, you may even spot a red panda, although sightings are very rare. Along the way, you
+may also notice wild bee hives on the cliffs and trees, associated with the region’s famous mad honey.
+The trail then climbs steadily toward Rimche, crossing several suspension bridges and following scenic
+riverside sections. As accommodation in Rimche is limited, many trekkers continue another 15 to 30
+minutes to Lama Hotel, where there are more lodge options`,
         stats: {
           elevation: '2,470m',
           duration: '6-7 hours from Syafrubesi / 4-5 hours from Sherpagaun',
@@ -554,7 +571,15 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         day: '04',
         title: 'Langtang Village to Kyanjin Gompa (with nearby visits)',
         description:
-          'This is a shorter trekking day, which gives you time to explore both Langtang and Kyanjin areas. Before leaving Langtang, you can wander through the village, observe local life, visit prayer walls and nearby viewpoints, and enjoy the open valley scenery. After a gradual ascent, you reach Kyanjin Gompa, a spectacular high settlement surrounded by snow peaks. Once there, you can visit the monastery area, the local cheese factory, nearby yak pastures, and take a gentle acclimatization walk toward the Lirung glacier moraine or the lower ridge trails around the village.',
+          `This is a shorter trekking day, which gives you time to explore both Langtang and Kyanjin areas. Before
+leaving Langtang, you can wander through the village, observe local life, visit prayer walls and nearby
+viewpoints, and enjoy the open valley scenery. After a gradual ascent, you reach Kyanjin Gompa, a
+spectacular high settlement surrounded by snow peaks. Once there, you can visit the monastery area,
+the local cheese factory, nearby yak pastures, and take a gentle acclimatization walk toward the Lirung
+glacier moraine or the lower ridge trails around the village. You can also see the local 100 kW micro-
+hydropower system associated with the Langtang Lirung glacial area, which supplies electricity to
+Kyanjin and nearby settlements and provides an interesting insight into how remote Himalayan
+communities utilize local natural resources`,
         stats: {
           elevation: '3,870m',
           duration: '3-4 hours trek / 1-2 hours exploration',
@@ -565,29 +590,40 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         day: '05',
         title: 'Kyanjin Gompa to Kyanjin Ri and back to Kyanjin',
         description:
-          'Today is the highlight of the trek. You start early for the climb above Kyanjin Gompa toward Kyanjin Ri, one of the best viewpoints in Langtang. The trail is steep from the beginning and the first major viewpoint is Lower Kyanjin Ri at around 4,400m. This lower point already offers excellent views of Langtang Lirung, the valley below, surrounding ridges, and glacial terrain. From here, those feeling strong can continue higher to the main Kyanjin Ri viewpoint at 4,773m. The final section is steeper and more demanding because of the altitude, but the panorama becomes even wider and more dramatic. After spending time at the viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a relaxed afternoon and overnight stay.',
+          `Today is the highlight of the trek. You start early for the climb above Kyanjin Gompa toward Kyanjin Ri,
+one of the finest viewpoints in the Langtang region. The trail is steep from the beginning, and the first
+major viewpoint is Lower Kyanjin Ri at around 4,400 m. Even from here, the panorama is already
+spectacular, with close views of Langtang Lirung rising dramatically above the valley, along with a bird’s-
+eye view of Kyanjin Village and its surrounding glacial landscape. As you gain height, the view opens
+even wider, offering sweeping panoramas of Yala Glacier, Khimsung Glacier, Ganchenpo Himal, beautiful
+Tserko Ri, and the distant direction of Ganja La Pass. From here, those feeling strong can continue higher
+to the main Kyanjin Ri viewpoint at 4,773 m. The final section is steeper and more demanding because
+of the altitude, but the reward is an even broader and more dramatic Himalayan panorama, with snow
+peaks, glaciers, ridgelines, and the upper Langtang Valley spread out below. After spending time at the
+viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a relaxed afternoon and
+overnight stay`,
         stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
       },
-      // {
-      //   day: "06",
-      //   title: "Kyanjin Gompa to Lama Hotel",
-      //   description:
-      //     "After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.",
-      //   stats: { elevation: "2,470m", duration: "6-7 hours" },
-      //   coordinates: [28.1612117, 85.4296495],
-      // },
-      // {
-      //   day: "07",
-      //   title: "Lama Hotel to Syabrubesi and drive to Kathmandu",
-      //   description:
-      //     "Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.",
-      //   stats: {
-      //     elevation: "1,400m",
-      //     duration: "4-5 hours trek + 7-8 hours drive",
-      //   },
-      //   coordinates: [28.1657291, 85.3418267],
-      // },
+      {
+        day: "06",
+        title: "Kyanjin Gompa to Lama Hotel",
+        description:
+          "After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.",
+        stats: { elevation: "2,470m", duration: "6-7 hours" },
+        coordinates: [28.1612117, 85.4296495],
+      },
+      {
+        day: "07",
+        title: "Lama Hotel to Syabrubesi and drive to Kathmandu",
+        description:
+          "Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.",
+        stats: {
+          elevation: "1,400m",
+          duration: "4-5 hours trek + 7-8 hours drive",
+        },
+        coordinates: [28.1657291, 85.3418267],
+      },
     ],
 
     expectations: [
@@ -604,7 +640,10 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       {
         title: 'Kyanjin Gompa and Kyanjin Ri',
         description:
-          'Stay in one of Nepal’s most beautiful high-mountain settlements and climb to a panoramic ridge above the valley for the trek’s best views.',
+        `Stay in one of Nepal’s most beautiful high-mountain settlements and climb to a panoramic ridge above
+the valley for the trek’s best views. The viewpoint offers stunning panoramas of Langtang Lirung, Yala
+Glacier, Khimsung Glacier, Ganchenpo Himal, Tserko Ri, the direction of Ganja La Pass, and a bird’s-eye
+view over Kyanjin Village and the upper Langtang Valley`
       },
       // {
       // title: "Visit the Kyanjin Cheese Factory",
@@ -647,218 +686,129 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       { month: 'Nov', condition: 'Cool & Stable / Excellent Visibility' },
       { month: 'Dec', condition: 'Winter Chill / Crystal Clear Blue Skies' },
     ],
-    gallery: [
-      {
-        id: 'img_01',
-        url: '/images/langtang/IMG_6112.webp',
-        alt: 'Langtang ',
-        type: 'hero',
-      },
-      {
-        id: 'img_02',
-        url: '/images/langtang/IMG_6198.webp',
-        alt: 'En route to Pung Gyen Gompa in Manaslu Circuit Trek.',
-        type: 'landscape',
-      },
-      {
-        id: 'img_03',
-        url: '/images/langtang/IMG_6283.webp',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_04',
-        url: '/images/langtang/IMG_6299.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_05',
-        url: '/images/langtang/IMG_6368.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_06',
-        url: '/images/langtang/IMG_6312.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_07',
-        url: '/images/langtang/IMG_6406.webp',
-        alt: 'Langtang ',
-        type: 'hero',
-      },
-      {
-        id: 'img_08',
-        url: '/images/langtang/IMG_6411.webp',
-        alt: 'En route to Pung Gyen Gompa in Manaslu Circuit Trek.',
-        type: 'landscape',
-      },
-      {
-        id: 'img_09',
-        url: '/images/langtang/IMG_6413.webp',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_10',
-        url: '/images/langtang/IMG_6426.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_11',
-        url: '/images/langtang/IMG_6433.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_12',
-        url: '/images/langtang/IMG_6501.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_13',
-        url: '/images/langtang/IMG_6517.webp',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_14',
-        url: '/images/langtang/IMG_6596.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_015',
-        url: '/images/langtang/IMG_6368.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_16',
-        url: '/images/langtang/IMG_6447.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_17',
-        url: '/images/langtang/IMG_6823.webp',
-        alt: 'camping ',
-        type: 'hero',
-      },
-      {
-        id: 'img_18',
-        url: '/images/langtang/IMG_6905.jpg',
-        alt: 'En route to Pung Gyen Gompa in Manaslu Circuit Trek.',
-        type: 'landscape',
-      },
-      {
-        id: 'img_19',
-        url: '/images/langtang/IMG_6909.webp',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_20',
-        url: '/images/langtang/IMG_6925.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_21',
-        url: '/images/langtang/IMG_6930.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_22',
-        url: '/images/langtang/IMG_6931.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_23',
-        url: '/images/langtang/IMG_6957.webp',
-        alt: 'Langtang ',
-        type: 'hero',
-      },
-      {
-        id: 'img_24',
-        url: '/images/langtang/IMG_6987.webp',
-        alt: ' Cheese Factory',
-        type: 'landscape',
-      },
-      {
-        id: 'img_25',
-        url: '/images/langtang/IMG_7013.webp',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_26',
-        url: '/images/langtang/IMG_7043.jpeg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_27',
-        url: '/images/langtang/IMG_7053.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_28',
-        url: '/images/langtang/IMG_7067.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_29',
-        url: '/images/langtang/IMG_7095.jpg',
-        alt: 'Manaslu, Samagaun, Nepal',
-        type: 'portrait',
-      },
-      {
-        id: 'img_30',
-        url: '/images/langtang/IMG_7109.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_31',
-        url: '/images/langtang/IMG_7133.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_32',
-        url: '/images/langtang/IMG_7135.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_33',
-        url: '/images/langtang/IMG_7302.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_34',
-        url: '/images/langtang/IMG_7324.jpg',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-      {
-        id: 'img_35',
-        url: '/images/langtang/IMG_7327.webp',
-        alt: 'Trekking over Hillary Suspension Bridge',
-        type: 'landscape',
-      },
-    ],
+   gallery: [
+  {
+    id: 'img_01',
+    url: '/images/langtang/1.jpg',
+    alt: 'Langtang 1',
+    type: 'hero',
+    order: 1,
+  },
+  {
+    id: 'img_02',
+    url: '/images/langtang/2.webp',
+    alt: 'Langtang 2',
+    type: 'landscape',
+  },
+  {
+    id: 'img_03',
+    url: '/images/langtang/3.webp',
+    alt: 'Langtang 3',
+    type: 'portrait',
+  },
+  {
+    id: 'img_04',
+    url: '/images/langtang/4.webp',
+    alt: 'Langtang 4',
+    type: 'landscape',
+  },
+  {
+    id: 'img_05',
+    url: '/images/langtang/5.webp',
+    alt: 'Langtang 5',
+    type: 'landscape',
+  },
+  {
+    id: 'img_06',
+    url: '/images/langtang/6.webp',
+    alt: 'Langtang 6',
+    type: 'landscape',
+  },
+  {
+    id: 'img_07',
+    url: '/images/langtang/7.webp',
+    alt: 'Langtang 7',
+    type: 'hero',
+  },
+  {
+    id: 'img_08',
+    url: '/images/langtang/8.webp',
+    alt: 'Langtang 8',
+    type: 'landscape',
+  },
+  {
+    id: 'img_09',
+    url: '/images/langtang/9.webp',
+    alt: 'Langtang 9',
+    type: 'portrait',
+  },
+  {
+    id: 'img_10',
+    url: '/images/langtang/10.webp',
+    alt: 'Langtang 10',
+    type: 'landscape',
+  },
+  {
+    id: 'img_11',
+    url: '/images/langtang/11.webp',
+    alt: 'Langtang 11',
+    type: 'landscape',
+  },
+  {
+    id: 'img_12',
+    url: '/images/langtang/12.webp',
+    alt: 'Langtang 12',
+    type: 'landscape',
+  },
+  {
+    id: 'img_13',
+    url: '/images/langtang/13.webp',
+    alt: 'Langtang 13',
+    type: 'portrait',
+  },
+  {
+    id: 'img_14',
+    url: '/images/langtang/14.webp',
+    alt: 'Langtang 14',
+    type: 'landscape',
+  },
+  {
+    id: 'img_015',
+    url: '/images/langtang/15.webp',
+    alt: 'Langtang 15',
+    type: 'landscape',
+  },
+  {
+    id: 'img_16',
+    url: '/images/langtang/16.webp',
+    alt: 'Langtang 16',
+    type: 'landscape',
+  },
+  {
+    id: 'img_17',
+    url: '/images/langtang/17.webp',
+    alt: 'Langtang 17',
+    type: 'hero',
+  },
+  {
+    id: 'img_18',
+    url: '/images/langtang/18.webp',
+    alt: 'Langtang 18',
+    type: 'landscape',
+  },
+  {
+    id: 'img_20',
+    url: '/images/langtang/19.webp',
+    alt: 'Langtang 20',
+    type: 'landscape',
+  },
+  {
+    id: 'img_21',
+    url: '/images/langtang/20.webp',
+    alt: 'Langtang 21',
+    type: 'landscape',
+  },
+],
     gearChecklist: {
       essentials: [
         { item: 'Down Jacket (Minimum 800 Fill Power)', weight: '650g' },

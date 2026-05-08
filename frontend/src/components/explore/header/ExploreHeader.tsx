@@ -26,10 +26,10 @@ export function ExploreHeader() {
           >
             Explore Nepal Treks
           </h1>
-
+          {/* 
           <p className="text-white/70 text-xs sm:text-sm">
             Sort by region here
-          </p>
+          </p> */}
         </div>
       </div>
     </header>

@@ -75,6 +75,7 @@ export interface TrekImage {
   url: string;
   alt: string;
   type: 'hero' | 'landscape' | 'portrait';
+  order?: number;
 }
 
 export interface GearItem {
