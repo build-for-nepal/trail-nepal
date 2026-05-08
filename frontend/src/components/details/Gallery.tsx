@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
 import SectionHeader from '../common/SectionHeader';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { Props } from '@/types/trek';
@@ -15,32 +14,8 @@ const BENTO_PATTERN = [
 ];
 
 export const Gallery = ({ trekId }: Props) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const galleryData =
     trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].gallery : null;
-
-  // Converts vertical mouse wheel scrolling into horizontal scrolling for desktop
-  useEffect(() => {
-    const element = scrollRef.current;
-    if (!element) return;
-
-    const onWheel = (e: WheelEvent) => {
-      if (e.deltaY === 0 || e.deltaX !== 0) return;
-
-      const atStart = element.scrollLeft === 0 && e.deltaY < 0;
-      const atEnd =
-        element.scrollLeft + element.clientWidth >= element.scrollWidth &&
-        e.deltaY > 0;
-
-      if (atStart || atEnd) return;
-
-      e.preventDefault();
-      element.scrollBy({ left: e.deltaY * 2.5, behavior: 'smooth' });
-    };
-
-    element.addEventListener('wheel', onWheel, { passive: false });
-    return () => element.removeEventListener('wheel', onWheel);
-  }, []);
 
   if (!galleryData || galleryData.length === 0) return null;
 
@@ -56,7 +31,6 @@ export const Gallery = ({ trekId }: Props) => {
 
       <div className="w-full pl-6 sm:pl-10 lg:pl-20">
         <div
-          ref={scrollRef}
           className="
             grid grid-rows-2 grid-flow-col gap-3 sm:gap-4 lg:gap-6 
             overflow-x-auto pb-6 pr-6 sm:pr-10 lg:pr-20
