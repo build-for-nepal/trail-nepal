@@ -2,12 +2,24 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Layers, Plus, Minus, Navigation, Maximize2, Minimize2 } from 'lucide-react';
+import {
+  Layers,
+  Plus,
+  Minus,
+  Navigation,
+  Maximize2,
+  Minimize2,
+} from 'lucide-react';
 
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { GeoJSONData, LayerKey } from '@/types/map';
 import { ElevationPoint } from '@/types/trek';
-import { useMapInit, useTrailData, useTrekMarkers, useHikerMarker } from '@/hooks/useMapFeatures';
+import {
+  useMapInit,
+  useTrailData,
+  useTrekMarkers,
+  useHikerMarker,
+} from '@/hooks/useMapFeatures';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
 import ElevationProfile from './ElevationProfile';
 
@@ -81,7 +93,11 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
       setActiveLayer(key);
       setShowLayerPicker(false);
       (Object.keys(LAYERS) as LayerKey[]).forEach((k) => {
-        map.setLayoutProperty(`${k}-layer`, 'visibility', k === key ? 'visible' : 'none');
+        map.setLayoutProperty(
+          `${k}-layer`,
+          'visibility',
+          k === key ? 'visible' : 'none',
+        );
       });
     },
     [map],
@@ -93,9 +109,14 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
     const el = wrapperRef.current;
     if (!el) return;
     if (!document.fullscreenElement) {
-      el.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+      el.requestFullscreen()
+        .then(() => setIsFullscreen(true))
+        .catch(() => {});
     } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+      document
+        .exitFullscreen()
+        .then(() => setIsFullscreen(false))
+        .catch(() => {});
     }
   }, []);
   useEffect(() => {
@@ -122,7 +143,10 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
       {/* Invisible overlay to close layer picker */}
       {showLayerPicker && (
-        <div className="absolute inset-0 z-9" onClick={() => setShowLayerPicker(false)} />
+        <div
+          className="absolute inset-0 z-9"
+          onClick={() => setShowLayerPicker(false)}
+        />
       )}
 
       {/* Right-side controls — Layers, 3D, Zoom, North, Fullscreen */}
@@ -139,26 +163,29 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
           {showLayerPicker && (
             <div className="absolute right-12 top-0 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden w-40 py-1">
-              {(Object.entries(LAYERS) as [LayerKey, (typeof LAYERS)[LayerKey]][]).map(
-                ([key, cfg]) => (
-                  <button
-                    key={key}
-                    onClick={() => handleLayerChange(key)}
-                    className={`w-full px-3 py-2 flex items-center gap-2.5 text-left text-xs hover:bg-gray-50 transition-colors ${
-                      activeLayer === key
-                        ? 'bg-green-50 text-green-700 font-semibold'
-                        : 'text-gray-700'
-                    }`}
-                  >
-                    <img
-                      src={LAYER_THUMBNAILS[key]}
-                      alt={cfg.label}
-                      className="w-8 h-8 rounded-md object-cover shrink-0 border border-gray-100"
-                    />
-                    {cfg.label}
-                  </button>
-                ),
-              )}
+              {(
+                Object.entries(LAYERS) as [
+                  LayerKey,
+                  (typeof LAYERS)[LayerKey],
+                ][]
+              ).map(([key, cfg]) => (
+                <button
+                  key={key}
+                  onClick={() => handleLayerChange(key)}
+                  className={`w-full px-3 py-2 flex items-center gap-2.5 text-left text-xs hover:bg-gray-50 transition-colors ${
+                    activeLayer === key
+                      ? 'bg-green-50 text-green-700 font-semibold'
+                      : 'text-gray-700'
+                  }`}
+                >
+                  <img
+                    src={LAYER_THUMBNAILS[key]}
+                    alt={cfg.label}
+                    className="w-8 h-8 rounded-md object-cover shrink-0 border border-gray-100"
+                  />
+                  {cfg.label}
+                </button>
+              ))}
             </div>
           )}
         </div>
@@ -169,16 +196,26 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
           disabled={!mapLoaded}
           title={is3D ? 'Switch to 2D' : 'Switch to 3D'}
         >
-          <span className="text-xs font-bold tracking-wide">{is3D ? '3D' : '2D'}</span>
+          <span className="text-xs font-bold tracking-wide">
+            {is3D ? '3D' : '2D'}
+          </span>
         </ControlBtn>
 
         {/* Zoom in */}
-        <ControlBtn onClick={() => map?.zoomIn()} disabled={!mapLoaded} title="Zoom in">
+        <ControlBtn
+          onClick={() => map?.zoomIn()}
+          disabled={!mapLoaded}
+          title="Zoom in"
+        >
           <Plus className="h-4.5 w-4.5" />
         </ControlBtn>
 
         {/* Zoom out */}
-        <ControlBtn onClick={() => map?.zoomOut()} disabled={!mapLoaded} title="Zoom out">
+        <ControlBtn
+          onClick={() => map?.zoomOut()}
+          disabled={!mapLoaded}
+          title="Zoom out"
+        >
           <Minus className="h-4.5 w-4.5" />
         </ControlBtn>
 
@@ -196,9 +233,11 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
           onClick={handleFullscreen}
           title={isFullscreen ? 'Exit full view' : 'Full view'}
         >
-          {isFullscreen
-            ? <Minimize2 className="h-4 w-4" />
-            : <Maximize2 className="h-4 w-4" />}
+          {isFullscreen ? (
+            <Minimize2 className="h-4 w-4" />
+          ) : (
+            <Maximize2 className="h-4 w-4" />
+          )}
         </ControlBtn>
       </div>
 
