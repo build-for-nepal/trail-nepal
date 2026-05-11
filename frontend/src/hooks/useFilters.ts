@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { DEFAULT_FILTER_STATE, FilterState } from '@/types/explorepage';
+import { FILTER_OPTIONS } from '@/static/explorepageData';
 
 export function useFilters(onFilter: (state: FilterState) => void) {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTER_STATE);
@@ -11,11 +12,20 @@ export function useFilters(onFilter: (state: FilterState) => void) {
     onFilter(filters);
   }, [filters, onFilter]);
 
+  const getOptionsForKey = (key: 'regions' | 'durations' | 'difficulties') => {
+    return FILTER_OPTIONS[key];
+  };
+
   const toggleArrayItem = useCallback(
     (key: 'regions' | 'durations' | 'difficulties', value: string) => {
       setFilters((prev) => {
+        const options = getOptionsForKey(key);
+        const specificOptions = options.slice(1); // Exclude 'All'
+
         // If "All" is selected, clear the array
-        if (value === 'All') return { ...prev, [key]: [] };
+        if (value === 'All') {
+          return { ...prev, [key]: [] };
+        }
 
         const current = prev[key];
         const updated = current.includes(value)
@@ -40,5 +50,12 @@ export function useFilters(onFilter: (state: FilterState) => void) {
 
   const resetFilters = useCallback(() => setFilters(DEFAULT_FILTER_STATE), []);
 
-  return { filters, toggleArrayItem, setRange, resetFilters };
+  const selectOnly = useCallback(
+    (key: 'regions' | 'durations' | 'difficulties', value: string) => {
+      setFilters((prev) => ({ ...prev, [key]: [value] }));
+    },
+    [],
+  );
+
+  return { filters, toggleArrayItem, setRange, resetFilters, selectOnly };
 }

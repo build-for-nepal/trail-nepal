@@ -7,7 +7,7 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   maxElevation: 6000,
 };
 
-export type DifficultyLevel = 'Easy' | 'Moderate' | 'Challenging' | 'Difficult';
+export type DifficultyLevel = 'Easy' | 'Moderate' | 'Challenging';
 
 export type Region =
   | 'All'
@@ -36,6 +36,10 @@ export type FilterPanelProps = {
     value: string | number,
   ) => void;
   onReset: () => void;
+  onSelectOnly?: (
+    key: 'regions' | 'durations' | 'difficulties',
+    value: string,
+  ) => void;
   mobile?: boolean;
   headerHeight?: number;
 };

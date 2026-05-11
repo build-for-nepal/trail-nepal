@@ -17,7 +17,7 @@ export default function FilterSidebar({
   onFilter: (s: FilterState) => void;
   headerHeight?: number;
 }) {
-  const { filters, toggleArrayItem, setRange, resetFilters } =
+  const { filters, toggleArrayItem, setRange, resetFilters, selectOnly } =
     useFilters(onFilter);
 
   const panelProps = {
@@ -25,6 +25,7 @@ export default function FilterSidebar({
     onToggle: toggleArrayItem,
     onRangeChange: setRange,
     onReset: resetFilters,
+    onSelectOnly: selectOnly,
     mobile,
     headerHeight,
   };
