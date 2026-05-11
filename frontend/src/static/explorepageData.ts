@@ -7,7 +7,7 @@ export const FILTER_OPTIONS = {
     'Manaslu Region',
   ],
   durations: ['0-3 days', '3-5 days', '5-10 days', '10-15 days', '15+ days'],
-  difficulties: ['All', 'Easy', 'Moderate', 'Challenging', 'Difficult'],
+  difficulties: ['All', 'Easy', 'Moderate', 'Challenging'],
 };
 
 export const DEFAULT_FILTERS = {
@@ -23,4 +23,5 @@ export type Props = {
   options: readonly string[];
   selected: string[];
   onToggle: (val: string) => void;
+  onSelectOnly?: (val: string) => void;
 };

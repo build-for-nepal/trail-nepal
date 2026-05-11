@@ -6,14 +6,10 @@ import Image from 'next/image';
 import gearBag from '@/assets/details/gearbag.svg';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
-import {
-  CheckItemProps,
-  GearCategory,
-  GearCategoryKey,
-  GearChecklist,
-} from '@/types/trek';
+import { GearCategory, GearCategoryKey, GearChecklist } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { gearCheckListDescriptions } from '@/static/constants';
+import { Minus, Plus } from 'lucide-react';
 
 // Fallback data if no trekId is provided
 const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
@@ -26,62 +22,166 @@ const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
 
 const getWeightMeta = (kg: number): { label: string; color: string } => {
   if (kg === 0) return { label: 'Empty', color: '#9ca3af' };
-  if (kg < 3) return { label: 'Light Load', color: '#3b82f6' };
+  if (kg < 3) return { label: 'Light Load', color: '#376bb6' };
   if (kg < 7) return { label: 'Optimal Load', color: '#22c55e' };
   if (kg < 12) return { label: 'Heavy Load', color: '#f59e0b' };
   return { label: 'Over Limit', color: '#ef4444' };
 };
 
+const QuantityControl = ({
+  quantity,
+  onIncrement,
+  onDecrement,
+  checked,
+}: {
+  quantity: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+  checked: boolean;
+}) => (
+  <div className="flex items-center gap-1.5">
+    <Minus
+      className="w-4 h-4 text-gray-400 cursor-pointer"
+      onClick={(e) => {
+        e.stopPropagation();
+        onDecrement();
+      }}
+    />
+    <span
+      className={cn(
+        'w-5 text-center text-xs font-semibold tabular-nums text-gray-600',
+      )}
+    >
+      {quantity}
+    </span>
+    <Plus
+      className="w-4 h-4 text-gray-400 cursor-pointer"
+      onClick={(e) => {
+        e.stopPropagation();
+        onIncrement();
+      }}
+    />
+  </div>
+);
+
 const CheckItem = ({
   id,
   name,
   weight,
+  quantity,
   checked,
   onToggle,
+  onQuantityChange,
   showBottomBorder,
-}: CheckItemProps) => (
-  <div
-    className={[
-      'flex items-center gap-2.5 px-5 py-3 transition-colors duration-150',
-      showBottomBorder ? 'border-b border-gray-100' : '',
-      checked ? 'bg-green-50' : 'hover:bg-gray-50',
-    ].join(' ')}
-  >
-    <Checkbox
-      id={id}
-      checked={checked}
-      onCheckedChange={() => onToggle(id)}
+}: {
+  id: string;
+  name: string;
+  weight: number;
+  quantity?: number;
+  checked: boolean;
+  onToggle: (id: string) => void;
+  onQuantityChange: (id: string, delta: number) => void;
+  showBottomBorder: boolean;
+}) => {
+  const effectiveWeight = weight * (quantity ?? 1);
+  const hasQty = quantity !== undefined;
+
+  return (
+    <div
       className={cn(
-        'w-4.5 h-4.5 cursor-pointer transition-all transform duration-700 ease-in-out',
-        checked &&
-          'bg-green-500 border-green-500 data-checked:bg-green-500 data-checked:border-green-500',
+        'px-5 py-3 transition-colors duration-150',
+        showBottomBorder ? 'border-b border-gray-100' : '',
+        checked ? 'bg-[#f3f7e7]' : 'hover:bg-gray-50',
       )}
-      style={{
-        backgroundColor: checked ? '#22c55e' : undefined,
-        borderColor: checked ? '#22c55e' : undefined,
-      }}
-    />
-
-    <label
-      htmlFor={id}
-      className={[
-        'flex-1 text-sm truncate transition-colors duration-150 cursor-pointer',
-        checked ? 'text-green-700 font-medium' : 'text-gray-600',
-      ].join(' ')}
     >
-      {name}
-    </label>
+      {/* ── desktop single row ── */}
+      <div className="hidden min-[1180px]:flex items-center gap-2.5">
+        <Checkbox
+          id={id}
+          checked={checked}
+          onCheckedChange={() => onToggle(id)}
+          className={cn(
+            'w-4.5 h-4.5 cursor-pointer transition-all transform duration-700 ease-in-out',
+            checked && 'data-checked:bg-brand-primary data-checked:border-none',
+          )}
+        />
 
-    <span
-      className={[
-        'text-xs font-semibold tabular-nums whitespace-nowrap',
-        checked ? 'text-green-500' : 'text-gray-400',
-      ].join(' ')}
-    >
-      {weight.toFixed(2)}kg
-    </span>
-  </div>
-);
+        {/* label */}
+        <label
+          htmlFor={id}
+          className={cn(
+            'flex-1 text-sm truncate transition-colors duration-150 cursor-pointer',
+          )}
+        >
+          {name}
+        </label>
+
+        {/* qnty controls */}
+        {hasQty && (
+          <QuantityControl
+            quantity={quantity}
+            onIncrement={() => onQuantityChange(id, 1)}
+            onDecrement={() => onQuantityChange(id, -1)}
+            checked={checked}
+          />
+        )}
+
+        {/* weights */}
+        <span
+          className={cn(
+            'w-16 text-right text-xs font-semibold tabular-nums whitespace-nowrap text-gray-500',
+            hasQty ? 'ml-2' : '',
+          )}
+        >
+          {effectiveWeight.toFixed(2)}kg
+        </span>
+      </div>
+
+      {/* ── mobile : two rows ── */}
+      <div className="flex min-[1180px]:hidden flex-col gap-1">
+        <div className="flex items-center gap-2.5">
+          <Checkbox
+            id={`${id}-mob`}
+            checked={checked}
+            onCheckedChange={() => onToggle(id)}
+            className={cn(
+              'w-4.5 h-4.5 cursor-pointer transition-all transform duration-700 ease-in-out shrink-0',
+              checked &&
+                'data-checked:bg-brand-primary data-checked:border-none',
+            )}
+          />
+          <label
+            htmlFor={`${id}-mob`}
+            className={cn(
+              'flex-1 text-sm truncate transition-colors duration-150 cursor-pointer',
+            )}
+          >
+            {name}
+          </label>
+        </div>
+
+        <div className="flex items-center justify-between pl-7">
+          <span
+            className={cn(
+              'w-16 text-xs font-semibold tabular-nums text-gray-500',
+            )}
+          >
+            {effectiveWeight.toFixed(2)}kg
+          </span>
+
+          {hasQty && (
+            <QuantityControl
+              quantity={quantity}
+              onIncrement={() => onQuantityChange(id, 1)}
+              onDecrement={() => onQuantityChange(id, -1)}
+              checked={checked}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 interface Props {
   trekId?: string;
@@ -112,6 +212,7 @@ const GearCheckList = ({ trekId }: Props) => {
           id: `essential-${idx}`,
           name: item.item,
           weight: parseWeightToKg(item.weight),
+          ...(item.quantity !== undefined && { quantity: item.quantity }),
           checked: false,
         })),
       });
@@ -125,6 +226,7 @@ const GearCheckList = ({ trekId }: Props) => {
           id: `optional-${idx}`,
           name: item.item,
           weight: parseWeightToKg(item.weight),
+          ...(item.quantity !== undefined && { quantity: item.quantity }),
           checked: false,
         })),
       });
@@ -133,9 +235,10 @@ const GearCheckList = ({ trekId }: Props) => {
     return categories;
   };
 
-  const initialCategories = useMemo(() => {
-    return transformToGearCategories(gearChecklist);
-  }, [gearChecklist]);
+  const initialCategories = useMemo(
+    () => transformToGearCategories(gearChecklist),
+    [gearChecklist],
+  );
 
   const [categories, setCategories] =
     useState<GearCategory[]>(initialCategories);
@@ -156,13 +259,34 @@ const GearCheckList = ({ trekId }: Props) => {
     );
   };
 
+  const changeQuantity = (
+    categoryKey: GearCategoryKey,
+    itemId: string,
+    delta: number,
+  ) => {
+    setCategories((prev) =>
+      prev.map((cat) =>
+        cat.key === categoryKey
+          ? {
+              ...cat,
+              items: cat.items.map((item) =>
+                item.id === itemId && item.quantity !== undefined
+                  ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+                  : item,
+              ),
+            }
+          : cat,
+      ),
+    );
+  };
+
   const stats = useMemo(() => {
     const allItems = categories.flatMap((c) => c.items);
     const totalItems = allItems.length;
     const checkedCount = allItems.filter((i) => i.checked).length;
     const totalWeight = allItems
       .filter((i) => i.checked)
-      .reduce((sum, i) => sum + i.weight, 0);
+      .reduce((sum, i) => sum + i.weight * (i.quantity ?? 1), 0);
     const progressPct = totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
     return { totalItems, checkedCount, totalWeight, progressPct };
   }, [categories]);
@@ -203,7 +327,7 @@ const GearCheckList = ({ trekId }: Props) => {
             className="h-full rounded-full transition-[width] duration-500 ease-out"
             style={{
               width: `${stats.progressPct}%`,
-              background: 'linear-gradient(90deg, #60a5fa, #2563eb)',
+              background: 'linear-gradient(90deg, #60a5fa, #376bb6)',
               boxShadow:
                 stats.progressPct > 0
                   ? '0 2px 8px rgba(37,99,235,0.4)'
@@ -211,7 +335,6 @@ const GearCheckList = ({ trekId }: Props) => {
             }}
           />
         </div>
-        {/* hidden after md */}
         <div className="w-full max-w-lg md:hidden flex justify-end">
           <p className="text-sm text-center text-gray-500">
             Weight: {stats.totalWeight.toFixed(1)} kg
@@ -221,7 +344,7 @@ const GearCheckList = ({ trekId }: Props) => {
 
       <div className="bg-white rounded-2xl">
         <div className="flex min-h-130">
-          {/* categories (on left side): hidden on mobile */}
+          {/* ── sidebar (desktop only) ── */}
           <aside className="w-44 sm:w-52 shrink-0 hidden md:flex flex-col">
             <div className="py-3 flex flex-col gap-1">
               {categories.map((cat) => {
@@ -231,16 +354,18 @@ const GearCheckList = ({ trekId }: Props) => {
                     key={cat.key}
                     onClick={() => setActiveTab(cat.key)}
                     className={[
-                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer',
+                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer border border-transparent',
                       isActive
-                        ? 'bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]'
-                        : 'text-gray-600 hover:bg-white border border-transparent',
+                        ? 'bg-[#CEDF9E] shadow-sm text-[#1b4332]'
+                        : 'text-gray-600 hover:bg-white',
                     ].join(' ')}
                   >
                     <span
                       className={`block text-sm ${isActive ? 'font-bold' : 'font-medium'}`}
                     >
-                      {cat.label}
+                      {cat.label.toLowerCase() === 'optional'
+                        ? 'Good to have'
+                        : cat.label}
                     </span>
                   </button>
                 );
@@ -260,7 +385,6 @@ const GearCheckList = ({ trekId }: Props) => {
               >
                 {weightLabel}
               </p>
-
               <div className="relative w-32.5 h-32.5 mt-4">
                 <Image
                   src={gearBag}
@@ -274,8 +398,8 @@ const GearCheckList = ({ trekId }: Props) => {
           </aside>
 
           <div className={cn('flex flex-col w-full')}>
-            {/* categories (on top): hidden after md  */}
-            <div className=" flex gap-1 md:hidden">
+            {/* ── tab bar (mobile only) ── */}
+            <div className="flex gap-1 md:hidden">
               {categories.map((cat) => {
                 const isActive = cat.key === activeTab;
                 return (
@@ -283,28 +407,31 @@ const GearCheckList = ({ trekId }: Props) => {
                     key={cat.key}
                     onClick={() => setActiveTab(cat.key)}
                     className={[
-                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer',
+                      'w-full text-left px-4 py-3 transition-all duration-150 cursor-pointer border border-transparent',
                       isActive
-                        ? 'bg-[#CEDF9E] shadow-sm border border-green-100 text-[#1b4332]'
-                        : 'text-gray-600 hover:bg-white border border-transparent',
+                        ? 'bg-[#CEDF9E] shadow-sm text-[#1b4332]'
+                        : 'text-gray-600 hover:bg-white',
                     ].join(' ')}
                   >
                     <span
                       className={`block text-sm ${isActive ? 'font-bold' : 'font-medium'}`}
                     >
-                      {cat.label}
+                      {cat.label.toLowerCase() === 'optional'
+                        ? 'Good to have'
+                        : cat.label}
                     </span>
                   </button>
                 );
               })}
             </div>
 
-            {/* checklist */}
             <section className="flex-1 flex flex-col shadow-md rounded-xl">
               <div className="sticky top-0 z-10 bg-white border border-gray-100 px-6 py-4 flex flex-col gap-2">
                 <div className="flex w-full justify-between">
                   <h2 className="text-base font-semibold text-gray-800">
-                    {activeCategory.label}
+                    {activeCategory.label.toLowerCase() === 'optional'
+                      ? 'Good to have'
+                      : activeCategory.label}
                   </h2>
                   <span className="text-xs font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
                     {items.filter((i) => i.checked).length} / {items.length}{' '}
@@ -332,8 +459,12 @@ const GearCheckList = ({ trekId }: Props) => {
                         id={item.id}
                         name={item.name}
                         weight={item.weight}
+                        quantity={item.quantity}
                         checked={item.checked}
                         onToggle={(id) => toggle(activeCategory.key, id)}
+                        onQuantityChange={(id, delta) =>
+                          changeQuantity(activeCategory.key, id, delta)
+                        }
                         showBottomBorder={showBorder}
                       />
                     );

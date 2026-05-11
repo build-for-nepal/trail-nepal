@@ -3,8 +3,8 @@ import { LucideIcon } from 'lucide-react';
 import type { FeatureCollection, LineString, MultiLineString } from 'geojson';
 
 export interface ElevationPoint {
-  d: number;   // cumulative km
-  e: number;   // elevation metres
+  d: number; // cumulative km
+  e: number; // elevation metres
   lat: number;
   lng: number;
 }
@@ -81,11 +81,13 @@ export interface TrekImage {
 export interface GearItem {
   item: string;
   weight: string;
+  quantity?: number;
 }
 
 export interface GearChecklist {
   essentials: GearItem[];
   optional?: GearItem[];
+  Good_to_have?: GearItem[];
 }
 
 export interface TrekDetail {
@@ -116,8 +118,9 @@ export interface CheckItemData {
   name: string;
   weight: number;
   checked: boolean;
+  quantity?: number;
 }
-export type GearCategoryKey = 'essential' | 'optional';
+export type GearCategoryKey = 'essential' | 'optional' | 'Good_to_have';
 export interface GearCategory {
   key: GearCategoryKey;
   label: string;

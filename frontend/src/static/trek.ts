@@ -7,7 +7,7 @@ export const TREKS: Trek[] = [
     region: 'Khumbu Valley',
     description:
       "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
-    difficulty: 'Difficult',
+    difficulty: 'Challenging',
     duration: '14 Days',
     altitude: '5,364m',
     season: 'Sept-Nov',
@@ -73,7 +73,7 @@ export const TREKS: Trek[] = [
     region: 'Khumbu Region',
     description:
       "The quieter alternative glacial lakes, Nepal's longest glacier, and four 8,000m peaks from a single summit.",
-    difficulty: 'Difficult',
+    difficulty: 'Challenging',
     duration: '13-14 Days',
     altitude: '5,357m',
     season: 'Mar - May, Sep - Nov',
