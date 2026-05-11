@@ -75,6 +75,25 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
       .catch(() => {});
   }, [trekId]);
 
+  // Map interaction control: keep page scroll smooth until user explicitly enables map zoom.
+  const [mapInteractionEnabled, setMapInteractionEnabled] = useState(false);
+  useEffect(() => {
+    if (!map) return;
+    if (mapInteractionEnabled) {
+      map.scrollZoom.enable();
+      map.boxZoom.enable();
+      map.dragPan.enable();
+      map.touchZoomRotate.enable();
+      map.doubleClickZoom.enable();
+    } else {
+      map.scrollZoom.disable();
+      map.boxZoom.disable();
+      map.dragPan.disable();
+      map.touchZoomRotate.disable();
+      map.doubleClickZoom.disable();
+    }
+  }, [map, mapInteractionEnabled]);
+
   // Hiker marker on trail on chart hover
   const [hoverCoord, setHoverCoord] = useState<[number, number] | null>(null);
   useHikerMarker(map, mapLoaded, hoverCoord);
@@ -245,7 +264,13 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
         <ElevationProfile points={elevationPoints} onHover={handleElevHover} />
       )}
 
-      <div ref={containerRef} className="h-full w-full" />
+      <div
+        className="relative h-full w-full"
+        onPointerDown={() => setMapInteractionEnabled(true)}
+        onPointerLeave={() => setMapInteractionEnabled(false)}
+      >
+        <div ref={containerRef} className="h-full w-full" />
+      </div>
     </div>
   );
 }
