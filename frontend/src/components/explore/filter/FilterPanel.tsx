@@ -12,6 +12,7 @@ export const FilterPanel = ({
   onToggle,
   onRangeChange,
   onReset,
+  onSelectOnly,
 }: FilterPanelProps) => {
   // --- Local State for Inputs to prevent lag while typing/sliding ---
   const [localMin, setLocalMin] = useState(filters.minPrice);
@@ -65,18 +66,21 @@ export const FilterPanel = ({
           options={FILTER_OPTIONS.regions}
           selected={filters.regions}
           onToggle={(v) => onToggle('regions', v)}
+          onSelectOnly={(v) => onSelectOnly?.('regions', v)}
         />
         <FilterGroup
           title="Duration"
           options={FILTER_OPTIONS.durations}
           selected={filters.durations}
           onToggle={(v) => onToggle('durations', v)}
+          onSelectOnly={(v) => onSelectOnly?.('durations', v)}
         />
         <FilterGroup
           title="Difficulty"
           options={FILTER_OPTIONS.difficulties}
           selected={filters.difficulties}
           onToggle={(v) => onToggle('difficulties', v)}
+          onSelectOnly={(v) => onSelectOnly?.('difficulties', v)}
         />
 
         {/* Budget */}
