@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import startRoute from '@/assets/details/routestart.svg';
@@ -116,7 +116,6 @@ const AccordionItem = ({
           className="flex-1 text-sm sm:text-[15px] font-semibold tracking-tight text-black/80"
           style={{ fontFamily: "'Oldenburg', serif" }}
         >
-          {/* Dynamically adds 'Day 01 :' if 'day' property exists, else falls back to just title */}
           {day.day ? `Day ${day.day} : ${day.title}` : day.title}
         </span>
 
@@ -136,13 +135,13 @@ const AccordionItem = ({
         style={{ display: open ? 'block' : 'none' }}
       >
         <div className="px-5 pb-5 flex flex-col gap-4">
-          {/* Handles both new 'description' and old 'content' fields dynamically */}
           {(day.description || day.content) && (
-            <p className="text-sm text-black/90 leading-relaxed cursor-text select-text space-y-4"  dangerouslySetInnerHTML={{
-    __html: (day.description || day.content || ''),
-  }}>
-              {/* {day.description || day.content} */}
-            </p>
+            <p
+              className="text-sm text-black/90 leading-relaxed cursor-text select-text space-y-4"
+              dangerouslySetInnerHTML={{
+                __html: day.description || day.content || '',
+              }}
+            />
           )}
 
           {day.accommodations && day.accommodations.length > 0 && (
@@ -152,10 +151,7 @@ const AccordionItem = ({
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-y-3 gap-x-12">
                 {day.accommodations.map((acc, i) => (
-                  <div
-                    key={i}
-                    className="flex flex-col cursor-text select-text"
-                  >
+                  <div key={i} className="flex flex-col cursor-text select-text">
                     {acc.name && (
                       <span className="text-sm font-medium text-black/70">
                         {acc.name}
@@ -180,7 +176,6 @@ const AccordionItem = ({
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {day.stats && (
                 <>
-                  {/* Map 'duration' or legacy 'walk' to the clock icon */}
                   {(day.stats.duration || day.stats.walk) && (
                     <StatPill
                       icon={clock}
@@ -188,7 +183,6 @@ const AccordionItem = ({
                       value={(day.stats.duration || day.stats.walk) as string}
                     />
                   )}
-                  {/* Map 'distance' to the map line icon */}
                   {day.stats.distance && (
                     <StatPill
                       icon={mapLine}
@@ -205,12 +199,7 @@ const AccordionItem = ({
                   )}
                   {day.stats.note && (
                     <span className="flex items-center gap-1 text-xs font-medium text-red-400 cursor-text select-text">
-                      <Image
-                        src={alertLine}
-                        alt="alert"
-                        width={14}
-                        height={14}
-                      />
+                      <Image src={alertLine} alt="alert" width={14} height={14} />
                       {day.stats.note}
                     </span>
                   )}
@@ -249,15 +238,25 @@ const StatPill = ({
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
-  // If no trekId or data is found, it will default to an empty array to avoid crashes.
-
   const [activeView, setActiveView] = useState<'journey' | 'overview'>('journey');
+  const [bannerVisible, setBannerVisible] = useState(false);
 
   const days =
     trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // ── Scroll-triggered banner
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setBannerVisible(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // ── GSAP accordion stagger on tab switch
   useGSAP(
     () => {
       if (activeView === 'overview') {
@@ -279,61 +278,76 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   return (
     <div
       ref={sectionRef}
-      className="page-wrapper py-20 flex flex-col gap-6 bg-[#EBF0F8]"
+      className="relative  flex flex-col gap-6 bg-[#EBF0F8]"
     >
-      <SectionHeader
-        title="Trek Timeline"
-        description="Day-by-day breakdown of your journey"
-      />
-
-      <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
-        <button
-          onClick={() => setActiveView('journey')}
-          className={cn(
-            'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
-            activeView === 'journey'
-              ? 'bg-[#84b829] text-white shadow-md'
-              : 'text-gray-500 hover:text-gray-900',
-          )}
-        >
-          <Map size={18} />
-          Journey
-        </button>
-        <button
-          onClick={() => setActiveView('overview')}
-          className={cn(
-            'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
-            activeView === 'overview'
-              ? 'bg-[#84b829] text-white shadow-md'
-              : 'text-gray-500 hover:text-gray-900',
-          )}
-        >
-          <List size={18} />
-          Overview
-        </button>
+      {/* ── Scroll-triggered banner ── */}
+      <div
+        className={cn(
+          'overflow-hidden sticky top-0 z-50 transition-all duration-500 ease-in-out',
+          bannerVisible
+            ? 'max-h-20 opacity-100 translate-y-0'
+            : 'max-h-0 opacity-0 -translate-y-2',
+        )}
+      >
+        <div className="text-center  bg-[#ADC2E1] px-20 py-4 text-sm text-[#22416F]">
+          We're currently preparing a detailed cost breakdown for this trek to
+          help you plan better.
+        </div>
       </div>
 
-      <div className="w-full">
-        {activeView === 'overview' ? (
-          <div className="flex flex-col w-full gap-3">
-            {days.map((day, index) => (
-              <div key={day.id || day.day || index} className="accordion-item">
-                <AccordionItem
-                  day={day}
-                  index={index}
-                  isFirst={index === 0}
-                  isLast={index === days.length - 1}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          /* Map Placeholder Container */
-          <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
-            {/* build this component */}
-            <TrekkingMap trekId={trekId} />
-          </div>
-        )}
+      <div className="page-wrapper py-20 flex flex-col gap-6">
+        <SectionHeader
+          title="Trek Timeline"
+          description="Day-by-day breakdown of your journey"
+        />
+
+        <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
+          <button
+            onClick={() => setActiveView('journey')}
+            className={cn(
+              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              activeView === 'journey'
+                ? 'bg-[#84b829] text-white shadow-md'
+                : 'text-gray-500 hover:text-gray-900',
+            )}
+          >
+            <Map size={18} />
+            Journey
+          </button>
+          <button
+            onClick={() => setActiveView('overview')}
+            className={cn(
+              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              activeView === 'overview'
+                ? 'bg-[#84b829] text-white shadow-md'
+                : 'text-gray-500 hover:text-gray-900',
+            )}
+          >
+            <List size={18} />
+            Overview
+          </button>
+        </div>
+
+        <div className="w-full">
+          {activeView === 'overview' ? (
+            <div className="flex flex-col w-full gap-3">
+              {days.map((day, index) => (
+                <div key={day.id || day.day || index} className="accordion-item">
+                  <AccordionItem
+                    day={day}
+                    index={index}
+                    isFirst={index === 0}
+                    isLast={index === days.length - 1}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
+              <TrekkingMap trekId={trekId} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
