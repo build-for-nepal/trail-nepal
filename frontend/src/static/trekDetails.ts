@@ -193,7 +193,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       { month: 'Jun', condition: 'Beginning of Monsoon / Cloudy Skies' },
       { month: 'Jul', condition: 'Heavy Rain / Lush Greenery / Leeches' },
       { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
-      { month: 'Sep', condition: 'Post-Monsoon / Crisp & Fresh Air' },
+      { month: 'Sep', condition: 'Late-Monsoon / Crisp & Fresh Air' },
       { month: 'Oct', condition: 'Crystal Clear Skies / Most Popular Month' },
       { month: 'Nov', condition: 'Cool & Stable / Excellent Visibility' },
       { month: 'Dec', condition: 'Winter Chill / Crystal Clear Blue Skies' },
@@ -448,7 +448,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
       {
         month: 'Sep',
-        condition: 'Post-Monsoon / Crisp Air / Fresh Landscapes',
+        condition: 'Late-Monsoon / Crisp Air / Fresh Landscapes',
       },
       { month: 'Oct', condition: 'Perfect / Best Visibility / Most Popular' },
       { month: 'Nov', condition: 'Excellent / Cool & Stable / Golden Peaks' },
@@ -681,7 +681,7 @@ view over Kyanjin Village and the upper Langtang Valley`
       { month: 'Jun', condition: 'Beginning of Monsoon / Cloudy Skies' },
       { month: 'Jul', condition: 'Heavy Rain / Lush Greenery / Leeches' },
       { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
-      { month: 'Sep', condition: 'Post-Monsoon / Crisp & Fresh Air' },
+      { month: 'Sep', condition: 'Late-Monsoon / Crisp & Fresh Air' },
       { month: 'Oct', condition: 'Crystal Clear Skies / Most Popular Month' },
       { month: 'Nov', condition: 'Cool & Stable / Excellent Visibility' },
       { month: 'Dec', condition: 'Winter Chill / Crystal Clear Blue Skies' },
@@ -986,7 +986,7 @@ view over Kyanjin Village and the upper Langtang Valley`
       },
       {
         month: 'Sep',
-        condition: 'Post-Monsoon / Washing Away Dust / Crystal Clear',
+        condition: 'Late-Monsoon / Washing Away Dust / Crystal Clear',
       },
       {
         month: 'Oct',
@@ -1344,7 +1344,7 @@ view over Kyanjin Village and the upper Langtang Valley`
       { month: 'Aug', condition: 'Peak Monsoon / High Risk / Avoid' },
       {
         month: 'Sep',
-        condition: 'Post-Monsoon / Fresh Air / Some Cloud Lingering / Quieter',
+        condition: 'Late-Monsoon / Fresh Air / Some Cloud Lingering / Quieter',
       },
       {
         month: 'Oct',
@@ -1546,7 +1546,7 @@ view over Kyanjin Village and the upper Langtang Valley`
       },
       {
         month: 'Sep',
-        condition: 'Post-Monsoon Green / Quieter / Some Residual Cloud',
+        condition: 'Late-Monsoon Green / Quieter / Some Residual Cloud',
       },
       {
         month: 'Oct',
@@ -1757,7 +1757,7 @@ view over Kyanjin Village and the upper Langtang Valley`
         condition: 'Heavy Rain / Views Blocked / Not Recommended',
       },
       { month: 'Aug', condition: 'Peak Monsoon / Dangerous Trail Conditions' },
-      { month: 'Sep', condition: 'Post-Monsoon Green / Quieter / Some Cloud' },
+      { month: 'Sep', condition: 'Late-Monsoon Green / Quieter / Some Cloud' },
       {
         month: 'Oct',
         condition: 'Crystal Clear Skies / Sharpest Mountain Views',
