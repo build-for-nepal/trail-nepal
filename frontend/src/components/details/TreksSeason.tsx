@@ -106,7 +106,7 @@ const TreksSeason = ({ trekId }: Props) => {
                 <div
                   key={month.title}
                   title={month.fullDescription} // Shows full text on hover
-                  className={`flex flex-col py-6 px-2 rounded-xl items-center text-center gap-2 relative overflow-hidden transition-transform hover:-translate-y-1 cursor-help shadow-sm ${style.bg}`}
+                  className={`flex flex-col py-6 px-2 rounded-xl items-center text-center gap-2 relative overflow-hidden transition-transform hover:-translate-y-1 shadow-sm ${style.bg}`}
                 >
                   <div className="font-bold text-base sm:text-lg tracking-wider text-gray-800">
                     {month.title}
