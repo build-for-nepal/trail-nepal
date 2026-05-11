@@ -72,4 +72,6 @@ export const gearCheckListDescriptions = {
     'Critical items required for safety, comfort, and completing your trek.',
   optional:
     'Additional gear to enhance comfort, convenience, and overall experience.',
+  Goodtohave:
+    'Additional gear to enhance comfort, convenience, and overall experience.',
 };
