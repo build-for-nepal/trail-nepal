@@ -37,7 +37,7 @@ export const TREKS: Trek[] = [
     region: 'Langtang Region',
     description:
       'A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.',
-    difficulty: 'Easy',
+    difficulty: 'Moderate',
     duration: '7-10 Days',
     altitude: '3,870m',
     season: 'Mar-May',
@@ -52,7 +52,7 @@ export const TREKS: Trek[] = [
     region: 'Annapurna Region',
     description:
       'A breathtaking trek through terraced fields, rhododendron forests, and Gurung villages, leading to the heart of the Annapurna Sanctuary surrounded by towering Himalayan peaks.',
-    difficulty: 'Moderate',
+    difficulty: 'Challenging',
     duration: '7-12 Days',
     altitude: '4,130m',
     season: 'Mar-May, Sep-Nov',
@@ -88,7 +88,7 @@ export const TREKS: Trek[] = [
     region: 'Annapurna Region',
     description:
       'Beginner-friendly on paper, genuinely jaw-dropping in practice."',
-    difficulty: 'Challenging',
+    difficulty: 'Moderate',
     duration: '13-14 Days',
     altitude: '5,357m',
     season: 'Mar - May, Sep - Nov',
