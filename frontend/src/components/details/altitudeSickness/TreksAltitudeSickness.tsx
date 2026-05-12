@@ -8,6 +8,7 @@ import { AlertTriangle, Check, ChevronDown, OctagonAlert } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import SectionHeader from '@/components/common/SectionHeader';
 import { cn } from '@/lib/utils';
+import ContactInfoSidebar from './ContactInfoSidebar';
 import Image from 'next/image';
 import amsHeadache from 'src/assets/altitudesickness/ams-headache.svg';
 
@@ -333,6 +334,13 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
           </div>
 
           {/* sidebar  */}
+          <div className="altitude-sidebar ">
+            <ContactInfoSidebar
+              trekId={trekId}
+              showMore={showMore}
+              setShowMore={setShowMore}
+            />
+          </div>
         </div>
       </div>
     </div>
