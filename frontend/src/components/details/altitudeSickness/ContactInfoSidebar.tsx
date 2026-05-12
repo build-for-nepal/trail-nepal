@@ -31,6 +31,58 @@ const ContactInfoSidebar = ({
       ? TREK_DETAILS[trekId]
       : Object.values(TREK_DETAILS)[0];
 
+  const convertAltitudeData = (value: string) => {
+    const match = value.match(/^([\d,.]+)([a-zA-Z]+)$/);
+    if (!match) return null;
+
+    let number = match[1];
+    const unit = match[2];
+    number = number.replace(/,/g, '');
+
+    return {
+      number: Number(number),
+      unit,
+    };
+  };
+
+  const displayInfo = (value: string) => {
+    const altValue = convertAltitudeData(value);
+
+    if (!altValue) return null;
+
+    if (altValue.number >= 2000 && altValue.number < 3000) {
+      return {
+        text: 'low risk above 2000m',
+        textColor: 'text-green-500',
+        bg: 'bg-green-500',
+      };
+    }
+
+    if (altValue.number >= 3000 && altValue.number < 4000) {
+      return {
+        text: 'moderate risk above 3000m',
+        textColor: 'text-blue-500',
+        bg: 'bg-blue-500',
+      };
+    }
+
+    if (altValue.number >= 4000) {
+      return {
+        text: 'High risk above 4000m',
+        textColor: 'text-red-500',
+        bg: 'bg-red-500',
+      };
+    }
+
+    return {
+      text: '',
+      textColor: 'text-gray-500',
+      bg: 'bg-gray-500',
+    };
+  };
+
+  const showText = displayInfo(trekInfo.meta.maxElevation);
+
   return (
     <div
       className={cn(
@@ -48,17 +100,20 @@ const ContactInfoSidebar = ({
               Maximum altitude: Everest Base Camp
             </p>
           </div>
-          <span
-            className={cn(
-              'flex items-center gap-1 shrink-0 bg-white text-[9px] px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap',
-              'text-red-400 ',
-            )}
-          >
+
+          {showText?.text && (
             <span
-              className={cn('w-0.5 h-0.5 rounded-full', 'bg-red-300')}
-            ></span>
-            Extreme risk above 5,000m
-          </span>
+              className={cn(
+                'flex items-center capitalize gap-1 shrink-0 bg-white text-[9px] px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap',
+                showText.textColor,
+              )}
+            >
+              <span
+                className={cn('w-1 h-1 rounded-full shrink-0', showText.bg)}
+              />
+              {showText.text}
+            </span>
+          )}
         </div>
         <p className="text-[11px] text-[#2D2F27] leading-relaxed">
           <span className="font-semibold text-[#2D2F27]">
