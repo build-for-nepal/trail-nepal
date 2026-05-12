@@ -6,9 +6,9 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
     name: 'Everest Base Camp (EBC) Trek',
     region: 'Khumbu region',
     meta: {
-      duration: '11 Days',
-      difficulty: 'Difficult',
-      maxElevation: '5,545m',
+      duration: '14 Days',
+      difficulty: 'Challenging',
+      maxElevation: '5,364m',
       bestSeasons: 'March - May, September - November',
       startingPoint: 'Lukla (Tenzing-Hillary Airport)',
     },
@@ -118,7 +118,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         //   { name: "Snowland Highest Inn" },
         // ],
         stats: {
-          elevation: '5,164m',
+          elevation: '5,364m',
           duration: '8-9 hours',
           distance: '15km',
           note: 'EBC elevation is 5,364m, sleeping at Gorak Shep',
@@ -561,10 +561,10 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
     name: 'Langtang Valley Trek',
     region: 'Langtang Region',
     meta: {
-      duration: '7 Days',
+      duration: '7-10 Days',
       difficulty: 'Moderate',
-      maxElevation: '4773m',
-      bestSeasons: 'March - May, September - November',
+      maxElevation: '4,984m',
+      bestSeasons: 'September - May',
       startingPoint: 'Syafrubesi',
     },
     overview:
@@ -646,7 +646,7 @@ of the altitude, but the reward is an even broader and more dramatic Himalayan p
 peaks, glaciers, ridgelines, and the upper Langtang Valley spread out below. After spending time at the
 viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a relaxed afternoon and
 overnight stay`,
-        stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
+        stats: { elevation: '4,984m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
       },
       {
@@ -901,7 +901,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
     name: 'Annapurna Base Camp (Direct Ascent)',
     region: 'Annapurna Region',
     meta: {
-      duration: '4 Days ',
+      duration: '7-10 Days ',
       difficulty: 'Moderate to Challenging',
       maxElevation: '4,130m',
       bestSeasons: 'March - May, September - November',
@@ -1156,7 +1156,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
     region: 'Khumbu Region',
     meta: {
       duration: '13-14 Days',
-      difficulty: 'Difficult',
+      difficulty: 'Challenging',
       maxElevation: '5,357m',
       bestSeasons: 'March - May, September - November',
       startingPoint: 'Kathmandu',
@@ -1491,10 +1491,10 @@ view over Kyanjin Village and the upper Langtang Valley`,
     name: 'Ghorepani Poon Hill Trek',
     region: 'Annapurna Region',
     meta: {
-      duration: '4-5 Days',
+      duration: '5-7 Days',
       difficulty: 'Easy–Moderate',
       maxElevation: '3,210m',
-      bestSeasons: 'March - May, October - December',
+      bestSeasons: 'March - May, September - November',
       startingPoint: 'Pokhara',
     },
     overview:
