@@ -56,8 +56,9 @@ const TrekCard = ({
           <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
             <Mountain size={13} /> {altitude}
           </span>
-          <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
-            <CalendarDays size={13} /> {season}
+          <span className={`flex gap-1 text-[12px] font-medium ${season.includes(', ') ? 'items-start' : 'items-center'}`}>
+            <CalendarDays size={13} className={`shrink-0 ${season.includes(', ') ? 'mt-0.5' : ''}`} />
+            <span className="whitespace-pre-line leading-tight">{season.replace(', ', ',\n')}</span>
           </span>
         </div>
 
