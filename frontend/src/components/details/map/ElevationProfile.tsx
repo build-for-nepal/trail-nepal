@@ -11,11 +11,11 @@ interface Props {
 
 // SVG logical coordinate space (viewBox)
 const CW = 520;
-const CH = 120; // reduced height
-const PL = 44;
-const PR = 68;
-const PT = 12;
-const PB = 26;
+const CH = 100;
+const PL = 28;
+const PR = 40;
+const PT = 0;
+const PB = 10;
 const TW = PL + CW + PR; // 632 — viewBox width only, not rendered width
 const TH = PT + CH + PB; // 158
 
@@ -27,27 +27,17 @@ const SPARKLINE_H = 20;
 const GREEN = '#8dc63f';
 const GREEN_DARK = '#5a8f20';
 const GREEN_MID = '#6fb12e';
-const RED_DESCENT = '#e05a5a';
 const TEXT_DARK = '#111827';
 const TEXT_MID = '#6b7280';
 const TEXT_LIGHT = '#9ca3af';
 const BORDER = '#e5e7eb';
+const RED_DESCENT = '#e05a5a';
 
 function statAscent(pts: ElevationPoint[]) {
-  return Math.round(
-    pts.reduce(
-      (s, p, i) => (i > 0 ? s + Math.max(0, p.e - pts[i - 1].e) : s),
-      0,
-    ),
-  );
+  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, p.e - pts[i - 1].e) : s), 0));
 }
 function statDescent(pts: ElevationPoint[]) {
-  return Math.round(
-    pts.reduce(
-      (s, p, i) => (i > 0 ? s + Math.max(0, pts[i - 1].e - p.e) : s),
-      0,
-    ),
-  );
+  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, pts[i - 1].e - p.e) : s), 0));
 }
 
 export default function ElevationProfile({ points, onHover }: Props) {
@@ -61,26 +51,29 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const elevs = points.map((p) => p.e);
   const minE = Math.min(...elevs);
   const maxE = Math.max(...elevs);
-  const range = maxE - minE || 1;
+
+  const rawRange = maxE - minE || 1;
   const ascent = statAscent(points);
   const descent = statDescent(points);
+  const chartMin = 300;
+  const chartMax = 6000;
+  const chartRange = chartMax - chartMin;
 
   // Chart coordinate helpers — work in SVG logical space
   const toX = (d: number) => PL + (d / maxDist) * CW;
-  const toY = (e: number) => PT + CH - ((e - minE) / range) * CH;
+  const toY = (e: number) => PT + CH - ((e - chartMin) / chartRange) * CH;
 
   const pathPts = points
     .map((p) => `${toX(p.d).toFixed(1)},${toY(p.e).toFixed(1)}`)
     .join(' L ');
   const lineD = `M ${pathPts}`;
-  const areaD = `M ${toX(0)} ${toY(minE)} ${pathPts} L ${toX(maxDist)} ${toY(minE)} Z`;
+  const areaD = `M ${toX(0)} ${toY(chartMin)} ${pathPts} L ${toX(maxDist)} ${toY(chartMin)} Z`;
 
-  // Y gridlines (3 steps = 4 lines)
-  const ySteps = 3;
-  const yLabels = Array.from({ length: ySteps + 1 }, (_, i) => {
-    const frac = i / ySteps;
-    return { e: minE + frac * range, y: toY(minE + frac * range) };
-  });
+  // Y gridlines: 500 at bottom, then 1000m steps up to chartMax
+  const yLabels: { e: number; y: number }[] = [{ e: 500, y: toY(500) }];
+  for (let e = 1000; e <= chartMax; e += 1000) {
+    yLabels.push({ e, y: toY(e) });
+  }
 
   // X ticks
   const xTicks = [0, 0.25, 0.5, 0.75, 1].map((t) => ({
@@ -129,8 +122,8 @@ export default function ElevationProfile({ points, onHover }: Props) {
     onHover(null);
   }, [onHover]);
 
-  // Tooltip: flip left when near right edge
-  const tipX = hovered ? (hx > PL + CW * 0.62 ? hx - 176 : hx + 14) : 0;
+  // Tooltip: flip left when near right edge (tooltip width = 168)
+  const tipX = hovered ? (hx > PL + CW * 0.62 ? hx - 182 : hx + 14) : 0;
   const gradeColor =
     Math.abs(grade) > 15 ? '#dc2626' : Math.abs(grade) > 8 ? '#d97706' : GREEN;
 
@@ -140,7 +133,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
     .filter((_, i) => i % sparkStep === 0)
     .map((p) => {
       const sx = (p.d / maxDist) * SPARKLINE_W;
-      const sy = SPARKLINE_H - ((p.e - minE) / range) * SPARKLINE_H;
+      const sy = SPARKLINE_H - ((p.e - minE) / rawRange) * SPARKLINE_H;
       return `${sx.toFixed(1)},${sy.toFixed(1)}`;
     })
     .join(' L ');
@@ -151,12 +144,9 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const expandedH = HANDLE_H + 1 + TH;
 
   return (
-    // ── Outer positioner — bottom-left, responsive width ─────────────────────
-    // right-3 leaves 12px margin; controls column is 52px (button+gap) on the right
-    // so chart stops well before the controls on any screen size
-    <div className="absolute bottom-3 left-3 z-10 select-none w-[min(580px,calc(100vw-76px))]">
+    <div className="absolute bottom-3 left-3 z-10 select-none w-[min(480px,calc(100%-76px))]">
       <div
-        className="rounded-2xl bg-white/10 backdrop-blur-sm shadow-2xl border border-gray-100 overflow-hidden"
+        className="rounded-2xl bg-white/40 backdrop-blur-md shadow-xl border border-white/30 overflow-hidden"
         style={{
           transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1)',
           maxHeight: open ? `${expandedH + 2}px` : `${HANDLE_H}px`,
@@ -168,68 +158,19 @@ export default function ElevationProfile({ points, onHover }: Props) {
           className="w-full flex items-center gap-2.5 px-3.5 hover:bg-gray-50/70 transition-colors duration-150 min-w-0"
           style={{ height: HANDLE_H }}
         >
-          {/* Mountain icon */}
-          <svg
-            width="15"
-            height="13"
-            viewBox="0 0 16 14"
-            fill="none"
-            className="shrink-0"
-          >
-            <path d="M1 13L5 5l3 5 2-4 5 7H1Z" fill={GREEN} opacity=".2" />
-            <path
-              d="M1 13L5 5l3 5 2-4 5 7"
-              stroke={GREEN_DARK}
-              strokeWidth="1.6"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              fill="none"
-            />
-          </svg>
-
-          {/* Labeled stat chips */}
-          <div className="flex items-center gap-2.5 min-w-0 overflow-hidden">
-            <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">
-                Distance
-              </span>
-              <span className="text-[11px] font-bold text-gray-800 leading-tight">
-                {maxDist.toFixed(1)} km
-              </span>
-            </div>
-            <div className="w-px h-6 bg-gray-200 shrink-0" />
-            <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">
-                Max Elev
-              </span>
-              <span className="text-[11px] font-bold text-gray-800 leading-tight">
-                {Math.round(maxE).toLocaleString()} m
-              </span>
-            </div>
-            <div className="w-px h-6 bg-gray-200 shrink-0" />
-            <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">
-                Ascent
-              </span>
-              <span
-                className="text-[11px] font-bold leading-tight"
-                style={{ color: GREEN_DARK }}
-              >
-                ↑{ascent.toLocaleString()} m
-              </span>
-            </div>
-            <div className="w-px h-6 bg-gray-200 shrink-0 hidden sm:block" />
-            <div className="hidden sm:flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-400 uppercase leading-none">
-                Descent
-              </span>
-              <span
-                className="text-[11px] font-bold leading-tight"
-                style={{ color: RED_DESCENT }}
-              >
-                ↓{descent.toLocaleString()} m
-              </span>
-            </div>
+          {/* Mountain icon + stat values — all vertically centered */}
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <svg width="15" height="13" viewBox="0 0 16 14" fill="none" className="shrink-0 relative -top-px">
+              <path d="M1 13L5 5l3 5 2-4 5 7H1Z" fill={GREEN} opacity=".2" />
+              <path d="M1 13L5 5l3 5 2-4 5 7" stroke={GREEN_DARK} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" fill="none" />
+            </svg>
+            <span className="text-[10px] font-bold text-gray-800 leading-none shrink-0">{maxDist.toFixed(1)} km</span>
+            <div className="w-px h-4 bg-gray-300 shrink-0" />
+            <span className="text-[10px] font-bold text-gray-800 leading-none shrink-0">{Math.round(maxE).toLocaleString()} m</span>
+            <div className="w-px h-4 bg-gray-300 shrink-0" />
+            <span className="text-[10px] font-bold leading-none shrink-0" style={{ color: GREEN_DARK }}>↑{ascent.toLocaleString()} m</span>
+            <div className="w-px h-4 bg-gray-300 shrink-0" />
+            <span className="text-[10px] font-bold leading-none shrink-0" style={{ color: RED_DESCENT }}>↓{descent.toLocaleString()} m</span>
           </div>
 
           {/* Sparkline — only visible when collapsed */}
@@ -323,8 +264,10 @@ export default function ElevationProfile({ points, onHover }: Props) {
                 x2={PL + CW}
                 y2={l.y}
                 stroke={BORDER}
-                strokeWidth={i === 0 || i === ySteps ? '1' : '0.75'}
-                strokeDasharray={i === 0 || i === ySteps ? undefined : '4 5'}
+                strokeWidth={i === 0 || i === yLabels.length - 1 ? '1' : '0.75'}
+                strokeDasharray={
+                  i === 0 || i === yLabels.length - 1 ? undefined : '4 5'
+                }
                 opacity="0.9"
               />
             ))}
@@ -345,23 +288,19 @@ export default function ElevationProfile({ points, onHover }: Props) {
               clipPath="url(#ep-clip)"
             />
 
-            {/* Hover ruler */}
+            {/* Hover ruler + dot — clipped so they never overflow the chart area */}
             {hovered && (
-              <line
-                x1={hx}
-                y1={PT}
-                x2={hx}
-                y2={PT + CH}
-                stroke={GREEN}
-                strokeWidth="1.5"
-                strokeDasharray="4 3"
-                opacity="0.6"
-              />
-            )}
-
-            {/* Hover dot */}
-            {hovered && (
-              <g>
+              <g clipPath="url(#ep-clip)">
+                <line
+                  x1={hx}
+                  y1={PT}
+                  x2={hx}
+                  y2={PT + CH}
+                  stroke={GREEN}
+                  strokeWidth="1.5"
+                  strokeDasharray="4 3"
+                  opacity="0.6"
+                />
                 <circle cx={hx} cy={hy} r="8" fill={GREEN} opacity="0.1" />
                 <circle
                   cx={hx}
@@ -375,7 +314,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
               </g>
             )}
 
-            {/* Tooltip */}
+            {/* Tooltip — 2-column layout */}
             {hovered && (
               <g transform={`translate(${tipX},${PT + 2})`}>
                 <rect
@@ -475,29 +414,27 @@ export default function ElevationProfile({ points, onHover }: Props) {
               </g>
             )}
 
-            {/* Y-axis labels (every other step) */}
-            {yLabels
-              .filter((_, i) => i % 2 === 0)
-              .map((l, i) => (
-                <text
-                  key={i}
-                  x={PL + CW + 8}
-                  y={Math.max(PT + 8, Math.min(PT + CH, l.y + 4))}
-                  fontSize="8"
-                  fill={TEXT_MID}
-                  fontFamily="system-ui,sans-serif"
-                  fontWeight="500"
-                >
-                  {Math.round(l.e).toLocaleString()} m
-                </text>
-              ))}
+            {/* Y-axis labels */}
+            {yLabels.map((l, i) => (
+              <text
+                key={i}
+                x={PL + CW + 8}
+                y={Math.max(PT + 8, Math.min(PT + CH, l.y + 4))}
+                fontSize="8"
+                fill={TEXT_MID}
+                fontFamily="system-ui,sans-serif"
+                fontWeight="500"
+              >
+                {Math.round(l.e).toLocaleString()} m
+              </text>
+            ))}
 
             {/* X-axis labels */}
             {xTicks.map((t) => (
               <text
                 key={t.label}
                 x={t.x}
-                y={PT + CH + 16}
+                y={PT + CH + PB - 2}
                 fontSize="8"
                 textAnchor="middle"
                 fill={TEXT_MID}
