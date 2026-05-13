@@ -9,11 +9,12 @@ import amsNausea from 'src/assets/altitudesickness/ams-nausea.svg';
 
 // hape
 import hapeChestCongestion from 'src/assets/altitudesickness/hape-chestcongestion.svg';
+import hapeRapidHeartBeating from 'src/assets/altitudesickness/hape-rapidheartbeat.svg';
 import hapeBreathless from 'src/assets/altitudesickness/hape-breathless.svg';
 import hapeDryCough from 'src/assets/altitudesickness/hape-drycough.svg';
 import hapeBlueLips from 'src/assets/altitudesickness/hape-bluelips.svg';
 import hapeEnergyLess from 'src/assets/altitudesickness/hape-energyless.svg';
-import hapeRapidBreathing from 'src/assets/altitudesickness/hape-rapidheartbeat.svg';
+import hapeRapidBreathing from 'src/assets/altitudesickness/hape-rapidbreating.svg';
 import hapeBreathLessAtRest from 'src/assets/altitudesickness/hape-breathlessatrest.svg';
 
 // hace
@@ -113,7 +114,7 @@ export const altitudeSicknessData = {
       'High-altitude pulmonary edema (HAPE) is a dangerous build-up of fluid in the lungs caused by altitude-related low oxygen, not by heart failure. It usually appears 24-96 hours after a rapid ascent, often above about 2,400 m, and it can occur with or without AMS. Early diagnosis matters because HAPE can progress quickly and may be more rapidly fatal than HACE.',
     symptoms: [
       { name: 'Chest congestion', icon: hapeChestCongestion },
-      { name: 'Rapid heartbeat', icon: hapeRapidBreathing },
+      { name: 'Rapid heartbeat', icon: hapeRapidHeartBeating },
       { name: 'Breathless', icon: hapeBreathless },
       { name: 'Dry Cough', icon: hapeDryCough },
       { name: 'Blue Lips', icon: hapeBlueLips },
