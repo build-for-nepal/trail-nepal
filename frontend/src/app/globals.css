@@ -199,3 +199,36 @@
   text-sm outline-none;
   }
 }
+.shimmer-text {
+  display: inline-block;
+
+  background: linear-gradient(
+    90deg,
+    #22416f 0%,
+    #22416f 40%,
+    #000000 50%,
+    #22416f 60%,
+    #22416f 100%
+  );
+
+  background-size: 200% auto;
+  background-position: 0% center;
+
+  color: transparent;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  animation: shimmerText 2.8s linear infinite;
+}
+
+@keyframes shimmerText {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}

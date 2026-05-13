@@ -297,9 +297,29 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
-        <div className="text-center  bg-[#ADC2E1] px-20 py-4 text-sm text-[#22416F]">
-          We're currently preparing a detailed cost breakdown for this trek to
-          help you plan better.
+        <div className="flex items-center justify-center gap-2 px-20 py-3.5 text-sm text-[#22416F] border-b  bg-yellow-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="shrink-0"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <p className="text-sm font-medium text-center">
+            We're currently preparing a detailed cost breakdown for this trek to
+            help you plan better.
+          </p>
+          <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#22416F]/10 tracking-wide flex-shrink-0">
+            <span className="shimmer-text">Coming soon</span>
+          </span>
         </div>
       </div>
 
