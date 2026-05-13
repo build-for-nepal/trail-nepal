@@ -246,35 +246,6 @@ const ContactInfoSidebar = ({
 
 export default ContactInfoSidebar;
 
-// const CTAButtons = ({
-//   icon,
-//   name,
-//   className,
-// }: {
-//   icon: string;
-//   name: string;
-//   className?: string;
-// }) => {
-//   return (
-//     <button
-//       className={cn(
-//         'w-full flex items-center justify-between rounded-xl px-4 py-3',
-//         'bg-gray-900 text-white transition-colors cursor-pointer',
-//         className,
-//       )}
-//     >
-//       <div className="flex items-center gap-2.5">
-//         <div className="w-2.5 h-2.5">
-//           <Image src={icon} alt="contact-img" className="w-full h-full" />
-//         </div>
-//         <span className="text-[13px] font-semibold">{name}</span>
-//       </div>
-
-//       <ArrowRight className="w-4 h-4" />
-//     </button>
-//   );
-// };
-
 const CTAButtons = ({
   icon,
   name,
