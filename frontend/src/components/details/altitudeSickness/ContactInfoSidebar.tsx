@@ -134,17 +134,20 @@ const ContactInfoSidebar = ({
             name="Call Emergency (100)"
             icon={callImg}
             className="bg-[#B12013]"
+            phone="100"
           />
           <CTAButtons
             name="Request Helicopter Rescue"
             icon={helicopterImg}
             className="bg-[#2E3028]"
+            phone="01-4112296"
           />
-          <CTAButtons
+          {/* <CTAButtons
             name="Contact Nearest Hospital"
             icon={plusImg}
             className="bg-[#386CB6]"
-          />
+            phone="100"
+          /> */}
         </div>
 
         {/* Reach out section */}
@@ -243,17 +246,49 @@ const ContactInfoSidebar = ({
 
 export default ContactInfoSidebar;
 
+// const CTAButtons = ({
+//   icon,
+//   name,
+//   className,
+// }: {
+//   icon: string;
+//   name: string;
+//   className?: string;
+// }) => {
+//   return (
+//     <button
+//       className={cn(
+//         'w-full flex items-center justify-between rounded-xl px-4 py-3',
+//         'bg-gray-900 text-white transition-colors cursor-pointer',
+//         className,
+//       )}
+//     >
+//       <div className="flex items-center gap-2.5">
+//         <div className="w-2.5 h-2.5">
+//           <Image src={icon} alt="contact-img" className="w-full h-full" />
+//         </div>
+//         <span className="text-[13px] font-semibold">{name}</span>
+//       </div>
+
+//       <ArrowRight className="w-4 h-4" />
+//     </button>
+//   );
+// };
+
 const CTAButtons = ({
   icon,
   name,
   className,
+  phone,
 }: {
   icon: string;
   name: string;
   className?: string;
+  phone?: string;
 }) => {
   return (
-    <button
+    <a
+      href={phone ? `tel:${phone}` : undefined}
       className={cn(
         'w-full flex items-center justify-between rounded-xl px-4 py-3',
         'bg-gray-900 text-white transition-colors cursor-pointer',
@@ -266,8 +301,7 @@ const CTAButtons = ({
         </div>
         <span className="text-[13px] font-semibold">{name}</span>
       </div>
-
       <ArrowRight className="w-4 h-4" />
-    </button>
+    </a>
   );
 };
