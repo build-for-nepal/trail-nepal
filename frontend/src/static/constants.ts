@@ -58,13 +58,13 @@ export const WHY_NEPAL_FEATURES = [
 ];
 
 export const SOCIAL_ICONS = [
-  { src: '/icons/facebook.svg', alt: 'Facebook', href: 'https://facebook.com' },
+  { src: '/icons/facebook.svg', alt: 'Facebook', href: 'https://www.facebook.com/techgaun.np' },
   {
     src: '/icons/instagram.svg',
     alt: 'Instagram',
-    href: 'https://instagram.com',
+    href: 'https://www.instagram.com/techgaun.nepal/',
   },
-  { src: '/icons/youtube.svg', alt: 'Youtube', href: 'https://youtube.com' },
+  { src: '/icons/linkedin-box-fill.svg', alt: 'LinkedIn', href: 'https://www.linkedin.com/company/techgaun/posts/?feedView=all' },
 ];
 
 export const gearCheckListDescriptions = {
