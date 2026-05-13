@@ -204,8 +204,10 @@ const ContactInfoSidebar = ({
               {contactHospitalsData.map((h) => (
                 <div key={h.name} className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[12px] text-[#2D2F27]">{h.name}</span>
-                    <span className="text-[11px] text-[#376BB6] font-medium">
+                    <span className="text-[12px] text-[#2D2F27] flex-1">
+                      {h.name}
+                    </span>
+                    <span className="text-[11px] text-[#376BB6] font-medium w-fit">
                       {h.phone}
                     </span>
                   </div>
