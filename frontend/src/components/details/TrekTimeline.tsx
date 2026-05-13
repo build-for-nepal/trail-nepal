@@ -354,7 +354,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
               ))}
             </div>
           ) : (
-            <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
+            <div className="w-full h-150 rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
               <TrekkingMap trekId={trekId} />
             </div>
           )}
