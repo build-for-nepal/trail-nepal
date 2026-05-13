@@ -91,33 +91,33 @@ const ContactInfoSidebar = ({
       )}
     >
       <div className="bg-[#D4E4F6] px-5 pt-5 pb-4 border-b rounded-card border-gray-100">
-        <div className="flex items-start justify-between gap-2 mb-2 text-[#2D2F27]">
-          <div>
+        <div className="flex flex-col mb-2">
+          <div className="flex items-start justify-between gap-2 text-[#2D2F27]">
             <span className="text-3xl font-black text-[#2D2F27] tracking-tight">
               {trekInfo.meta.maxElevation}
             </span>
-            <p className="text-[10px] mt-0.5">
-              Maximum altitude: Everest Base Camp
-            </p>
-          </div>
 
-          {showText?.text && (
-            <span
-              className={cn(
-                'flex items-center capitalize gap-1 shrink-0 bg-white text-[9px] px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap',
-                showText.textColor,
-              )}
-            >
+            {showText?.text && (
               <span
-                className={cn('w-1 h-1 rounded-full shrink-0', showText.bg)}
-              />
-              {showText.text}
-            </span>
-          )}
+                className={cn(
+                  'flex items-center capitalize gap-1 shrink-0 bg-white text-[9px] px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap',
+                  showText.textColor,
+                )}
+              >
+                <span
+                  className={cn('w-1 h-1 rounded-full shrink-0', showText.bg)}
+                />
+                {showText.text}
+              </span>
+            )}
+          </div>
+          <p className="text-[10px]">
+            Maximum altitude: {trekInfo.name.split(' (')[0]}
+          </p>
         </div>
         <p className="text-[11px] text-[#2D2F27] leading-relaxed">
           <span className="font-semibold text-[#2D2F27]">
-            High risk of altitude sickness beyond 3,500m.
+            High risk of altitude sickness beyond 4,000m.
           </span>
           <br />
           Proper acclimatization is non-negotiable.
@@ -204,8 +204,10 @@ const ContactInfoSidebar = ({
               {contactHospitalsData.map((h) => (
                 <div key={h.name} className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[12px] text-[#2D2F27]">{h.name}</span>
-                    <span className="text-[11px] text-[#376BB6] font-medium">
+                    <span className="text-[12px] text-[#2D2F27] flex-1">
+                      {h.name}
+                    </span>
+                    <span className="text-[11px] text-[#376BB6] font-medium w-fit">
                       {h.phone}
                     </span>
                   </div>
