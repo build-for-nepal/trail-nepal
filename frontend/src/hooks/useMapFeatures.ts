@@ -3,7 +3,7 @@ import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay } from '@/types/trek';
 import { GeoJSONData, LayerKey } from '@/types/map';
 import { LAYERS } from '@/static/mapConstants';
-import { buildPopupHTML, fitToBounds } from '@/lib/mapHelper';
+import { buildPopupHTML, buildGroupedPopupHTML, fitToBounds } from '@/lib/mapHelper';
 
 const TRAIL_GREEN = '#84b829';
 const MARKER_ORANGE = '#f59e0b';
@@ -27,6 +27,26 @@ function makeCircleMarkerEl(
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
     font-family:system-ui,sans-serif;cursor:${clickable ? 'pointer' : 'default'};
+    transition:transform 0.18s ease;
+  `;
+  inner.textContent = label;
+  wrapper.appendChild(inner);
+  return { wrapper, inner };
+}
+
+function makeGroupMarkerEl(
+  label: string,
+  bg: string,
+): { wrapper: HTMLElement; inner: HTMLElement } {
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `height:28px;display:inline-flex;`;
+
+  const inner = document.createElement('div');
+  inner.style.cssText = `
+    height:28px;padding:0 10px;border-radius:14px;background:${bg};
+    border:2.5px solid white;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
+    font-family:system-ui,sans-serif;cursor:pointer;white-space:nowrap;
     transition:transform 0.18s ease;
   `;
   inner.textContent = label;
@@ -241,22 +261,37 @@ export function useTrekMarkers(
       }, 150);
     };
 
+    // Group days that share the same map coordinate so they render as one marker.
+    const coordGroups = new Map<string, typeof timeline>();
     timeline.forEach((dayObj) => {
       if (!dayObj.coordinates) return;
       const [lat, lng] = dayObj.coordinates;
+      const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+      if (!coordGroups.has(key)) coordGroups.set(key, []);
+      coordGroups.get(key)!.push(dayObj);
+    });
 
-      const { wrapper, inner } = makeCircleMarkerEl(
-        dayObj.day ?? '',
-        MARKER_ORANGE,
-        true,
-      );
+    coordGroups.forEach((days) => {
+      const [lat, lng] = days[0].coordinates!;
+      const isGroup = days.length > 1;
+      const label = isGroup
+        ? `${days[0].day}–${days[days.length - 1].day}`
+        : (days[0].day ?? '');
+
+      const { wrapper, inner } = isGroup
+        ? makeGroupMarkerEl(label, MARKER_ORANGE)
+        : makeCircleMarkerEl(label, MARKER_ORANGE, true);
+
+      const popupHTML = isGroup
+        ? buildGroupedPopupHTML(days)
+        : buildPopupHTML(days[0]);
 
       wrapper.addEventListener('mouseenter', () => {
         clearHideTimer();
         inner.style.transform = 'scale(1.2)';
         const popup = popupRef.current;
         if (!popup) return;
-        popup.setHTML(buildPopupHTML(dayObj)).setLngLat([lng, lat]).addTo(map);
+        popup.setHTML(popupHTML).setLngLat([lng, lat]).addTo(map);
         const popupEl = popup.getElement();
         if (popupEl) {
           popupEl.onmouseenter = clearHideTimer;
