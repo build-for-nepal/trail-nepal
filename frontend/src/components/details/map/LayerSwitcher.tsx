@@ -7,7 +7,9 @@ export default function LayerSwitcher({
   className,
 }: LayerSwitcherProps) {
   return (
-    <div className={`absolute left-2 z-10 flex gap-2 ${className ?? 'bottom-10'}`}>
+    <div
+      className={`absolute left-2 z-10 flex gap-2 ${className ?? 'bottom-10'}`}
+    >
       {(Object.entries(LAYERS) as [LayerKey, (typeof LAYERS)[LayerKey]][]).map(
         ([key, cfg]) => (
           <button

@@ -74,9 +74,16 @@ export default function TrekCard({
             <Mountain className="size-4" strokeWidth={2.2} />
             {altitude}
           </span>
-          <span className={`flex gap-1.5 ${season.includes(', ') ? 'items-start' : 'items-center'}`}>
-            <CalendarDays className={`size-4 shrink-0 ${season.includes(', ') ? 'mt-0.5' : ''}`} strokeWidth={2.2} />
-            <span className="whitespace-pre-line leading-tight">{season.replace(', ', ',\n')}</span>
+          <span
+            className={`flex gap-1.5 ${season.includes(', ') ? 'items-start' : 'items-center'}`}
+          >
+            <CalendarDays
+              className={`size-4 shrink-0 ${season.includes(', ') ? 'mt-0.5' : ''}`}
+              strokeWidth={2.2}
+            />
+            <span className="whitespace-pre-line leading-tight">
+              {season.replace(', ', ',\n')}
+            </span>
           </span>
         </div>
 
