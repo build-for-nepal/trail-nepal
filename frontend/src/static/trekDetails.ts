@@ -9,7 +9,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       duration: '14 Days',
       difficulty: 'Challenging',
       maxElevation: '5,364m',
-      bestSeasons: 'March - May, September - November',
+      bestSeasons: 'September - May',
       startingPoint: 'Lukla (Tenzing-Hillary Airport)',
     },
     overview:
