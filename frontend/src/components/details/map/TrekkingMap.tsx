@@ -23,7 +23,9 @@ export default function TrekkingMap({ trekId }: TrekkingMapProps) {
     data = {
       ...rawData,
       features: rawData.features.filter(
-        (f) => (f.properties as any)?.ref === 'ABC' || (f.properties as any)?.name === 'Annapurna Base Camp Trek'
+        (f) =>
+          (f.properties as any)?.ref === 'ABC' ||
+          (f.properties as any)?.name === 'Annapurna Base Camp Trek',
       ),
     };
   }

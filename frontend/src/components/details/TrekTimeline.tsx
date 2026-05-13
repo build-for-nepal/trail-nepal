@@ -151,7 +151,10 @@ const AccordionItem = ({
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-y-3 gap-x-12">
                 {day.accommodations.map((acc, i) => (
-                  <div key={i} className="flex flex-col cursor-text select-text">
+                  <div
+                    key={i}
+                    className="flex flex-col cursor-text select-text"
+                  >
                     {acc.name && (
                       <span className="text-sm font-medium text-black/70">
                         {acc.name}
@@ -199,7 +202,12 @@ const AccordionItem = ({
                   )}
                   {day.stats.note && (
                     <span className="flex items-center gap-1 text-xs font-medium text-red-400 cursor-text select-text">
-                      <Image src={alertLine} alt="alert" width={14} height={14} />
+                      <Image
+                        src={alertLine}
+                        alt="alert"
+                        width={14}
+                        height={14}
+                      />
                       {day.stats.note}
                     </span>
                   )}
@@ -238,7 +246,9 @@ const StatPill = ({
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
-  const [activeView, setActiveView] = useState<'journey' | 'overview'>('journey');
+  const [activeView, setActiveView] = useState<'journey' | 'overview'>(
+    'journey',
+  );
   const [bannerVisible, setBannerVisible] = useState(false);
 
   const days =
@@ -284,9 +294,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       <div
         className={cn(
           'overflow-hidden sticky top-0 z-50 h-20 transition-all duration-500 ease-in-out',
-          bannerVisible
-  ? 'opacity-100'
-  : 'opacity-0 pointer-events-none'
+          bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
         <div className="text-center  bg-[#ADC2E1] px-20 py-4 text-sm text-[#22416F]">
@@ -332,7 +340,10 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           {activeView === 'overview' ? (
             <div className="flex flex-col w-full gap-3">
               {days.map((day, index) => (
-                <div key={day.id || day.day || index} className="accordion-item">
+                <div
+                  key={day.id || day.day || index}
+                  className="accordion-item"
+                >
                   <AccordionItem
                     day={day}
                     index={index}

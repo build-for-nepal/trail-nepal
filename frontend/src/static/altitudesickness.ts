@@ -63,7 +63,7 @@ export const resuceHelicoptersData = [
     phone: '4112206(17, 30), 4112463(64, 65, 66, 67), 9751000120, 9851026185',
     contact: 'Pradeep Gautam',
   },
-   {
+  {
     name: 'Air Dynasty',
     detail: 'info@airdynasty.com',
     address: 'Sinamangal',
@@ -122,12 +122,13 @@ export const contactHospitalsData = [
     phone: '4424111 (0), 4435232, 4413163 ',
     contact: 'Subash Dawadi',
   },
-  { name: 'Star Hospital',
+  {
+    name: 'Star Hospital',
     detail: 'info@starhospital.com.np',
     address: 'Sanepa Height',
     phone: '5550197/8, 5540478',
     contact: '',
-   },
+  },
 ];
 
 export const altitudeSicknessData = {

@@ -3,7 +3,11 @@ import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay } from '@/types/trek';
 import { GeoJSONData, LayerKey } from '@/types/map';
 import { LAYERS } from '@/static/mapConstants';
-import { buildPopupHTML, buildGroupedPopupHTML, fitToBounds } from '@/lib/mapHelper';
+import {
+  buildPopupHTML,
+  buildGroupedPopupHTML,
+  fitToBounds,
+} from '@/lib/mapHelper';
 
 const TRAIL_GREEN = '#84b829';
 const MARKER_ORANGE = '#f59e0b';

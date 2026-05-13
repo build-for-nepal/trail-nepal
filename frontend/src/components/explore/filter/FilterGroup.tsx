@@ -1,7 +1,13 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Props } from '@/static/explorepageData';
 
-export const FilterGroup = ({ title, options, selected, onToggle, onSelectOnly }: Props) => {
+export const FilterGroup = ({
+  title,
+  options,
+  selected,
+  onToggle,
+  onSelectOnly,
+}: Props) => {
   const specificOptions = options.slice(1); // Exclude 'All'
   const showOnlyHover = selected.length >= 2;
   const allSelected = selected.length === specificOptions.length;
@@ -18,7 +24,9 @@ export const FilterGroup = ({ title, options, selected, onToggle, onSelectOnly }
             >
               <Checkbox
                 checked={
-                  item === 'All' ? (selected.length === 0 || allSelected) : selected.includes(item)
+                  item === 'All'
+                    ? selected.length === 0 || allSelected
+                    : selected.includes(item)
                 }
                 onCheckedChange={() => onToggle(item)}
                 className="size-3.5 shrink-0 rounded-[3px] border-gray-400 data-[state=checked]:bg-gray-800"
