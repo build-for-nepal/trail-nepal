@@ -24,7 +24,14 @@ backend/build/
 backend/prisma/dev.db
 
 # Editor / OS files
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+frontend/.vscode/*
+!frontend/.vscode/settings.json
+!frontend/.vscode/extensions.json
+
 .idea/
 *.suo
 *.ntvs*
