@@ -151,7 +151,10 @@ const AccordionItem = ({
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-y-3 gap-x-12">
                 {day.accommodations.map((acc, i) => (
-                  <div key={i} className="flex flex-col cursor-text select-text">
+                  <div
+                    key={i}
+                    className="flex flex-col cursor-text select-text"
+                  >
                     {acc.name && (
                       <span className="text-sm font-medium text-black/70">
                         {acc.name}
@@ -199,7 +202,12 @@ const AccordionItem = ({
                   )}
                   {day.stats.note && (
                     <span className="flex items-center gap-1 text-xs font-medium text-red-400 cursor-text select-text">
-                      <Image src={alertLine} alt="alert" width={14} height={14} />
+                      <Image
+                        src={alertLine}
+                        alt="alert"
+                        width={14}
+                        height={14}
+                      />
                       {day.stats.note}
                     </span>
                   )}
@@ -238,7 +246,9 @@ const StatPill = ({
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
-  const [activeView, setActiveView] = useState<'journey' | 'overview'>('journey');
+  const [activeView, setActiveView] = useState<'journey' | 'overview'>(
+    'journey',
+  );
   const [bannerVisible, setBannerVisible] = useState(false);
 
   const days =
@@ -284,14 +294,32 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       <div
         className={cn(
           'overflow-hidden sticky top-0 z-50 h-20 transition-all duration-500 ease-in-out',
-          bannerVisible
-  ? 'opacity-100'
-  : 'opacity-0 pointer-events-none'
+          bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
-        <div className="text-center  bg-[#ADC2E1] px-20 py-4 text-sm text-[#22416F]">
-          We're currently preparing a detailed cost breakdown for this trek to
-          help you plan better.
+        <div className="flex items-center justify-center gap-2 px-20 py-3.5 text-sm text-[#22416F] border-b  bg-yellow-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="shrink-0"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <p className="text-sm font-medium text-center">
+            We're currently preparing a detailed cost breakdown for this trek to
+            help you plan better.
+          </p>
+          <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#22416F]/10 tracking-wide flex-shrink-0">
+            <span className="shimmer-text">Coming soon</span>
+          </span>
         </div>
       </div>
 
@@ -332,7 +360,10 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           {activeView === 'overview' ? (
             <div className="flex flex-col w-full gap-3">
               {days.map((day, index) => (
-                <div key={day.id || day.day || index} className="accordion-item">
+                <div
+                  key={day.id || day.day || index}
+                  className="accordion-item"
+                >
                   <AccordionItem
                     day={day}
                     index={index}
