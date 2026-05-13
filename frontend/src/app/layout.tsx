@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins, Playfair_Display, Oldenburg } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
+import { DEFAULT_SEO_DATA } from '@/static/seo';
 
 const oldenburg = Oldenburg({ weight: '400', subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'Trail Nepal',
+  description: 'Discover and plan treks in Nepal',
   icons: {
     icon: [
       {
@@ -30,7 +32,29 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: 'icons/logo.png' }],
   },
-  description: 'Discover and plan treks in Nepal',
+  keywords: DEFAULT_SEO_DATA.META_KEYWORDS,
+  openGraph: {
+    title: 'Trial Nepal',
+    description: 'Discover and plan treks in Nepal',
+    url: 'http://trails.buildfornepal.org/',
+    siteName: 'Trial Nepal',
+    images: [
+      {
+        url: 'http://trails.buildfornepal.org/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Trial Nepal Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Trial Nepal',
+    description: 'Discover and plan treks in Nepal',
+    images: ['http://trails.buildfornepal.org/og-image.png'],
+  },
 };
 
 export default function RootLayout({
