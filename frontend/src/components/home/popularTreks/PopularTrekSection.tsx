@@ -3,6 +3,7 @@ import SectionHeader from '../../common/SectionHeader';
 import TrekCard from './TrekCard';
 import TrekCarousel from './TrekCarousel';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const PopularTrekSection = () => {
   return (
@@ -16,18 +17,26 @@ const PopularTrekSection = () => {
       />
 
       <div className="page-wrapper relative z-10">
-        <SectionHeader
-          title="Popular Trek"
-          description="Choose from Nepal's most iconic trekking adventures"
-        />
+        <div className="relative w-full">
+          <SectionHeader
+            title="Popular Trek"
+            description="Choose from Nepal's most iconic trekking adventures"
+          />
+          <Link
+            href="/explore"
+            className="absolute right-0 bottom-0 text-sm font-semibold font-poppins text-[#8DC63F] hover:underline underline-offset-4 whitespace-nowrap"
+          >
+            View all →
+          </Link>
+        </div>
 
-        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-[60px]">
+        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-15">
           {POPULAR_TREKS.map((trek) => (
             <TrekCard key={trek.id} {...trek} href={`/treks/${trek.id}`} />
           ))}
         </div>
 
-        <div className="lg:hidden mt-[60px]">
+        <div className="lg:hidden mt-15">
           <TrekCarousel treks={POPULAR_TREKS} />
         </div>
       </div>
