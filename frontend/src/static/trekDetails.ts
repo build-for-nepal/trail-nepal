@@ -563,7 +563,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
     meta: {
       duration: '7-10 Days',
       difficulty: 'Moderate',
-      maxElevation: '4,984m',
+      maxElevation: '4,773m',
       bestSeasons: 'September - May',
       startingPoint: 'Syafrubesi',
     },
@@ -646,7 +646,7 @@ of the altitude, but the reward is an even broader and more dramatic Himalayan p
 peaks, glaciers, ridgelines, and the upper Langtang Valley spread out below. After spending time at the
 viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a relaxed afternoon and
 overnight stay`,
-        stats: { elevation: '4,984m', duration: '4-6 hours round trip' },
+        stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
       },
       {

@@ -39,7 +39,7 @@ export const TREKS: Trek[] = [
       'A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.',
     difficulty: 'Moderate',
     duration: '7-10 Days',
-    altitude: '4,984m',
+    altitude: '4,773m',
     season: 'Sep-May',
     price: 10000,
     imageUrl: '/images/redmaz-pham-yQnfR9N67OQ-unsplash.jpg',
