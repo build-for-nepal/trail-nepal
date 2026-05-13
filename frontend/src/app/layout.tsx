@@ -34,16 +34,16 @@ export const metadata: Metadata = {
   },
   keywords: DEFAULT_SEO_DATA.META_KEYWORDS,
   openGraph: {
-    title: 'Trial Nepal',
+    title: 'Trail Nepal',
     description: 'Discover and plan treks in Nepal',
     url: 'http://trails.buildfornepal.org/',
-    siteName: 'Trial Nepal',
+    siteName: 'Trail Nepal',
     images: [
       {
         url: 'http://trails.buildfornepal.org/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Trial Nepal Image',
+        alt: 'Trail Nepal Image',
       },
     ],
     locale: 'en_US',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trial Nepal',
+    title: 'Trail Nepal',
     description: 'Discover and plan treks in Nepal',
     images: ['http://trails.buildfornepal.org/og-image.png'],
   },
