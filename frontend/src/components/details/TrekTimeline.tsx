@@ -293,7 +293,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       {/* ── Scroll-triggered banner ── */}
       <div
         className={cn(
-          'overflow-hidden sticky top-0 z-50 h-20 transition-all duration-500 ease-in-out',
+          'overflow-hidden sticky top-[84px] z-40 h-20 transition-all duration-500 ease-in-out',
           bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
