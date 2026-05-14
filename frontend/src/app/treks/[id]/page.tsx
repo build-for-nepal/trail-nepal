@@ -1,4 +1,6 @@
 import TrekDetailsContent from '@/components/details/TrekDetailsContent';
+import { FALLBACK_OG_IMAGE, OG_IMAGES } from '@/static/seo';
+import { TrekIdEnum } from '@/static/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { Metadata } from 'next';
 
@@ -14,16 +16,18 @@ type Props = {
   }>;
 };
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || 'http://trails.buildfornepal.org';
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const trek = TREK_DETAILS[id];
 
   if (!trek) return {};
 
-  const sharedImg =
-    trek?.gallery?.find((img) => img.type === 'hero')?.url ||
-    trek?.gallery?.[0]?.url ||
-    'https://trails.buildfornepal.org/og-image.png';
+  const sharedImg = OG_IMAGES[id as TrekIdEnum]
+    ? `${BASE_URL}/ogimgs/${OG_IMAGES[id as TrekIdEnum]}`
+    : `${BASE_URL}/ogimgs/${FALLBACK_OG_IMAGE}`;
 
   return {
     title: `${trek.name} | Trail Nepal`,
@@ -31,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: trek.name,
       description: trek?.overview,
-      url: `https://trails.buildfornepal.org/treks/${id}`,
+      url: `${BASE_URL}/treks/${id}`,
       images: [
         {
           url: sharedImg,
