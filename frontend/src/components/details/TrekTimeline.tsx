@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import TrekkingMap from './map/TrekkingMap';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type tabsValue = 'journey' | 'overview';
 
@@ -250,7 +250,6 @@ const StatPill = ({
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const validTabs: tabsValue[] = ['journey', 'overview'];
   const tabParam = searchParams.get('tab') as tabsValue;
 
@@ -261,9 +260,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   const setTabUrl = (tab: tabsValue) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('tab', tab);
-    router.push(`?${params.toString()}`, {
-      scroll: false,
-    });
+    window.history.replaceState(null, '', `?${params.toString()}`);
   };
 
   const [bannerVisible, setBannerVisible] = useState(false);
