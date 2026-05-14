@@ -10,6 +10,7 @@ import TreksHero from '@/components/details/TreksHero';
 import Footer from '@/components/layout/footer/Footer';
 import TrialUpdate from '@/components/details/TrialUpdate';
 import TreksAltitudeSickness from '@/components/details/altitudeSickness/TreksAltitudeSickness';
+import { Suspense } from 'react';
 
 type Props = {
   trekId: string;
@@ -20,7 +21,11 @@ const TrekDetailsContent = ({ trekId }: Props) => {
     <div className="w-full flex flex-col bg-(--color-surface-page)">
       <TreksHeader trekId={trekId} />
       <TreksHero trekId={trekId} />
-      <TrekTimeline trekId={trekId} />
+
+      <Suspense fallback={null}>
+        <TrekTimeline trekId={trekId} />
+      </Suspense>
+
       <TreksSeason trekId={trekId} />
       <TreksExpect trekId={trekId} />
       <TreksAltitudeSickness trekId={trekId} />
