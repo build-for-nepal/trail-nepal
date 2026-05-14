@@ -17,14 +17,14 @@ const PopularTrekSection = () => {
       />
 
       <div className="page-wrapper relative z-10">
-        <div className="relative w-full">
+        <div className="relative w-full flex flex-col items-center gap-2 lg:block">
           <SectionHeader
             title="Popular Trek"
             description="Choose from Nepal's most iconic trekking adventures"
           />
           <Link
             href="/explore"
-            className="absolute right-0 bottom-0 text-sm font-semibold font-poppins text-[#8DC63F] hover:underline underline-offset-4 whitespace-nowrap"
+            className="text-sm font-semibold font-poppins text-[#8DC63F] hover:underline underline-offset-4 whitespace-nowrap lg:absolute lg:right-0 lg:bottom-0"
           >
             View all →
           </Link>
