@@ -45,12 +45,12 @@ export const HeroContent = memo(function HeroContent({
 }: HeroContentProps) {
   return (
     <div className="w-full max-w-2xl flex flex-col mt-24 lg:mt-0 items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
-      <div className="h-[180px] lg:h-[200px] xl:h-[260px] overflow-hidden">
+      <div className="w-full overflow-hidden lg:h-50 xl:h-65">
         <h1
           ref={(el) => {
             textElemsRef.current[0] = el;
           }}
-          className="font-otomanopee text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold text-white mb-6 tracking-wide drop-shadow-lg line-clamp-2"
+          className="font-otomanopee text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold text-white mb-6 tracking-wide drop-shadow-lg line-clamp-2 text-center lg:text-left"
         >
           {slide.title}
         </h1>
@@ -58,7 +58,7 @@ export const HeroContent = memo(function HeroContent({
           ref={(el) => {
             textElemsRef.current[1] = el;
           }}
-          className="font-poppins text-sm md:text-base lg:text-sm xl:text-lg text-gray-200 mb-8 leading-relaxed max-w-[90%] lg:max-w-[70%] line-clamp-3"
+          className="font-poppins text-sm md:text-base lg:text-sm xl:text-lg text-gray-200 mb-8 leading-relaxed max-w-[90%] lg:max-w-[70%] line-clamp-3 text-center lg:text-left mx-auto lg:mx-0"
         >
           {slide.description}
         </p>
@@ -86,7 +86,7 @@ export const HeroContent = memo(function HeroContent({
       <button
         type="button"
         onClick={onExplore}
-        className={`font-poppins px-10 py-4 mt-8 lg:mt-0 bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${focusRing}`}
+        className={`font-poppins px-10 py-4 mt-6 lg:mt-0 w-fit bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${focusRing}`}
       >
         Explore Now
       </button>
