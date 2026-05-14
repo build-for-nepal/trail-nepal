@@ -1,5 +1,15 @@
 import { Trek } from '@/types/trek';
 
+export enum TrekIdEnum {
+  ABC_TREK = 'abc-trek',
+  EBC_TREK = 'ebc-trek',
+  GHOREPANI_POON_HILL_TREK = 'ghorepani-poon-hill-trek',
+  GOKYO_VALLEY_TREK = 'gokyo-valley-trek',
+  LANGTANG_VALLEY = 'langtang-valley',
+  MANASLU_CIRCUIT = 'manaslu-circuit',
+  MARDI_HIMAL_TREK = 'mardi-himal-trek',
+}
+
 export const TREKS: Trek[] = [
   {
     id: 'ebc-trek',

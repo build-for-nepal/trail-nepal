@@ -1,3 +1,17 @@
+import { TrekIdEnum } from './trek';
+
+export const OG_IMAGES: Record<TrekIdEnum, string> = {
+  [TrekIdEnum.ABC_TREK]: 'og-abc-trek.png',
+  [TrekIdEnum.EBC_TREK]: 'og-ebc-trek.jpg',
+  [TrekIdEnum.GHOREPANI_POON_HILL_TREK]: 'og-ghorepani-poon-hill-trek.webp',
+  [TrekIdEnum.GOKYO_VALLEY_TREK]: 'og-gokyo-valley-trek.webp',
+  [TrekIdEnum.LANGTANG_VALLEY]: 'og-langtang-valley.webp',
+  [TrekIdEnum.MANASLU_CIRCUIT]: 'og-manaslu-circuit.jpg',
+  [TrekIdEnum.MARDI_HIMAL_TREK]: 'og-mardi-himal-trek.webp',
+};
+
+export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
+
 export const DEFAULT_SEO_DATA = {
   META_TITLE: 'Trail Nepal',
   META_DESCRIPTION: 'Discover and plan treks in Nepal',

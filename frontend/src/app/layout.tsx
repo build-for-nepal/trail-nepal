@@ -20,6 +20,9 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || 'http://trails.buildfornepal.org';
+
 export const metadata: Metadata = {
   title: 'Trail Nepal',
   description: 'Discover and plan treks in Nepal',
@@ -36,11 +39,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Trail Nepal',
     description: 'Discover and plan treks in Nepal',
-    url: 'http://trails.buildfornepal.org/',
+    url: `${BASE_URL}/`,
     siteName: 'Trail Nepal',
     images: [
       {
-        url: 'http://trails.buildfornepal.org/og-image.png',
+        url: `${BASE_URL}/ogimgs/og-siteimage.png`,
         width: 1200,
         height: 630,
         alt: 'Trail Nepal Image',
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Trail Nepal',
     description: 'Discover and plan treks in Nepal',
-    images: ['http://trails.buildfornepal.org/og-image.png'],
+    images: [`${BASE_URL}/ogimgs/og-siteimage.png`],
   },
 };
 
