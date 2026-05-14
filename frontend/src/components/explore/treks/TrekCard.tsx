@@ -19,12 +19,12 @@ export default function TrekCard({
   duration,
   altitude,
   season,
-  price,
   region,
   href,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
+  const seasons = season.split(/,\s*/);
 
   return (
     <div className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
@@ -65,25 +65,28 @@ export default function TrekCard({
         <div className="flex-1" />
 
         {/* Metrics */}
-        <div className="flex items-center justify-between pt-1 text-[10px] font-medium text-text-primary">
-          <span className="flex items-center gap-1.5">
+        <div className="grid grid-cols-3 items-center pt-1 text-[10px] font-medium text-text-primary">
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
             <Clock className="size-4" strokeWidth={2.2} />
             {duration}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
             <Mountain className="size-4" strokeWidth={2.2} />
             {altitude}
           </span>
-          <span
-            className={`flex gap-1.5 ${season.includes(', ') ? 'items-start' : 'items-center'}`}
-          >
-            <CalendarDays
-              className={`size-4 shrink-0 ${season.includes(', ') ? 'mt-0.5' : ''}`}
-              strokeWidth={2.2}
-            />
-            <span className="whitespace-pre-line leading-tight">
-              {season.replace(', ', ',\n')}
-            </span>
+          <span className="@container flex items-center gap-1.5">
+            <CalendarDays className="size-4 shrink-0" strokeWidth={2.2} />
+            {seasons.length > 1 ? (
+              <>
+                <span className="hidden @[100px]:inline whitespace-nowrap leading-tight">{season}</span>
+                <span className="@[100px]:hidden flex flex-col leading-tight">
+                  <span className="whitespace-nowrap">{seasons[0]}</span>
+                  <span className="whitespace-nowrap">{seasons[1]}</span>
+                </span>
+              </>
+            ) : (
+              <span className="whitespace-nowrap leading-tight">{season}</span>
+            )}
           </span>
         </div>
 
@@ -94,7 +97,7 @@ export default function TrekCard({
         {/* CTA — always pinned at bottom */}
         <Link
           href={href}
-          className="mt-1 flex w-full items-center justify-center rounded-[16px] bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
+          className="mt-1 flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
         >
           See More
         </Link>
