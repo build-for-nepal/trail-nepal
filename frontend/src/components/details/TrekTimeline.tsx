@@ -18,6 +18,9 @@ import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import TrekkingMap from './map/TrekkingMap';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+type tabsValue = 'journey' | 'overview';
 
 const AccordionItem = ({
   day,
@@ -246,9 +249,23 @@ const StatPill = ({
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
-  const [activeView, setActiveView] = useState<'journey' | 'overview'>(
-    'journey',
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const validTabs: tabsValue[] = ['journey', 'overview'];
+  const tabParam = searchParams.get('tab') as tabsValue;
+
+  const [activeView, setActiveView] = useState<tabsValue>(
+    validTabs.includes(tabParam) ? tabParam : 'journey',
   );
+
+  const setTabUrl = (tab: tabsValue) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('tab', tab);
+    router.push(`?${params.toString()}`, {
+      scroll: false,
+    });
+  };
+
   const [bannerVisible, setBannerVisible] = useState(false);
 
   const days =
@@ -331,7 +348,10 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
         <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
           <button
-            onClick={() => setActiveView('journey')}
+            onClick={() => {
+              setTabUrl('journey');
+              setActiveView('journey');
+            }}
             className={cn(
               'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
               activeView === 'journey'
@@ -343,7 +363,10 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
             Journey
           </button>
           <button
-            onClick={() => setActiveView('overview')}
+            onClick={() => {
+              setTabUrl('overview');
+              setActiveView('overview');
+            }}
             className={cn(
               'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
               activeView === 'overview'
