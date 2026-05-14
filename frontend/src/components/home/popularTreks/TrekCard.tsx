@@ -14,11 +14,11 @@ const TrekCard = ({
   duration,
   altitude,
   season,
-  price,
   href,
 }: ExploreTrekCardProps) => {
   const difficultyColor =
     DIFFICULTY_COLORS[difficulty.toLowerCase()] ?? '#6BBF1F';
+  const seasons = season.split(/,\s*/);
 
   return (
     <div className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
@@ -43,29 +43,32 @@ const TrekCard = ({
         </h3>
 
         {/* Hidden on desktop until hover */}
-        <div className="overflow-hidden transition-all duration-500 ease-in-out max-h-[4rem] lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[4rem] lg:group-hover:opacity-100 lg:delay-100">
-          <p className="font-poppins text-gray-600 text-[13px] leading-snug line-clamp-1">
+        <div className="overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0 group-hover:max-h-20 group-hover:opacity-100 delay-100">
+          <p className="font-poppins text-gray-600 text-[13px] leading-snug line-clamp-3">
             {description}
           </p>
         </div>
 
-        <div className="font-poppins flex items-center justify-between text-black">
+        <div className="font-poppins grid grid-cols-3 items-center text-black">
           <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
             <Clock size={13} /> {duration}
           </span>
           <span className="flex items-center gap-1 text-[12px] font-medium whitespace-nowrap">
             <Mountain size={13} /> {altitude}
           </span>
-          <span
-            className={`flex gap-1 text-[12px] font-medium ${season.includes(', ') ? 'items-start' : 'items-center'}`}
-          >
-            <CalendarDays
-              size={13}
-              className={`shrink-0 ${season.includes(', ') ? 'mt-0.5' : ''}`}
-            />
-            <span className="whitespace-pre-line leading-tight">
-              {season.replace(', ', ',\n')}
-            </span>
+          <span className="@container flex items-center gap-1 text-[12px] font-medium">
+            <CalendarDays size={13} className="shrink-0" />
+            {seasons.length > 1 ? (
+              <>
+                <span className="hidden @[130px]:inline whitespace-nowrap leading-tight">{season}</span>
+                <span className="@[130px]:hidden flex flex-col leading-tight">
+                  <span className="whitespace-nowrap">{seasons[0]}</span>
+                  <span className="whitespace-nowrap">{seasons[1]}</span>
+                </span>
+              </>
+            ) : (
+              <span className="whitespace-nowrap leading-tight">{season}</span>
+            )}
           </span>
         </div>
 

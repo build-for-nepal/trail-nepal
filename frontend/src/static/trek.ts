@@ -16,7 +16,7 @@ export const TREKS: Trek[] = [
     title: 'EBC Trek',
     region: 'Khumbu Valley',
     description:
-      "Trek to the base of the world's highest peak through iconic Sherpa villages and glaciers.",
+      "Trek to the base of the world's highest peak through the legendary Khumbu Valley. Pass through iconic Sherpa villages like Namche Bazaar and Tengboche, cross glacial moraines, and stand before the 5,364m marker surrounded by the world's greatest Himalayan giants.",
     difficulty: 'Challenging',
     duration: '14 Days',
     altitude: '5,364m',
@@ -31,7 +31,7 @@ export const TREKS: Trek[] = [
     title: 'Manaslu Circuit Trek',
     region: 'Manaslu Region',
     description:
-      "A remote and rugged circuit around the world's eighth highest mountain.",
+      "A remote and rugged circuit around Manaslu, the world's eighth highest mountain, offering raw Himalayan wilderness far from the crowds. Cross the Larkya La Pass at 5,106m, traverse ancient Tibetan-influenced villages, and experience Nepal's most dramatic restricted-area trek.",
     difficulty: 'Challenging',
     duration: '14-18 Days',
     altitude: '5,106m',
@@ -46,7 +46,7 @@ export const TREKS: Trek[] = [
     title: 'Langtang Valley Trek',
     region: 'Langtang Region',
     description:
-      'A culturally rich trek through lush forests and Tamang villages with stunning views of glaciers and snow-covered peaks.',
+      'A culturally rich journey through lush rhododendron forests and traditional Tamang villages into the breathtaking Langtang Valley. Enjoy close-up views of glaciers and snow-capped peaks, and visit the ancient Kyanjin Gompa monastery nestled beneath the ice.',
     difficulty: 'Moderate',
     duration: '7-10 Days',
     altitude: '4,773m',
