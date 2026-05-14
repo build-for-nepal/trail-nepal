@@ -649,25 +649,25 @@ overnight stay`,
         stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
       },
-      {
-        day: '06',
-        title: 'Kyanjin Gompa to Lama Hotel',
-        description:
-          'After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.',
-        stats: { elevation: '2,470m', duration: '6-7 hours' },
-        coordinates: [28.1612117, 85.4296495],
-      },
-      {
-        day: '07',
-        title: 'Lama Hotel to Syabrubesi and drive to Kathmandu',
-        description:
-          'Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.',
-        stats: {
-          elevation: '1,400m',
-          duration: '4-5 hours trek + 7-8 hours drive',
-        },
-        coordinates: [28.1657291, 85.3418267],
-      },
+      // {
+      //   day: '06',
+      //   title: 'Kyanjin Gompa to Lama Hotel',
+      //   description:
+      //     'After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.',
+      //   stats: { elevation: '2,470m', duration: '6-7 hours' },
+      //   coordinates: [28.1612117, 85.4296495],
+      // },
+      // {
+      //   day: '07',
+      //   title: 'Lama Hotel to Syabrubesi and drive to Kathmandu',
+      //   description:
+      //     'Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.',
+      //   stats: {
+      //     elevation: '1,400m',
+      //     duration: '4-5 hours trek + 7-8 hours drive',
+      //   },
+      //   coordinates: [28.1657291, 85.3418267],
+      // },
     ],
 
     expectations: [
