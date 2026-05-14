@@ -297,7 +297,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
-        <div className="flex items-center justify-center gap-2 px-20 py-3.5 text-sm text-[#22416F] border-b  bg-yellow-200">
+        <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
