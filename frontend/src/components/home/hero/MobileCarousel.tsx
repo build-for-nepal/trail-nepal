@@ -100,7 +100,6 @@ export const MobileCarousel = ({
                 alt={slide.title}
                 fill
                 sizes="120px"
-                quality={70}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 fetchPriority={index === 0 ? 'high' : 'low'}
                 className="object-cover"

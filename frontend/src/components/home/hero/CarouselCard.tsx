@@ -65,7 +65,6 @@ export const CarouselCard = ({ slide, offset, onClick }: CarouselCardProps) => {
         alt={slide.title}
         fill
         sizes={isVisibleOffset ? SIZES_MAP[offset as CardOffset] : '192px'}
-        quality={75}
         loading="lazy"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
