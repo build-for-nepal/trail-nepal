@@ -21,7 +21,7 @@ const TrekCard = ({
   const seasons = season.split(/,\s*/);
 
   return (
-    <div className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
+    <Link href={href} className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
       <div className="relative w-full flex-1 lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-full lg:group-hover:h-[calc(100%-220px)] transition-all duration-500 ease-in-out lg:z-0">
         <Image
           src={imageUrl || '/images/placeholder-trek.jpg'}
@@ -76,14 +76,11 @@ const TrekCard = ({
           ~ {price}
         </span> */}
 
-        <Link
-          href={href}
-          className="block w-full py-3 mt-1 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl text-center transition-colors"
-        >
+        <div className="block w-full py-3 mt-1 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl text-center transition-colors">
           See More
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

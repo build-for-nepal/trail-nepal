@@ -27,7 +27,7 @@ export default function TrekCard({
   const seasons = season.split(/,\s*/);
 
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
+    <Link href={href} className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
       {/* Image — aspect-ratio drives height, not a fixed px value */}
       <div className="relative w-full aspect-[16/9] sm:aspect-[3/2] overflow-hidden bg-gray-100 flex-shrink-0">
         <Image
@@ -95,13 +95,10 @@ export default function TrekCard({
         </div> */}
 
         {/* CTA — always pinned at bottom */}
-        <Link
-          href={href}
-          className="mt-1 flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
-        >
+        <div className="mt-1 flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
           See More
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
