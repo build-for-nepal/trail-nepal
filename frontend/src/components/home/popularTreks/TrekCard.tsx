@@ -21,7 +21,10 @@ const TrekCard = ({
   const seasons = season.split(/,\s*/);
 
   return (
-    <Link href={href} className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block">
+    <Link
+      href={href}
+      className="group relative w-full h-[405px] lg:h-auto lg:aspect-[3/4] rounded-[1.5rem] overflow-hidden cursor-pointer bg-white shadow-sm border border-gray-100 flex flex-col lg:block"
+    >
       <div className="relative w-full flex-1 lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-full lg:group-hover:h-[calc(100%-220px)] transition-all duration-500 ease-in-out lg:z-0">
         <Image
           src={imageUrl || '/images/placeholder-trek.jpg'}
@@ -60,7 +63,9 @@ const TrekCard = ({
             <CalendarDays size={13} className="shrink-0" />
             {seasons.length > 1 ? (
               <>
-                <span className="hidden @[130px]:inline whitespace-nowrap leading-tight">{season}</span>
+                <span className="hidden @[130px]:inline whitespace-nowrap leading-tight">
+                  {season}
+                </span>
                 <span className="@[130px]:hidden flex flex-col leading-tight">
                   <span className="whitespace-nowrap">{seasons[0]}</span>
                   <span className="whitespace-nowrap">{seasons[1]}</span>

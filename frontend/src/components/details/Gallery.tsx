@@ -22,7 +22,9 @@ export const Gallery = ({ trekId }: Props) => {
   const [active, setActive] = useState(false);
   const activeRef = useRef(false);
 
-  useEffect(() => { activeRef.current = active; }, [active]);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -31,7 +33,8 @@ export const Gallery = ({ trekId }: Props) => {
       if (!activeRef.current) return;
       const delta = e.deltaY + e.deltaX;
       const atStart = el.scrollLeft <= 0 && delta < 0;
-      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 1 && delta > 0;
+      const atEnd =
+        el.scrollLeft >= el.scrollWidth - el.clientWidth - 1 && delta > 0;
       if (atStart || atEnd) return;
       e.preventDefault();
       el.scrollLeft += delta * 1.5;
@@ -91,4 +94,3 @@ export const Gallery = ({ trekId }: Props) => {
     </section>
   );
 };
-

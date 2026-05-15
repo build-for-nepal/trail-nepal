@@ -34,6 +34,6 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   'mardi-himal-trek': {
     mode: 'jeep',
     from: { name: 'Pokhara', coordinates: [28.2096, 83.9856] },
-    to: { name: 'Kande', coordinates: [28.2671, 83.8750] }, // trekDetails Day 1 (Australian Camp overnight, Kande dropoff)
+    to: { name: 'Kande', coordinates: [28.2671, 83.875] }, // trekDetails Day 1 (Australian Camp overnight, Kande dropoff)
   },
 };
