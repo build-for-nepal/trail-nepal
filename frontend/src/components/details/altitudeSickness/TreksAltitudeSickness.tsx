@@ -356,9 +356,6 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
 
       <div className="relative flex items-center justify-between w-full bg-[#376BB6] rounded-xl px-10 py-3 overflow-hidden">
         <div className="flex items-center gap-4">
-          {/* <span className="rounded-[8px] bg-[#F3F7E7] p-1">
-            <ArrowDownToLine className="text-[#88B112] cursor-pointer" />
-          </span> */}
           <a
             href="/altitude/altitude-guide.pdf"
             target="_blank"
