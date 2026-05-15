@@ -27,7 +27,10 @@ export default function TrekCard({
   const seasons = season.split(/,\s*/);
 
   return (
-    <Link href={href} className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1">
+    <Link
+      href={href}
+      className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100/50 transition-transform duration-300 hover:-translate-y-1"
+    >
       {/* Image — aspect-ratio drives height, not a fixed px value */}
       <div className="relative w-full aspect-[16/9] sm:aspect-[3/2] overflow-hidden bg-gray-100 flex-shrink-0">
         <Image
@@ -78,7 +81,9 @@ export default function TrekCard({
             <CalendarDays className="size-4 shrink-0" strokeWidth={2.2} />
             {seasons.length > 1 ? (
               <>
-                <span className="hidden @[100px]:inline whitespace-nowrap leading-tight">{season}</span>
+                <span className="hidden @[100px]:inline whitespace-nowrap leading-tight">
+                  {season}
+                </span>
                 <span className="@[100px]:hidden flex flex-col leading-tight">
                   <span className="whitespace-nowrap">{seasons[0]}</span>
                   <span className="whitespace-nowrap">{seasons[1]}</span>

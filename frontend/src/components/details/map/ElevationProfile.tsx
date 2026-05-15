@@ -34,10 +34,20 @@ const BORDER = '#e5e7eb';
 const RED_DESCENT = '#e05a5a';
 
 function statAscent(pts: ElevationPoint[]) {
-  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, p.e - pts[i - 1].e) : s), 0));
+  return Math.round(
+    pts.reduce(
+      (s, p, i) => (i > 0 ? s + Math.max(0, p.e - pts[i - 1].e) : s),
+      0,
+    ),
+  );
 }
 function statDescent(pts: ElevationPoint[]) {
-  return Math.round(pts.reduce((s, p, i) => (i > 0 ? s + Math.max(0, pts[i - 1].e - p.e) : s), 0));
+  return Math.round(
+    pts.reduce(
+      (s, p, i) => (i > 0 ? s + Math.max(0, pts[i - 1].e - p.e) : s),
+      0,
+    ),
+  );
 }
 
 export default function ElevationProfile({ points, onHover }: Props) {
@@ -160,28 +170,63 @@ export default function ElevationProfile({ points, onHover }: Props) {
         >
           {/* Mountain icon + labeled stat chips */}
           <div className="flex items-center gap-2.5 min-w-0 overflow-hidden">
-            <svg width="15" height="13" viewBox="0 0 16 14" fill="none" className="shrink-0">
+            <svg
+              width="15"
+              height="13"
+              viewBox="0 0 16 14"
+              fill="none"
+              className="shrink-0"
+            >
               <path d="M1 13L5 5l3 5 2-4 5 7H1Z" fill={GREEN} opacity=".2" />
-              <path d="M1 13L5 5l3 5 2-4 5 7" stroke={GREEN_DARK} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" fill="none" />
+              <path
+                d="M1 13L5 5l3 5 2-4 5 7"
+                stroke={GREEN_DARK}
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                fill="none"
+              />
             </svg>
             <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">Distance</span>
-              <span className="text-[11px] font-bold text-gray-800 leading-tight">{maxDist.toFixed(1)} km</span>
+              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">
+                Distance
+              </span>
+              <span className="text-[11px] font-bold text-gray-800 leading-tight">
+                {maxDist.toFixed(1)} km
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-300 shrink-0" />
             <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">Max Elev</span>
-              <span className="text-[11px] font-bold text-gray-800 leading-tight">{Math.round(maxE).toLocaleString()} m</span>
+              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">
+                Max Elev
+              </span>
+              <span className="text-[11px] font-bold text-gray-800 leading-tight">
+                {Math.round(maxE).toLocaleString()} m
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-300 shrink-0" />
             <div className="flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">Ascent</span>
-              <span className="text-[11px] font-bold leading-tight" style={{ color: GREEN_DARK }}>↑{ascent.toLocaleString()} m</span>
+              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">
+                Ascent
+              </span>
+              <span
+                className="text-[11px] font-bold leading-tight"
+                style={{ color: GREEN_DARK }}
+              >
+                ↑{ascent.toLocaleString()} m
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-300 shrink-0 hidden sm:block" />
             <div className="hidden sm:flex flex-col items-start shrink-0">
-              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">Descent</span>
-              <span className="text-[11px] font-bold leading-tight" style={{ color: RED_DESCENT }}>↓{descent.toLocaleString()} m</span>
+              <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">
+                Descent
+              </span>
+              <span
+                className="text-[11px] font-bold leading-tight"
+                style={{ color: RED_DESCENT }}
+              >
+                ↓{descent.toLocaleString()} m
+              </span>
             </div>
           </div>
 

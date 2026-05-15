@@ -39,7 +39,11 @@ function makeCircleMarkerEl(
 }
 
 function injectDestinationStyles() {
-  if (typeof document === 'undefined' || document.getElementById('dest-marker-styles')) return;
+  if (
+    typeof document === 'undefined' ||
+    document.getElementById('dest-marker-styles')
+  )
+    return;
   const style = document.createElement('style');
   style.id = 'dest-marker-styles';
   style.textContent = `
@@ -61,7 +65,10 @@ function injectDestinationStyles() {
   document.head.appendChild(style);
 }
 
-function makeDestinationMarkerEl(label: string, isGroup = false): { wrapper: HTMLElement; inner: HTMLElement } {
+function makeDestinationMarkerEl(
+  label: string,
+  isGroup = false,
+): { wrapper: HTMLElement; inner: HTMLElement } {
   injectDestinationStyles();
 
   // wrapper = circle's bounding box only (36×36).
@@ -91,8 +98,10 @@ function makeDestinationMarkerEl(label: string, isGroup = false): { wrapper: HTM
 
   const grad = document.createElementNS(NS, 'linearGradient');
   grad.id = 'dest-flag-fill';
-  grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
-  grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '80%');
+  grad.setAttribute('x1', '0%');
+  grad.setAttribute('y1', '0%');
+  grad.setAttribute('x2', '100%');
+  grad.setAttribute('y2', '80%');
   const s1 = document.createElementNS(NS, 'stop');
   s1.setAttribute('offset', '0%');
   s1.setAttribute('style', 'stop-color:#ef4444');
@@ -105,10 +114,13 @@ function makeDestinationMarkerEl(label: string, isGroup = false): { wrapper: HTM
 
   const filter = document.createElementNS(NS, 'filter');
   filter.id = 'dest-flag-shadow';
-  filter.setAttribute('x', '-30%'); filter.setAttribute('y', '-30%');
-  filter.setAttribute('width', '160%'); filter.setAttribute('height', '160%');
+  filter.setAttribute('x', '-30%');
+  filter.setAttribute('y', '-30%');
+  filter.setAttribute('width', '160%');
+  filter.setAttribute('height', '160%');
   const fds = document.createElementNS(NS, 'feDropShadow');
-  fds.setAttribute('dx', '0'); fds.setAttribute('dy', '1.5');
+  fds.setAttribute('dx', '0');
+  fds.setAttribute('dy', '1.5');
   fds.setAttribute('stdDeviation', '1.8');
   fds.setAttribute('flood-color', 'rgba(0,0,0,0.38)');
   filter.appendChild(fds);
@@ -119,8 +131,10 @@ function makeDestinationMarkerEl(label: string, isGroup = false): { wrapper: HTM
   // Pole — centered at x=14, full SVG height (overlaps into circle by 5px)
   const pole = document.createElementNS(NS, 'line');
   pole.setAttribute('class', 'dest-pole');
-  pole.setAttribute('x1', '14'); pole.setAttribute('y1', '0');
-  pole.setAttribute('x2', '14'); pole.setAttribute('y2', '40');
+  pole.setAttribute('x1', '14');
+  pole.setAttribute('y1', '0');
+  pole.setAttribute('x2', '14');
+  pole.setAttribute('y2', '40');
   pole.setAttribute('stroke', MARKER_ORANGE);
   pole.setAttribute('stroke-width', '2');
   pole.setAttribute('stroke-linecap', 'round');
@@ -714,7 +728,10 @@ function computeBearing(from: [number, number], to: [number, number]): number {
   return (Math.atan2(y, x) * (180 / Math.PI) + 360) % 360;
 }
 
-function createIconMarker(mode: AccessRoute['mode'], bearing: number): HTMLElement {
+function createIconMarker(
+  mode: AccessRoute['mode'],
+  bearing: number,
+): HTMLElement {
   const el = document.createElement('div');
   el.style.cssText = 'pointer-events:none;';
 
