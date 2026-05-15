@@ -19,7 +19,9 @@ import {
   useTrailData,
   useTrekMarkers,
   useHikerMarker,
+  useAccessRoute,
 } from '@/hooks/useMapFeatures';
+import { ACCESS_ROUTES } from '@/static/accessRoutes';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
 import ElevationProfile from './ElevationProfile';
 
@@ -61,9 +63,11 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
   const trekInfo = trekId ? TREK_DETAILS?.[trekId] : null;
   const timeline = trekInfo?.timeline ?? [];
+  const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
 
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline);
+  useAccessRoute(map, mapLoaded, accessRoute);
 
   // Load elevation profile for the current trek
   const [elevationPoints, setElevationPoints] = useState<ElevationPoint[]>([]);

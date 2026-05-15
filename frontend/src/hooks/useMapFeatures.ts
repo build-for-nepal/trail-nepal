@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
-import { TrekTimelineDay } from '@/types/trek';
+import { TrekTimelineDay, AccessRoute } from '@/types/trek';
 import { GeoJSONData, LayerKey } from '@/types/map';
 import { LAYERS } from '@/static/mapConstants';
 import {
@@ -627,4 +627,207 @@ export function useHikerMarker(
       figureEl.style.transform = `translateX(-50%) scaleX(${facingRight ? 1 : -1})`;
     }
   }, [map, mapLoaded, coord]);
+}
+
+// ─── Hook 5: Access route (flight arc or jeep curved path) ──────────────────
+
+// Parabolic arc for flights — lifts the midpoint northward
+function generateArc(
+  from: [number, number], // [lat, lng]
+  to: [number, number],
+  steps = 50,
+): [number, number][] {
+  const [lat1, lng1] = from;
+  const [lat2, lng2] = to;
+  const midLat = (lat1 + lat2) / 2;
+  const midLng = (lng1 + lng2) / 2;
+  const routeLen = Math.sqrt((lat2 - lat1) ** 2 + (lng2 - lng1) ** 2);
+  const ctrlLat = midLat + routeLen * 0.28;
+  const ctrlLng = midLng;
+
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const u = 1 - t;
+    pts.push([
+      u * u * lng1 + 2 * u * t * ctrlLng + t * t * lng2,
+      u * u * lat1 + 2 * u * t * ctrlLat + t * t * lat2,
+    ]);
+  }
+  return pts;
+}
+
+// Gentle perpendicular curve for road routes — not a straight line
+function generateRoadCurve(
+  from: [number, number], // [lat, lng]
+  to: [number, number],
+  steps = 40,
+): [number, number][] {
+  const [lat1, lng1] = from;
+  const [lat2, lng2] = to;
+  const midLat = (lat1 + lat2) / 2;
+  const midLng = (lng1 + lng2) / 2;
+  const dLat = lat2 - lat1;
+  const dLng = lng2 - lng1;
+  const len = Math.sqrt(dLat ** 2 + dLng ** 2);
+  // Perpendicular offset (rotated 90° right of travel direction)
+  const perpLat = dLng / len;
+  const perpLng = -dLat / len;
+  const offset = len * 0.14;
+  const ctrlLat = midLat + perpLat * offset;
+  const ctrlLng = midLng + perpLng * offset;
+
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const u = 1 - t;
+    pts.push([
+      u * u * lng1 + 2 * u * t * ctrlLng + t * t * lng2,
+      u * u * lat1 + 2 * u * t * ctrlLat + t * t * lat2,
+    ]);
+  }
+  return pts;
+}
+
+function computeBearing(from: [number, number], to: [number, number]): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const lat1 = toRad(from[0]);
+  const lat2 = toRad(to[0]);
+  const dLng = toRad(to[1] - from[1]);
+  const y = Math.sin(dLng) * Math.cos(lat2);
+  const x =
+    Math.cos(lat1) * Math.sin(lat2) -
+    Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  return (Math.atan2(y, x) * (180 / Math.PI) + 360) % 360;
+}
+
+function createIconMarker(mode: AccessRoute['mode'], bearing: number): HTMLElement {
+  const el = document.createElement('div');
+  el.style.cssText = 'pointer-events:none;';
+
+  if (mode === 'flight') {
+    el.innerHTML = `
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white"
+           style="transform:rotate(${bearing}deg);transform-origin:center;
+                  filter:drop-shadow(0 1px 3px rgba(0,0,0,0.55));">
+        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2
+                 l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+      </svg>`;
+  } else {
+    el.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"
+           style="filter:drop-shadow(0 1px 3px rgba(0,0,0,0.55));">
+        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3
+                 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0
+                 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5
+                 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5
+                 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+      </svg>`;
+  }
+  return el;
+}
+
+function createOriginDot(): HTMLElement {
+  const el = document.createElement('div');
+  el.style.cssText = 'pointer-events:none;';
+  el.innerHTML = `
+    <div style="width:6px;height:6px;border-radius:50%;background:white;
+      opacity:0.8;box-shadow:0 0 3px rgba(0,0,0,0.45);"></div>`;
+  return el;
+}
+
+export function useAccessRoute(
+  map: maplibregl.Map | null,
+  mapLoaded: boolean,
+  accessRoute: AccessRoute | undefined,
+) {
+  const iconMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const originDotRef = useRef<maplibregl.Marker | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+
+  useEffect(() => {
+    return () => {
+      iconMarkerRef.current?.remove();
+      originDotRef.current?.remove();
+      try {
+        const m = mapRef.current;
+        if (m) {
+          if (m.getLayer('access-route-fg')) m.removeLayer('access-route-fg');
+          if (m.getSource('access-route')) m.removeSource('access-route');
+        }
+      } catch {
+        // map already removed on unmount
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!map || !mapLoaded || !accessRoute) return;
+    mapRef.current = map;
+
+    const { mode, from, to } = accessRoute;
+    const isFlight = mode === 'flight';
+
+    const pathCoords = isFlight
+      ? generateArc(from.coordinates, to.coordinates)
+      : generateRoadCurve(from.coordinates, to.coordinates);
+
+    const geojson: GeoJSON.Feature<GeoJSON.LineString> = {
+      type: 'Feature',
+      geometry: { type: 'LineString', coordinates: pathCoords },
+      properties: {},
+    };
+
+    if (!map.getSource('access-route')) {
+      map.addSource('access-route', { type: 'geojson', data: geojson });
+    } else {
+      (map.getSource('access-route') as maplibregl.GeoJSONSource).setData(
+        geojson,
+      );
+    }
+
+    const insertBefore = map.getLayer('trail-casing')
+      ? 'trail-casing'
+      : undefined;
+
+    if (!map.getLayer('access-route-fg')) {
+      map.addLayer(
+        {
+          id: 'access-route-fg',
+          type: 'line',
+          source: 'access-route',
+          paint: {
+            'line-color': '#ffffff',
+            'line-width': 2,
+            'line-opacity': 0.7,
+            'line-dasharray': [3, 4],
+          },
+          layout: { 'line-cap': 'round', 'line-join': 'round' },
+        },
+        insertBefore,
+      );
+    }
+
+    // Icon at arc/curve midpoint
+    const midIdx = Math.floor(pathCoords.length / 2);
+    const [midLng, midLat] = pathCoords[midIdx];
+    const bearing = computeBearing(from.coordinates, to.coordinates);
+
+    iconMarkerRef.current?.remove();
+    iconMarkerRef.current = new maplibregl.Marker({
+      element: createIconMarker(mode, bearing),
+      anchor: 'center',
+    })
+      .setLngLat([midLng, midLat])
+      .addTo(map);
+
+    // Small dot at path origin
+    originDotRef.current?.remove();
+    originDotRef.current = new maplibregl.Marker({
+      element: createOriginDot(),
+      anchor: 'center',
+    })
+      .setLngLat([from.coordinates[1], from.coordinates[0]])
+      .addTo(map);
+  }, [map, mapLoaded, accessRoute]);
 }

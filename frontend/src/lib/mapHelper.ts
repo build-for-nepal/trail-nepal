@@ -2,7 +2,11 @@ import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay } from '@/types/trek';
 import { GeoJSONData } from '@/types/map';
 
-export function fitToBounds(m: maplibregl.Map, data: GeoJSONData) {
+export function fitToBounds(
+  m: maplibregl.Map,
+  data: GeoJSONData,
+  extraPoints?: [number, number][], // [lng, lat]
+) {
   try {
     const bounds = new maplibregl.LngLatBounds();
     let hasCoords = false;
@@ -17,6 +21,11 @@ export function fitToBounds(m: maplibregl.Map, data: GeoJSONData) {
       if (f.geometry.type === 'LineString') extend(f.geometry.coordinates);
       else if (f.geometry.type === 'MultiLineString')
         f.geometry.coordinates.forEach(extend);
+    });
+
+    extraPoints?.forEach(([lng, lat]) => {
+      bounds.extend([lng, lat]);
+      hasCoords = true;
     });
 
     if (hasCoords)
