@@ -38,6 +38,124 @@ function makeCircleMarkerEl(
   return { wrapper, inner };
 }
 
+function injectDestinationStyles() {
+  if (typeof document === 'undefined' || document.getElementById('dest-marker-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'dest-marker-styles';
+  style.textContent = `
+    @keyframes dest-flag-wave {
+      0%, 100% { transform: skewY(0deg) scaleX(1); }
+      35%       { transform: skewY(9deg) scaleX(0.96); }
+      70%       { transform: skewY(-5deg) scaleX(1.02); }
+    }
+    @keyframes dest-pole-shimmer {
+      0%, 100% { opacity: 0.82; }
+      50%       { opacity: 1; }
+    }
+    .dest-flag-body {
+      transform-origin: 14px 13px;
+      animation: dest-flag-wave 2.4s ease-in-out infinite;
+    }
+    .dest-pole { animation: dest-pole-shimmer 2.4s ease-in-out infinite; }
+  `;
+  document.head.appendChild(style);
+}
+
+function makeDestinationMarkerEl(label: string): { wrapper: HTMLElement; inner: HTMLElement } {
+  injectDestinationStyles();
+
+  // wrapper = circle's bounding box only (36×36).
+  // MapLibre default 'center' anchor → circle center sits exactly on the coordinate.
+  // The flag SVG is absolutely above the wrapper via overflow:visible.
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'width:28px;height:28px;position:relative;overflow:visible;';
+
+  // ─── Flag + Pole SVG ─────────────────────────────────────
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('width', '44');
+  svg.setAttribute('height', '40');
+  svg.setAttribute('viewBox', '0 0 44 40');
+  // bottom:50% → SVG bottom sits at the circle's center (pole originates from circle middle)
+  // left:0 → pole at x=14 in SVG aligns with wrapper center (14px = 28px/2)
+  svg.style.cssText =
+    'position:absolute;bottom:50%;left:0;overflow:visible;display:block;pointer-events:none;';
+
+  // Defs: gradient + drop-shadow filter
+  const defs = document.createElementNS(NS, 'defs');
+
+  const grad = document.createElementNS(NS, 'linearGradient');
+  grad.id = 'dest-flag-fill';
+  grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
+  grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '80%');
+  const s1 = document.createElementNS(NS, 'stop');
+  s1.setAttribute('offset', '0%');
+  s1.setAttribute('style', 'stop-color:#ef4444');
+  const s2 = document.createElementNS(NS, 'stop');
+  s2.setAttribute('offset', '100%');
+  s2.setAttribute('style', 'stop-color:#991b1b');
+  grad.appendChild(s1);
+  grad.appendChild(s2);
+  defs.appendChild(grad);
+
+  const filter = document.createElementNS(NS, 'filter');
+  filter.id = 'dest-flag-shadow';
+  filter.setAttribute('x', '-30%'); filter.setAttribute('y', '-30%');
+  filter.setAttribute('width', '160%'); filter.setAttribute('height', '160%');
+  const fds = document.createElementNS(NS, 'feDropShadow');
+  fds.setAttribute('dx', '0'); fds.setAttribute('dy', '1.5');
+  fds.setAttribute('stdDeviation', '1.8');
+  fds.setAttribute('flood-color', 'rgba(0,0,0,0.38)');
+  filter.appendChild(fds);
+  defs.appendChild(filter);
+
+  svg.appendChild(defs);
+
+  // Pole — centered at x=14, full SVG height (overlaps into circle by 5px)
+  const pole = document.createElementNS(NS, 'line');
+  pole.setAttribute('class', 'dest-pole');
+  pole.setAttribute('x1', '14'); pole.setAttribute('y1', '0');
+  pole.setAttribute('x2', '14'); pole.setAttribute('y2', '40');
+  pole.setAttribute('stroke', MARKER_ORANGE);
+  pole.setAttribute('stroke-width', '2');
+  pole.setAttribute('stroke-linecap', 'round');
+  svg.appendChild(pole);
+
+  // Animated flag group
+  const flagG = document.createElementNS(NS, 'g');
+  flagG.setAttribute('class', 'dest-flag-body');
+  flagG.setAttribute('filter', 'url(#dest-flag-shadow)');
+
+  // Main pennant body — larger, extending from pole at x=14
+  const flagBody = document.createElementNS(NS, 'path');
+  flagBody.setAttribute('d', 'M 14 2 L 43 12 L 14 24 Z');
+  flagBody.setAttribute('fill', 'url(#dest-flag-fill)');
+  flagG.appendChild(flagBody);
+
+  // Upper shine triangle
+  const shine = document.createElementNS(NS, 'path');
+  shine.setAttribute('d', 'M 14 2 L 43 12 L 30 10 Z');
+  shine.setAttribute('fill', 'rgba(255,255,255,0.25)');
+  flagG.appendChild(shine);
+
+  svg.appendChild(flagG);
+
+  // ─── Circle — identical to makeCircleMarkerEl ────────────
+  const inner = document.createElement('div');
+  inner.style.cssText = `
+    width:28px;height:28px;border-radius:50%;background:${MARKER_ORANGE};border:2.5px solid white;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
+    font-family:system-ui,sans-serif;cursor:pointer;
+    transition:transform 0.18s ease;
+  `;
+  inner.textContent = label;
+
+  wrapper.appendChild(svg);
+  wrapper.appendChild(inner);
+  return { wrapper, inner };
+}
+
 function makeGroupMarkerEl(
   label: string,
   bg: string,
@@ -275,16 +393,22 @@ export function useTrekMarkers(
       coordGroups.get(key)!.push(dayObj);
     });
 
-    coordGroups.forEach((days) => {
+    const coordKeys = [...coordGroups.keys()];
+    const lastCoordKey = coordKeys[coordKeys.length - 1];
+
+    coordGroups.forEach((days, key) => {
       const [lat, lng] = days[0].coordinates!;
       const isGroup = days.length > 1;
+      const isDestination = key === lastCoordKey;
       const label = isGroup
         ? `${days[0].day}–${days[days.length - 1].day}`
         : (days[0].day ?? '');
 
-      const { wrapper, inner } = isGroup
-        ? makeGroupMarkerEl(label, MARKER_ORANGE)
-        : makeCircleMarkerEl(label, MARKER_ORANGE, true);
+      const { wrapper, inner } = isDestination
+        ? makeDestinationMarkerEl(label)
+        : isGroup
+          ? makeGroupMarkerEl(label, MARKER_ORANGE)
+          : makeCircleMarkerEl(label, MARKER_ORANGE, true);
 
       const popupHTML = isGroup
         ? buildGroupedPopupHTML(days)
