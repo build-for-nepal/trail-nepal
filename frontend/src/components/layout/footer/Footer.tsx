@@ -7,13 +7,23 @@ import SectionHeader from '@/components/common/SectionHeader';
 import { NavLinks } from '../navigation/NavLinks';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { cn } from 'src/lib/utils';
 
-const Footer = () => {
+type Props = {
+  isMainDisplay?: boolean;
+};
+
+const Footer = ({ isMainDisplay = false }: Props) => {
   const pathName = usePathname();
   const isHomepage = pathName === '/';
 
   return (
-    <footer className=" relative mt-20 w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]">
+    <footer
+      className={cn(
+        'relative w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]',
+        !isMainDisplay && 'mt-20',
+      )}
+    >
       {/* Wave Curve */}
       <div
         className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10 h-[40px] md:h-[70px] lg:h-[100px]`}
