@@ -42,6 +42,6 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json}": "npm run format"
+    "*.{js,jsx,ts,tsx,json}": "prettier --write"
   }
 }
