@@ -137,6 +137,14 @@ export interface CheckItemProps {
 }
 export type SeasonStatus = 'peak' | 'danger' | 'caution';
 
+export type AccessMode = 'flight' | 'jeep' | 'bus';
+
+export interface AccessRoute {
+  mode: AccessMode;
+  from: { name: string; coordinates: [number, number] }; // [lat, lng]
+  to: { name: string; coordinates: [number, number] };
+}
+
 export interface MonthData {
   title: string;
   value: string;
