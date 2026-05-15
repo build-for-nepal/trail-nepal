@@ -61,14 +61,17 @@ function injectDestinationStyles() {
   document.head.appendChild(style);
 }
 
-function makeDestinationMarkerEl(label: string): { wrapper: HTMLElement; inner: HTMLElement } {
+function makeDestinationMarkerEl(label: string, isGroup = false): { wrapper: HTMLElement; inner: HTMLElement } {
   injectDestinationStyles();
 
   // wrapper = circle's bounding box only (36×36).
   // MapLibre default 'center' anchor → circle center sits exactly on the coordinate.
   // The flag SVG is absolutely above the wrapper via overflow:visible.
   const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'width:28px;height:28px;position:relative;overflow:visible;';
+  // For grouped destinations (multi-day), use auto width so the pill can expand.
+  wrapper.style.cssText = isGroup
+    ? 'height:28px;display:inline-flex;position:relative;overflow:visible;'
+    : 'width:28px;height:28px;position:relative;overflow:visible;';
 
   // ─── Flag + Pole SVG ─────────────────────────────────────
   const NS = 'http://www.w3.org/2000/svg';
@@ -76,10 +79,12 @@ function makeDestinationMarkerEl(label: string): { wrapper: HTMLElement; inner: 
   svg.setAttribute('width', '44');
   svg.setAttribute('height', '40');
   svg.setAttribute('viewBox', '0 0 44 40');
-  // bottom:50% → SVG bottom sits at the circle's center (pole originates from circle middle)
-  // left:0 → pole at x=14 in SVG aligns with wrapper center (14px = 28px/2)
-  svg.style.cssText =
-    'position:absolute;bottom:50%;left:0;overflow:visible;display:block;pointer-events:none;';
+  // bottom:50% → SVG bottom sits at the marker's vertical center (pole base at mid-height)
+  // Single-day circle: left:0 places the pole (x=14) at the circle's center (28px/2 = 14px)
+  // Group pill: left:50% + translateX(-14px) keeps the pole centered on a dynamic-width pill
+  svg.style.cssText = isGroup
+    ? 'position:absolute;bottom:50%;left:50%;transform:translateX(-14px);overflow:visible;display:block;pointer-events:none;'
+    : 'position:absolute;bottom:50%;left:0;overflow:visible;display:block;pointer-events:none;';
 
   // Defs: gradient + drop-shadow filter
   const defs = document.createElementNS(NS, 'defs');
@@ -140,9 +145,17 @@ function makeDestinationMarkerEl(label: string): { wrapper: HTMLElement; inner: 
 
   svg.appendChild(flagG);
 
-  // ─── Circle — identical to makeCircleMarkerEl ────────────
+  // ─── Circle (or pill for multi-day group destinations) ───
   const inner = document.createElement('div');
-  inner.style.cssText = `
+  inner.style.cssText = isGroup
+    ? `
+    height:28px;padding:0 10px;border-radius:14px;background:${MARKER_ORANGE};border:2.5px solid white;
+    display:flex;align-items:center;justify-content:center;white-space:nowrap;
+    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
+    font-family:system-ui,sans-serif;cursor:pointer;
+    transition:transform 0.18s ease;
+  `
+    : `
     width:28px;height:28px;border-radius:50%;background:${MARKER_ORANGE};border:2.5px solid white;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
@@ -405,7 +418,7 @@ export function useTrekMarkers(
         : (days[0].day ?? '');
 
       const { wrapper, inner } = isDestination
-        ? makeDestinationMarkerEl(label)
+        ? makeDestinationMarkerEl(label, isGroup)
         : isGroup
           ? makeGroupMarkerEl(label, MARKER_ORANGE)
           : makeCircleMarkerEl(label, MARKER_ORANGE, true);
