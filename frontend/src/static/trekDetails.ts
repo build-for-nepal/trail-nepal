@@ -10,7 +10,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       difficulty: 'Challenging',
       maxElevation: '5,364m',
       bestSeasons: 'March-May, September-November',
-      startingPoint: 'Lukla (Tenzing-Hillary Airport)',
+      startingPoint: 'Kathmandu',
     },
     overview:
       'The Everest Base Camp trek is more than just a hike, it is a pilgrimage to the highest point on Earth and a deep dive into the heart of the Himalayas. Beginning with a pulse-pounding flight into the mountain-side airstrip of Lukla, the journey takes you through the sacred Sagarmatha National Park, a UNESCO World Heritage site. You will traverse high suspension bridges draped in prayer flags, navigate ancient glacial moraines, and walk through stone-walled villages that have remained unchanged for centuries. Beyond the physical challenge of reaching 5,364 meters, the trek offers a profound cultural encounter with the Sherpa people, whose hospitality and spiritual resilience are as legendary as the peaks they call home.',
@@ -565,7 +565,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       difficulty: 'Moderate',
       maxElevation: '4,773m',
       bestSeasons: 'March-May, September-December',
-      startingPoint: 'Syafrubesi',
+      startingPoint: 'Kathmandu',
     },
     overview:
       'The Langtang Valley Trek is one of Nepal’s most rewarding short Himalayan journeys, combining dramatic mountain scenery, Tamang culture, riverside trails, and high alpine landscapes in just one week. Starting with an overland drive from Kathmandu to Syabrubesi, the route follows the Langtang Khola through dense bamboo, oak, and rhododendron forests before opening into wide yak pastures and glacial valleys. As you move higher, the scenery shifts from deep woodland and waterfalls to prayer walls, Buddhist landmarks, and sweeping views of Langtang Lirung and surrounding peaks. The trek culminates at Kyanjin Gompa, a beautiful high-mountain settlement, and a hike to Kyanjin Ri, where sunrise views over glaciers, ridges, and snow-covered summits create the true highlight of the trip. This 7-day version is a compact and scenic adventure, ideal for trekkers who want a classic Nepal experience without the longer duration of Everest or Annapurna routes.',
