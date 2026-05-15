@@ -11,7 +11,7 @@ export default function Home() {
       <PopularTrekSection />
       <WhyTrialNepalSection />
       {/* <EstimateCostSection /> */}
-      <Footer />
+      <Footer isMainDisplay={true} />
     </main>
   );
 }
