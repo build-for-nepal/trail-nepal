@@ -4,12 +4,19 @@ import { useState, useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { altitudeSicknessData } from '@/static/altitudesickness';
-import { AlertTriangle, Check, ChevronDown, OctagonAlert } from 'lucide-react';
+import {
+  AlertTriangle,
+  ArrowDownToLine,
+  Check,
+  ChevronDown,
+  OctagonAlert,
+} from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import SectionHeader from '@/components/common/SectionHeader';
 import { cn } from '@/lib/utils';
 import ContactInfoSidebar from './ContactInfoSidebar';
 import Image from 'next/image';
+import altitudeCard from 'src/assets/altitudesickness/contact/altitude-card.svg';
 import amsHeadache from 'src/assets/altitudesickness/ams-headache.svg';
 
 const getSeverityStyle = (
@@ -167,8 +174,11 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
   }, []);
 
   return (
-    <div ref={sectionRef} className={cn('w-full bg-[#EBF0F8]')}>
-      <div className="mx-auto flex flex-col px-6 sm:px-10 lg:px-20 py-16 lg:py-24 gap-12 lg:gap-16">
+    <div
+      ref={sectionRef}
+      className={cn('page-wrapper w-full bg-[#EBF0F8] pb-16')}
+    >
+      <div className="flex flex-col py-16 lg:py-24 gap-12 lg:gap-16">
         <SectionHeader
           title="Altitude & Safety"
           description="Comprehensive health guidance and immediate response tools for the high altitude trekker."
@@ -341,6 +351,33 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
               setShowMore={setShowMore}
             />
           </div>
+        </div>
+      </div>
+
+      <div className="relative flex items-center justify-between w-full bg-[#376BB6] rounded-xl px-10 py-3 overflow-hidden">
+        <div className="flex items-center gap-4">
+          <a
+            href="/altitude/altitude-guide.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-[8px] bg-[#F3F7E7] p-1 flex items-center justify-center"
+          >
+            <ArrowDownToLine className="text-[#88B112] cursor-pointer" />
+          </a>
+          <span className="text-white font-bold">
+            <p>Carry this on your Trek</p>
+            <p className="text-[10px] font-light">
+              No signal in mountains. Download this quick information guide.
+            </p>
+          </span>
+        </div>
+
+        <div className="hidden md:block absolute right-10 top-0 bottom-0 w-26">
+          <Image
+            src={altitudeCard}
+            alt="altitud-card"
+            className="w-full h-full object-contain object-right"
+          />
         </div>
       </div>
     </div>
