@@ -1,13 +1,15 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 
+import { cn } from '@/lib/utils';
 import type { SearchBarProps } from '@/types/homepage';
+
 import { useDebounce } from '@/hooks/useDebounce';
 import { useTrekSearch } from '@/hooks/useTrekSearch';
+
 import { SearchSuggestions } from './SearchSuggestions';
 
 export function SearchBarInner({
@@ -15,57 +17,129 @@ export function SearchBarInner({
   className,
 }: SearchBarProps) {
   const isDark = variant === 'dark';
+
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [inputValue, setInputValue] = useState<string>(
-    () => searchParams.get('q') ?? '',
-  );
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const debouncedQuery = useDebounce(inputValue, 300);
+  /**
+   * ----------------------------------------
+   * State
+   * ----------------------------------------
+   */
+  const [inputValue, setInputValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  /**
+   * ----------------------------------------
+   * Initial sync from URL
+   * Only updates when actual URL query changes
+   * ----------------------------------------
+   */
+  useEffect(() => {
+    const q = searchParams.get('q') ?? '';
+
+    setInputValue((prev) => {
+      if (prev === q) return prev;
+      return q;
+    });
+  }, [searchParams]);
+
+  /**
+   * ----------------------------------------
+   * Debounced local search
+   * NO router.replace here
+   * ----------------------------------------
+   */
+  const debouncedQuery = useDebounce(inputValue, 250);
+
   const results = useTrekSearch(debouncedQuery);
 
-  // Sync debounced query to URL, keeps both SearchBar instances in sync
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (debouncedQuery) params.set('q', debouncedQuery);
-    router.replace(`?${params.toString()}`, { scroll: false });
-  }, [debouncedQuery, router]); // ✅ stable deps, no loop
+  /**
+   * ----------------------------------------
+   * Dropdown visibility
+   * ----------------------------------------
+   */
+  const showDropdown = useMemo(() => {
+    return isOpen && debouncedQuery.trim().length > 0;
+  }, [isOpen, debouncedQuery]);
 
-  // Close on outside click
+  /**
+   * ----------------------------------------
+   * Outside click close
+   * ----------------------------------------
+   */
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
+    function handleClickOutside(event: MouseEvent) {
       if (
         containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
+        !containerRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
+  /**
+   * ----------------------------------------
+   * Input handlers
+   * ----------------------------------------
+   */
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     setIsOpen(true);
   }, []);
 
+  const handleFocus = useCallback(() => {
+    if (inputValue.trim().length > 0) {
+      setIsOpen(true);
+    }
+  }, [inputValue]);
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+
+      if (e.key === 'Enter') {
+        e.preventDefault();
+
+        const query = inputValue.trim();
+
+        if (!query) return;
+
+        const params = new URLSearchParams(searchParams.toString());
+
+        params.set('q', query);
+
+        router.push(`${pathname}?${params.toString()}`);
+
+        setIsOpen(false);
+      }
     },
-    [],
+    [inputValue, pathname, router, searchParams],
   );
 
-  // Show dropdown only when input has value — empty input shows nothing
-  const showDropdown = isOpen && debouncedQuery.trim().length > 0;
+  /**
+   * ----------------------------------------
+   * Suggestion selection
+   * ----------------------------------------
+   */
+  const handleSelect = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative">
-      {/* overflow-hidden stays on inner div for pill shape — dropdown is a sibling outside it */}
       <div
         className={cn(
           'relative flex items-center gap-2 overflow-hidden rounded-[16px] border px-2 py-2 backdrop-blur-sm transition-all duration-200',
@@ -80,21 +154,22 @@ export function SearchBarInner({
           alt=""
           width={20}
           height={20}
-          className={cn('shrink-0', isDark && 'invert opacity-70')}
           aria-hidden="true"
+          className={cn('shrink-0', isDark && 'invert opacity-70')}
         />
+
         <input
           type="search"
           placeholder="Search treks"
           value={inputValue}
           onChange={handleChange}
-          onFocus={() => debouncedQuery.trim().length > 0 && setIsOpen(true)}
+          onFocus={handleFocus}
           onKeyDown={handleKeyDown}
           role="combobox"
+          aria-label="Search treks"
           aria-autocomplete="list"
           aria-expanded={showDropdown}
           aria-haspopup="listbox"
-          aria-label="Search treks"
           className={cn(
             'flex-1 border-none bg-transparent font-poppins text-sm font-normal leading-5 outline-none [&::-webkit-search-cancel-button]:hidden',
             isDark
@@ -102,6 +177,8 @@ export function SearchBarInner({
               : 'text-white placeholder:text-white/60',
           )}
         />
+
+        {/* Decorative Art */}
         <div
           className="pointer-events-none absolute bottom-0 right-0 h-8 w-16"
           aria-hidden="true"
@@ -113,6 +190,7 @@ export function SearchBarInner({
             height={32}
             className="absolute bottom-0 right-0 h-full w-full"
           />
+
           <div className="pointer-events-none absolute left-4.25 top-0.5 h-7.5 w-8.25">
             <Image
               src="/icons/hiker.svg"
@@ -129,10 +207,7 @@ export function SearchBarInner({
         <SearchSuggestions
           results={results}
           query={debouncedQuery}
-          onSelect={() => {
-            setIsOpen(false);
-            setInputValue('');
-          }}
+          onSelect={handleSelect}
         />
       )}
     </div>
