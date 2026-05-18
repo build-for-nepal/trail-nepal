@@ -327,7 +327,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
           </svg>
-          <p className="text-sm font-medium text-center">
+          <p className="text-xs font-medium text-center">
             We're currently preparing a detailed cost breakdown for this trek to
             help you plan better.
           </p>
