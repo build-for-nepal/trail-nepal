@@ -4,13 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { altitudeSicknessData } from '@/static/altitudesickness';
-import {
-  AlertTriangle,
-  ArrowDownToLine,
-  Check,
-  ChevronDown,
-  OctagonAlert,
-} from 'lucide-react';
+import { AlertTriangle, Check, ChevronDown, OctagonAlert } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import SectionHeader from '@/components/common/SectionHeader';
 import { cn } from '@/lib/utils';
@@ -363,12 +357,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
           '[clip-path:inset(-80px_-20px_0px_-20px_round_12px)]',
         )}
       >
-        <div
-          className={cn(
-            'flex flex-col text-white md:w-[70%] lg:w-auto',
-            // 'border border-green-400',
-          )}
-        >
+        <div className={cn('flex flex-col text-white md:w-[70%] lg:w-auto')}>
           <p className="text-[24px] font-bold">Carry this on your Trek</p>
           <p className="text-[14px] font-light">
             Download this offline altitude safety card before trek. Includes{' '}
