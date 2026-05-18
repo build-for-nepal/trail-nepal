@@ -3,6 +3,7 @@ import { Poppins, Playfair_Display, Oldenburg } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
+import { headers } from 'next/headers';
 
 const oldenburg = Oldenburg({ weight: '400', subsets: ['latin'] });
 
