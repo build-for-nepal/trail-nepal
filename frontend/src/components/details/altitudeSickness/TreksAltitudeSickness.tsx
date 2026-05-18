@@ -16,7 +16,9 @@ import SectionHeader from '@/components/common/SectionHeader';
 import { cn } from '@/lib/utils';
 import ContactInfoSidebar from './ContactInfoSidebar';
 import Image from 'next/image';
-import altitudeCard from 'src/assets/altitudesickness/contact/altitude-card.svg';
+import quickCardFront from 'src/assets/altitudesickness/contact/quickcard-front.svg';
+import quickCardBack from 'src/assets/altitudesickness/contact/quickcard-back.svg';
+import roundedButton from 'src/assets/altitudesickness/contact/rounded-button.svg';
 import amsHeadache from 'src/assets/altitudesickness/ams-headache.svg';
 
 const getSeverityStyle = (
@@ -354,30 +356,65 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
         </div>
       </div>
 
-      <div className="relative flex items-center justify-between w-full bg-[#376BB6] rounded-xl px-10 py-3 overflow-hidden">
-        <div className="flex items-center gap-4">
+      <div
+        className={cn(
+          'group relative flex items-center justify-between w-full',
+          'rounded-xl bg-[#376BB6] px-[10px] md:px-[16px] py-[18px]',
+          '[clip-path:inset(-80px_-20px_0px_-20px_round_12px)]',
+        )}
+      >
+        <div
+          className={cn(
+            'flex flex-col text-white md:w-[70%] lg:w-auto',
+            // 'border border-green-400',
+          )}
+        >
+          <p className="text-[24px] font-bold">Carry this on your Trek</p>
+          <p className="text-[14px] font-light">
+            Download this offline altitude safety card before trek. Includes{' '}
+            <span className="font-bold">AMS</span>,{' '}
+            <span className="font-bold">HAPE</span>, and{' '}
+            <span className="font-bold">HACE</span> symptoms and preventions.
+          </p>
           <a
             href="/altitude/altitude-guide.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-[8px] bg-[#F3F7E7] p-1 flex items-center justify-center"
+            className="mt-4 rounded-[16px] w-fit py-2 px-4 flex items-center justify-center bg-[#88B112]"
           >
-            <ArrowDownToLine className="text-[#88B112] cursor-pointer" />
+            Download Safety Card
           </a>
-          <span className="text-white font-bold">
-            <p>Carry this on your Trek</p>
-            <p className="text-[10px] font-light">
-              No signal in mountains. Download this quick information guide.
-            </p>
-          </span>
         </div>
 
-        <div className="hidden md:block absolute right-10 top-0 bottom-0 w-26">
-          <Image
-            src={altitudeCard}
-            alt="altitud-card"
-            className="w-full h-full object-contain object-right"
-          />
+        <div className="hidden md:flex absolute right-6 top-0 bottom-0 items-center">
+          <div className="relative w-[180px] h-[160px] cursor-pointer">
+            {/* front card */}
+            <Image
+              src={quickCardFront}
+              alt="quick-card-front"
+              className={cn(
+                'absolute z-10 top-4 left-0 w-[130px] h-auto -rotate-3 drop-shadow-md transition-transform duration-300 ease-out',
+                'group-hover:-translate-y-4 group-hover:-translate-x-3 group-hover:-rotate-12',
+              )}
+            />
+            {/* back card */}
+            <Image
+              src={quickCardBack}
+              alt="quick-card-back"
+              className={cn(
+                'absolute top-4 right-0 w-[130px] h-auto rotate-6 drop-shadow-md transition-transform duration-300 ease-out',
+                'group-hover:-translate-y-6 group-hover:translate-x-4 group-hover:rotate-12',
+              )}
+            />
+            <Image
+              src={roundedButton}
+              alt="rounded-button"
+              className={cn(
+                'absolute bottom-0 right-0 w-[56px] h-[56px] z-20 transition-transform duration-300 ease-out',
+                'group-hover:-translate-y-1',
+              )}
+            />
+          </div>
         </div>
       </div>
     </div>
