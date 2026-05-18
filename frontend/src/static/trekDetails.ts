@@ -1174,22 +1174,9 @@ view over Kyanjin Village and the upper Langtang Valley`,
       },
       {
         day: '02',
-        title: 'Kathmandu: Permits, Briefing & Sightseeing',
-        description:
-          'A full day in Kathmandu with purpose. Your guide handles the two permits you need: the Sagarmatha National Park Entry Permit and the Khumbu Pasang Lhamu Rural Municipality permit, both can be sorted at the Nepal Tourism Board office in Pradarshani Marg. Use the morning for this. The afternoon is genuinely worth spending at Pashupatinath, the great Hindu cremation temple on the banks of the Bagmati, or at Swayambhunath (the Monkey Temple) on its hilltop above the city, both are 30-minute walks or a short taxi from Thamel. Brief your guide on your fitness history, any altitude sensitivity, and medication. Confirm the Lukla flight time for tomorrow during peak season (April, October) Lukla flights operate from Manthali Airport (Ramechhap), a 4–5 hour drive from Kathmandu, requiring a 2:00am departure. Confirm which airport applies to your dates.',
-
-        stats: { elevation: '1,400m', duration: 'Prep day', distance: '-' },
-        coordinates: [27.7172, 85.324],
-      },
-      {
-        day: '03',
         title: 'Fly Kathmandu to Lukla — Trek to Phakding',
         description:
           'The 35-minute flight from Kathmandu into Tenzing-Hillary Airport at Lukla (2,860m) is its own event a mountain airstrip with a cliff at one end and a sheer drop at the other. During peak season (April and October), flights may depart from Manthali Airport in Ramechhap, a 4–5 hour drive from Kathmandu that requires leaving your hotel before 3:00am. After landing, the trail drops gently south through Cheplung and Ghat, following the Dudh Koshi river downstream. The first trekking day is deliberately short a warmup for legs fresh off a plane, a chance to calibrate pace, and an introduction to the suspension bridge crossings that will define the days ahead. Phakding is a comfortable riverside village with good teahouses and strong wifi, the last truly reliable internet until you descend back from Gokyo.',
-        // accommodations: [
-        //   { name: "Phakding Guest House" },
-        //   { name: "River Side Lodge" },
-        // ],
         stats: {
           elevation: '2,610m',
           duration: 'Flight + 3-4 hours trek',
@@ -1198,26 +1185,18 @@ view over Kyanjin Village and the upper Langtang Valley`,
         coordinates: [27.7373, 86.7123],
       },
       {
-        day: '04',
+        day: '03',
         title: 'Phakding to Namche Bazaar',
         description:
           "The day that sorts trekkers out. From Phakding the trail criss-crosses the Dudh Koshi river on a series of high suspension bridges, the Hillary Bridge, at 60 metres above the river, is the most dramatic before entering Sagarmatha National Park at Monjo. After the park checkpoint the trail drops to the riverbed and begins the long, relentless 600m ascent to Namche. There is no shortcut. The zig-zag climbs through pine forest for two hours, and midway up if the clouds cooperate a clearing offers the first glimpse of Everest's south face framed between Lhotse and Nuptse. Namche Bazaar itself, the commercial capital of the Khumbu at 3,440m, arrives as a shock after hours of forest: a horseshoe of lodges, bakeries, gear shops, and cafes carved into a natural amphitheatre. The elevation gain is significant and the legs will know about it.",
-        // accommodations: [
-        //   { name: "Hotel Namche" },
-        //   { name: "Khumbu Lodge" },
-        // ],
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
         coordinates: [27.805, 86.7106],
       },
       {
-        day: '05',
+        day: '04',
         title: 'Acclimatization Day: Namche Bazaar',
         description:
           "Do not skip this day, Namche at 3,440m is the altitude at which the body begins making real adjustments, and pushing straight to Dole without a rest here is how trekkers end up turning back from Machhermo with splitting headaches. The classic acclimatization hike climbs 400m to the Everest View Hotel at 3,880m the world's highest hotel, with a terrace that frames Everest, Lhotse, Ama Dablam, and Thamserku in a single view. The Sherpa Cultural Museum in Namche is genuinely excellent and worth two hours of your afternoon. The Namche Saturday market, if your timing aligns, draws Tibetan traders and villagers from across the valley and offers a rare window into the Khumbu's economic life above the trekking bubble. Eat well, drink 4 litres of water, avoid alcohol, and be in bed early.",
-        // accommodations: [
-        //   { name: "Hotel Namche" },
-        //   { name: "Khumbu Lodge" },
-        // ],
         stats: {
           elevation: '3,440m',
           duration: '3-4 hours',
@@ -1227,26 +1206,18 @@ view over Kyanjin Village and the upper Langtang Valley`,
         coordinates: [27.805, 86.7106],
       },
       {
-        day: '06',
+        day: '05',
         title: 'Namche Bazaar to Dole',
         description:
           'This is the day the Gokyo trail separates itself from the EBC route and the crowds thin immediately. The trail climbs out of Namche on the main EBC path before branching northwest at Kyanjuma toward Mong La (3,973m), a viewpoint ridge with a sweeping panorama of Ama Dablam, Kantega, and Thamserku. From Mong La the trail drops steeply to the Dudh Koshi at Phortse Tenga (3,680m) before climbing again through rhododendron and birch forest, the forests here are dense enough in October to be genuinely beautiful past summer yak pastures to Dole at 4,200m. Dole is a small, scattered settlement of stone buildings used seasonally by herders. The teahouses are basic but warm, Cho Oyu looms at the head of the valley, and above the treeline the trail ahead is visible all the way to the high ridges. This is where the trek begins to feel genuinely remote.',
-        // accommodations: [
-        //   { name: "Dole Guest House" },
-        //   { name: "Himalayan Lodge Dole" },
-        // ],
         stats: { elevation: '4,200m', duration: '5-6 hours', distance: '10km' },
         coordinates: [27.865, 86.725],
       },
       {
-        day: '07',
+        day: '06',
         title: 'Dole to Machhermo',
         description:
           "A short but important day that earns its place in the itinerary. The trail climbs steadily out of Dole through scrub juniper, the last real vegetation before the high alpine world above past the tiny yak-herding hamlets of Luza and Lhabarma, which see virtually no trekkers who aren't passing through. Machhermo at 4,470m sits in a natural bowl sheltered from the north wind by a steep rocky ridge, with a dramatic glacial amphitheatre to the west that comes into full view as you approach. The Machhermo Rescue Post here is staffed seasonally by a Himalayan Rescue Association doctor this is a good moment to get a free altitude briefing and understand what symptoms warrant descent. The half-day of walking leaves the afternoon for rest, hydration, and the genuinely useful activity of doing nothing. Cho Oyu's 8,188m profile fills the head of the valley.",
-        // accommodations: [
-        //   { name: "Machhermo Guest House" },
-        //   { name: "Namaste Lodge Machhermo" },
-        // ],
         stats: {
           elevation: '4,470m',
           duration: '3-4 hours',
@@ -1256,26 +1227,18 @@ view over Kyanjin Village and the upper Langtang Valley`,
         coordinates: [27.91, 86.711],
       },
       {
-        day: '08',
+        day: '07',
         title: 'Machhermo to Gokyo',
         description:
           "The day the valley reveals itself. From Machhermo the trail climbs a final ridge with a last look south toward Kantega and Thamserku, then descends into a wider, flatter valley where the Ngozumpa Glacier Nepal's longest at over 36km comes into full view for the first time. The glacier's surface is not white but grey-brown, covered in a thick layer of rock debris pushed down from the peaks above, and it stretches north as far as the eye can follow. The trail passes through Pangka (4,390m) and skirts the glacier's terminal moraine before crossing the Dudh Koshi river and ascending to the first Gokyo Lake (4,690m) small, jade-green, and partially frozen even in October. The second and third lakes arrive in quick succession. Gokyo village sits on the eastern shore of the third lake, Dudh Pokhari, with Cho Oyu (8,188m) closing the northern horizon and the Ngozumpa Glacier spreading across the valley to the west. The scale of the place, seen all at once from the village edge, stops most trekkers mid-step.",
-        // accommodations: [
-        //   { name: "Gokyo Resort" },
-        //   { name: "Namaste Lodge Gokyo" },
-        // ],
         stats: { elevation: '4,750m', duration: '4-5 hours', distance: '7km' },
         coordinates: [27.962, 86.688],
       },
       {
-        day: '09',
+        day: '08',
         title: 'Gokyo Ri Sunrise & Fifth Lake',
         description:
           "Leave the lodge by 5:00am. The climb to Gokyo Ri (5,357m) takes 1.5 to 2 hours on a rocky, steep trail that offers no technical difficulty but demands controlled breathing and patience at this altitude. Arrive before sunrise if you can the summit's observation point is small and fills quickly. What meets you at the top is one of the few views in the Himalayas that justifies every cliché ever written about it: Everest's south face and Lhotse's wall directly east, Makalu's pyramid to the southeast, Cho Oyu dominating the northwest, Gyachung Kang (7,952m) between them, and the entire Ngozumpa Glacier spread below like a slow-moving flood frozen in time. The four 8,000m peaks visible simultaneously from this single point is something Kala Patthar, the more famous EBC viewpoint cannot match. Descend for breakfast, then spend the afternoon walking north to the Fourth and Fifth Gokyo Lakes (5,000m) the fifth lake in particular, tucked in a remote bowl beneath Cho Oyu's base camp approach, offers a level of high-altitude solitude that is almost unreasonable.",
-        // accommodations: [
-        //   { name: "Gokyo Resort" },
-        //   { name: "Namaste Lodge Gokyo" },
-        // ],
         stats: {
           elevation: '5,357m',
           duration: '5-6 hours',
@@ -1284,58 +1247,42 @@ view over Kyanjin Village and the upper Langtang Valley`,
         },
         coordinates: [27.97, 86.678],
       },
-      {
-        day: '10',
-        title: 'Gokyo to Dole',
-        description:
-          "The long descent back down the valley, retracing the route through the Ngozumpa moraine and past the string of lakes. Going downhill, the views south the full corridor of Khumbu peaks down toward Namche, open up in a way they did not on the ascent. The descent from 4,750m to 4,200m is significant enough to feel in the knees but the extra oxygen at every step is noticeable. Dole's basic teahouses feel almost luxurious after Gokyo's thin air. If energy allows, the section between Machhermo and Dole rewards slower walkers who look carefully, musk deer are occasionally spotted on the slopes above the trail in the late afternoon.",
-        // accommodations: [
-        //   { name: "Dole Guest House" },
-        //   { name: "Himalayan Lodge Dole" },
-        // ],
-        stats: { elevation: '4,200m', duration: '5-6 hours', distance: '11km' },
-        coordinates: [27.865, 86.725],
-      },
-      {
-        day: '11',
-        title: 'Dole to Namche Bazaar',
-        description:
-          "A long descent that drops 760m back to Namche and transitions the body from high-altitude alpine terrain back to Khumbu valley life. The trail passes back through Phortse Tenga and climbs briefly to the Mong La ridge before the final descent into Namche, the 'Namche hill' going down is considerably more agreeable than going up. Namche in the evening, after days above it, feels urban: warm meals with real menus, hot showers without a cold-water backup, phone signal without interruption. Your legs will ache. The altitude will feel generous. Buy something from a local shop you have been eyeing since Day 2.",
-        // accommodations: [
-        //   { name: "Hotel Namche" },
-        //   { name: "Khumbu Lodge" },
-        // ],
-        stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
-        coordinates: [27.805, 86.7106],
-      },
-      {
-        day: '12',
-        title: 'Namche Bazaar to Lukla',
-        description:
-          'The final trekking day retraces the first two trekking days in reverse descending the Namche hill, crossing the Hillary Bridge, passing through Monjo and Phakding, and climbing the final gentle rise to Lukla. The trail is familiar, the legs are tired, and the views of Ama Dablam and Thamserku from the lower valley are just as good going home as they were on the way up. Arrive in Lukla by early afternoon, storms building over the mountains can delay or cancel the morning flights that follow, so an early arrival and a weather eye on the sky matters. Sort your bag for the flight, confirm departure time with your guide, and let the whole thing sink in over dinner.',
-        // accommodations: [
-        //   { name: "Paradise Lodge Lukla" },
-        //   { name: "Khumbu Resort" },
-        // ],
-        stats: { elevation: '2,860m', duration: '6-7 hours', distance: '18km' },
-        coordinates: [27.6868, 86.7314],
-      },
-      {
-        day: '13',
-        title: 'Fly Lukla to Kathmandu',
-        description:
-          'The return flight from Lukla is subject to weather, cloud building over the Khumbu by 10am can ground flights for hours, and this is not a schedule you can rush. Most flights depart between 6:00am and 9:00am. The 35-minute flight back over the Solu-Khumbu foothills, descending from mountain air to the smoggy warmth of the Kathmandu valley, is a transition that hits differently after 12 days at altitude. Land at Tribhuvan International (or Manthali if your outbound was from Ramechhap), transfer to your Thamel hotel, eat something you have been craving for a week, and sleep at a reasonable hour. A buffer day in Kathmandu after this flight is strongly recommended for international connections Lukla flight delays are common enough that booking an international departure the same evening as your Lukla-Kathmandu flight is a genuine risk.',
-        // accommodations: [
-        //   { name: "Hotel Yak & Yeti" },
-        //   { name: "Thamel Eco Resort" },
-        // ],
-        stats: {
-          elevation: '1,400m',
-          duration: '35-min flight + transfer',
-          distance: '-',
-        },
-        coordinates: [27.7172, 85.324],
-      },
+      // {
+      //   day: '09',
+      //   title: 'Gokyo to Dole',
+      //   description:
+      //     "The long descent back down the valley, retracing the route through the Ngozumpa moraine and past the string of lakes. Going downhill, the views south the full corridor of Khumbu peaks down toward Namche, open up in a way they did not on the ascent. The descent from 4,750m to 4,200m is significant enough to feel in the knees but the extra oxygen at every step is noticeable. Dole's basic teahouses feel almost luxurious after Gokyo's thin air. If energy allows, the section between Machhermo and Dole rewards slower walkers who look carefully, musk deer are occasionally spotted on the slopes above the trail in the late afternoon.",
+      //   stats: { elevation: '4,200m', duration: '5-6 hours', distance: '11km' },
+      //   coordinates: [27.865, 86.725],
+      // },
+      // {
+      //   day: '10',
+      //   title: 'Dole to Namche Bazaar',
+      //   description:
+      //     "A long descent that drops 760m back to Namche and transitions the body from high-altitude alpine terrain back to Khumbu valley life. The trail passes back through Phortse Tenga and climbs briefly to the Mong La ridge before the final descent into Namche, the 'Namche hill' going down is considerably more agreeable than going up. Namche in the evening, after days above it, feels urban: warm meals with real menus, hot showers without a cold-water backup, phone signal without interruption. Your legs will ache. The altitude will feel generous. Buy something from a local shop you have been eyeing since Day 2.",
+      //   stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
+      //   coordinates: [27.805, 86.7106],
+      // },
+      // {
+      //   day: '11',
+      //   title: 'Namche Bazaar to Lukla',
+      //   description:
+      //     'The final trekking day retraces the first two trekking days in reverse descending the Namche hill, crossing the Hillary Bridge, passing through Monjo and Phakding, and climbing the final gentle rise to Lukla. The trail is familiar, the legs are tired, and the views of Ama Dablam and Thamserku from the lower valley are just as good going home as they were on the way up. Arrive in Lukla by early afternoon, storms building over the mountains can delay or cancel the morning flights that follow, so an early arrival and a weather eye on the sky matters. Sort your bag for the flight, confirm departure time with your guide, and let the whole thing sink in over dinner.',
+      //   stats: { elevation: '2,860m', duration: '6-7 hours', distance: '18km' },
+      //   coordinates: [27.6868, 86.7314],
+      // },
+      // {
+      //   day: '12',
+      //   title: 'Fly Lukla to Kathmandu',
+      //   description:
+      //     'The return flight from Lukla is subject to weather, cloud building over the Khumbu by 10am can ground flights for hours, and this is not a schedule you can rush. Most flights depart between 6:00am and 9:00am. The 35-minute flight back over the Solu-Khumbu foothills, descending from mountain air to the smoggy warmth of the Kathmandu valley, is a transition that hits differently after 12 days at altitude. Land at Tribhuvan International (or Manthali if your outbound was from Ramechhap), transfer to your Thamel hotel, eat something you have been craving for a week, and sleep at a reasonable hour. A buffer day in Kathmandu after this flight is strongly recommended for international connections Lukla flight delays are common enough that booking an international departure the same evening as your Lukla-Kathmandu flight is a genuine risk.',
+      //   stats: {
+      //     elevation: '1,400m',
+      //     duration: '35-min flight + transfer',
+      //     distance: '-',
+      //   },
+      //   coordinates: [27.7172, 85.324],
+      // },
     ],
     expectations: [
       {
@@ -1535,19 +1482,19 @@ view over Kyanjin Village and the upper Langtang Valley`,
         },
         coordinates: [28.4101, 83.7384],
       },
-      {
-        day: '04',
-        title: 'Tadapani to Ghandruk to Nayapul, Drive to Pokhara',
-        description:
-          'The descent to Ghandruk is steep and involves long stone staircase sections through dense forest, take it slowly on tired legs. Ghandruk is the largest Gurung village in the Annapurna region and one of the most beautifully preserved stone-flagged lanes, traditional slate-roofed houses, a small but excellent Gurung museum, and a community-run conservation project that has made it a model for sustainable tourism in Nepal. Allow an hour to walk through the village before descending further to Kimche, where jeeps and local buses run back to Nayapul and onward to Pokhara.',
-        stats: {
-          elevation: '820m',
-          duration: '5-6 hours',
-          distance: '14km + 1.5hr drive',
-          note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
-        },
-        coordinates: [28.3799, 83.7567],
-      },
+      // {
+      //   day: '04',
+      //   title: 'Tadapani to Ghandruk to Nayapul, Drive to Pokhara',
+      //   description:
+      //     'The descent to Ghandruk is steep and involves long stone staircase sections through dense forest, take it slowly on tired legs. Ghandruk is the largest Gurung village in the Annapurna region and one of the most beautifully preserved stone-flagged lanes, traditional slate-roofed houses, a small but excellent Gurung museum, and a community-run conservation project that has made it a model for sustainable tourism in Nepal. Allow an hour to walk through the village before descending further to Kimche, where jeeps and local buses run back to Nayapul and onward to Pokhara.',
+      //   stats: {
+      //     elevation: '820m',
+      //     duration: '5-6 hours',
+      //     distance: '14km + 1.5hr drive',
+      //     note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
+      //   },
+      //   coordinates: [28.3799, 83.7567],
+      // },
     ],
     expectations: [
       {
@@ -1758,26 +1705,26 @@ view over Kyanjin Village and the upper Langtang Valley`,
         },
         coordinates: [28.349, 83.935],
       },
-      {
-        day: '05',
-        title: 'Low Camp to Sidhing Village',
-        description:
-          'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
-        stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
-        coordinates: [28.302, 83.885],
-      },
-      {
-        day: '06',
-        title: 'Sidhing to Lwang Ghalel to Pokhara',
-        description:
-          'A gentle morning walk through terraced farmland and rhododendron forest to Lwang Ghalel, a community homestay village that has become a model for sustainable trekking tourism in the region. The community-run lodges here are excellent — clean, locally managed, and a direct channel for trekking income to the village. From Lwang a jeep or local bus runs back to Pokhara via Phedi.',
-        stats: {
-          elevation: '820m',
-          duration: '3-4 hours',
-          distance: '1.5hrs drive',
-        },
-        coordinates: [28.28, 83.86],
-      },
+      // {
+      //   day: '05',
+      //   title: 'Low Camp to Sidhing Village',
+      //   description:
+      //     'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
+      //   stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
+      //   coordinates: [28.302, 83.885],
+      // },
+      // {
+      //   day: '06',
+      //   title: 'Sidhing to Lwang Ghalel to Pokhara',
+      //   description:
+      //     'A gentle morning walk through terraced farmland and rhododendron forest to Lwang Ghalel, a community homestay village that has become a model for sustainable trekking tourism in the region. The community-run lodges here are excellent — clean, locally managed, and a direct channel for trekking income to the village. From Lwang a jeep or local bus runs back to Pokhara via Phedi.',
+      //   stats: {
+      //     elevation: '820m',
+      //     duration: '3-4 hours',
+      //     distance: '1.5hrs drive',
+      //   },
+      //   coordinates: [28.28, 83.86],
+      // },
     ],
     expectations: [
       {
@@ -1877,6 +1824,322 @@ view over Kyanjin Village and the upper Langtang Valley`,
       //   alt: "Sidhing Gurung village in the Modi Khola valley",
       //   type: "landscape",
       // },
+    ],
+    gearChecklist: {
+      essentials: [
+        { item: 'Backpack (45-60L)', weight: '1.5kg' },
+        { item: 'Rain Cover for Backpack', weight: '0.08kg' },
+        { item: 'Down Jacket', weight: '0.425kg' },
+        { item: 'Raincoat / Waterproof Shell Jacket', weight: '0.34kg' },
+        { item: 'Fleece / Insulated Mid Layer', weight: '0.34kg' },
+        { item: 'Thermal Base Layer Top', weight: '0.2kg', quantity: 1 },
+        // { item: 'Thermal Base Layer Bottom', weight: '0.2kg', quantity: 1 },
+        { item: 'Trekking T-Shirt', weight: '0.14kg', quantity: 3 },
+        { item: 'Trekking Pants', weight: '0.315kg', quantity: 2 },
+        { item: 'Trekking Boots (pair)', weight: '1.1kg' },
+        { item: 'Trekking Socks (per pair)', weight: '0.06kg', quantity: 3 },
+        { item: 'Warm Hat / Beanie', weight: '0.075kg' },
+        { item: 'Sun Cap', weight: '0.06kg' },
+        { item: 'Light Gloves', weight: '0.065kg' },
+        { item: 'Trekking Poles (pair)', weight: '0.475kg' },
+        { item: 'Headlamp', weight: '0.1kg' },
+        { item: 'Water Bottle (1L, empty)', weight: '0.125kg' },
+        { item: 'Sunglasses (UV 400 Protection)', weight: '0.033kg' },
+        { item: 'Sunscreen + Lip Balm', weight: '0.1kg' },
+        { item: 'Personal First Aid Kit', weight: '0.275kg' },
+        { item: 'Passport, Permits, Cash, Insurance Copy', weight: '0.15kg' },
+      ],
+      optional: [
+        { item: 'Sleeping Bag (-10°C to -15°C comfort)', weight: '1.4kg' },
+        { item: 'Waterproof Rain Pants', weight: '0.215kg' },
+        { item: 'Thermal Base Layer Bottom', weight: '0.2kg', quantity: 1 },
+        {
+          item: 'Warm Trekking Trousers / Softshell Pants',
+          weight: '0.37kg',
+          quantity: 2,
+        },
+        { item: 'Camp Shoes / Sandals', weight: '0.325kg' },
+        { item: 'Warm Outer Gloves', weight: '0.11kg' },
+        { item: 'Buff / Neck Gaiter', weight: '0.043kg' },
+        { item: 'Water Purification Tablets / Filter', weight: '0.075kg' },
+        { item: 'Toiletries & Quick-Dry Towel', weight: '0.325kg' },
+        { item: 'Power Bank (10,000-20,000 mAh)', weight: '0.265kg' },
+        { item: 'Charging Cable / Adapter', weight: '0.09kg' },
+        { item: 'Snacks / Energy Bars', weight: '0.45kg', quantity: 3 },
+      ],
+    },
+  },
+  'shey-phoksundo': {
+    id: 'shey-phoksundo',
+    name: 'Shey Phoksundo Trek',
+    region: 'Dolpo Region',
+    meta: {
+      duration: '10-12 Days',
+      difficulty: 'Moderate',
+      maxElevation: '3,611m',
+      bestSeasons: 'April-June, September-November',
+      startingPoint: 'Kathmandu',
+    },
+
+    overview:
+      'The Shey Phoksundo Trek is one of Nepal’s most unique Himalayan journeys, leading deep into the remote Dolpo region of western Nepal. Unlike the greener trekking regions of central Nepal, this trail passes through a striking transition zone where dense pine forests, deep river canyons, waterfalls, and traditional villages slowly give way to the dry Himalayan landscapes closer to the Tibetan plateau. The centerpiece of the trek is the magnificent Phoksundo Lake, famous for its unreal turquoise-blue water, dramatic cliffs, and quiet alpine atmosphere. The route also offers a rare opportunity to experience the culture of Dolpo, where Tibetan Buddhist traditions, ancient monasteries, yak caravans, prayer walls, and centuries-old mountain lifestyles remain strongly preserved due to the region’s remoteness. Compared to Everest or Annapurna, the Shey Phoksundo Trek is less crowded, more culturally isolated, and feels significantly more raw and wilderness-oriented. Although the maximum altitude is relatively moderate by Himalayan standards, the remoteness, long walking days, and limited infrastructure make the journey feel adventurous and deeply rewarding.',
+
+    timeline: [
+      {
+        day: '01',
+        title: 'Kathmandu to Nepalgunj',
+        description:
+          'Fly or travel overland from Kathmandu to Nepalgunj, the main gateway to western Nepal and the Dolpo region. Nepalgunj lies in Nepal’s lowland Terai belt near the Indian border and serves as the transit hub for flights into remote mountain airstrips such as Juphal. Depending on weather and airline schedules, many trekkers spend the night here before continuing into Dolpo the following morning.',
+        stats: {
+          elevation: '150m',
+          duration: '1 hour flight / 12-14 hours by road',
+          distance: '370km (air)',
+        },
+        coordinates: [28.05, 81.616667],
+      },
+
+      {
+        day: '02',
+        title: 'Nepalgunj to Juphal and trek to Dunai',
+        description:
+          'Take an early mountain flight from Nepalgunj to Juphal, the small hillside airstrip that serves as the main access point into Dolpo. The flight itself offers dramatic views of western Nepal’s ridges and river systems. After landing, begin trekking downhill through terraced fields and scattered settlements toward Dunai, the administrative center of Dolpa District. The trail follows the Thuli Bheri River and gives an immediate sense of how remote and distinct this region feels compared to Nepal’s more commercial trekking areas.',
+        stats: {
+          elevation: '2,150m',
+          duration: '35 minute flight + 3-4 hours trek',
+          distance: '8km',
+        },
+        coordinates: [28.985337, 82.819138],
+      },
+
+      {
+        day: '03',
+        title: 'Dunai to Chhepka',
+        description:
+          'Leave Dunai and follow the Phoksundo River valley through pine forest, rocky trails, suspension bridges, and small villages. The lower section of the trek feels greener and more humid than many people expect from Dolpo, especially near the river corridor. Along the route, mule caravans carrying food and supplies are common, reflecting the region’s dependence on long-distance mountain trade routes.',
+        stats: {
+          elevation: '2,670m',
+          duration: '5-6 hours',
+          distance: '15km',
+        },
+        coordinates: [29.0857, 82.9412],
+      },
+
+      {
+        day: '04',
+        title: 'Chhepka to Jharana Hotel',
+        description:
+          'The trail climbs steadily deeper into Shey Phoksundo National Park, Nepal’s largest national park. Forest sections become quieter and more isolated, with occasional views of steep cliffs and waterfalls. One of the highlights of the day is the massive Phoksundo waterfall system, often considered among the tallest waterfalls in Nepal. As the trail gains elevation, the air becomes cooler and the landscape more rugged.',
+        stats: {
+          elevation: '3,100m',
+          duration: '5-6 hours',
+          distance: '12km',
+        },
+        coordinates: [29.1793, 82.9965],
+      },
+
+      {
+        day: '05',
+        title: 'Jharana Hotel to Ringmo and Phoksundo Lake',
+        description:
+          'Today is one of the most spectacular days of the trek. The trail climbs toward Ringmo Village, a traditional Tibetan Buddhist settlement sitting above the shores of Phoksundo Lake. As you approach the lake, the landscape changes dramatically into dry cliffs, glacial valleys, and striking blue water unlike anywhere else in Nepal. The lake’s vivid turquoise color comes from mineral-rich glacial meltwater and changing light conditions. Ringmo itself offers insight into traditional Dolpo life, with stone houses, prayer flags, mani walls, and old Buddhist chortens spread throughout the village.',
+        stats: {
+          elevation: '3,611m',
+          duration: '5-6 hours',
+          distance: '10km',
+        },
+        coordinates: [29.2037, 83.0005],
+      },
+
+      {
+        day: '06',
+        title: 'Exploration Day around Phoksundo Lake',
+        description:
+          'Spend a full day exploring the Phoksundo area for acclimatization and cultural experience. You can walk along sections of the lakeshore trail, visit nearby viewpoints, observe traditional village life in Ringmo, or explore local monasteries connected to Tibetan Buddhist traditions. The lake area feels remarkably peaceful, especially during early morning and evening when the surrounding cliffs reflect off the calm water surface.',
+        stats: {
+          elevation: '3,611m',
+          duration: '3-5 hours exploration',
+          distance: '4km',
+          note: 'Acclimatization + cultural exploration day',
+        },
+        coordinates: [29.2037, 83.0005],
+      },
+
+      // {
+      //   day: '07',
+      //   title: 'Ringmo to Chhepka',
+      //   description:
+      //     'Begin descending from the alpine lake zone back toward the greener lower valley. Descending allows you to experience the changing landscape from a different perspective, with forested sections, waterfalls, and river gorges becoming more prominent again. The return journey also offers more opportunities to observe local trade movement and everyday life along the trail.',
+      //   stats: {
+      //     elevation: '2,670m',
+      //     duration: '6-7 hours',
+      //   },
+      //   coordinates: [29.0857, 82.9412],
+      // },
+
+      // {
+      //   day: '08',
+      //   title: 'Chhepka to Juphal',
+      //   description:
+      //     'Continue descending through forests and riverside trails toward Juphal. The final trekking day feels quieter and more reflective as the journey gradually reconnects with small agricultural settlements and cultivated terraces near the airstrip region.',
+      //   stats: {
+      //     elevation: '2,475m',
+      //     duration: '6-7 hours',
+      //   },
+      //   coordinates: [28.985337, 82.819138],
+      // },
+
+      // {
+      //   day: '09',
+      //   title: 'Juphal to Nepalgunj',
+      //   description:
+      //     'Take an early morning flight back to Nepalgunj. Flights in western Nepal are weather dependent, so delays are common, especially during unstable mountain conditions. Many trekkers choose to keep an extra buffer day after Dolpo trips because flight schedules can change unexpectedly.',
+      //   stats: {
+      //     elevation: '150m',
+      //     duration: '35 minute flight',
+      //   },
+      //   coordinates: [28.05, 81.616667],
+      // },
+
+      // {
+      //   day: '10',
+      //   title: 'Nepalgunj to Kathmandu',
+      //   description:
+      //     'Fly or travel back to Kathmandu, concluding one of Nepal’s most remote and culturally distinctive trekking journeys.',
+      //   stats: {
+      //     elevation: '1,400m',
+      //     duration: '1 hour flight',
+      //   },
+      //   coordinates: [27.717245, 85.323961],
+      // },
+    ],
+
+    expectations: [
+      {
+        title: 'Phoksundo Lake',
+        description:
+          'Witness one of Nepal’s most visually striking alpine lakes, famous for its deep turquoise-blue water, dramatic cliffs, and peaceful high-mountain atmosphere.',
+      },
+
+      {
+        title: 'Remote Dolpo Culture',
+        description:
+          'Experience one of Nepal’s most isolated Himalayan cultures, shaped heavily by Tibetan Buddhism, mountain trade traditions, yak herding, and centuries of geographic isolation.',
+      },
+
+      {
+        title: 'A Less Crowded Himalayan Trek',
+        description:
+          'Unlike Everest or Annapurna, the Shey Phoksundo route remains relatively quiet, making it ideal for trekkers seeking wilderness, solitude, and a slower mountain experience.',
+      },
+
+      {
+        title: 'Shey Phoksundo National Park',
+        description:
+          'Trek through Nepal’s largest national park, home to blue sheep, Himalayan tahr, musk deer, and rare wildlife including the elusive snow leopard, although sightings are extremely uncommon.',
+      },
+
+      {
+        title: 'Waterfalls, Cliffs, and Trans-Himalayan Landscapes',
+        description:
+          'Observe the gradual transition from forested river valleys into the stark and beautiful dry landscapes that characterize Nepal’s trans-Himalayan regions.',
+      },
+    ],
+
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Extremely Cold / Frozen Trails / Expedition Teams Only',
+      },
+      {
+        month: 'Feb',
+        condition: 'Winter Cold / High Passes Snowbound / Very Quiet',
+      },
+      {
+        month: 'Mar',
+        condition:
+          'Rhododendrons Bloom on Lower Trails / Snow Gear Still Required',
+      },
+      {
+        month: 'Apr',
+        condition:
+          'Stable & Clear / Wildflowers Peak / Ideal Spring Conditions',
+      },
+      {
+        month: 'May',
+        condition:
+          'Best Spring Views / Kanjiroba Sharp / Yarsagumba Season Starts',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Monsoon Buffered by Rain Shadow / Muddy Lower Trails / Flight Delays',
+      },
+      {
+        month: 'Jul',
+        condition: 'Cloudy but Drier Than Most Nepal Treks / Lush & Green',
+      },
+      {
+        month: 'Aug',
+        condition: 'Monsoon Easing / Dry at Lake Level / Plan Flight Buffer',
+      },
+      {
+        month: 'Sep',
+        condition:
+          'Post-Monsoon Green / Skies Clearing / Shoulder Season Begins',
+      },
+      {
+        month: 'Oct',
+        condition:
+          'Crystal Clear Skies / Sharpest Lake & Mountain Views / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition:
+          'Cool & Stable / Excellent Visibility / Teahouses Start Closing',
+      },
+      {
+        month: 'Dec',
+        condition: 'Cold but Clear / Very Few Trekkers / Ringmo Closing Down',
+      },
+    ],
+
+    gallery: [
+      {
+        id: 'img_01',
+        url: '/images/shey/shey.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'hero',
+      },
+      {
+        id: 'img_02',
+        url: '/images/shey/shey1.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'landscape',
+      },
+      {
+        id: 'img_03',
+        url: '/images/shey/shey2.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'portrait',
+      },
+      {
+        id: 'img_04',
+        url: '/images/shey/shey3.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'landscape',
+      },
+      {
+        id: 'img_05',
+        url: '/images/shey/shey4.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'landscape',
+      },
+      {
+        id: 'img_06',
+        url: '/images/shey/shey5.webp',
+        alt: 'Shey Phoksundo trek',
+        type: 'landscape',
+      },
     ],
     gearChecklist: {
       essentials: [

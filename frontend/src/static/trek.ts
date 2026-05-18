@@ -122,6 +122,21 @@ export const TREKS: Trek[] = [
     isPopular: false,
     keywords: ['mardi himal trek', 'mardi'],
   },
+  {
+    id: 'shey-phoksundo',
+    title: 'Shey Phoksundo Trek',
+    region: 'Dolpo Region',
+    description:
+      'A remote Himalayan journey into Dolpo’s stark, cinematic wilderness leading to the surreal turquoise waters of Shey Phoksundo Lake, framed by cliffs, ancient villages, and untouched Tibetan-Bon culture.',
+    difficulty: 'Moderate',
+    duration: '10-12 Days',
+    altitude: '3,611m',
+    season: 'Apr-Jun, Sep-Nov',
+    price: 18000,
+    imageUrl: '/images/shey/shey.webp',
+    isPopular: false,
+    keywords: ['shey phoksundo trek', 'dolpo trek', 'phoksundo lake trek'],
+  },
 ];
 
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
