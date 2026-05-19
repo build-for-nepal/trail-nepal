@@ -68,7 +68,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline);
-  useTrailEndFlag(map, mapLoaded, data);
+  useTrailEndFlag(map, mapLoaded, data, trekId === 'mardi-himal-trek');
   useAccessRoute(map, mapLoaded, accessRoute);
 
   // Load elevation profile for the current trek
