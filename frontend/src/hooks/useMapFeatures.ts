@@ -410,9 +410,14 @@ export function useTrekMarkers(
       }, 150);
     };
 
+    // Only show outbound days on the map (up to and including isDestination).
+    // Return-journey days are visible in the overview sidebar only.
+    const destIdx = timeline.findIndex((d) => d.isDestination);
+    const outbound = destIdx >= 0 ? timeline.slice(0, destIdx + 1) : timeline;
+
     // Group days that share the same map coordinate so they render as one marker.
     const coordGroups = new Map<string, typeof timeline>();
-    timeline.forEach((dayObj) => {
+    outbound.forEach((dayObj) => {
       if (!dayObj.coordinates) return;
       const [lat, lng] = dayObj.coordinates;
       const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
@@ -420,22 +425,16 @@ export function useTrekMarkers(
       coordGroups.get(key)!.push(dayObj);
     });
 
-    const coordKeys = [...coordGroups.keys()];
-    const lastCoordKey = coordKeys[coordKeys.length - 1];
-
     coordGroups.forEach((days, key) => {
       const [lat, lng] = days[0].coordinates!;
       const isGroup = days.length > 1;
-      const isDestination = key === lastCoordKey;
       const label = isGroup
         ? `${days[0].day}–${days[days.length - 1].day}`
         : (days[0].day ?? '');
 
-      const { wrapper, inner } = isDestination
-        ? makeDestinationMarkerEl(label, isGroup)
-        : isGroup
-          ? makeGroupMarkerEl(label, MARKER_ORANGE)
-          : makeCircleMarkerEl(label, MARKER_ORANGE, true);
+      const { wrapper, inner } = isGroup
+        ? makeGroupMarkerEl(label, MARKER_ORANGE)
+        : makeCircleMarkerEl(label, MARKER_ORANGE, true);
 
       const popupHTML = isGroup
         ? buildGroupedPopupHTML(days)
@@ -577,6 +576,122 @@ function createHikerEl(): HTMLElement {
   inner.appendChild(figure);
   outer.appendChild(inner);
   return outer;
+}
+
+// Red flag placed at the physical end of the geojson trail (last coordinate).
+function makeTrailEndFlagEl(): HTMLElement {
+  injectDestinationStyles();
+
+  // Wrapper is a 10×10 dot; anchor:'bottom' → coordinate at wrapper bottom.
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText =
+    'width:10px;height:10px;position:relative;overflow:visible;pointer-events:none;';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('width', '44');
+  svg.setAttribute('height', '40');
+  svg.setAttribute('viewBox', '0 0 44 40');
+  // bottom:100% → SVG sits entirely above the wrapper dot
+  svg.style.cssText =
+    'position:absolute;bottom:100%;left:50%;transform:translateX(-14px);overflow:visible;display:block;pointer-events:none;';
+
+  const defs = document.createElementNS(NS, 'defs');
+
+  const grad = document.createElementNS(NS, 'linearGradient');
+  grad.id = 'trail-end-flag-fill';
+  grad.setAttribute('x1', '0%');
+  grad.setAttribute('y1', '0%');
+  grad.setAttribute('x2', '100%');
+  grad.setAttribute('y2', '80%');
+  const s1 = document.createElementNS(NS, 'stop');
+  s1.setAttribute('offset', '0%');
+  s1.setAttribute('style', 'stop-color:#ef4444');
+  const s2 = document.createElementNS(NS, 'stop');
+  s2.setAttribute('offset', '100%');
+  s2.setAttribute('style', 'stop-color:#991b1b');
+  grad.appendChild(s1);
+  grad.appendChild(s2);
+  defs.appendChild(grad);
+
+  const filter = document.createElementNS(NS, 'filter');
+  filter.id = 'trail-end-flag-shadow';
+  filter.setAttribute('x', '-30%');
+  filter.setAttribute('y', '-30%');
+  filter.setAttribute('width', '160%');
+  filter.setAttribute('height', '160%');
+  const fds = document.createElementNS(NS, 'feDropShadow');
+  fds.setAttribute('dx', '0');
+  fds.setAttribute('dy', '1.5');
+  fds.setAttribute('stdDeviation', '1.8');
+  fds.setAttribute('flood-color', 'rgba(0,0,0,0.38)');
+  filter.appendChild(fds);
+  defs.appendChild(filter);
+  svg.appendChild(defs);
+
+  const pole = document.createElementNS(NS, 'line');
+  pole.setAttribute('class', 'dest-pole');
+  pole.setAttribute('x1', '14');
+  pole.setAttribute('y1', '0');
+  pole.setAttribute('x2', '14');
+  pole.setAttribute('y2', '40');
+  pole.setAttribute('stroke', MARKER_ORANGE);
+  pole.setAttribute('stroke-width', '2');
+  pole.setAttribute('stroke-linecap', 'round');
+  svg.appendChild(pole);
+
+  const flagG = document.createElementNS(NS, 'g');
+  flagG.setAttribute('class', 'dest-flag-body');
+  flagG.setAttribute('filter', 'url(#trail-end-flag-shadow)');
+  const flagBody = document.createElementNS(NS, 'path');
+  flagBody.setAttribute('d', 'M 14 2 L 43 12 L 14 24 Z');
+  flagBody.setAttribute('fill', 'url(#trail-end-flag-fill)');
+  flagG.appendChild(flagBody);
+  const shine = document.createElementNS(NS, 'path');
+  shine.setAttribute('d', 'M 14 2 L 43 12 L 30 10 Z');
+  shine.setAttribute('fill', 'rgba(255,255,255,0.25)');
+  flagG.appendChild(shine);
+  svg.appendChild(flagG);
+
+  wrapper.appendChild(svg);
+  return wrapper;
+}
+
+export function useTrailEndFlag(
+  map: maplibregl.Map | null,
+  mapLoaded: boolean,
+  data: GeoJSONData | null,
+) {
+  const markerRef = useRef<maplibregl.Marker | null>(null);
+
+  useEffect(() => {
+    return () => {
+      markerRef.current?.remove();
+      markerRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!map || !mapLoaded || !data) return;
+
+    const allCoords: GeoJSON.Position[] = [];
+    data.features.forEach((f) => {
+      if (f.geometry.type === 'LineString')
+        allCoords.push(...f.geometry.coordinates);
+      else if (f.geometry.type === 'MultiLineString')
+        f.geometry.coordinates.forEach((seg) => allCoords.push(...seg));
+    });
+    if (allCoords.length < 1) return;
+
+    const [lng, lat] = allCoords[allCoords.length - 1];
+    markerRef.current?.remove();
+    markerRef.current = new maplibregl.Marker({
+      element: makeTrailEndFlagEl(),
+      anchor: 'bottom',
+    })
+      .setLngLat([lng, lat])
+      .addTo(map);
+  }, [map, mapLoaded, data]);
 }
 
 // Returns a scale factor so the hiker appears consistently sized relative to
@@ -777,19 +892,23 @@ export function useAccessRoute(
   mapLoaded: boolean,
   accessRoute: AccessRoute | undefined,
 ) {
-  const iconMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const iconMarkersRef = useRef<maplibregl.Marker[]>([]);
   const originDotRef = useRef<maplibregl.Marker | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
 
   useEffect(() => {
     return () => {
-      iconMarkerRef.current?.remove();
+      iconMarkersRef.current.forEach((m) => m.remove());
       originDotRef.current?.remove();
       try {
         const m = mapRef.current;
         if (m) {
-          if (m.getLayer('access-route-fg')) m.removeLayer('access-route-fg');
-          if (m.getSource('access-route')) m.removeSource('access-route');
+          ['access-route-fg', 'access-route-fg-1'].forEach((id) => {
+            if (m.getLayer(id)) m.removeLayer(id);
+          });
+          ['access-route', 'access-route-1'].forEach((id) => {
+            if (m.getSource(id)) m.removeSource(id);
+          });
         }
       } catch {
         // map already removed on unmount
@@ -801,69 +920,80 @@ export function useAccessRoute(
     if (!map || !mapLoaded || !accessRoute) return;
     mapRef.current = map;
 
-    const { mode, from, to } = accessRoute;
-    const isFlight = mode === 'flight';
+    // Flatten legs: main + optional continuation
+    const legs: AccessRoute[] = [accessRoute];
+    if (accessRoute.continuation) legs.push(accessRoute.continuation);
 
-    const pathCoords = isFlight
-      ? generateArc(from.coordinates, to.coordinates)
-      : generateRoadCurve(from.coordinates, to.coordinates);
-
-    const geojson: GeoJSON.Feature<GeoJSON.LineString> = {
-      type: 'Feature',
-      geometry: { type: 'LineString', coordinates: pathCoords },
-      properties: {},
-    };
-
-    if (!map.getSource('access-route')) {
-      map.addSource('access-route', { type: 'geojson', data: geojson });
-    } else {
-      (map.getSource('access-route') as maplibregl.GeoJSONSource).setData(
-        geojson,
-      );
-    }
+    // Remove previous icon markers before re-rendering
+    iconMarkersRef.current.forEach((m) => m.remove());
+    iconMarkersRef.current = [];
+    originDotRef.current?.remove();
 
     const insertBefore = map.getLayer('trail-casing')
       ? 'trail-casing'
       : undefined;
 
-    if (!map.getLayer('access-route-fg')) {
-      map.addLayer(
-        {
-          id: 'access-route-fg',
-          type: 'line',
-          source: 'access-route',
-          paint: {
-            'line-color': '#ffffff',
-            'line-width': 2,
-            'line-opacity': 0.7,
-            'line-dasharray': [3, 4],
+    legs.forEach((leg, i) => {
+      const { mode, from, to } = leg;
+      const sourceId = i === 0 ? 'access-route' : `access-route-${i}`;
+      const layerId = i === 0 ? 'access-route-fg' : `access-route-fg-${i}`;
+
+      const pathCoords =
+        mode === 'flight'
+          ? generateArc(from.coordinates, to.coordinates)
+          : generateRoadCurve(from.coordinates, to.coordinates);
+
+      const geojson: GeoJSON.Feature<GeoJSON.LineString> = {
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: pathCoords },
+        properties: {},
+      };
+
+      if (!map.getSource(sourceId)) {
+        map.addSource(sourceId, { type: 'geojson', data: geojson });
+      } else {
+        (map.getSource(sourceId) as maplibregl.GeoJSONSource).setData(geojson);
+      }
+
+      if (!map.getLayer(layerId)) {
+        map.addLayer(
+          {
+            id: layerId,
+            type: 'line',
+            source: sourceId,
+            paint: {
+              'line-color': '#ffffff',
+              'line-width': 2,
+              'line-opacity': 0.7,
+              'line-dasharray': [3, 4],
+            },
+            layout: { 'line-cap': 'round', 'line-join': 'round' },
           },
-          layout: { 'line-cap': 'round', 'line-join': 'round' },
-        },
-        insertBefore,
-      );
-    }
+          insertBefore,
+        );
+      }
 
-    // Icon at arc/curve midpoint
-    const midIdx = Math.floor(pathCoords.length / 2);
-    const [midLng, midLat] = pathCoords[midIdx];
-    const bearing = computeBearing(from.coordinates, to.coordinates);
+      // Icon at arc/curve midpoint
+      const midIdx = Math.floor(pathCoords.length / 2);
+      const [midLng, midLat] = pathCoords[midIdx];
+      const bearing = computeBearing(from.coordinates, to.coordinates);
+      const icon = new maplibregl.Marker({
+        element: createIconMarker(mode, bearing),
+        anchor: 'center',
+      })
+        .setLngLat([midLng, midLat])
+        .addTo(map);
+      iconMarkersRef.current.push(icon);
 
-    iconMarkerRef.current?.remove();
-    iconMarkerRef.current = new maplibregl.Marker({
-      element: createIconMarker(mode, bearing),
-      anchor: 'center',
-    })
-      .setLngLat([midLng, midLat])
-      .addTo(map);
-
-    // Small dot at path origin
-    originDotRef.current?.remove();
-    originDotRef.current = new maplibregl.Marker({
-      element: createOriginDot(),
-      anchor: 'center',
-    })
-      .setLngLat([from.coordinates[1], from.coordinates[0]])
-      .addTo(map);
+      // Origin dot only on the first leg
+      if (i === 0) {
+        originDotRef.current = new maplibregl.Marker({
+          element: createOriginDot(),
+          anchor: 'center',
+        })
+          .setLngLat([from.coordinates[1], from.coordinates[0]])
+          .addTo(map);
+      }
+    });
   }, [map, mapLoaded, accessRoute]);
 }
