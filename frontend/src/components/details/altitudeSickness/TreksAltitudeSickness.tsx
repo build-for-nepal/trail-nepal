@@ -170,239 +170,241 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
   }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      className={cn('page-wrapper w-full bg-[#EBF0F8] pb-16')}
-    >
-      <div className="flex flex-col py-16 lg:py-24 gap-12 lg:gap-16">
-        <SectionHeader
-          title="Altitude & Safety"
-          description="Comprehensive health guidance and immediate response tools for the high altitude trekker."
-        />
+    <div className="w-full bg-[#EBF0F8]">
+      <div
+        ref={sectionRef}
+        className={cn('page-wrapper w-full bg-[#EBF0F8] pb-16')}
+      >
+        <div className="flex flex-col py-16 lg:py-24 gap-12 lg:gap-16">
+          <SectionHeader
+            title="Altitude & Safety"
+            description="Comprehensive health guidance and immediate response tools for the high altitude trekker."
+          />
 
-        <div className="flex flex-col md:flex-row gap-5 items-stretch">
-          {/* accordian */}
-          <div className="flex-1 flex flex-col gap-3 min-w-0">
-            {dataKeys.map((key) => {
-              const item = altitudeSicknessData[key];
-              const isOpen = openSet.has(key);
+          <div className="flex flex-col md:flex-row gap-5 items-stretch">
+            {/* accordian */}
+            <div className="flex-1 flex flex-col gap-3 min-w-0">
+              {dataKeys.map((key) => {
+                const item = altitudeSicknessData[key];
+                const isOpen = openSet.has(key);
 
-              return (
-                <div
-                  key={key}
-                  className="altitude-accordion-item bg-white rounded-2xl shadow-sm overflow-hidden"
-                >
-                  {/* Header */}
-                  <button
-                    onClick={() => toggleAccordion(key)}
-                    className="w-full flex items-center justify-between px-6 py-5 text-left group cursor-pointer"
-                    aria-expanded={isOpen}
-                  >
-                    <span
-                      className="text-[15px] text-gray-800 tracking-[-0.01em]"
-                      style={{ fontFamily: "'Oldenburg', serif" }}
-                    >
-                      {key}
-                    </span>
-                    <span
-                      className="shrink-0 ml-4 text-gray-400 transition-transform duration-300 cursor-pointer"
-                      style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      }}
-                    >
-                      <ChevronDown className="cursor-pointer" />
-                    </span>
-                  </button>
-
-                  {/* Expandable content */}
+                return (
                   <div
-                    ref={(el) => {
-                      contentRefs.current[key] = el;
-                    }}
-                    style={{ overflow: 'hidden' }}
+                    key={key}
+                    className="altitude-accordion-item bg-white rounded-2xl shadow-sm overflow-hidden"
                   >
-                    <div className="px-6 pb-7 flex flex-col gap-6">
-                      {/* Description */}
-                      <div>
-                        <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-2">
-                          What it is?
-                        </p>
-                        <p className="text-sm text-[#434843] leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
+                    {/* Header */}
+                    <button
+                      onClick={() => toggleAccordion(key)}
+                      className="w-full flex items-center justify-between px-6 py-5 text-left group cursor-pointer"
+                      aria-expanded={isOpen}
+                    >
+                      <span
+                        className="text-[15px] text-gray-800 tracking-[-0.01em]"
+                        style={{ fontFamily: "'Oldenburg', serif" }}
+                      >
+                        {key}
+                      </span>
+                      <span
+                        className="shrink-0 ml-4 text-gray-400 transition-transform duration-300 cursor-pointer"
+                        style={{
+                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        }}
+                      >
+                        <ChevronDown className="cursor-pointer" />
+                      </span>
+                    </button>
 
-                      {/* Symptoms grid */}
-                      <div>
-                        <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
-                          Symptoms
-                        </p>
-                        <div className="grid grid-cols-4 gap-2">
-                          {item.symptoms.map((s) => {
-                            return (
-                              <div
-                                key={s.name}
-                                className="flex flex-col items-center gap-1.5 bg-gray-50 rounded-xl py-3 px-1"
-                              >
-                                <span
-                                  className={cn(
-                                    'w-7 h-7 rounded-full flex items-center justify-center',
-                                  )}
-                                >
-                                  <Image
-                                    src={s.icon || amsHeadache}
-                                    alt={s.name}
-                                    className="w-full h-full"
-                                  />
-                                </span>
-                                <span className="text-[10px] text-center text-[#0D1D2A] leading-tight">
-                                  {s.name}
-                                </span>
-                              </div>
-                            );
-                          })}
+                    {/* Expandable content */}
+                    <div
+                      ref={(el) => {
+                        contentRefs.current[key] = el;
+                      }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div className="px-6 pb-7 flex flex-col gap-6">
+                        {/* Description */}
+                        <div>
+                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-2">
+                            What it is?
+                          </p>
+                          <p className="text-sm text-[#434843] leading-relaxed">
+                            {item.description}
+                          </p>
                         </div>
-                      </div>
 
-                      {/* Severity levels */}
-                      <div>
-                        <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
-                          Severity Levels
-                        </p>
-                        <div className="flex flex-col gap-2">
-                          {Object.entries(item.severity).map(
-                            ([level, action], idx) => {
-                              const style = getSeverityStyle(level);
-                              const Icon = style.icon;
-
+                        {/* Symptoms grid */}
+                        <div>
+                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                            Symptoms
+                          </p>
+                          <div className="grid grid-cols-4 gap-2">
+                            {item.symptoms.map((s) => {
                               return (
                                 <div
-                                  key={level}
-                                  className={cn(
-                                    'flex gap-2 rounded-xl px-4 py-3 border',
-                                    style.cardStyle,
-                                  )}
+                                  key={s.name}
+                                  className="flex flex-col items-center gap-1.5 bg-gray-50 rounded-xl py-3 px-1"
                                 >
                                   <span
                                     className={cn(
-                                      'w-8 h-8 rounded-full flex items-center justify-center text-white text-[8px] font-bold shrink-0',
-                                      style.iconBg,
+                                      'w-7 h-7 rounded-full flex items-center justify-center',
                                     )}
                                   >
-                                    <Icon className="w-4 h-4" />
+                                    <Image
+                                      src={s.icon || amsHeadache}
+                                      alt={s.name}
+                                      className="w-full h-full"
+                                    />
                                   </span>
-                                  <div className="flex flex-col gap-1">
-                                    <p
-                                      className={cn(
-                                        'text-[11px] leading-relaxed font-bold capitalize',
-                                        style.titleStyle,
-                                      )}
-                                    >
-                                      {level}
-                                    </p>
-                                    <p
-                                      className={cn(
-                                        'text-[11px]',
-                                        style.descStyle,
-                                      )}
-                                    >
-                                      {action}
-                                    </p>
-                                  </div>
+                                  <span className="text-[10px] text-center text-[#0D1D2A] leading-tight">
+                                    {s.name}
+                                  </span>
                                 </div>
                               );
-                            },
-                          )}
+                            })}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* prevention tips */}
-                      <div>
-                        <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
-                          Prevention Tips
-                        </p>
-                        <ul className="flex flex-col gap-1.5">
-                          {item.prevention_tips.map((tip) => (
-                            <li key={tip} className="flex items-center gap-2">
-                              <Check className="w-3 h-3 text-blue-500" />
-                              <span className="text-[12px] text-gray-600 leading-relaxed">
-                                {tip}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
+                        {/* Severity levels */}
+                        <div>
+                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                            Severity Levels
+                          </p>
+                          <div className="flex flex-col gap-2">
+                            {Object.entries(item.severity).map(
+                              ([level, action], idx) => {
+                                const style = getSeverityStyle(level);
+                                const Icon = style.icon;
+
+                                return (
+                                  <div
+                                    key={level}
+                                    className={cn(
+                                      'flex gap-2 rounded-xl px-4 py-3 border',
+                                      style.cardStyle,
+                                    )}
+                                  >
+                                    <span
+                                      className={cn(
+                                        'w-8 h-8 rounded-full flex items-center justify-center text-white text-[8px] font-bold shrink-0',
+                                        style.iconBg,
+                                      )}
+                                    >
+                                      <Icon className="w-4 h-4" />
+                                    </span>
+                                    <div className="flex flex-col gap-1">
+                                      <p
+                                        className={cn(
+                                          'text-[11px] leading-relaxed font-bold capitalize',
+                                          style.titleStyle,
+                                        )}
+                                      >
+                                        {level}
+                                      </p>
+                                      <p
+                                        className={cn(
+                                          'text-[11px]',
+                                          style.descStyle,
+                                        )}
+                                      >
+                                        {action}
+                                      </p>
+                                    </div>
+                                  </div>
+                                );
+                              },
+                            )}
+                          </div>
+                        </div>
+
+                        {/* prevention tips */}
+                        <div>
+                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                            Prevention Tips
+                          </p>
+                          <ul className="flex flex-col gap-1.5">
+                            {item.prevention_tips.map((tip) => (
+                              <li key={tip} className="flex items-center gap-2">
+                                <Check className="w-3 h-3 text-blue-500" />
+                                <span className="text-[12px] text-gray-600 leading-relaxed">
+                                  {tip}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          {/* sidebar  */}
-          <div className="altitude-sidebar ">
-            <ContactInfoSidebar
-              trekId={trekId}
-              showMore={showMore}
-              setShowMore={setShowMore}
-            />
+            {/* sidebar  */}
+            <div className="altitude-sidebar ">
+              <ContactInfoSidebar
+                trekId={trekId}
+                showMore={showMore}
+                setShowMore={setShowMore}
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        className={cn(
-          'group relative flex items-center justify-between w-full',
-          'rounded-xl bg-[#376BB6] px-[10px] md:px-[16px] py-[18px]',
-          '[clip-path:inset(-80px_-20px_0px_-20px_round_12px)]',
-        )}
-      >
-        <div className={cn('flex flex-col text-white md:w-[70%] lg:w-auto')}>
-          <p className="text-[24px] font-bold">Carry this on your Trek</p>
-          <p className="text-[14px] font-light">
-            Download this offline altitude safety card before trek. Includes{' '}
-            <span className="font-bold">AMS</span>,{' '}
-            <span className="font-bold">HAPE</span>, and{' '}
-            <span className="font-bold">HACE</span> symptoms and preventions.
-          </p>
-          <a
-            href="/altitude/altitude-guide.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 rounded-[16px] w-fit py-2 px-4 flex items-center justify-center bg-[#88B112]"
-          >
-            Download Safety Card
-          </a>
-        </div>
+        <div
+          className={cn(
+            'group relative flex items-center justify-between w-full',
+            'rounded-xl bg-[#376BB6] px-[10px] md:px-[16px] py-[18px]',
+            '[clip-path:inset(-80px_-20px_0px_-20px_round_12px)]',
+          )}
+        >
+          <div className={cn('flex flex-col text-white md:w-[70%] lg:w-auto')}>
+            <p className="text-[24px] font-bold">Carry this on your Trek</p>
+            <p className="text-[14px] font-light">
+              Download this offline altitude safety card before trek. Includes{' '}
+              <span className="font-bold">AMS</span>,{' '}
+              <span className="font-bold">HAPE</span>, and{' '}
+              <span className="font-bold">HACE</span> symptoms and preventions.
+            </p>
+            <a
+              href="/altitude/altitude-guide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 rounded-[16px] w-fit py-2 px-4 flex items-center justify-center bg-[#88B112]"
+            >
+              Download Safety Card
+            </a>
+          </div>
 
-        <div className="hidden md:flex absolute right-6 top-0 bottom-0 items-center">
-          <div className="relative w-[180px] h-[160px] cursor-pointer">
-            {/* front card */}
-            <Image
-              src={quickCardFront}
-              alt="quick-card-front"
-              className={cn(
-                'absolute z-10 top-4 left-0 w-[130px] h-auto -rotate-3 drop-shadow-md transition-transform duration-300 ease-out',
-                'group-hover:-translate-y-4 group-hover:-translate-x-3 group-hover:-rotate-12',
-              )}
-            />
-            {/* back card */}
-            <Image
-              src={quickCardBack}
-              alt="quick-card-back"
-              className={cn(
-                'absolute top-4 right-0 w-[130px] h-auto rotate-6 drop-shadow-md transition-transform duration-300 ease-out',
-                'group-hover:-translate-y-6 group-hover:translate-x-4 group-hover:rotate-12',
-              )}
-            />
-            <Image
-              src={roundedButton}
-              alt="rounded-button"
-              className={cn(
-                'absolute bottom-0 right-0 w-[56px] h-[56px] z-20 transition-transform duration-300 ease-out',
-                'group-hover:-translate-y-1',
-              )}
-            />
+          <div className="hidden md:flex absolute right-6 top-0 bottom-0 items-center">
+            <div className="relative w-[180px] h-[160px] cursor-pointer">
+              {/* front card */}
+              <Image
+                src={quickCardFront}
+                alt="quick-card-front"
+                className={cn(
+                  'absolute z-10 top-4 left-0 w-[130px] h-auto -rotate-3 drop-shadow-md transition-transform duration-300 ease-out',
+                  'group-hover:-translate-y-4 group-hover:-translate-x-3 group-hover:-rotate-12',
+                )}
+              />
+              {/* back card */}
+              <Image
+                src={quickCardBack}
+                alt="quick-card-back"
+                className={cn(
+                  'absolute top-4 right-0 w-[130px] h-auto rotate-6 drop-shadow-md transition-transform duration-300 ease-out',
+                  'group-hover:-translate-y-6 group-hover:translate-x-4 group-hover:rotate-12',
+                )}
+              />
+              <Image
+                src={roundedButton}
+                alt="rounded-button"
+                className={cn(
+                  'absolute bottom-0 right-0 w-[56px] h-[56px] z-20 transition-transform duration-300 ease-out',
+                  'group-hover:-translate-y-1',
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
