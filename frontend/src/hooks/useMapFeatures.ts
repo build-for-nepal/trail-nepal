@@ -505,7 +505,8 @@ function createHikerEl(): HTMLElement {
   // inner: we own its `style.transform` for zoom scaling only.
   // Keeping them separate prevents our scale() from overwriting MapLibre's translate().
   const outer = document.createElement('div');
-  outer.style.cssText = 'width:48px;height:64px;overflow:visible;pointer-events:none;';
+  outer.style.cssText =
+    'width:48px;height:64px;overflow:visible;pointer-events:none;';
 
   const inner = document.createElement('div');
   inner.style.cssText =
@@ -661,6 +662,7 @@ export function useTrailEndFlag(
   map: maplibregl.Map | null,
   mapLoaded: boolean,
   data: GeoJSONData | null,
+  flagAtStart = false,
 ) {
   const markerRef = useRef<maplibregl.Marker | null>(null);
 
@@ -683,7 +685,7 @@ export function useTrailEndFlag(
     });
     if (allCoords.length < 1) return;
 
-    const [lng, lat] = allCoords[allCoords.length - 1];
+    const [lng, lat] = flagAtStart ? allCoords[0] : allCoords[allCoords.length - 1];
     markerRef.current?.remove();
     markerRef.current = new maplibregl.Marker({
       element: makeTrailEndFlagEl(),
