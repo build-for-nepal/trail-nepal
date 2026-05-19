@@ -128,37 +128,37 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // price: "NPR 6,500",
       },
       {
-        day: "09",
-        title: "Gorak Shep to Kala Patthar & Pheriche",
+        day: '09',
+        title: 'Gorak Shep to Kala Patthar & Pheriche',
         description:
-          "Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.",
+          'Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.',
         // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
         stats: {
-          elevation: "4,371m",
-          duration: "7-8 hours",
-          distance: "13km",
-          note: "Sleeping elevation",
+          elevation: '4,371m',
+          duration: '7-8 hours',
+          distance: '13km',
+          note: 'Sleeping elevation',
         },
         coordinates: [27.893, 86.818],
         // price: "NPR 5,000",
       },
       {
-        day: "10",
-        title: "Pheriche to Namche Bazaar",
+        day: '10',
+        title: 'Pheriche to Namche Bazaar',
         description:
           "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
         // accommodations: [{ name: "Hotel Namche" }],
-        stats: { elevation: "3,440m", duration: "6-7 hours", distance: "14km" },
+        stats: { elevation: '3,440m', duration: '6-7 hours', distance: '14km' },
         coordinates: [27.806, 86.714],
         // price: "NPR 5,500",
       },
       {
-        day: "11",
-        title: "Namche Bazaar to Lukla",
+        day: '11',
+        title: 'Namche Bazaar to Lukla',
         description:
           "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
         // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
-        stats: { elevation: "2,860m", duration: "7-8 hours", distance: "18km" },
+        stats: { elevation: '2,860m', duration: '7-8 hours', distance: '18km' },
         coordinates: [27.686, 86.73],
         // price: "NPR 5,000",
       },
@@ -974,28 +974,28 @@ view over Kyanjin Village and the upper Langtang Valley`,
         isDestination: true,
       },
       {
-        day: "06",
-        title: "ABC to Bamboo (Descent)",
+        day: '06',
+        title: 'ABC to Bamboo (Descent)',
         description:
           "Wake before dawn for the alpenglow show — the South Face of Annapurna I lighting up gold is the moment most trekkers come for. After breakfast, retrace your steps down through MBC, Deurali, and Dovan. Knees take a beating on the long stone stairs, so pace yourself. Bamboo's lower, warmer, oxygen-rich air is a noticeable relief after three nights at altitude.",
         stats: {
-          elevation: "2,310m",
-          duration: "6-7 hours",
-          distance: "16km",
-          note: "Trekking poles strongly recommended for the descent",
+          elevation: '2,310m',
+          duration: '6-7 hours',
+          distance: '16km',
+          note: 'Trekking poles strongly recommended for the descent',
         },
         coordinates: [28.4801, 83.8589],
       },
       {
-        day: "07",
-        title: "Bamboo to Jhinu Danda & Drive to Pokhara",
+        day: '07',
+        title: 'Bamboo to Jhinu Danda & Drive to Pokhara',
         description:
-          "Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.",
+          'Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.',
         stats: {
-          elevation: "1,780m",
-          duration: "5-6 hrs trek, 2-3 hrs drive",
-          distance: "11km",
-          note: "Hot springs entry: NPR 150 per person",
+          elevation: '1,780m',
+          duration: '5-6 hrs trek, 2-3 hrs drive',
+          distance: '11km',
+          note: 'Hot springs entry: NPR 150 per person',
         },
         coordinates: [28.385, 83.8197],
       },
@@ -1915,7 +1915,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '35 minute flight + 3-4 hours trek',
           distance: '8km',
         },
-        coordinates: [28.979900, 82.819990],
+        coordinates: [28.9799, 82.81999],
       },
 
       {
@@ -1928,7 +1928,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '15km',
         },
-        coordinates: [29.000370, 82.912570],
+        coordinates: [29.00037, 82.91257],
       },
 
       {
@@ -1941,7 +1941,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '12km',
         },
-        coordinates: [29.077870, 82.886150],
+        coordinates: [29.07787, 82.88615],
       },
 
       {
@@ -1954,7 +1954,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '10km',
         },
-        coordinates: [29.141480, 82.910750],
+        coordinates: [29.14148, 82.91075],
         isDestination: true,
       },
 
@@ -1969,7 +1969,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '4km',
           note: 'Acclimatization + cultural exploration day',
         },
-        coordinates: [29.141480, 82.910750],
+        coordinates: [29.14148, 82.91075],
       },
 
       {
@@ -2190,6 +2190,348 @@ view over Kyanjin Village and the upper Langtang Valley`,
         { item: 'Power Bank (10,000-20,000 mAh)', weight: '0.265kg' },
         { item: 'Charging Cable / Adapter', weight: '0.09kg' },
         { item: 'Snacks / Energy Bars', weight: '0.45kg', quantity: 3 },
+      ],
+    },
+  },
+  'tilicho-lake-trek': {
+    id: 'tilicho-lake-trek',
+    name: 'Tilicho Lake Trek',
+    region: 'Annapurna Region',
+
+    meta: {
+      duration: '12-15 Days',
+      difficulty: 'Challenging',
+      maxElevation: '5,416m',
+      bestSeasons: 'March-May, September-November',
+      startingPoint: 'Kathmandu',
+    },
+
+    overview:
+      'The Tilicho Lake Trek via Thorong La Pass is one of Nepal’s most dramatic high-altitude Himalayan journeys, combining the turquoise waters of Tilicho Lake with the legendary crossing of Thorong La (5,416m). Beginning in Kathmandu, the route follows the Marsyangdi Valley deep into the Annapurna region, gradually transitioning from lush terraced hills and pine forests into the barren, wind-swept landscapes of the Himalayas. Ancient Tibetan influenced villages like Manang offer rare cultural immersion before the trail branches toward Tilicho Base Camp through unstable slopes and towering cliffs. After reaching Tilicho Lake: one of the world’s highest alpine lakes, the journey reconnects with the Annapurna Circuit and pushes toward the icy heights of Thorong La Pass before descending into the sacred pilgrimage town of Muktinath.',
+
+    timeline: [
+      {
+        day: '01',
+        title: 'Kathmandu to Besisahar',
+        description:
+          'Leave Kathmandu behind and drive west along Nepal’s winding river highways toward Besisahar, the traditional gateway to the Annapurna region. The journey passes terraced farmland, roaring rivers, and mid-hill villages before reaching the Marsyangdi Valley.',
+        stats: {
+          elevation: '760m',
+          duration: '6-7 hrs drive',
+          distance: '175km',
+        },
+        coordinates: [28.2342, 84.3773],
+      },
+
+      {
+        day: '02',
+        title: 'Besisahar to Chame',
+        description:
+          'A rugged jeep ride climbs deeper into the Annapurna Conservation Area through waterfalls, suspension bridges, pine forests, and steep mountain roads carved into canyon walls. Chame offers the first close-up Himalayan views.',
+        stats: {
+          elevation: '2,670m',
+          duration: '7-8 hrs drive',
+          distance: '65km',
+        },
+        coordinates: [28.550138, 84.229996],
+      },
+
+      {
+        day: '03',
+        title: 'Chame to Upper Pisang',
+        description:
+          'The trail follows the Marsyangdi River through dense pine forests and dramatic rock formations before opening into the dry alpine valley of Upper Pisang. Annapurna II and Pisang Peak dominate the skyline.',
+        stats: {
+          elevation: '3,300m',
+          duration: '5-6 hours',
+          distance: '13km',
+        },
+        coordinates: [28.642195, 84.111234],
+      },
+
+      {
+        day: '04',
+        title: 'Upper Pisang to Manang',
+        description:
+          'Take the scenic upper route through Ghyaru and Ngawal, traversing high ridges lined with monasteries, prayer walls, and expansive Himalayan panoramas. The landscape grows increasingly arid as you enter Manang.',
+        stats: {
+          elevation: '3,540m',
+          duration: '6-7 hours',
+          distance: '17km',
+        },
+        coordinates: [28.6694, 84.0236],
+      },
+
+      {
+        day: '05',
+        title: 'Acclimatization Day in Manang',
+        description:
+          'An essential acclimatization day before pushing higher into the alpine zone. Optional hikes to Gangapurna Lake, Ice Lake, or nearby ridges help the body adapt while providing incredible views of Annapurna III, Tilicho Peak, and Gangapurna.',
+        stats: {
+          elevation: '3,540m',
+          duration: '3-5 hours hiking',
+          distance: 'Optional side hikes',
+          note: 'Critical altitude adaptation day',
+        },
+        coordinates: [28.6694, 84.0236],
+      },
+
+      {
+        day: '06',
+        title: 'Manang to Shree Kharka',
+        description:
+          'Leave the main Annapurna Circuit trail and move west toward Tilicho through isolated yak pastures and juniper-covered slopes. The route becomes quieter, colder, and significantly more remote.',
+        stats: {
+          elevation: '4,050m',
+          duration: '4-5 hours',
+          distance: '10km',
+        },
+        coordinates: [28.6942, 83.9841],
+      },
+
+      {
+        day: '07',
+        title: 'Shree Kharka to Tilicho Base Camp',
+        description:
+          'Traverse narrow landslide-prone trails beneath towering cliffs and unstable scree slopes before reaching Tilicho Base Camp. The environment feels raw and unforgiving, with powerful winds and freezing night temperatures.',
+        stats: {
+          elevation: '4,150m',
+          duration: '5-6 hours',
+          distance: '8km',
+          note: 'Start early to avoid strong afternoon winds',
+        },
+        coordinates: [28.6949, 83.9167],
+      },
+
+      {
+        day: '08',
+        title: 'Tilicho Base Camp to Tilicho Lake',
+        description:
+          'A pre-dawn climb leads through frozen alpine terrain toward the immense turquoise basin of Tilicho Lake (4,919m). Surrounded by snow-covered ridges and barren cliffs, the lake is one of the most visually surreal landscapes in the Himalayas.',
+        stats: {
+          elevation: '4,919m',
+          duration: '5-7 hours round trip',
+          distance: '10km',
+          note: 'Sub-zero temperatures common before sunrise',
+        },
+        coordinates: [28.6947, 83.8542],
+      },
+
+      {
+        day: '09',
+        title: 'Tilicho Base Camp to Yak Kharka',
+        description:
+          'Descend carefully through the exposed landslide sections before reconnecting with the Annapurna Circuit route. Lower elevation and thicker air bring noticeable physical relief.',
+        stats: {
+          elevation: '4,050m',
+          duration: '6-7 hours',
+          distance: '14km',
+        },
+        coordinates: [28.7242, 83.9651],
+      },
+
+      {
+        day: '10',
+        title: 'Yak Kharka to Thorong Phedi',
+        description:
+          'The trail climbs gradually through barren alpine terrain toward Thorong Phedi, the final staging point beneath Thorong La Pass. The landscape is harsh, windswept, and completely above the treeline.',
+        stats: {
+          elevation: '4,540m',
+          duration: '4-5 hours',
+          distance: '7km',
+        },
+        coordinates: [28.7871, 83.9431],
+      },
+
+      {
+        day: '11',
+        title: 'Thorong Phedi to Thorong La Pass → Muktinath',
+        description:
+          'The most demanding and rewarding day of the trek begins before dawn. A long, icy ascent reaches Thorong La Pass (5,416m), one of the world’s highest trekking passes. Prayer flags whip violently in the wind as panoramic Himalayan views stretch across Mustang and the Annapurna massif before descending steeply to the sacred pilgrimage town of Muktinath.',
+        stats: {
+          elevation: '5,416m',
+          duration: '8-10 hours',
+          distance: '15km',
+          note: 'Highest point of the trek',
+        },
+        coordinates: [28.7966, 83.9384],
+      },
+
+      // {
+      //   day: '12',
+      //   title: 'Muktinath to Pokhara',
+      //   description:
+      //     'Drive through the dramatic Kali Gandaki Gorge, passing the windswept landscapes of Mustang before descending into the greener hills surrounding Pokhara.',
+      //   stats: {
+      //     elevation: '822m',
+      //     duration: '8-10 hrs drive',
+      //     distance: '170km',
+      //   },
+      //   coordinates: [28.2096, 83.9856],
+      // },
+    ],
+
+    expectations: [
+      {
+        title: 'Tilicho Lake',
+        description:
+          'Witness the surreal turquoise waters of one of the highest alpine lakes in the world, hidden deep within the Annapurna Himal.',
+      },
+
+      {
+        title: 'Thorong La Pass',
+        description:
+          'Cross one of Nepal’s most iconic high mountain passes at 5,416m, surrounded by panoramic Himalayan views and extreme alpine terrain.',
+      },
+
+      {
+        title: 'Himalayan Landscapes',
+        description:
+          'Experience the dramatic transition from lush river valleys into the dry, rugged deserts of Manang and Mustang.',
+      },
+
+      {
+        title: 'Ancient Himalayan Culture',
+        description:
+          'Walk through Tibetan-influenced villages filled with monasteries, mani walls, yak caravans, and centuries-old mountain traditions.',
+      },
+    ],
+
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Heavy Snow / Extremely Cold / Thorong La Often Closed',
+      },
+      {
+        month: 'Feb',
+        condition: 'Freezing Winter / Avalanche Risk / Harsh Winds',
+      },
+      {
+        month: 'Mar',
+        condition: 'Excellent / Stable Trails / Crisp Mountain Views',
+      },
+      {
+        month: 'Apr',
+        condition: 'Peak Season / Clear Skies / Ideal Conditions',
+      },
+      {
+        month: 'May',
+        condition: 'Excellent / Warm Days / Vibrant Alpine Landscapes',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Cloud Build-Up / Slippery Lower Trails',
+      },
+      {
+        month: 'Jul',
+        condition: 'Peak Monsoon / Heavy Rain / Landslide Risk',
+      },
+      {
+        month: 'Aug',
+        condition: 'Heavy Rain / Cloudy Conditions / Poor Visibility',
+      },
+      {
+        month: 'Sep',
+        condition: 'Excellent / Post-Monsoon Clarity / Fresh Landscapes',
+      },
+      {
+        month: 'Oct',
+        condition: 'Peak Season / Crystal Clear Views / Best Weather',
+      },
+      {
+        month: 'Nov',
+        condition: 'Excellent / Cold Nights / Stunning Visibility',
+      },
+      {
+        month: 'Dec',
+        condition: 'Winter Starts / Freezing Mornings / Snow Possible',
+      },
+    ],
+
+    gallery: [
+      {
+        id: 'tilicho_img_01',
+        url: '/images/tilicho/tilicho.webp',
+        alt: 'Panoramic view of Tilicho Lake',
+        type: 'hero',
+      },
+
+      {
+        id: 'tilicho_img_02',
+        url: '/images/tilicho/tilicho1.webp',
+        alt: 'Tilicho Lake beneath snow-covered peaks',
+        type: 'landscape',
+      },
+
+      {
+        id: 'tilicho_img_03',
+        url: '/images/tilicho/tilicho2.webp',
+        alt: 'Traditional stone village in Manang',
+        type: 'portrait',
+      },
+
+      {
+        id: 'tilicho_img_04',
+        url: '/images/tilicho/tilicho3.webp',
+        alt: 'Prayer flags at Thorong La Pass',
+        type: 'landscape',
+      },
+
+      {
+        id: 'tilicho_img_05',
+        url: '/images/tilicho/tilicho5.webp',
+        alt: 'Exposed mountain trail toward Tilicho Base Camp',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_05',
+        url: '/images/tilicho/tilicho6.webp',
+        alt: 'Exposed mountain trail toward Tilicho Base Camp',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_05',
+        url: '/images/tilicho/tilicho7.webp',
+        alt: 'Exposed mountain trail toward Tilicho Base Camp',
+        type: 'landscape',
+      },
+    ],
+
+    gearChecklist: {
+      essentials: [
+        { item: 'Backpack (45-60L)', weight: '1.5kg' },
+        { item: 'Rain Cover for Backpack', weight: '0.08kg' },
+        { item: 'Down Jacket', weight: '0.45kg' },
+        { item: 'Waterproof Shell Jacket', weight: '0.35kg' },
+        { item: 'Fleece / Mid Layer', weight: '0.34kg' },
+        { item: 'Thermal Base Layer Top', weight: '0.2kg', quantity: 1 },
+        { item: 'Thermal Base Layer Bottom', weight: '0.2kg', quantity: 1 },
+        { item: 'Trekking T-Shirt', weight: '0.14kg', quantity: 3 },
+        { item: 'Trekking Pants', weight: '0.32kg', quantity: 2 },
+        { item: 'Trekking Boots (pair)', weight: '1.15kg' },
+        { item: 'Trekking Socks (per pair)', weight: '0.06kg', quantity: 4 },
+        { item: 'Warm Hat / Beanie', weight: '0.08kg' },
+        { item: 'Warm Gloves', weight: '0.1kg' },
+        { item: 'Trekking Poles', weight: '0.48kg' },
+        { item: 'Headlamp', weight: '0.1kg' },
+        { item: 'Water Bottle (1L)', weight: '0.125kg' },
+        { item: 'Sunglasses (UV Protection)', weight: '0.03kg' },
+        { item: 'Sunscreen + Lip Balm', weight: '0.1kg' },
+        { item: 'Personal First Aid Kit', weight: '0.28kg' },
+        { item: 'Passport, Permits, Cash, Insurance Copy', weight: '0.15kg' },
+      ],
+
+      optional: [
+        { item: 'Sleeping Bag (-15°C comfort)', weight: '1.5kg' },
+        { item: 'Waterproof Rain Pants', weight: '0.22kg' },
+        { item: 'Camp Shoes / Sandals', weight: '0.33kg' },
+        { item: 'Buff / Neck Gaiter', weight: '0.04kg' },
+        { item: 'Water Purification Tablets', weight: '0.07kg' },
+        { item: 'Quick-Dry Towel', weight: '0.12kg' },
+        { item: 'Power Bank', weight: '0.27kg' },
+        { item: 'Charging Cable / Adapter', weight: '0.09kg' },
+        { item: 'Energy Bars / Snacks', weight: '0.45kg', quantity: 3 },
+        { item: 'Microspikes (Spring/Winter)', weight: '0.38kg' },
       ],
     },
   },
