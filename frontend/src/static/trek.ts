@@ -137,6 +137,27 @@ export const TREKS: Trek[] = [
     isPopular: false,
     keywords: ['shey phoksundo trek', 'dolpo trek', 'phoksundo lake trek'],
   },
+  {
+    id: 'tilicho-lake-trek',
+    title: 'Tilicho Lake Trek',
+    region: 'Annapurna Region',
+    description:
+      'A dramatic high-altitude adventure through the arid valleys of Manang to the turquoise waters of Tilicho Lake, combined with the legendary crossing of Thorong La Pass beneath the towering Annapurna massif.',
+    difficulty: 'Challenging',
+    duration: '12-15 Days',
+    altitude: '5,416m',
+    season: 'Mar-May, Sep-Nov',
+    price: 22000,
+    imageUrl: '/images/tilicho/tilicho.webp',
+    isPopular: false,
+    keywords: [
+      'tilicho lake trek',
+      'thorong la pass trek',
+      'annapurna circuit tilicho',
+      'tilicho trek',
+      'manang trek',
+    ],
+  },
 ];
 
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
