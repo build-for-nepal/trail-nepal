@@ -502,9 +502,14 @@ function injectHikerStyles() {
 function createHikerEl(): HTMLElement {
   injectHikerStyles();
 
-  // The wrapper's bottom-center is the map anchor point (exactly on the trail).
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText =
+  // outer: passed to MapLibre — MapLibre owns its `style.transform` for geo-positioning.
+  // inner: we own its `style.transform` for zoom scaling only.
+  // Keeping them separate prevents our scale() from overwriting MapLibre's translate().
+  const outer = document.createElement('div');
+  outer.style.cssText = 'width:32px;height:42px;overflow:visible;pointer-events:none;';
+
+  const inner = document.createElement('div');
+  inner.style.cssText =
     'position:relative;width:32px;height:42px;pointer-events:none;transform-origin:bottom center;';
 
   // Pulsing ring — centered on the anchor point
@@ -566,11 +571,12 @@ function createHikerEl(): HTMLElement {
     </svg>
   `;
 
-  wrapper.appendChild(ring);
-  wrapper.appendChild(shadow);
-  wrapper.appendChild(dot);
-  wrapper.appendChild(figure);
-  return wrapper;
+  inner.appendChild(ring);
+  inner.appendChild(shadow);
+  inner.appendChild(dot);
+  inner.appendChild(figure);
+  outer.appendChild(inner);
+  return outer;
 }
 
 // Returns a scale factor so the hiker appears consistently sized relative to
@@ -600,10 +606,11 @@ export function useHikerMarker(
     if (!map || !mapLoaded) return;
 
     const onZoom = () => {
-      const el = markerRef.current?.getElement();
-      if (!el) return;
+      const outer = markerRef.current?.getElement();
+      const inner = outer?.firstElementChild as HTMLElement | null;
+      if (!inner) return;
       const s = hikerScale(map.getZoom());
-      el.style.transform = `scale(${s})`;
+      inner.style.transform = `scale(${s})`;
     };
 
     map.on('zoom', onZoom);
@@ -632,9 +639,8 @@ export function useHikerMarker(
 
     if (!markerRef.current) {
       const el = createHikerEl();
-      // Apply initial scale
-      const s = hikerScale(map.getZoom());
-      el.style.transform = `scale(${s})`;
+      const inner = el.firstElementChild as HTMLElement | null;
+      if (inner) inner.style.transform = `scale(${hikerScale(map.getZoom())})`;
 
       markerRef.current = new maplibregl.Marker({
         element: el,
