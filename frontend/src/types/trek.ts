@@ -68,6 +68,7 @@ export interface TrekTimelineDay {
   stats?: TrekStat;
   coordinates?: [number, number];
   price?: string;
+  isDestination?: boolean;
 }
 
 export interface TrekImage {
@@ -143,6 +144,7 @@ export interface AccessRoute {
   mode: AccessMode;
   from: { name: string; coordinates: [number, number] }; // [lat, lng]
   to: { name: string; coordinates: [number, number] };
+  continuation?: AccessRoute; // second leg of a multi-leg journey
 }
 
 export interface MonthData {

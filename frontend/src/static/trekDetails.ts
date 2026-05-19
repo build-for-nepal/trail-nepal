@@ -124,43 +124,44 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'EBC elevation is 5,364m, sleeping at Gorak Shep',
         },
         coordinates: [28.0029111, 86.855732],
+        isDestination: true,
         // price: "NPR 6,500",
       },
-      // {
-      //   day: "09",
-      //   title: "Gorak Shep to Kala Patthar & Pheriche",
-      //   description:
-      //     "Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.",
-      //   // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
-      //   stats: {
-      //     elevation: "4,371m",
-      //     duration: "7-8 hours",
-      //     distance: "13km",
-      //     note: "Sleeping elevation",
-      //   },
-      //   coordinates: [27.893, 86.818],
-      //   // price: "NPR 5,000",
-      // },
-      // {
-      //   day: "10",
-      //   title: "Pheriche to Namche Bazaar",
-      //   description:
-      //     "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
-      //   // accommodations: [{ name: "Hotel Namche" }],
-      //   stats: { elevation: "3,440m", duration: "6-7 hours", distance: "14km" },
-      //   coordinates: [27.806, 86.714],
-      //   // price: "NPR 5,500",
-      // },
-      // {
-      //   day: "11",
-      //   title: "Namche Bazaar to Lukla",
-      //   description:
-      //     "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
-      //   // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
-      //   stats: { elevation: "2,860m", duration: "7-8 hours", distance: "18km" },
-      //   coordinates: [27.686, 86.73],
-      //   // price: "NPR 5,000",
-      // },
+      {
+        day: "09",
+        title: "Gorak Shep to Kala Patthar & Pheriche",
+        description:
+          "Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.",
+        // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
+        stats: {
+          elevation: "4,371m",
+          duration: "7-8 hours",
+          distance: "13km",
+          note: "Sleeping elevation",
+        },
+        coordinates: [27.893, 86.818],
+        // price: "NPR 5,000",
+      },
+      {
+        day: "10",
+        title: "Pheriche to Namche Bazaar",
+        description:
+          "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
+        // accommodations: [{ name: "Hotel Namche" }],
+        stats: { elevation: "3,440m", duration: "6-7 hours", distance: "14km" },
+        coordinates: [27.806, 86.714],
+        // price: "NPR 5,500",
+      },
+      {
+        day: "11",
+        title: "Namche Bazaar to Lukla",
+        description:
+          "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
+        // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
+        stats: { elevation: "2,860m", duration: "7-8 hours", distance: "18km" },
+        coordinates: [27.686, 86.73],
+        // price: "NPR 5,000",
+      },
     ],
     expectations: [
       {
@@ -390,7 +391,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       },
       {
         day: '11',
-        title: 'Dharamsala to Bimthang via Larkya La',
+        title: 'Dharamsala to Bimthang via Larkya La Pass',
         description:
           'Cross Larkya La Pass at 5,106m with panoramic Himalayan views before descending to Bimthang.',
         stats: {
@@ -399,6 +400,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: '22km',
         },
         coordinates: [28.6024945, 84.4600261],
+        isDestination: true,
       },
       {
         day: '12',
@@ -416,18 +418,18 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: { elevation: '1,860m', duration: '3-4 hours', distance: '8km' },
         coordinates: [28.5298499, 84.3497295],
       },
-      // {
-      //   day: '14',
-      //   title: 'Drive to Kathmandu',
-      //   description:
-      //     'Return via Besisahar with a long scenic drive back to the capital.',
-      //   stats: {
-      //     elevation: '1,400m',
-      //     duration: '8-10 hours (drive)',
-      //     distance: '-',
-      //   },
-      //   coordinates: [27.717, 85.324],
-      // },
+      {
+        day: '14',
+        title: 'Drive to Kathmandu',
+        description:
+          'Return via Besisahar with a long scenic drive back to the capital.',
+        stats: {
+          elevation: '1,400m',
+          duration: '8-10 hours (drive)',
+          distance: '-',
+        },
+        coordinates: [27.717, 85.324],
+      },
     ],
     expectations: [
       {
@@ -633,7 +635,7 @@ communities utilize local natural resources`,
       },
       {
         day: '05',
-        title: 'Kyanjin Gompa to Kyanjin Ri and back to Kyanjin',
+        title: 'Kyanjin Gompa — Kyanjin Ri Summit',
         description: `Today is the highlight of the trek. You start early for the climb above Kyanjin Gompa toward Kyanjin Ri,
 one of the finest viewpoints in the Langtang region. The trail is steep from the beginning, and the first
 major viewpoint is Lower Kyanjin Ri at around 4,400 m. Even from here, the panorama is already
@@ -648,26 +650,27 @@ viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a rela
 overnight stay`,
         stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
+        isDestination: true,
       },
-      // {
-      //   day: '06',
-      //   title: 'Kyanjin Gompa to Lama Hotel',
-      //   description:
-      //     'After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.',
-      //   stats: { elevation: '2,470m', duration: '6-7 hours' },
-      //   coordinates: [28.1612117, 85.4296495],
-      // },
-      // {
-      //   day: '07',
-      //   title: 'Lama Hotel to Syabrubesi and drive to Kathmandu',
-      //   description:
-      //     'Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.',
-      //   stats: {
-      //     elevation: '1,400m',
-      //     duration: '4-5 hours trek + 7-8 hours drive',
-      //   },
-      //   coordinates: [28.1657291, 85.3418267],
-      // },
+      {
+        day: '06',
+        title: 'Kyanjin Gompa to Lama Hotel',
+        description:
+          'After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.',
+        stats: { elevation: '2,470m', duration: '6-7 hours' },
+        coordinates: [28.1612117, 85.4296495],
+      },
+      {
+        day: '07',
+        title: 'Lama Hotel to Syabrubesi and drive to Kathmandu',
+        description:
+          'Your final day is long but straightforward. You descend from Lama Hotel through the same green riverside trail back to Syabrubesi, enjoying your last suspension bridges, forests, and mountain air. After lunch or a short break in Syabrubesi, you drive back to Kathmandu. This is the most demanding transfer day of the itinerary, so an early start is strongly recommended.',
+        stats: {
+          elevation: '1,400m',
+          duration: '4-5 hours trek + 7-8 hours drive',
+        },
+        coordinates: [28.1657291, 85.3418267],
+      },
     ],
 
     expectations: [
@@ -968,33 +971,34 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Target arrival before noon; clouds typically roll in by 1pm',
         },
         coordinates: [28.5308115, 83.8777275],
+        isDestination: true,
       },
-      // {
-      //   day: "06",
-      //   title: "ABC to Bamboo (Descent)",
-      //   description:
-      //     "Wake before dawn for the alpenglow show — the South Face of Annapurna I lighting up gold is the moment most trekkers come for. After breakfast, retrace your steps down through MBC, Deurali, and Dovan. Knees take a beating on the long stone stairs, so pace yourself. Bamboo's lower, warmer, oxygen-rich air is a noticeable relief after three nights at altitude.",
-      //   stats: {
-      //     elevation: "2,310m",
-      //     duration: "6-7 hours",
-      //     distance: "16km",
-      //     note: "Trekking poles strongly recommended for the descent",
-      //   },
-      //   coordinates: [28.4801, 83.8589],
-      // },
-      // {
-      //   day: "07",
-      //   title: "Bamboo to Jhinu Danda & Drive to Pokhara",
-      //   description:
-      //     "Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.",
-      //   stats: {
-      //     elevation: "1,780m",
-      //     duration: "5-6 hrs trek, 2-3 hrs drive",
-      //     distance: "11km",
-      //     note: "Hot springs entry: NPR 150 per person",
-      //   },
-      //   coordinates: [28.385, 83.8197],
-      // },
+      {
+        day: "06",
+        title: "ABC to Bamboo (Descent)",
+        description:
+          "Wake before dawn for the alpenglow show — the South Face of Annapurna I lighting up gold is the moment most trekkers come for. After breakfast, retrace your steps down through MBC, Deurali, and Dovan. Knees take a beating on the long stone stairs, so pace yourself. Bamboo's lower, warmer, oxygen-rich air is a noticeable relief after three nights at altitude.",
+        stats: {
+          elevation: "2,310m",
+          duration: "6-7 hours",
+          distance: "16km",
+          note: "Trekking poles strongly recommended for the descent",
+        },
+        coordinates: [28.4801, 83.8589],
+      },
+      {
+        day: "07",
+        title: "Bamboo to Jhinu Danda & Drive to Pokhara",
+        description:
+          "Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.",
+        stats: {
+          elevation: "1,780m",
+          duration: "5-6 hrs trek, 2-3 hrs drive",
+          distance: "11km",
+          note: "Hot springs entry: NPR 150 per person",
+        },
+        coordinates: [28.385, 83.8197],
+      },
     ],
     expectations: [
       {
@@ -1182,7 +1186,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: 'Flight + 3-4 hours trek',
           distance: '8km',
         },
-        coordinates: [27.7373, 86.7123],
+        coordinates: [27.73926, 86.71228],
       },
       {
         day: '03',
@@ -1190,7 +1194,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
         description:
           "The day that sorts trekkers out. From Phakding the trail criss-crosses the Dudh Koshi river on a series of high suspension bridges, the Hillary Bridge, at 60 metres above the river, is the most dramatic before entering Sagarmatha National Park at Monjo. After the park checkpoint the trail drops to the riverbed and begins the long, relentless 600m ascent to Namche. There is no shortcut. The zig-zag climbs through pine forest for two hours, and midway up if the clouds cooperate a clearing offers the first glimpse of Everest's south face framed between Lhotse and Nuptse. Namche Bazaar itself, the commercial capital of the Khumbu at 3,440m, arrives as a shock after hours of forest: a horseshoe of lodges, bakeries, gear shops, and cafes carved into a natural amphitheatre. The elevation gain is significant and the legs will know about it.",
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
-        coordinates: [27.805, 86.7106],
+        coordinates: [27.80231, 86.71119],
       },
       {
         day: '04',
@@ -1203,7 +1207,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '6km',
           note: 'Acclimatization Day',
         },
-        coordinates: [27.805, 86.7106],
+        coordinates: [27.80231, 86.71119],
       },
       {
         day: '05',
@@ -1211,7 +1215,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
         description:
           'This is the day the Gokyo trail separates itself from the EBC route and the crowds thin immediately. The trail climbs out of Namche on the main EBC path before branching northwest at Kyanjuma toward Mong La (3,973m), a viewpoint ridge with a sweeping panorama of Ama Dablam, Kantega, and Thamserku. From Mong La the trail drops steeply to the Dudh Koshi at Phortse Tenga (3,680m) before climbing again through rhododendron and birch forest, the forests here are dense enough in October to be genuinely beautiful past summer yak pastures to Dole at 4,200m. Dole is a small, scattered settlement of stone buildings used seasonally by herders. The teahouses are basic but warm, Cho Oyu looms at the head of the valley, and above the treeline the trail ahead is visible all the way to the high ridges. This is where the trek begins to feel genuinely remote.',
         stats: { elevation: '4,200m', duration: '5-6 hours', distance: '10km' },
-        coordinates: [27.865, 86.725],
+        coordinates: [27.86848, 86.74148],
       },
       {
         day: '06',
@@ -1224,7 +1228,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '6.5km',
           note: 'Short day by design — critical acclimatization gain',
         },
-        coordinates: [27.91, 86.711],
+        coordinates: [27.90763, 86.7215],
       },
       {
         day: '07',
@@ -1232,7 +1236,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
         description:
           "The day the valley reveals itself. From Machhermo the trail climbs a final ridge with a last look south toward Kantega and Thamserku, then descends into a wider, flatter valley where the Ngozumpa Glacier Nepal's longest at over 36km comes into full view for the first time. The glacier's surface is not white but grey-brown, covered in a thick layer of rock debris pushed down from the peaks above, and it stretches north as far as the eye can follow. The trail passes through Pangka (4,390m) and skirts the glacier's terminal moraine before crossing the Dudh Koshi river and ascending to the first Gokyo Lake (4,690m) small, jade-green, and partially frozen even in October. The second and third lakes arrive in quick succession. Gokyo village sits on the eastern shore of the third lake, Dudh Pokhari, with Cho Oyu (8,188m) closing the northern horizon and the Ngozumpa Glacier spreading across the valley to the west. The scale of the place, seen all at once from the village edge, stops most trekkers mid-step.",
         stats: { elevation: '4,750m', duration: '4-5 hours', distance: '7km' },
-        coordinates: [27.962, 86.688],
+        coordinates: [27.9603, 86.6839],
       },
       {
         day: '08',
@@ -1245,44 +1249,45 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '10km',
           note: 'Gokyo Ri is the highest point of the trek. Start no later than 5:00am.',
         },
-        coordinates: [27.97, 86.678],
+        coordinates: [27.96154, 86.68313],
+        isDestination: true,
       },
-      // {
-      //   day: '09',
-      //   title: 'Gokyo to Dole',
-      //   description:
-      //     "The long descent back down the valley, retracing the route through the Ngozumpa moraine and past the string of lakes. Going downhill, the views south the full corridor of Khumbu peaks down toward Namche, open up in a way they did not on the ascent. The descent from 4,750m to 4,200m is significant enough to feel in the knees but the extra oxygen at every step is noticeable. Dole's basic teahouses feel almost luxurious after Gokyo's thin air. If energy allows, the section between Machhermo and Dole rewards slower walkers who look carefully, musk deer are occasionally spotted on the slopes above the trail in the late afternoon.",
-      //   stats: { elevation: '4,200m', duration: '5-6 hours', distance: '11km' },
-      //   coordinates: [27.865, 86.725],
-      // },
-      // {
-      //   day: '10',
-      //   title: 'Dole to Namche Bazaar',
-      //   description:
-      //     "A long descent that drops 760m back to Namche and transitions the body from high-altitude alpine terrain back to Khumbu valley life. The trail passes back through Phortse Tenga and climbs briefly to the Mong La ridge before the final descent into Namche, the 'Namche hill' going down is considerably more agreeable than going up. Namche in the evening, after days above it, feels urban: warm meals with real menus, hot showers without a cold-water backup, phone signal without interruption. Your legs will ache. The altitude will feel generous. Buy something from a local shop you have been eyeing since Day 2.",
-      //   stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
-      //   coordinates: [27.805, 86.7106],
-      // },
-      // {
-      //   day: '11',
-      //   title: 'Namche Bazaar to Lukla',
-      //   description:
-      //     'The final trekking day retraces the first two trekking days in reverse descending the Namche hill, crossing the Hillary Bridge, passing through Monjo and Phakding, and climbing the final gentle rise to Lukla. The trail is familiar, the legs are tired, and the views of Ama Dablam and Thamserku from the lower valley are just as good going home as they were on the way up. Arrive in Lukla by early afternoon, storms building over the mountains can delay or cancel the morning flights that follow, so an early arrival and a weather eye on the sky matters. Sort your bag for the flight, confirm departure time with your guide, and let the whole thing sink in over dinner.',
-      //   stats: { elevation: '2,860m', duration: '6-7 hours', distance: '18km' },
-      //   coordinates: [27.6868, 86.7314],
-      // },
-      // {
-      //   day: '12',
-      //   title: 'Fly Lukla to Kathmandu',
-      //   description:
-      //     'The return flight from Lukla is subject to weather, cloud building over the Khumbu by 10am can ground flights for hours, and this is not a schedule you can rush. Most flights depart between 6:00am and 9:00am. The 35-minute flight back over the Solu-Khumbu foothills, descending from mountain air to the smoggy warmth of the Kathmandu valley, is a transition that hits differently after 12 days at altitude. Land at Tribhuvan International (or Manthali if your outbound was from Ramechhap), transfer to your Thamel hotel, eat something you have been craving for a week, and sleep at a reasonable hour. A buffer day in Kathmandu after this flight is strongly recommended for international connections Lukla flight delays are common enough that booking an international departure the same evening as your Lukla-Kathmandu flight is a genuine risk.',
-      //   stats: {
-      //     elevation: '1,400m',
-      //     duration: '35-min flight + transfer',
-      //     distance: '-',
-      //   },
-      //   coordinates: [27.7172, 85.324],
-      // },
+      {
+        day: '09',
+        title: 'Gokyo to Dole',
+        description:
+          "The long descent back down the valley, retracing the route through the Ngozumpa moraine and past the string of lakes. Going downhill, the views south the full corridor of Khumbu peaks down toward Namche, open up in a way they did not on the ascent. The descent from 4,750m to 4,200m is significant enough to feel in the knees but the extra oxygen at every step is noticeable. Dole's basic teahouses feel almost luxurious after Gokyo's thin air. If energy allows, the section between Machhermo and Dole rewards slower walkers who look carefully, musk deer are occasionally spotted on the slopes above the trail in the late afternoon.",
+        stats: { elevation: '4,200m', duration: '5-6 hours', distance: '11km' },
+        coordinates: [27.865, 86.725],
+      },
+      {
+        day: '10',
+        title: 'Dole to Namche Bazaar',
+        description:
+          "A long descent that drops 760m back to Namche and transitions the body from high-altitude alpine terrain back to Khumbu valley life. The trail passes back through Phortse Tenga and climbs briefly to the Mong La ridge before the final descent into Namche, the 'Namche hill' going down is considerably more agreeable than going up. Namche in the evening, after days above it, feels urban: warm meals with real menus, hot showers without a cold-water backup, phone signal without interruption. Your legs will ache. The altitude will feel generous. Buy something from a local shop you have been eyeing since Day 2.",
+        stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
+        coordinates: [27.805, 86.7106],
+      },
+      {
+        day: '11',
+        title: 'Namche Bazaar to Lukla',
+        description:
+          'The final trekking day retraces the first two trekking days in reverse descending the Namche hill, crossing the Hillary Bridge, passing through Monjo and Phakding, and climbing the final gentle rise to Lukla. The trail is familiar, the legs are tired, and the views of Ama Dablam and Thamserku from the lower valley are just as good going home as they were on the way up. Arrive in Lukla by early afternoon, storms building over the mountains can delay or cancel the morning flights that follow, so an early arrival and a weather eye on the sky matters. Sort your bag for the flight, confirm departure time with your guide, and let the whole thing sink in over dinner.',
+        stats: { elevation: '2,860m', duration: '6-7 hours', distance: '18km' },
+        coordinates: [27.6868, 86.7314],
+      },
+      {
+        day: '12',
+        title: 'Fly Lukla to Kathmandu',
+        description:
+          'The return flight from Lukla is subject to weather, cloud building over the Khumbu by 10am can ground flights for hours, and this is not a schedule you can rush. Most flights depart between 6:00am and 9:00am. The 35-minute flight back over the Solu-Khumbu foothills, descending from mountain air to the smoggy warmth of the Kathmandu valley, is a transition that hits differently after 12 days at altitude. Land at Tribhuvan International (or Manthali if your outbound was from Ramechhap), transfer to your Thamel hotel, eat something you have been craving for a week, and sleep at a reasonable hour. A buffer day in Kathmandu after this flight is strongly recommended for international connections Lukla flight delays are common enough that booking an international departure the same evening as your Lukla-Kathmandu flight is a genuine risk.',
+        stats: {
+          elevation: '1,400m',
+          duration: '35-min flight + transfer',
+          distance: '-',
+        },
+        coordinates: [27.7172, 85.324],
+      },
     ],
     expectations: [
       {
@@ -1458,7 +1463,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '3-4 hours',
           distance: '1.5hr drive + trek',
         },
-        coordinates: [28.3285, 83.6732],
+        coordinates: [28.33847, 83.7402],
       },
       {
         day: '02',
@@ -1467,7 +1472,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'The most demanding day of the trek, and arguably the most rewarding. From Tikhedhunga the trail immediately attacks the famous stone staircase climb to Ulleri roughly 3,000 hand-cut stone steps ascending 500m in under two kilometres. Ulleri itself is a beautiful Magar village worth pausing in traditional stone houses, prayer wheels at the village entrance, and the first open views back down the Modi Khola valley. From Ulleri the trail enters the rhododendron forest and stays in it almost continuously through Banthanti (2,250m) and Nangethanti to Ghorepani. The forest above 2,500m is ancient and dense enormous rhododendron trees with gnarled trunks, carpeted in moss, tunnel over the path. In March and April the canopy is in full bloom. Ghorepani sits on a saddle between ridges and has the largest concentration of tea houses on the trek.',
 
         stats: { elevation: '2,860m', duration: '6-7 hours', distance: '11km' },
-        coordinates: [28.3997, 83.7001],
+        coordinates: [28.39854, 83.70101],
       },
       {
         day: '03',
@@ -1480,21 +1485,22 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '14km',
           note: 'Poon Hill summit elevation is 3,210m, sleeping at Tadapani',
         },
-        coordinates: [28.4101, 83.7384],
+        coordinates: [28.40007, 83.68959],
+        isDestination: true,
       },
-      // {
-      //   day: '04',
-      //   title: 'Tadapani to Ghandruk to Nayapul, Drive to Pokhara',
-      //   description:
-      //     'The descent to Ghandruk is steep and involves long stone staircase sections through dense forest, take it slowly on tired legs. Ghandruk is the largest Gurung village in the Annapurna region and one of the most beautifully preserved stone-flagged lanes, traditional slate-roofed houses, a small but excellent Gurung museum, and a community-run conservation project that has made it a model for sustainable tourism in Nepal. Allow an hour to walk through the village before descending further to Kimche, where jeeps and local buses run back to Nayapul and onward to Pokhara.',
-      //   stats: {
-      //     elevation: '820m',
-      //     duration: '5-6 hours',
-      //     distance: '14km + 1.5hr drive',
-      //     note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
-      //   },
-      //   coordinates: [28.3799, 83.7567],
-      // },
+      {
+        day: '04',
+        title: 'Tadapani to Ghandruk to Nayapul, Drive to Pokhara',
+        description:
+          'The descent to Ghandruk is steep and involves long stone staircase sections through dense forest, take it slowly on tired legs. Ghandruk is the largest Gurung village in the Annapurna region and one of the most beautifully preserved stone-flagged lanes, traditional slate-roofed houses, a small but excellent Gurung museum, and a community-run conservation project that has made it a model for sustainable tourism in Nepal. Allow an hour to walk through the village before descending further to Kimche, where jeeps and local buses run back to Nayapul and onward to Pokhara.',
+        stats: {
+          elevation: '820m',
+          duration: '5-6 hours',
+          distance: '14km + 1.5hr drive',
+          note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
+        },
+        coordinates: [28.3799, 83.7567],
+      },
     ],
     expectations: [
       {
@@ -1670,7 +1676,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '3-4 hours',
           distance: '45min drive + trek',
         },
-        coordinates: [28.2671, 83.875],
+        coordinates: [28.3116342, 83.8290576],
       },
       {
         day: '02',
@@ -1678,7 +1684,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
         description:
           "The trail enters dense rhododendron and oak forest almost immediately after Australian Camp, climbing steadily along the Mardi Himal ridge. The canopy is thick in March and April. The path is well-defined but steep in sections. Forest Camp sits in a clearing in the forest with basic but comfortable lodges and the first filtered views of Mardi Himal's upper ridge.",
         stats: { elevation: '2,550m', duration: '5-6 hours', distance: '10km' },
-        coordinates: [28.305, 83.902],
+        coordinates: [28.3644746, 83.8448209],
       },
       {
         day: '03',
@@ -1690,7 +1696,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '7-8km',
         },
-        coordinates: [28.331, 83.918],
+        coordinates: [28.4373957, 83.8728109],
       },
       {
         day: '04',
@@ -1703,28 +1709,29 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '12km',
           note: 'Base Camp elevation is 4,500m, sleeping at Low Camp',
         },
-        coordinates: [28.349, 83.935],
+        coordinates: [28.381536, 83.8427559],
+        isDestination: true,
       },
-      // {
-      //   day: '05',
-      //   title: 'Low Camp to Sidhing Village',
-      //   description:
-      //     'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
-      //   stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
-      //   coordinates: [28.302, 83.885],
-      // },
-      // {
-      //   day: '06',
-      //   title: 'Sidhing to Lwang Ghalel to Pokhara',
-      //   description:
-      //     'A gentle morning walk through terraced farmland and rhododendron forest to Lwang Ghalel, a community homestay village that has become a model for sustainable trekking tourism in the region. The community-run lodges here are excellent — clean, locally managed, and a direct channel for trekking income to the village. From Lwang a jeep or local bus runs back to Pokhara via Phedi.',
-      //   stats: {
-      //     elevation: '820m',
-      //     duration: '3-4 hours',
-      //     distance: '1.5hrs drive',
-      //   },
-      //   coordinates: [28.28, 83.86],
-      // },
+      {
+        day: '05',
+        title: 'Low Camp to Sidhing Village',
+        description:
+          'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
+        stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
+        coordinates: [28.302, 83.885],
+      },
+      {
+        day: '06',
+        title: 'Sidhing to Lwang Ghalel to Pokhara',
+        description:
+          'A gentle morning walk through terraced farmland and rhododendron forest to Lwang Ghalel, a community homestay village that has become a model for sustainable trekking tourism in the region. The community-run lodges here are excellent — clean, locally managed, and a direct channel for trekking income to the village. From Lwang a jeep or local bus runs back to Pokhara via Phedi.',
+        stats: {
+          elevation: '820m',
+          duration: '3-4 hours',
+          distance: '1.5hrs drive',
+        },
+        coordinates: [28.28, 83.86],
+      },
     ],
     expectations: [
       {
@@ -1908,7 +1915,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '35 minute flight + 3-4 hours trek',
           distance: '8km',
         },
-        coordinates: [28.985337, 82.819138],
+        coordinates: [28.979900, 82.819990],
       },
 
       {
@@ -1921,7 +1928,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '15km',
         },
-        coordinates: [29.0857, 82.9412],
+        coordinates: [29.000370, 82.912570],
       },
 
       {
@@ -1934,7 +1941,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '12km',
         },
-        coordinates: [29.1793, 82.9965],
+        coordinates: [29.077870, 82.886150],
       },
 
       {
@@ -1947,7 +1954,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '10km',
         },
-        coordinates: [29.2037, 83.0005],
+        coordinates: [29.141480, 82.910750],
+        isDestination: true,
       },
 
       {
@@ -1961,56 +1969,56 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '4km',
           note: 'Acclimatization + cultural exploration day',
         },
-        coordinates: [29.2037, 83.0005],
+        coordinates: [29.141480, 82.910750],
       },
 
-      // {
-      //   day: '07',
-      //   title: 'Ringmo to Chhepka',
-      //   description:
-      //     'Begin descending from the alpine lake zone back toward the greener lower valley. Descending allows you to experience the changing landscape from a different perspective, with forested sections, waterfalls, and river gorges becoming more prominent again. The return journey also offers more opportunities to observe local trade movement and everyday life along the trail.',
-      //   stats: {
-      //     elevation: '2,670m',
-      //     duration: '6-7 hours',
-      //   },
-      //   coordinates: [29.0857, 82.9412],
-      // },
+      {
+        day: '07',
+        title: 'Ringmo to Chhepka',
+        description:
+          'Begin descending from the alpine lake zone back toward the greener lower valley. Descending allows you to experience the changing landscape from a different perspective, with forested sections, waterfalls, and river gorges becoming more prominent again. The return journey also offers more opportunities to observe local trade movement and everyday life along the trail.',
+        stats: {
+          elevation: '2,670m',
+          duration: '6-7 hours',
+        },
+        coordinates: [29.0857, 82.9412],
+      },
 
-      // {
-      //   day: '08',
-      //   title: 'Chhepka to Juphal',
-      //   description:
-      //     'Continue descending through forests and riverside trails toward Juphal. The final trekking day feels quieter and more reflective as the journey gradually reconnects with small agricultural settlements and cultivated terraces near the airstrip region.',
-      //   stats: {
-      //     elevation: '2,475m',
-      //     duration: '6-7 hours',
-      //   },
-      //   coordinates: [28.985337, 82.819138],
-      // },
+      {
+        day: '08',
+        title: 'Chhepka to Juphal',
+        description:
+          'Continue descending through forests and riverside trails toward Juphal. The final trekking day feels quieter and more reflective as the journey gradually reconnects with small agricultural settlements and cultivated terraces near the airstrip region.',
+        stats: {
+          elevation: '2,475m',
+          duration: '6-7 hours',
+        },
+        coordinates: [28.985337, 82.819138],
+      },
 
-      // {
-      //   day: '09',
-      //   title: 'Juphal to Nepalgunj',
-      //   description:
-      //     'Take an early morning flight back to Nepalgunj. Flights in western Nepal are weather dependent, so delays are common, especially during unstable mountain conditions. Many trekkers choose to keep an extra buffer day after Dolpo trips because flight schedules can change unexpectedly.',
-      //   stats: {
-      //     elevation: '150m',
-      //     duration: '35 minute flight',
-      //   },
-      //   coordinates: [28.05, 81.616667],
-      // },
+      {
+        day: '09',
+        title: 'Juphal to Nepalgunj',
+        description:
+          'Take an early morning flight back to Nepalgunj. Flights in western Nepal are weather dependent, so delays are common, especially during unstable mountain conditions. Many trekkers choose to keep an extra buffer day after Dolpo trips because flight schedules can change unexpectedly.',
+        stats: {
+          elevation: '150m',
+          duration: '35 minute flight',
+        },
+        coordinates: [28.05, 81.616667],
+      },
 
-      // {
-      //   day: '10',
-      //   title: 'Nepalgunj to Kathmandu',
-      //   description:
-      //     'Fly or travel back to Kathmandu, concluding one of Nepal’s most remote and culturally distinctive trekking journeys.',
-      //   stats: {
-      //     elevation: '1,400m',
-      //     duration: '1 hour flight',
-      //   },
-      //   coordinates: [27.717245, 85.323961],
-      // },
+      {
+        day: '10',
+        title: 'Nepalgunj to Kathmandu',
+        description:
+          'Fly or travel back to Kathmandu, concluding one of Nepal’s most remote and culturally distinctive trekking journeys.',
+        stats: {
+          elevation: '1,400m',
+          duration: '1 hour flight',
+        },
+        coordinates: [27.717245, 85.323961],
+      },
     ],
 
     expectations: [

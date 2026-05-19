@@ -18,6 +18,7 @@ import {
   useMapInit,
   useTrailData,
   useTrekMarkers,
+  useTrailEndFlag,
   useHikerMarker,
   useAccessRoute,
 } from '@/hooks/useMapFeatures';
@@ -67,6 +68,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
 
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline);
+  useTrailEndFlag(map, mapLoaded, data);
   useAccessRoute(map, mapLoaded, accessRoute);
 
   // Load elevation profile for the current trek
