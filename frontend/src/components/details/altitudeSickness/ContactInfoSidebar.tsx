@@ -167,8 +167,42 @@ const ContactInfoSidebar = ({
                 : 'max-h-67.5 overflow-hidden',
             )}
           >
-            {/* Helicopter Rescue */}
+            {/* Specialist Hospitals */}
             <p className="text-[9px] font-bold tracking-widest uppercase text-gray-500 mb-2">
+              Specialist Hospitals
+            </p>
+            <div className="flex flex-col gap-2.5">
+              {contactHospitalsData.map((h) => (
+                <div key={h.name} className="flex flex-col gap-2">
+                  <div className="flex items-center gap-6 justify-between">
+                    <span className="text-[12px] text-[#2D2F27] shrink-0">
+                      {h.name}
+                    </span>
+                    <span
+                      className={cn(
+                        'text-[11px] text-[#376BB6] font-medium',
+                        'flex flex-wrap justify-end gap-x-1',
+                      )}
+                    >
+                      {h.phone
+                        .split(',')
+                        .map((ph) => ph.trim())
+                        .filter(Boolean)
+                        .map((ph, idx, arr) => (
+                          <span key={idx} className="whitespace-nowrap">
+                            {ph}
+                            {idx < arr.length - 1 ? ',' : ''}
+                          </span>
+                        ))}
+                    </span>
+                  </div>
+                  <div className="h-[0.5px] w-full bg-gray-200" />
+                </div>
+              ))}
+            </div>
+
+            {/* Helicopter Rescue */}
+            <p className="text-[9px] font-bold tracking-widest uppercase text-gray-500 mb-2 mt-4">
               Helicopter Rescue
             </p>
             <div className="flex flex-col gap-3 mb-4">
@@ -193,26 +227,6 @@ const ContactInfoSidebar = ({
                         {c.address}
                       </span>
                     )}
-                  </div>
-                  <div className="h-[0.5px] w-full bg-gray-200" />
-                </div>
-              ))}
-            </div>
-
-            {/* Specialist Hospitals */}
-            <p className="text-[9px] font-bold tracking-widest uppercase text-gray-500 mb-2">
-              Specialist Hospitals
-            </p>
-            <div className="flex flex-col gap-2.5">
-              {contactHospitalsData.map((h) => (
-                <div key={h.name} className="flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[12px] text-[#2D2F27] flex-1">
-                      {h.name}
-                    </span>
-                    <span className="text-[11px] text-[#376BB6] font-medium w-fit">
-                      {h.phone}
-                    </span>
                   </div>
                   <div className="h-[0.5px] w-full bg-gray-200" />
                 </div>
