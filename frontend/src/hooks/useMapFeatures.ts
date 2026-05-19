@@ -506,29 +506,29 @@ function createHikerEl(): HTMLElement {
   // inner: we own its `style.transform` for zoom scaling only.
   // Keeping them separate prevents our scale() from overwriting MapLibre's translate().
   const outer = document.createElement('div');
-  outer.style.cssText = 'width:32px;height:42px;overflow:visible;pointer-events:none;';
+  outer.style.cssText = 'width:48px;height:64px;overflow:visible;pointer-events:none;';
 
   const inner = document.createElement('div');
   inner.style.cssText =
-    'position:relative;width:32px;height:42px;pointer-events:none;transform-origin:bottom center;';
+    'position:relative;width:48px;height:64px;pointer-events:none;transform-origin:bottom center;';
 
   // Pulsing ring — centered on the anchor point
   const ring = document.createElement('div');
   ring.className = 'hiker-ring-anim';
   ring.style.cssText = `
     position:absolute;bottom:0;left:50%;
-    width:12px;height:12px;border-radius:50%;
+    width:20px;height:20px;border-radius:50%;
     background:#8dc63f;opacity:0.7;
   `;
 
   // Solid anchor dot — sits exactly on the trail coordinate
   const dot = document.createElement('div');
   dot.style.cssText = `
-    position:absolute;bottom:-3px;left:50%;
+    position:absolute;bottom:-5px;left:50%;
     transform:translateX(-50%);
-    width:6px;height:6px;border-radius:50%;
-    background:#5a8f20;border:1.5px solid white;
-    box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    width:12px;height:12px;border-radius:50%;
+    background:#5a8f20;border:2px solid white;
+    box-shadow:0 1px 4px rgba(0,0,0,0.5);
     z-index:2;
   `;
 
@@ -536,22 +536,22 @@ function createHikerEl(): HTMLElement {
   const shadow = document.createElement('div');
   shadow.className = 'hiker-shadow-anim';
   shadow.style.cssText = `
-    position:absolute;bottom:4px;left:50%;
-    width:13px;height:4px;border-radius:50%;
+    position:absolute;bottom:6px;left:50%;
+    width:22px;height:6px;border-radius:50%;
     background:rgba(0,0,0,0.2);
   `;
 
-  // Hiker figure — smaller: 22×30 display size
+  // Hiker figure — 36×48 display size
   const figure = document.createElement('div');
   figure.className = 'hiker-figure hiker-body';
   figure.style.cssText = `
-    position:absolute;bottom:7px;left:50%;
+    position:absolute;bottom:11px;left:50%;
     transform:translateX(-50%);
     filter:drop-shadow(0 1px 4px rgba(0,0,0,0.4));
     transform-origin:bottom center;
   `;
   figure.innerHTML = `
-    <svg width="22" height="30" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="36" height="48" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="15" cy="5" r="4.5" fill="#f5c07a" stroke="#c8862a" stroke-width="0.8"/>
       <ellipse cx="15" cy="2.5" rx="6" ry="1.8" fill="#5a8f20"/>
       <rect x="11" y="0.5" width="8" height="3.5" rx="1.5" fill="#6fb12e"/>
