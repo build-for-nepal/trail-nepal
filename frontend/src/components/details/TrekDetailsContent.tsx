@@ -10,7 +10,7 @@ import TreksHero from '@/components/details/TreksHero';
 import Footer from '@/components/layout/footer/Footer';
 import TrialUpdate from '@/components/details/TrialUpdate';
 import TreksAltitudeSickness from '@/components/details/altitudeSickness/TreksAltitudeSickness';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import SubNav from 'src/components/layout/navigation/SubNav';
 
 type Props = {
@@ -18,14 +18,51 @@ type Props = {
 };
 
 const TrekDetailsContent = ({ trekId }: Props) => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [showSubNav, setShowSubNav] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!heroRef.current) return;
+
+      const hero = heroRef.current;
+      const rect = hero.getBoundingClientRect();
+
+      // Trigger when user scrolls past middle of hero
+      const triggerPoint = rect.height / 4;
+
+      setShowSubNav(-rect.top >= triggerPoint);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="w-full flex flex-col bg-(--color-surface-page)">
       <TreksHeader trekId={trekId} />
+
       <div className="relative">
-        <div className="sticky top-0 z-[999]">
+        {/* Animated Sticky Subnav */}
+        <div
+          className={`fixed top-0 left-0 w-full z-[999] transform transition-all duration-500 ease-out ${
+            showSubNav
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-full opacity-0 pointer-events-none'
+          }`}
+        >
           <SubNav />
         </div>
-        <TreksHero trekId={trekId} />
+
+        {/* Hero Section */}
+        <div ref={heroRef}>
+          <TreksHero trekId={trekId} />
+        </div>
 
         <Suspense fallback={null}>
           <TrekTimeline trekId={trekId} />
@@ -38,6 +75,7 @@ const TrekDetailsContent = ({ trekId }: Props) => {
         {/* <TrialUpdate trekId={trekId} /> */}
         <GearCheckList trekId={trekId} />
       </div>
+
       <Footer />
     </div>
   );

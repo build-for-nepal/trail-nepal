@@ -5,10 +5,23 @@ import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 import { SearchBarInner } from '@/components/search/SearchBarInner';
 import { SearchBar } from '@/components/search/SearchBar';
+import { usePathname } from 'next/navigation';
+import { cn } from 'src/lib/utils';
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  // Disable fixed navbar on dynamic trek detail pages
+  const isTrekDetailPage = pathname.startsWith('/treks/');
+
+  const isFixed = !isTrekDetailPage;
   return (
-    <header className="z-50 bg-black/20 backdrop-blur-md w-full absolute top-0">
+    <header
+      className={cn(
+        `z-50 bg-black/20 backdrop-blur-md w-full absolute top-0`,
+        isFixed && 'fixed',
+      )}
+    >
       <div className="page-wrapper flex items-center justify-between py-6">
         <Link
           href="/"
