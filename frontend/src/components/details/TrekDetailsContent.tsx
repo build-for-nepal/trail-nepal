@@ -11,6 +11,7 @@ import Footer from '@/components/layout/footer/Footer';
 import TrialUpdate from '@/components/details/TrialUpdate';
 import TreksAltitudeSickness from '@/components/details/altitudeSickness/TreksAltitudeSickness';
 import { Suspense } from 'react';
+import SubNav from 'src/components/layout/navigation/SubNav';
 
 type Props = {
   trekId: string;
@@ -20,18 +21,23 @@ const TrekDetailsContent = ({ trekId }: Props) => {
   return (
     <div className="w-full flex flex-col bg-(--color-surface-page)">
       <TreksHeader trekId={trekId} />
-      <TreksHero trekId={trekId} />
+      <div className="relative">
+        <div className="sticky top-0 z-[999]">
+          <SubNav />
+        </div>
+        <TreksHero trekId={trekId} />
 
-      <Suspense fallback={null}>
-        <TrekTimeline trekId={trekId} />
-      </Suspense>
+        <Suspense fallback={null}>
+          <TrekTimeline trekId={trekId} />
+        </Suspense>
 
-      <TreksSeason trekId={trekId} />
-      <TreksExpect trekId={trekId} />
-      <TreksAltitudeSickness trekId={trekId} />
-      <Gallery trekId={trekId} />
-      {/* <TrialUpdate trekId={trekId} /> */}
-      <GearCheckList trekId={trekId} />
+        <TreksSeason trekId={trekId} />
+        <TreksExpect trekId={trekId} />
+        <TreksAltitudeSickness trekId={trekId} />
+        <Gallery trekId={trekId} />
+        {/* <TrialUpdate trekId={trekId} /> */}
+        <GearCheckList trekId={trekId} />
+      </div>
       <Footer />
     </div>
   );

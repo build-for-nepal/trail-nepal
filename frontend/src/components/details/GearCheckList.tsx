@@ -313,6 +313,7 @@ const GearCheckList = ({ trekId }: Props) => {
       <SectionHeader
         title="Gear Checklist"
         description="Make sure you have everything you need"
+        id="gearchecklist"
       />
 
       <div className={cn('flex flex-col items-center gap-1.5')}>

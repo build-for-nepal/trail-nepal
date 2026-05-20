@@ -2,6 +2,7 @@ import { Calendar, Activity, Clock, MapPin, Mountain } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { Props } from '@/types/trek';
+import SubNav from 'src/components/layout/navigation/SubNav';
 
 const TreksHero = ({ trekId }: Props) => {
   const data = TREK_DETAILS[trekId];
@@ -103,6 +104,7 @@ const TreksHero = ({ trekId }: Props) => {
         <SectionHeader
           title="Trek Overview"
           description="Everything you need to know about the journey"
+          id="overview"
         />
         <div className="space-y-6 text-gray-700 leading-relaxed md:text-lg">
           <p>{overview}</p>
