@@ -36,6 +36,16 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
     from: { name: 'Pokhara', coordinates: [28.2096, 83.9856] },
     to: { name: 'Kande', coordinates: [28.2923576, 83.8240497] },
   },
+  'tilicho-lake-trek': {
+    mode: 'jeep',
+    from: { name: 'Kathmandu', coordinates: [27.7172, 85.324] },
+    to: { name: 'Besisahar', coordinates: [28.2342, 84.3773] },
+    continuation: {
+      mode: 'jeep',
+      from: { name: 'Besisahar', coordinates: [28.2342, 84.3773] },
+      to: { name: 'Chame', coordinates: [28.550480, 84.242360] },
+    },
+  },
   'shey-phoksundo': {
     mode: 'flight',
     from: { name: 'Kathmandu', coordinates: [27.6966, 85.3591] },
