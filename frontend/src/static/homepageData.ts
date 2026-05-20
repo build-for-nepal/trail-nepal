@@ -103,7 +103,7 @@ const manasluTrek = POPULAR_TREKS.find((t) => t.id === 'manaslu-circuit')!;
 export const TREK_INFO: TrekInfoData = {
   title: manasluTrek.title,
   description: manasluTrek.description ?? '',
-  exploreHref: `/treks/${manasluTrek.id}`, // FIX: dynamically generate href
+  exploreHref: `/explore/${manasluTrek.id}`,
   tier: 'budget',
 };
 export const FOOTER_COLLABORATORS: Collaborator[] = [

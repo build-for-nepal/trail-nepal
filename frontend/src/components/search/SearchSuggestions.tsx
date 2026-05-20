@@ -25,7 +25,7 @@ export function SearchSuggestions({
   const router = useRouter();
 
   function handleSelect(trekId: string) {
-    router.push(`/treks/${trekId}`);
+    router.push(`/explore/${trekId}`);
     onSelect();
   }
 

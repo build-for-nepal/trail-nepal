@@ -32,7 +32,7 @@ const PopularTrekSection = () => {
 
         <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-15">
           {POPULAR_TREKS.map((trek) => (
-            <TrekCard key={trek.id} {...trek} href={`/treks/${trek.id}`} />
+            <TrekCard key={trek.id} {...trek} href={`/explore/${trek.id}`} />
           ))}
         </div>
 

@@ -91,7 +91,7 @@ const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
       >
         {loopedTreks.map((trek, i) => (
           <div key={`${trek.id}-${i}`} className="shrink-0 w-[304px]">
-            <TrekCard {...trek} href={`/treks/${trek.id}`} />
+            <TrekCard {...trek} href={`/explore/${trek.id}`} />
           </div>
         ))}
       </div>

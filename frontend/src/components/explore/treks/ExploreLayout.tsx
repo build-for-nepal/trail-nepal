@@ -76,7 +76,7 @@ export default function ExploreLayout() {
                 <TrekCard
                   key={trek.id}
                   {...trek}
-                  href={`/treks/${trek.id}`} // Dynamically inject the correct URL here
+                  href={`/explore/${trek.id}`}
                 />
               ))
             ) : (
