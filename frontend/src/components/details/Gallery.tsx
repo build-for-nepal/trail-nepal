@@ -55,6 +55,7 @@ export const Gallery = ({ trekId }: Props) => {
         <SectionHeader
           title="Gallery"
           description="Memories made during adventure"
+          id="gallery"
         />
       </div>
 

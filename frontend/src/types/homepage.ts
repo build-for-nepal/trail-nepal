@@ -59,6 +59,7 @@ export interface SectionHeaderProps {
   title: string;
   description: string;
   light?: boolean;
+  id?: string;
 }
 // export interface Trek {
 //   id: string;

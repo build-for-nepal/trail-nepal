@@ -307,7 +307,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       {/* ── Scroll-triggered banner ── */}
       <div
         className={cn(
-          'overflow-hidden sticky top-[84px] z-40 h-20 transition-all duration-500 ease-in-out',
+          'overflow-hidden sticky top-[48px] z-40 h-20 transition-all duration-500 ease-in-out',
           bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
@@ -341,6 +341,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
         <SectionHeader
           title="Trek Timeline"
           description="Day-by-day breakdown of your journey"
+          id="timeline"
         />
 
         <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">

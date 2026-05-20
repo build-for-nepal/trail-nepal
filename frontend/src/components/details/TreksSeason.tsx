@@ -79,6 +79,7 @@ const TreksSeason = ({ trekId }: Props) => {
         <SectionHeader
           title="When Should I go?"
           description={`Climbing windows and weather for ${data.name.split(' (')[0]}`}
+          id="calendar"
         />
 
         <div className="flex flex-col gap-8">

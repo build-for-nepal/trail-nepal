@@ -179,6 +179,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
           <SectionHeader
             title="Altitude & Safety"
             description="Comprehensive health guidance and immediate response tools for the high altitude trekker."
+            id="altitude"
           />
 
           <div className="flex flex-col md:flex-row gap-5 items-stretch">

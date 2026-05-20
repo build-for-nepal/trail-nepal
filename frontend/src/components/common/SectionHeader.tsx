@@ -4,9 +4,13 @@ const SectionHeader = ({
   title,
   description,
   light = false,
+  id,
 }: SectionHeaderProps) => {
   return (
-    <div className="flex flex-col items-center gap-4 w-full text-center">
+    <div
+      className="flex flex-col items-center gap-4 w-full text-center"
+      id={id}
+    >
       <h2
         className={`text-[40px] font-normal leading-8 ${light ? 'text-white' : 'text-black'}`}
         style={{ fontFamily: "'Oldenburg', serif" }}
