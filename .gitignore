@@ -41,15 +41,16 @@ frontend/.vscode/*
 .DS_Store
 Thumbs.db
 
-# Pre-compression image backups (created by frontend/scripts/compress-images.mjs)
-frontend/public/images/_originals/
-frontend/public/images/**/_originals/
+# Pre-compression image backups
+frontend/public/images/originals/
+frontend/public/images/**/originals/
 
 # Local Claude Code project config
 .claude/
 
-# Local-only image compression script
+# Local-only image compression scripts
 frontend/scripts/compress-images.mjs
+frontend/scripts/compress_images.js
 
 # Local data/dev scripts (not for production)
 count-coords.js
