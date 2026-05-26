@@ -26,7 +26,8 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // ],
         stats: { elevation: '2,610m', duration: '3-4 hours', distance: '8km' },
         coordinates: [27.737, 86.712],
-        // price: "NPR 4,500",
+        price:
+          'NPR 14,500 (Flight: 12,000, Accommodation: 1,000, Meals: 1,500)',
       },
       {
         day: '02',
@@ -37,7 +38,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
 
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
         coordinates: [27.805068, 86.7105936],
-        // price: "NPR 5,500",
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
       {
         day: '03',
@@ -52,7 +53,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'Acclimatization Indicated',
         },
         coordinates: [27.805068, 86.7105936],
-        // price: "NPR 6,000",
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '04',
@@ -65,7 +66,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // ],
         stats: { elevation: '3,860m', duration: '5-6 hours', distance: '10km' },
         coordinates: [27.8352264, 86.7641614],
-        // price: "NPR 5,000",
+        price: 'NPR 3,350 (Accommodation: 1,000, Meals: 2,350)',
       },
       {
         day: '05',
@@ -78,7 +79,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // ],
         stats: { elevation: '4,410m', duration: '5-6 hours', distance: '11km' },
         coordinates: [27.8873288, 86.8259632],
-        // price: "NPR 5,500",
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '06',
@@ -93,7 +94,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'Acclimatization Indicated',
         },
         coordinates: [27.8873288, 86.8259632],
-        // price: "NPR 5,500",
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '07',
@@ -106,7 +107,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // ],
         stats: { elevation: '4,940m', duration: '5-6 hours', distance: '8km' },
         coordinates: [27.9477818, 86.8105368],
-        // price: "NPR 6,000",
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '08',
@@ -125,7 +126,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         },
         coordinates: [28.0029111, 86.855732],
         isDestination: true,
-        // price: "NPR 6,500",
+        price: 'NPR 5,500 (Accommodation: 1,000, Meals: 4,500)',
       },
       {
         day: '09',
@@ -140,7 +141,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'Sleeping elevation',
         },
         coordinates: [27.893, 86.818],
-        // price: "NPR 5,000",
+        price: 'NPR 4,500 (Accommodation: 1,000, Meals: 3,500)',
       },
       {
         day: '10',
@@ -150,7 +151,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // accommodations: [{ name: "Hotel Namche" }],
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '14km' },
         coordinates: [27.806, 86.714],
-        // price: "NPR 5,500",
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '11',
@@ -160,7 +161,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
         stats: { elevation: '2,860m', duration: '7-8 hours', distance: '18km' },
         coordinates: [27.686, 86.73],
-        // price: "NPR 5,000",
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
     ],
     expectations: [
@@ -924,6 +925,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '5km',
         },
         coordinates: [28.4200417, 83.8176077],
+        price: 'NPR 4,300 (Transport: 2,000, Accommodation: 800, Meals: 1,500)',
       },
       {
         day: '02',
@@ -932,6 +934,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'Descend the long stone staircase to the Chhomrong Khola, cross the suspension bridge, and grind back up to Sinuwa (2,360m) on the opposite ridge. The trail then levels out and contours through Bamboo (2,310m) — a popular alternate stop — before plunging into damp, mossy forests of bamboo, oak, and rhododendron all the way to the small clearing at Dovan.',
         stats: { elevation: '2,600m', duration: '5-6 hours', distance: '9km' },
         coordinates: [28.4697078, 83.8694284],
+        price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
       },
       {
         day: '03',
@@ -945,6 +948,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Sleeping elevation gain limited to ~600m for safer acclimatization',
         },
         coordinates: [28.4933, 83.893],
+        price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
       },
       {
         day: '04',
@@ -958,6 +962,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Hydrate aggressively; symptoms of mild AMS often appear here',
         },
         coordinates: [28.5132035, 83.9060408],
+        price: 'NPR 2,400 (Accommodation: 800, Meals: 1,600)',
       },
       {
         day: '05',
@@ -971,6 +976,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Target arrival before noon; clouds typically roll in by 1pm',
         },
         coordinates: [28.5308115, 83.8777275],
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
         isDestination: true,
       },
       {
@@ -985,6 +991,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Trekking poles strongly recommended for the descent',
         },
         coordinates: [28.4801, 83.8589],
+        price: 'NPR 2,600 (Accommodation: 800, Meals: 1,800)',
       },
       {
         day: '07',
@@ -998,6 +1005,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Hot springs entry: NPR 150 per person',
         },
         coordinates: [28.385, 83.8197],
+        price: 'NPR 3,000 (Transport: 2000, Meals: 1,000)',
       },
     ],
     expectations: [
@@ -1464,6 +1472,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '1.5hr drive + trek',
         },
         coordinates: [28.33847, 83.7402],
+        price: 'NPR 3,500 (Transport: 1000, Accommodation: 500, Meals: 2,000)',
       },
       {
         day: '02',
@@ -1473,6 +1482,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
 
         stats: { elevation: '2,860m', duration: '6-7 hours', distance: '11km' },
         coordinates: [28.39854, 83.70101],
+        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
       },
       {
         day: '03',
@@ -1486,6 +1496,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Poon Hill summit elevation is 3,210m, sleeping at Tadapani',
         },
         coordinates: [28.40007, 83.68959],
+        price: 'NPR 2,000 (Accommodation: 800, Meals: 1,200)',
         isDestination: true,
       },
       {
@@ -1500,6 +1511,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
         },
         coordinates: [28.3799, 83.7567],
+        price:
+          'NPR 4,500 (Transport: 1,000, Accommodation: 1,500, Meals: 2,000)',
       },
     ],
     expectations: [
@@ -1677,6 +1690,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '45min drive + trek',
         },
         coordinates: [28.3116342, 83.8290576],
+        price: 'NPR 2,500 (Transport: 1000, Accommodation: 500, Meals: 1,000)',
       },
       {
         day: '02',
@@ -1685,6 +1699,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           "The trail enters dense rhododendron and oak forest almost immediately after Australian Camp, climbing steadily along the Mardi Himal ridge. The canopy is thick in March and April. The path is well-defined but steep in sections. Forest Camp sits in a clearing in the forest with basic but comfortable lodges and the first filtered views of Mardi Himal's upper ridge.",
         stats: { elevation: '2,550m', duration: '5-6 hours', distance: '10km' },
         coordinates: [28.3644746, 83.8448209],
+        price: 'NPR 1,700 (Accommodation: 500, Meals: 1,200)',
       },
       {
         day: '03',
@@ -1697,6 +1712,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '7-8km',
         },
         coordinates: [28.4373957, 83.8728109],
+        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
       },
       {
         day: '04',
@@ -1710,6 +1726,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Base Camp elevation is 4,500m, sleeping at Low Camp',
         },
         coordinates: [28.381536, 83.8427559],
+        price: 'NPR 2,600 (Accommodation: 600, Meals: 2,000)',
         isDestination: true,
       },
       {
@@ -1719,6 +1736,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
         stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
         coordinates: [28.302, 83.885],
+        price: 'NPR 1,500 (Accommodation: 500, Meals: 1,000)',
       },
       {
         day: '06',
@@ -1731,6 +1749,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '1.5hrs drive',
         },
         coordinates: [28.28, 83.86],
+        price: 'NPR 2,500 (Transport: 1500, Meals: 1,000)',
       },
     ],
     expectations: [
@@ -1903,6 +1922,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '370km (air)',
         },
         coordinates: [28.05, 81.616667],
+        price: 'NPR 11,800 (Flight: 10,000, Accommodation: 800, Meals: 1,000)',
       },
 
       {
@@ -1916,6 +1936,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '8km',
         },
         coordinates: [28.9799, 82.81999],
+        price: 'NPR 11,500 (Flight: 10,000, Accommodation: 500, Meals: 1,000)',
       },
 
       {
@@ -1929,6 +1950,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '15km',
         },
         coordinates: [29.00037, 82.91257],
+        price: 'NPR 1,700 (Accommodation: 500, Meals: 1,200)',
       },
 
       {
@@ -1942,6 +1964,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '12km',
         },
         coordinates: [29.07787, 82.88615],
+        price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
       },
 
       {
@@ -1955,6 +1978,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '10km',
         },
         coordinates: [29.14148, 82.91075],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
         isDestination: true,
       },
 
@@ -1970,6 +1994,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Acclimatization + cultural exploration day',
         },
         coordinates: [29.14148, 82.91075],
+        price: 'NPR 3,000 (Accommodation: 800, Meals: 2,200)',
       },
 
       {
@@ -1982,6 +2007,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '6-7 hours',
         },
         coordinates: [29.0857, 82.9412],
+        price: 'NPR 1,800 (Accommodation: 600, Meals: 1,200)',
       },
 
       {
@@ -1994,6 +2020,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '6-7 hours',
         },
         coordinates: [28.985337, 82.819138],
+        price: 'NPR 2,000 (Accommodation: 600, Meals: 1,400)',
       },
 
       {
@@ -2006,6 +2033,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '35 minute flight',
         },
         coordinates: [28.05, 81.616667],
+        price:
+          'NPR 12,000 (Flight: 10,000, Accommodation: 1,000, Meals: 1,000)',
       },
 
       {
@@ -2018,6 +2047,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '1 hour flight',
         },
         coordinates: [27.717245, 85.323961],
+        price: 'NPR 11,000 (Flight: 10,000, Meals: 1,000)',
       },
     ],
 
@@ -2233,7 +2263,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '7-8 hrs drive',
           distance: '65km',
         },
-        coordinates: [28.550480, 84.242360],
+        coordinates: [28.55048, 84.24236],
       },
 
       {
@@ -2246,7 +2276,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '13km',
         },
-        coordinates: [28.633940, 84.110010],
+        coordinates: [28.63394, 84.11001],
       },
 
       {
@@ -2259,7 +2289,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '6-7 hours',
           distance: '17km',
         },
-        coordinates: [28.666680, 84.019750],
+        coordinates: [28.66668, 84.01975],
       },
 
       {
@@ -2273,7 +2303,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: 'Optional side hikes',
           note: 'Critical altitude adaptation day',
         },
-        coordinates: [28.666680, 84.019750],
+        coordinates: [28.66668, 84.01975],
       },
 
       {
@@ -2286,7 +2316,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '4-5 hours',
           distance: '10km',
         },
-        coordinates: [28.668400, 83.976980],
+        coordinates: [28.6684, 83.97698],
       },
 
       {
@@ -2300,7 +2330,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '8km',
           note: 'Start early to avoid strong afternoon winds',
         },
-        coordinates: [28.678420, 83.958350],
+        coordinates: [28.67842, 83.95835],
       },
 
       {
@@ -2314,7 +2344,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '10km',
           note: 'Sub-zero temperatures common before sunrise',
         },
-        coordinates: [28.684710, 83.865790],
+        coordinates: [28.68471, 83.86579],
         isDestination: true,
       },
 
@@ -2328,7 +2358,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '6-7 hours',
           distance: '18km',
         },
-        coordinates: [28.666680, 84.019750],
+        coordinates: [28.66668, 84.01975],
       },
 
       {
@@ -2341,7 +2371,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '5-6 hours',
           distance: '17km',
         },
-        coordinates: [28.633940, 84.110010],
+        coordinates: [28.63394, 84.11001],
       },
 
       {
@@ -2354,7 +2384,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           duration: '4-5 hrs trek + 7-8 hrs drive',
           distance: '240km',
         },
-        coordinates: [28.550480, 84.242360],
+        coordinates: [28.55048, 84.24236],
       },
     ],
 
@@ -2382,27 +2412,93 @@ view over Kyanjin Village and the upper Langtang Valley`,
     ],
 
     seasonalPlanning: [
-      { month: 'Jan', condition: 'Heavy snow above 3,000m / Route often closed' },
-      { month: 'Feb', condition: 'Significant snow / Experienced trekkers only, very cold' },
-      { month: 'Mar', condition: 'Snow clearing, cold mornings / Excellent views, popular' },
-      { month: 'Apr', condition: 'Mild temperatures, clear skies / Ideal conditions, busy' },
-      { month: 'May', condition: 'Warm, pre-monsoon haze / Good trekking, afternoon clouds' },
-      { month: 'Jun', condition: 'Monsoon begins / Not recommended for high altitude' },
-      { month: 'Jul', condition: 'Heavy rains / Trails slippery, not recommended' },
-      { month: 'Aug', condition: 'Monsoon continues / High risk of landslides' },
-      { month: 'Sep', condition: 'Monsoon ends / Excellent post-monsoon conditions' },
-      { month: 'Oct', condition: 'Stable weather, crisp air / Peak season, crowded' },
-      { month: 'Nov', condition: 'Cooler, clear skies / Great views, cold nights' },
-      { month: 'Dec', condition: 'Cold, increasing snow / High passes may close' },
+      {
+        month: 'Jan',
+        condition: 'Heavy snow above 3,000m / Route often closed',
+      },
+      {
+        month: 'Feb',
+        condition: 'Significant snow / Experienced trekkers only, very cold',
+      },
+      {
+        month: 'Mar',
+        condition: 'Snow clearing, cold mornings / Excellent views, popular',
+      },
+      {
+        month: 'Apr',
+        condition: 'Mild temperatures, clear skies / Ideal conditions, busy',
+      },
+      {
+        month: 'May',
+        condition: 'Warm, pre-monsoon haze / Good trekking, afternoon clouds',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon begins / Not recommended for high altitude',
+      },
+      {
+        month: 'Jul',
+        condition: 'Heavy rains / Trails slippery, not recommended',
+      },
+      {
+        month: 'Aug',
+        condition: 'Monsoon continues / High risk of landslides',
+      },
+      {
+        month: 'Sep',
+        condition: 'Monsoon ends / Excellent post-monsoon conditions',
+      },
+      {
+        month: 'Oct',
+        condition: 'Stable weather, crisp air / Peak season, crowded',
+      },
+      {
+        month: 'Nov',
+        condition: 'Cooler, clear skies / Great views, cold nights',
+      },
+      {
+        month: 'Dec',
+        condition: 'Cold, increasing snow / High passes may close',
+      },
     ],
 
     gallery: [
-      { id: 'tilicho_img_01', url: '/images/tilicho/tilicho.webp', alt: 'Tilicho Lake Nepal', type: 'hero' },
-      { id: 'tilicho_img_02', url: '/images/tilicho/tilicho2.webp', alt: 'Manang Valley high altitude landscape', type: 'landscape' },
-      { id: 'tilicho_img_03', url: '/images/tilicho/tilicho3.webp', alt: 'Trekking through Annapurna range', type: 'landscape' },
-      { id: 'tilicho_img_04', url: '/images/tilicho/tilicho4.webp', alt: 'Snow-capped peaks near Tilicho', type: 'landscape' },
-      { id: 'tilicho_img_05', url: '/images/tilicho/tilicho5.webp', alt: 'Exposed mountain trail toward Tilicho Base Camp', type: 'landscape' },
-      { id: 'tilicho_img_06', url: '/images/tilicho/tilicho6.webp', alt: 'Glacial lake in the Annapurna region', type: 'landscape' },
+      {
+        id: 'tilicho_img_01',
+        url: '/images/tilicho/tilicho.webp',
+        alt: 'Tilicho Lake Nepal',
+        type: 'hero',
+      },
+      {
+        id: 'tilicho_img_02',
+        url: '/images/tilicho/tilicho2.webp',
+        alt: 'Manang Valley high altitude landscape',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_03',
+        url: '/images/tilicho/tilicho3.webp',
+        alt: 'Trekking through Annapurna range',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_04',
+        url: '/images/tilicho/tilicho4.webp',
+        alt: 'Snow-capped peaks near Tilicho',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_05',
+        url: '/images/tilicho/tilicho5.webp',
+        alt: 'Exposed mountain trail toward Tilicho Base Camp',
+        type: 'landscape',
+      },
+      {
+        id: 'tilicho_img_06',
+        url: '/images/tilicho/tilicho6.webp',
+        alt: 'Glacial lake in the Annapurna region',
+        type: 'landscape',
+      },
     ],
 
     gearChecklist: {
