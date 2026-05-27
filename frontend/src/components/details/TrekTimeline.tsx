@@ -220,7 +220,19 @@ const AccordionItem = ({
               {day.price && (
                 <span className="ml-auto flex items-center gap-1.5 text-sm font-bold text-black cursor-text select-text">
                   <Image src={moneyBag} alt="price" width={18} height={18} />
-                  {day.price}
+                  {(() => {
+                    const str = day.price as string;
+                    const idx = str.indexOf('(');
+                    if (idx === -1) return str;
+                    return (
+                      <>
+                        <span>{str.slice(0, idx)}</span>
+                        <span className="font-normal text-black/50 text-xs">
+                          {str.slice(idx)}
+                        </span>
+                      </>
+                    );
+                  })()}
                 </span>
               )}
             </div>
@@ -252,7 +264,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   const searchParams = useSearchParams();
   const validTabs: tabsValue[] = ['journey', 'overview'];
   const tabParam = searchParams.get('tab') as tabsValue;
-
+  const [hasPrice, setHasPrice] = useState(false);
   const [activeView, setActiveView] = useState<tabsValue>(
     validTabs.includes(tabParam) ? tabParam : 'journey',
   );
@@ -269,7 +281,13 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
     trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];
 
   const sectionRef = useRef<HTMLDivElement>(null);
-
+  useEffect(() => {
+    if (days && days.length > 0 && days.some((day) => day.price)) {
+      setHasPrice(true);
+    } else {
+      setHasPrice(false);
+    }
+  }, [days]);
   // ── Scroll-triggered banner
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -305,36 +323,63 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       className="relative  flex flex-col gap-6 bg-[#EBF0F8]"
     >
       {/* ── Scroll-triggered banner ── */}
+
       <div
         className={cn(
           'overflow-hidden sticky top-[48px] z-40 h-20 transition-all duration-500 ease-in-out',
           bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
-        <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="shrink-0"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-          <p className="text-xs font-medium text-center">
-            We're currently preparing a detailed cost breakdown for this trek to
-            help you plan better.
-          </p>
-          <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#22416F]/10 tracking-wide flex-shrink-0">
-            <span className="shimmer-text">Coming soon</span>
-          </span>
-        </div>
+        {!hasPrice && (
+          <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <p className="text-xs font-medium text-center">
+              We're currently preparing a detailed cost breakdown for this trek
+              to help you plan better.
+            </p>
+            <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#22416F]/10 tracking-wide flex-shrink-0">
+              <span className="shimmer-text">Coming soon</span>
+            </span>
+          </div>
+        )}
+        {hasPrice && (
+          <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <p className="text-xs font-medium text-center">
+              Estimated costs are approximate and may vary based on
+              accommodation, meals, transportation, personal spending, and
+              permit requirements.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="page-wrapper pb-20  flex flex-col gap-6">
