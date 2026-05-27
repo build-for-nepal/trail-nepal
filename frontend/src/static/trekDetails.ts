@@ -307,6 +307,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: 'N/A',
         },
         coordinates: [28.0483558, 84.8143192],
+        price: 'NPR 4,200 (Transport: 2,500, Accommodation: 700, Meals: 1,000)',
       },
       {
         day: '02',
@@ -315,6 +316,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'The trail opens through banana groves, millet fields, and small Gurung settlements, crossing several suspension bridges above the rushing Budhi Gandaki. Subtropical and humid',
         stats: { elevation: '930m', duration: '5-6 hours', distance: '14km' },
         coordinates: [28.1363198, 84.8550124],
+        price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
       {
         day: '03',
@@ -323,6 +325,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'A longer day tracking the river closely through Khorlabesi and Tatopani, where natural hot springs sit right beside the trail worth a quick soak. Jagat is the first official checkpoint where permits are inspected, a proper stone-paved village with a small monastery.',
         stats: { elevation: '1,340m', duration: '6-7 hours', distance: '22km' },
         coordinates: [28.2191381, 84.8754899],
+        price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
       {
         day: '04',
@@ -331,6 +334,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'The valley narrows and the Tibetan cultural influence begins mani walls, prayer flags, and stone-carved chortens appear along the trail. The route passes through Phillim, a large Nubri village with a working gompa, before descending to Deng across a high suspension bridge. ',
         stats: { elevation: '1,860m', duration: '6-7 hours', distance: '19km' },
         coordinates: [28.3756597, 84.8860943],
+        price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
       },
       {
         day: '05',
@@ -339,6 +343,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'Climbing steadily through Rana and Bihi, small villages where locals still wear traditional chuba robes. The forest thickens with oak and rhododendron and the air cools noticeably. Namrung sits on a commanding ridge with the first clear views of Sringi Himal (7,161m).',
         stats: { elevation: '2,630m', duration: '6-7 hours', distance: '18km' },
         coordinates: [28.5353815, 84.7834682],
+        price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
       },
       {
         day: '06',
@@ -347,6 +352,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           "The standout day of the lower circuit. At Lho village, Manaslu's south face appears with sudden, staggering scale: a wall of ice and granite rising nearly 5,000 vertical metres. The Ribung Gompa above Lho is worth a short detour. The trail continues through Shyala before descending into Samagaon, the largest village in the Nubri region with a beautifully preserved gompa at its edge. ",
         stats: { elevation: '3,180m', duration: '5-6 hours', distance: 'N/A' },
         coordinates: [28.5841331, 84.6450536],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '07',
@@ -360,6 +366,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'Acclimatization Indicated',
         },
         coordinates: [28.5841331, 84.6450536],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '08',
@@ -368,6 +375,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'Short by distance but meaningful in altitude. The trail leaves the treeline immediately, crossing open moraines through a wide glacial valley. Samdo is a tiny settlement of around 50 households near the Tibetan border cold nights, extraordinary skies. ',
         stats: { elevation: '3,860m', duration: '3-4 hours', distance: '9km' },
         coordinates: [28.6470636, 84.6325197],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '09',
@@ -381,6 +389,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           note: 'Acclimatization Indicated',
         },
         coordinates: [28.6470636, 84.6325197],
+        price: 'NPR 4,000 (Accommodation: 1,000, Meals: 3,000)',
       },
       {
         day: '10',
@@ -389,6 +398,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'A short but serious climb across open alpine terrain to Dharamsala, a wind-exposed collection of stone shelters with one basic lodge and no electricity. Arrive early, eat well, drink plenty of water, and sleep by 8pm. Tomorrow starts before dawn.',
         stats: { elevation: '4,200m', duration: '3-4 hours', distance: '7km' },
         coordinates: [28.6584715, 84.582265],
+        price: 'NPR 2,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '11',
@@ -401,6 +411,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: '22km',
         },
         coordinates: [28.6024945, 84.4600261],
+        price: 'NPR 4,000 (Accommodation: 1,000, Meals: 3,000)',
         isDestination: true,
       },
       {
@@ -410,6 +421,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'A long descent back through rhododendron and bamboo forest, passing Dudh Pokhari lake and the village of Kharche before reaching Tilje in the lower Marsyangdi valley. The air thickens, the body recovers, apple orchards replace glaciers. ',
         stats: { elevation: '2,300m', duration: '6-7 hours', distance: '20km' },
         coordinates: [28.5446263, 84.3809759],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
       {
         day: '13',
@@ -418,6 +430,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'Walk to Dharapani where the Manaslu and Annapurna trails meet.',
         stats: { elevation: '1,860m', duration: '3-4 hours', distance: '8km' },
         coordinates: [28.5298499, 84.3497295],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
       {
         day: '14',
@@ -430,6 +443,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: '-',
         },
         coordinates: [27.717, 85.324],
+        price: 'NPR 3,500 (Transport: 2,500, Meals: 1,000)',
       },
     ],
     expectations: [
@@ -590,6 +604,7 @@ overall walking time and gives you more time to enjoy and explore both Langtang 
 Gompa.</p>`,
         stats: { elevation: '1,460m / 2,563m', duration: '7-10 hours(drive)' },
         coordinates: [28.1657291, 85.3418267],
+        price: 'NPR 3,500 (Transport: 2,000, Accommodation: 500, Meals: 1,000)',
       },
       {
         day: '02',
@@ -606,6 +621,7 @@ minutes to Lama Hotel, where there are more lodge options`,
           duration: '6-7 hours from Syafrubesi / 4-5 hours from Sherpagaun',
         },
         coordinates: [28.1612117, 85.4296495],
+        price: 'NPR 1,700 (Accommodation: 500, Meals: 1,200)',
       },
 
       {
@@ -615,6 +631,7 @@ minutes to Lama Hotel, where there are more lodge options`,
           'Leaving the forest behind, the trail climbs past riverside sections and open clearings toward Ghodatabela, where the valley begins to feel broader and more alpine. As you continue higher, mountain views start to open up and the cultural atmosphere becomes stronger with chortens, mani walls, and traditional settlements. By the time you reach Langtang Village, you are fully in the heart of the valley, surrounded by dramatic peaks and a distinctly Tibetan-influenced mountain landscape.',
         stats: { elevation: '3,430m', duration: '6-7 hours' },
         coordinates: [28.2157142, 85.5030007],
+        price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
       {
         day: '04',
@@ -633,6 +650,7 @@ communities utilize local natural resources`,
           duration: '3-4 hours trek / 1-2 hours exploration',
         },
         coordinates: [28.2124247, 85.5672161],
+        price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
       },
       {
         day: '05',
@@ -651,6 +669,7 @@ viewpoint for photos and rest, you descend carefully to Kyanjin Gompa for a rela
 overnight stay`,
         stats: { elevation: '4,773m', duration: '4-6 hours round trip' },
         coordinates: [28.2124247, 85.5672161],
+        price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
         isDestination: true,
       },
       {
@@ -660,6 +679,7 @@ overnight stay`,
           'After breakfast, you begin the long descent down the valley, retracing your route past Langtang Village and through alpine meadows into the forested lower section. Since the route is mostly downhill, the day feels easier on the lungs, though it is still a long walking day. Returning to Lama Hotel gives you a comfortable forest stop before the final push out of the valley.',
         stats: { elevation: '2,470m', duration: '6-7 hours' },
         coordinates: [28.1612117, 85.4296495],
+        price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
       {
         day: '07',
@@ -671,6 +691,7 @@ overnight stay`,
           duration: '4-5 hours trek + 7-8 hours drive',
         },
         coordinates: [28.1657291, 85.3418267],
+        price: 'NPR 3,000 (Transport: 2,000, Meals: 1,000)',
       },
     ],
 
@@ -1183,6 +1204,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'Land at Tribhuvan International Airport (1,400m) and transfer to your hotel in Thamel, the trekking district. Kathmandu is chaotic, warm, and fascinating in equal measure a medieval city that has been absorbing mountain traders and now mountain trekkers for centuries. The afternoon is best used for two things: sorting your gear and walking the backstreets of Thamel to pick up any last items (buffs, trekking socks, headtorch batteries all available here at reasonable prices). If you have the energy, the Buddhist stupa at Boudhanath is a 20-minute taxi ride east and worth an evening visit. Eat well, sleep early, and do not underestimate jet lag at altitude.',
         stats: { elevation: '1,400m', duration: 'Transfer day', distance: '-' },
         coordinates: [27.7172, 85.324],
+        price:
+          'NPR 5,000 (Transport: 1,500, Accommodation: 1,500, Meals: 2,000)',
       },
       {
         day: '02',
@@ -1195,6 +1218,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '8km',
         },
         coordinates: [27.73926, 86.71228],
+        price: 'NPR 12,300 (Flight: 10,000, Accommodation: 800, Meals: 1,500)',
       },
       {
         day: '03',
@@ -1203,6 +1227,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           "The day that sorts trekkers out. From Phakding the trail criss-crosses the Dudh Koshi river on a series of high suspension bridges, the Hillary Bridge, at 60 metres above the river, is the most dramatic before entering Sagarmatha National Park at Monjo. After the park checkpoint the trail drops to the riverbed and begins the long, relentless 600m ascent to Namche. There is no shortcut. The zig-zag climbs through pine forest for two hours, and midway up if the clouds cooperate a clearing offers the first glimpse of Everest's south face framed between Lhotse and Nuptse. Namche Bazaar itself, the commercial capital of the Khumbu at 3,440m, arrives as a shock after hours of forest: a horseshoe of lodges, bakeries, gear shops, and cafes carved into a natural amphitheatre. The elevation gain is significant and the legs will know about it.",
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
         coordinates: [27.80231, 86.71119],
+        price: 'NPR 3,700 (Accommodation: 1,200, Meals: 2,500)',
       },
       {
         day: '04',
@@ -1216,6 +1241,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Acclimatization Day',
         },
         coordinates: [27.80231, 86.71119],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '05',
@@ -1224,6 +1250,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'This is the day the Gokyo trail separates itself from the EBC route and the crowds thin immediately. The trail climbs out of Namche on the main EBC path before branching northwest at Kyanjuma toward Mong La (3,973m), a viewpoint ridge with a sweeping panorama of Ama Dablam, Kantega, and Thamserku. From Mong La the trail drops steeply to the Dudh Koshi at Phortse Tenga (3,680m) before climbing again through rhododendron and birch forest, the forests here are dense enough in October to be genuinely beautiful past summer yak pastures to Dole at 4,200m. Dole is a small, scattered settlement of stone buildings used seasonally by herders. The teahouses are basic but warm, Cho Oyu looms at the head of the valley, and above the treeline the trail ahead is visible all the way to the high ridges. This is where the trek begins to feel genuinely remote.',
         stats: { elevation: '4,200m', duration: '5-6 hours', distance: '10km' },
         coordinates: [27.86848, 86.74148],
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '06',
@@ -1237,6 +1264,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Short day by design — critical acclimatization gain',
         },
         coordinates: [27.90763, 86.7215],
+        price: 'NPR 3,700 (Accommodation: 1,200, Meals: 2,500)',
       },
       {
         day: '07',
@@ -1245,6 +1273,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           "The day the valley reveals itself. From Machhermo the trail climbs a final ridge with a last look south toward Kantega and Thamserku, then descends into a wider, flatter valley where the Ngozumpa Glacier Nepal's longest at over 36km comes into full view for the first time. The glacier's surface is not white but grey-brown, covered in a thick layer of rock debris pushed down from the peaks above, and it stretches north as far as the eye can follow. The trail passes through Pangka (4,390m) and skirts the glacier's terminal moraine before crossing the Dudh Koshi river and ascending to the first Gokyo Lake (4,690m) small, jade-green, and partially frozen even in October. The second and third lakes arrive in quick succession. Gokyo village sits on the eastern shore of the third lake, Dudh Pokhari, with Cho Oyu (8,188m) closing the northern horizon and the Ngozumpa Glacier spreading across the valley to the west. The scale of the place, seen all at once from the village edge, stops most trekkers mid-step.",
         stats: { elevation: '4,750m', duration: '4-5 hours', distance: '7km' },
         coordinates: [27.9603, 86.6839],
+        price: 'NPR 5,000 (Accommodation: 2,000, Meals: 3,000)',
       },
       {
         day: '08',
@@ -1258,6 +1287,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Gokyo Ri is the highest point of the trek. Start no later than 5:00am.',
         },
         coordinates: [27.96154, 86.68313],
+        price: 'NPR 4,000 (Accommodation: 1,500, Meals: 2,500)',
         isDestination: true,
       },
       {
@@ -1267,6 +1297,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           "The long descent back down the valley, retracing the route through the Ngozumpa moraine and past the string of lakes. Going downhill, the views south the full corridor of Khumbu peaks down toward Namche, open up in a way they did not on the ascent. The descent from 4,750m to 4,200m is significant enough to feel in the knees but the extra oxygen at every step is noticeable. Dole's basic teahouses feel almost luxurious after Gokyo's thin air. If energy allows, the section between Machhermo and Dole rewards slower walkers who look carefully, musk deer are occasionally spotted on the slopes above the trail in the late afternoon.",
         stats: { elevation: '4,200m', duration: '5-6 hours', distance: '11km' },
         coordinates: [27.865, 86.725],
+        price: 'NPR 4,000 (Accommodation: 1,500, Meals: 2,500)',
       },
       {
         day: '10',
@@ -1275,6 +1306,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           "A long descent that drops 760m back to Namche and transitions the body from high-altitude alpine terrain back to Khumbu valley life. The trail passes back through Phortse Tenga and climbs briefly to the Mong La ridge before the final descent into Namche, the 'Namche hill' going down is considerably more agreeable than going up. Namche in the evening, after days above it, feels urban: warm meals with real menus, hot showers without a cold-water backup, phone signal without interruption. Your legs will ache. The altitude will feel generous. Buy something from a local shop you have been eyeing since Day 2.",
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
         coordinates: [27.805, 86.7106],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '11',
@@ -1283,6 +1315,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           'The final trekking day retraces the first two trekking days in reverse descending the Namche hill, crossing the Hillary Bridge, passing through Monjo and Phakding, and climbing the final gentle rise to Lukla. The trail is familiar, the legs are tired, and the views of Ama Dablam and Thamserku from the lower valley are just as good going home as they were on the way up. Arrive in Lukla by early afternoon, storms building over the mountains can delay or cancel the morning flights that follow, so an early arrival and a weather eye on the sky matters. Sort your bag for the flight, confirm departure time with your guide, and let the whole thing sink in over dinner.',
         stats: { elevation: '2,860m', duration: '6-7 hours', distance: '18km' },
         coordinates: [27.6868, 86.7314],
+        price: 'NPR 2,500 (Accommodation: 1,000, Meals: 1,500)',
       },
       {
         day: '12',
@@ -1295,6 +1328,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '-',
         },
         coordinates: [27.7172, 85.324],
+        price: 'NPR 12,500 (Flight: 11,000, Meals: 1,500)',
       },
     ],
     expectations: [
@@ -2251,6 +2285,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '175km',
         },
         coordinates: [28.2342, 84.3773],
+        price: 'NPR 4,400 (Transport: 2,500, Accommodation: 700, Meals: 1,200)',
       },
 
       {
@@ -2264,6 +2299,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '65km',
         },
         coordinates: [28.55048, 84.24236],
+        price: 'NPR 5,000 (Transport: 3,000, Accommodation: 800, Meals: 1,200)',
       },
 
       {
@@ -2277,6 +2313,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '13km',
         },
         coordinates: [28.63394, 84.11001],
+        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
       },
 
       {
@@ -2290,6 +2327,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '17km',
         },
         coordinates: [28.66668, 84.01975],
+        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
       },
 
       {
@@ -2304,6 +2342,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Critical altitude adaptation day',
         },
         coordinates: [28.66668, 84.01975],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
 
       {
@@ -2317,6 +2356,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '10km',
         },
         coordinates: [28.6684, 83.97698],
+        price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
 
       {
@@ -2331,6 +2371,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Start early to avoid strong afternoon winds',
         },
         coordinates: [28.67842, 83.95835],
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
 
       {
@@ -2345,6 +2386,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           note: 'Sub-zero temperatures common before sunrise',
         },
         coordinates: [28.68471, 83.86579],
+        price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
         isDestination: true,
       },
 
@@ -2359,6 +2401,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '18km',
         },
         coordinates: [28.66668, 84.01975],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
 
       {
@@ -2372,6 +2415,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '17km',
         },
         coordinates: [28.63394, 84.11001],
+        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
       },
 
       {
@@ -2385,6 +2429,7 @@ view over Kyanjin Village and the upper Langtang Valley`,
           distance: '240km',
         },
         coordinates: [28.55048, 84.24236],
+        price: 'NPR 1,500 (Transport: 5,000, Meals: 1,000)',
       },
     ],
 
