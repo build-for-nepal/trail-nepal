@@ -56,7 +56,7 @@ const SeasonViewToggle = ({ mode, onChange, showForecast }: Props) => {
         )}
         style={{ fontFamily: "'Poppins', sans-serif" }}
       >
-        FORECAST
+        WEATHER FORECAST
       </button>
     </div>
   );
