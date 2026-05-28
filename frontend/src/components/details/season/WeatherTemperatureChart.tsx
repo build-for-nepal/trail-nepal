@@ -174,7 +174,7 @@ const WeatherTemperatureChart = ({ hourly }: Props) => {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5 pl-4 sm:pl-0">
         <p className="text-sm font-semibold text-white">Temperature</p>
       </div>
 
@@ -183,7 +183,7 @@ const WeatherTemperatureChart = ({ hourly }: Props) => {
           type="button"
           aria-label="Scroll left"
           onClick={() => scrollRef.current?.scrollBy({ left: -POINT_MIN_WIDTH * 4, behavior: 'smooth' })}
-          className={`shrink-0 text-white/70 hover:text-white transition-colors ${!canScrollLeft ? 'invisible' : ''}`}
+          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollLeft ? 'invisible' : ''}`}
         >
           <ChevronLeft size={18} strokeWidth={2.5} />
         </button>
@@ -204,7 +204,7 @@ const WeatherTemperatureChart = ({ hourly }: Props) => {
           type="button"
           aria-label="Scroll right"
           onClick={() => scrollRef.current?.scrollBy({ left: POINT_MIN_WIDTH * 4, behavior: 'smooth' })}
-          className={`shrink-0 text-white/70 hover:text-white transition-colors ${!canScrollRight ? 'invisible' : ''}`}
+          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollRight ? 'invisible' : ''}`}
         >
           <ChevronRight size={18} strokeWidth={2.5} />
         </button>

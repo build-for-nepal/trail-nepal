@@ -56,13 +56,11 @@ const WeatherForecastCard = ({
 
   return (
     <div
-      className="flex w-full min-w-0 flex-col text-white"
+      className="flex w-full min-w-0 flex-col gap-8 px-4 pt-5 text-white sm:gap-12 sm:px-10 sm:pt-6"
       style={{
         ...poppins,
         backgroundColor: 'var(--color-forecast-card)',
         borderRadius: '24px',
-        padding: '24px 40px 0 40px',
-        gap: '48px',
         alignSelf: 'stretch',
       }}
     >
@@ -94,33 +92,33 @@ const WeatherForecastCard = ({
       </div>
 
       {/* 10-day cards */}
-      <div className="flex items-center gap-3">
+      <div className="-mx-4 flex items-center gap-3 sm:mx-0">
         <button
           type="button"
           aria-label="Scroll left"
           onClick={() => dayScrollRef.current?.scrollBy({ left: -(104 + 24) * 3, behavior: 'smooth' })}
-          className={`shrink-0 text-white/70 hover:text-white transition-colors ${!canScrollLeft ? 'invisible' : ''}`}
+          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollLeft ? 'invisible' : ''}`}
         >
           <ChevronLeft size={18} strokeWidth={2.5} />
         </button>
 
-        <div ref={dayScrollRef} className="flex-1 flex gap-6 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory">
+        <div ref={dayScrollRef} className="flex-1 flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-4 sm:gap-6 sm:pl-0 sm:snap-x sm:snap-mandatory">
           {daily.map((day, index) => {
             const { Icon } = getWeatherPresentation(day.weatherCode);
 
             return (
               <div
                 key={day.date}
-                className="flex flex-auto w-[104px] shrink-0 snap-start flex-col items-center justify-between backdrop-blur-[10px]"
+                className="flex flex-auto w-[80px] shrink-0 snap-start flex-col items-center justify-between backdrop-blur-[10px] sm:w-[104px]"
                 style={{
-                  minHeight: '219px',
-                  borderRadius: '24px',
-                  paddingLeft: '16px',
-                  paddingRight: '16px',
-                  paddingTop: '22px',
-                  paddingBottom: '22px',
+                  minHeight: '160px',
+                  borderRadius: '16px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  paddingTop: '14px',
+                  paddingBottom: '14px',
                   backgroundColor: 'var(--color-forecast-glass)',
-                  gap: '24px',
+                  gap: '12px',
                 }}
               >
                 <span className="text-center text-xs font-semibold text-white">
@@ -138,9 +136,9 @@ const WeatherForecastCard = ({
 
                 <div className="flex flex-1 items-center justify-center py-1">
                   <Icon
-                    size={40}
+                    size={28}
                     strokeWidth={1.35}
-                    className="text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
+                    className="text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)] sm:!size-[40px]"
                   />
                 </div>
 
@@ -156,7 +154,7 @@ const WeatherForecastCard = ({
           type="button"
           aria-label="Scroll right"
           onClick={() => dayScrollRef.current?.scrollBy({ left: (104 + 24) * 3, behavior: 'smooth' })}
-          className={`shrink-0 text-white/70 hover:text-white transition-colors ${!canScrollRight ? 'invisible' : ''}`}
+          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollRight ? 'invisible' : ''}`}
         >
           <ChevronRight size={18} strokeWidth={2.5} />
         </button>
@@ -164,7 +162,7 @@ const WeatherForecastCard = ({
 
       {/* Temperature chart */}
       {hourly.length > 0 ? (
-        <div className="w-full min-w-0">
+        <div className="-mx-4 min-w-0 sm:mx-0">
           <WeatherTemperatureChart hourly={hourly} />
         </div>
       ) : null}

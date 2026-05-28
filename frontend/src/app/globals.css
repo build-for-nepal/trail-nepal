@@ -83,10 +83,10 @@
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
 
-  --color-forecast-card: #5984C2;
-  --color-forecast-glass: rgba(255, 255, 255, 0.20);
+  --color-forecast-card: #376bb6;
+  --color-forecast-glass: rgba(255, 255, 255, 0.2);
   --color-forecast-pill-border: rgba(255, 255, 255, 0.45);
-  --color-forecast-dropdown-active: #1D66D5;
+  --color-forecast-dropdown-active: #1d66d5;
 }
 
 :root {
