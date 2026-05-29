@@ -102,14 +102,14 @@ export default function ElevationProfile({ points, onHover }: Props) {
     if (distM > 0) grade = ((hovered.e - prev.e) / distM) * 100;
   }
 
-  // Mouse tracking — scaleX maps actual rendered px → SVG logical px
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<SVGSVGElement>) => {
+  // Shared point-finding logic for mouse and touch
+  const findNearestPoint = useCallback(
+    (clientX: number) => {
       const svg = svgRef.current;
       if (!svg) return;
       const rect = svg.getBoundingClientRect();
       const scaleX = TW / rect.width;
-      const mx = (e.clientX - rect.left) * scaleX;
+      const mx = (clientX - rect.left) * scaleX;
       const frac = Math.max(0, Math.min(1, (mx - PL) / CW));
       const target = frac * maxDist;
       let best = 0,
@@ -127,7 +127,26 @@ export default function ElevationProfile({ points, onHover }: Props) {
     [points, maxDist, onHover],
   );
 
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>) => findNearestPoint(e.clientX),
+    [findNearestPoint],
+  );
+
   const handleMouseLeave = useCallback(() => {
+    setHoverIdx(null);
+    onHover(null);
+  }, [onHover]);
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<SVGSVGElement>) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (touch) findNearestPoint(touch.clientX);
+    },
+    [findNearestPoint],
+  );
+
+  const handleTouchEnd = useCallback(() => {
     setHoverIdx(null);
     onHover(null);
   }, [onHover]);
@@ -154,7 +173,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const expandedH = HANDLE_H + 1 + TH;
 
   return (
-    <div className="absolute bottom-3 left-3 z-10 select-none w-[min(480px,calc(100%-76px))]">
+    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 sm:left-3 sm:translate-x-0 z-10 select-none w-[calc(100%-24px)] sm:w-[min(480px,calc(100%-76px))]">
       <div
         className="rounded-2xl bg-white/40 backdrop-blur-md shadow-xl border border-white/30 overflow-hidden"
         style={{
@@ -168,8 +187,11 @@ export default function ElevationProfile({ points, onHover }: Props) {
           className="w-full flex items-center gap-2.5 px-3.5 hover:bg-gray-50/70 transition-colors duration-150 min-w-0"
           style={{ height: HANDLE_H }}
         >
-          {/* Mountain icon + labeled stat chips */}
-          <div className="flex items-center gap-2.5 min-w-0 overflow-hidden">
+          {/* Mountain icon + stat chips — single row on both mobile and desktop.
+              On mobile: flex-1 fills the space freed by hiding the sparkline so
+              all 4 stats are visible. On desktop: flex-none so the sparkline
+              div keeps its flex-1 slot. */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none sm:min-w-0 sm:overflow-hidden">
             <svg
               width="15"
               height="13"
@@ -216,8 +238,8 @@ export default function ElevationProfile({ points, onHover }: Props) {
                 ↑{ascent.toLocaleString()} m
               </span>
             </div>
-            <div className="w-px h-6 bg-gray-300 shrink-0 hidden sm:block" />
-            <div className="hidden sm:flex flex-col items-start shrink-0">
+            <div className="w-px h-6 bg-gray-300 shrink-0" />
+            <div className="flex flex-col items-start shrink-0">
               <span className="text-[8px] font-semibold tracking-wider text-gray-600 uppercase leading-none">
                 Descent
               </span>
@@ -230,8 +252,8 @@ export default function ElevationProfile({ points, onHover }: Props) {
             </div>
           </div>
 
-          {/* Sparkline — only visible when collapsed */}
-          <div className="flex-1 flex justify-end items-center">
+          {/* Sparkline — desktop only, visible when collapsed */}
+          <div className="hidden sm:flex flex-1 justify-end items-center">
             {!open && (
               <svg
                 width={SPARKLINE_W}
@@ -283,7 +305,10 @@ export default function ElevationProfile({ points, onHover }: Props) {
             height={TH}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{ display: 'block', cursor: 'crosshair' }}
+            onTouchStart={handleTouchMove}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ display: 'block', cursor: 'crosshair', touchAction: 'none' }}
           >
             <defs>
               <clipPath id="ep-clip">
