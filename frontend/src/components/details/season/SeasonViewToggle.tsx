@@ -13,12 +13,12 @@ const SeasonViewToggle = ({ mode, onChange, showForecast }: Props) => {
   const isForecast = mode === 'forecast';
 
   return (
-    <div className="flex items-center gap-3 sm:gap-4">
+    <div className="flex items-center gap-3 sm:gap-4 ">
       <button
         type="button"
         onClick={() => onChange('window')}
         className={cn(
-          'text-sm font-bold tracking-wide transition-colors',
+          'text-sm font-bold tracking-wide transition-colors cursor-pointer',
           !isForecast ? 'text-[#9BC02A]' : 'text-gray-500 hover:text-gray-700',
         )}
         style={{ fontFamily: "'Poppins', sans-serif" }}
@@ -36,7 +36,7 @@ const SeasonViewToggle = ({ mode, onChange, showForecast }: Props) => {
           if (!showForecast) return;
           onChange(isForecast ? 'window' : 'forecast');
         }}
-        className="relative h-7 w-[52px] shrink-0 rounded-full border border-[#DBDBDB] bg-[#D1D5DB] disabled:cursor-not-allowed disabled:opacity-40"
+        className="relative h-7 w-[52px] shrink-0 cursor-pointer rounded-full border border-[#DBDBDB] bg-[#D1D5DB] disabled:cursor-not-allowed disabled:opacity-40"
       >
         <span
           className={cn(
@@ -51,12 +51,12 @@ const SeasonViewToggle = ({ mode, onChange, showForecast }: Props) => {
         disabled={!showForecast}
         onClick={() => showForecast && onChange('forecast')}
         className={cn(
-          'text-sm font-bold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-40',
+          'text-sm font-bold tracking-wide transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40',
           isForecast ? 'text-[#9BC02A]' : 'text-gray-500 hover:text-gray-700',
         )}
         style={{ fontFamily: "'Poppins', sans-serif" }}
       >
-        FORECAST
+        WEATHER FORECAST
       </button>
     </div>
   );

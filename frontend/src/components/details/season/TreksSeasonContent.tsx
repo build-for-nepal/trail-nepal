@@ -100,7 +100,7 @@ const TreksSeasonContent = ({
         {viewMode === 'window' ? (
           <TreksSeasonCalendar trekId={trekId} />
         ) : (
-          <div aria-busy={isLoading} aria-live="polite">
+          <div aria-busy={isLoading} aria-live="polite" className="-mx-6 sm:mx-0">
             {isLoading ? (
               <WeatherCardSkeleton />
             ) : isError ? (
