@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '../../../static/nav-links.config';
-import { SearchBar } from './SearchBar';
+import { SearchBar } from '@/components/search/SearchBar';
 import {
   Sheet,
   SheetContent,
