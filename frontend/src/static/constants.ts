@@ -73,6 +73,11 @@ export const SOCIAL_ICONS = [
     alt: 'LinkedIn',
     href: 'https://www.linkedin.com/company/techgaun/posts/?feedView=all',
   },
+  {
+    src: '/icons/opensource-icon.svg',
+    alt: 'OpenSource',
+    href: 'https://github.com/build-for-nepal/trail-nepal',
+  },
 ];
 
 export const gearCheckListDescriptions = {
