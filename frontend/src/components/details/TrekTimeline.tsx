@@ -390,20 +390,20 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           id="timeline"
         />
 
-        <div className="mx-auto flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
+        <div className="mx-auto inline-flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
           <button
             onClick={() => {
               setTabUrl('journey');
               setActiveView('journey');
             }}
             className={cn(
-              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
               activeView === 'journey'
                 ? 'bg-[#84b829] text-white shadow-md'
                 : 'text-gray-500 hover:text-gray-900',
             )}
           >
-            <Map size={18} />
+            <Map size={16} />
             Journey
           </button>
           <button
@@ -412,13 +412,13 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
               setActiveView('overview');
             }}
             className={cn(
-              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
               activeView === 'overview'
                 ? 'bg-[#84b829] text-white shadow-md'
                 : 'text-gray-500 hover:text-gray-900',
             )}
           >
-            <List size={18} />
+            <List size={16} />
             Overview
           </button>
           <button
@@ -427,13 +427,13 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
               setActiveView('foodmenu');
             }}
             className={cn(
-              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
               activeView === 'foodmenu'
                 ? 'bg-[#84b829] text-white shadow-md'
                 : 'text-gray-500 hover:text-gray-900',
             )}
           >
-            <UtensilsCrossed size={18} />
+            <UtensilsCrossed size={16} />
             Food Menu
           </button>
         </div>

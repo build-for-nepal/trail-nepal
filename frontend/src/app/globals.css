@@ -209,6 +209,62 @@
   text-sm outline-none;
   }
 }
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.food-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.food-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .food-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cedf9e transparent;
+  }
+  .food-scrollbar::-webkit-scrollbar {
+    display: block;
+    width: 3px;
+  }
+  .food-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .food-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cedf9e;
+    border-radius: 9999px;
+  }
+  .food-scrollbar::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+.thin-scrollbar::-webkit-scrollbar {
+  width: 1px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 9999px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
 .shimmer-text {
   display: inline-block;
 
