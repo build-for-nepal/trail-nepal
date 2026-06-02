@@ -12,15 +12,16 @@ import alertLine from '@/assets/details/alertline.svg';
 import moneyBag from '@/assets/details/moneybag.svg';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
-import { Map, List } from 'lucide-react';
+import { Map, List, UtensilsCrossed } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import TrekkingMap from './map/TrekkingMap';
+import FoodMenu from './FoodMenu';
 import { useSearchParams } from 'next/navigation';
 
-type tabsValue = 'journey' | 'overview';
+type tabsValue = 'journey' | 'overview' | 'foodmenu';
 
 const AccordionItem = ({
   day,
@@ -262,7 +263,7 @@ const StatPill = ({
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   const searchParams = useSearchParams();
-  const validTabs: tabsValue[] = ['journey', 'overview'];
+  const validTabs: tabsValue[] = ['journey', 'overview', 'foodmenu'];
   const tabParam = searchParams.get('tab') as tabsValue;
   const [hasPrice, setHasPrice] = useState(false);
   const [activeView, setActiveView] = useState<tabsValue>(
@@ -420,6 +421,21 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
             <List size={18} />
             Overview
           </button>
+          <button
+            onClick={() => {
+              setTabUrl('foodmenu');
+              setActiveView('foodmenu');
+            }}
+            className={cn(
+              'flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+              activeView === 'foodmenu'
+                ? 'bg-[#84b829] text-white shadow-md'
+                : 'text-gray-500 hover:text-gray-900',
+            )}
+          >
+            <UtensilsCrossed size={18} />
+            Food Menu
+          </button>
         </div>
 
         <div className="w-full">
@@ -439,10 +455,12 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : activeView === 'journey' ? (
             <div className="w-full h-150 rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
               <TrekkingMap trekId={trekId} />
             </div>
+          ) : (
+            <FoodMenu />
           )}
         </div>
       </div>
