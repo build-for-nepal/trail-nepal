@@ -1,4 +1,5 @@
 import { TrekDetail } from '@/types/trek';
+import { LANGTANG_FOOD_MENU } from '@/static/foodMenuData';
 
 export const TREK_DETAILS: Record<string, TrekDetail> = {
   'ebc-trek': {
@@ -919,6 +920,9 @@ view over Kyanjin Village and the upper Langtang Valley`,
         { item: 'Charging Cable / Adapter', weight: '0.09kg' },
         { item: 'Snacks / Energy Bars', weight: '0.45kg', quantity: 3 },
       ],
+    },
+    foodMenu: {
+      categories: LANGTANG_FOOD_MENU,
     },
   },
   'abc-trek': {

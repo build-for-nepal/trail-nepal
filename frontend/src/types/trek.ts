@@ -108,6 +108,7 @@ export interface TrekDetail {
   seasonalPlanning: { month: string; condition: string }[];
   gallery: TrekImage[];
   gearChecklist: GearChecklist;
+  foodMenu?: FoodMenu;
 }
 
 export interface Props {
@@ -136,6 +137,32 @@ export interface CheckItemProps {
   onToggle: (id: string) => void;
   showBottomBorder: boolean;
 }
+
+export type FoodServingType = 'single' | 'pot' | 'momo' | 'friedrice';
+
+export interface FoodMenuItem {
+  item: string;
+  price?: number;
+  cup?: number;
+  smallPot?: number;
+  mediumPot?: number;
+  bigPot?: number;
+  fried?: number;
+  steam?: number;
+  withCheese?: number;
+}
+
+export interface FoodMenuCategory {
+  key: string;
+  label: string;
+  servingType: FoodServingType;
+  items: FoodMenuItem[];
+}
+
+export interface FoodMenu {
+  categories: FoodMenuCategory[];
+}
+
 export type SeasonStatus = 'peak' | 'danger' | 'caution';
 
 export type AccessMode = 'flight' | 'jeep' | 'bus';
