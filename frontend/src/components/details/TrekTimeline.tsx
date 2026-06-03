@@ -263,7 +263,10 @@ const StatPill = ({
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   const searchParams = useSearchParams();
-  const validTabs: tabsValue[] = ['journey', 'overview', 'foodmenu'];
+  const hasFoodMenu = !!(trekId && TREK_DETAILS[trekId]?.foodMenu);
+  const validTabs: tabsValue[] = hasFoodMenu
+    ? ['journey', 'overview', 'foodmenu']
+    : ['journey', 'overview'];
   const tabParam = searchParams.get('tab') as tabsValue;
   const [hasPrice, setHasPrice] = useState(false);
   const [activeView, setActiveView] = useState<tabsValue>(
@@ -421,21 +424,23 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
             <List size={16} />
             Overview
           </button>
-          <button
-            onClick={() => {
-              setTabUrl('foodmenu');
-              setActiveView('foodmenu');
-            }}
-            className={cn(
-              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
-              activeView === 'foodmenu'
-                ? 'bg-[#84b829] text-white shadow-md'
-                : 'text-gray-500 hover:text-gray-900',
-            )}
-          >
-            <UtensilsCrossed size={16} />
-            Food Menu
-          </button>
+          {hasFoodMenu && (
+            <button
+              onClick={() => {
+                setTabUrl('foodmenu');
+                setActiveView('foodmenu');
+              }}
+              className={cn(
+                'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
+                activeView === 'foodmenu'
+                  ? 'bg-[#84b829] text-white shadow-md'
+                  : 'text-gray-500 hover:text-gray-900',
+              )}
+            >
+              <UtensilsCrossed size={16} />
+              Food Menu
+            </button>
+          )}
         </div>
 
         <div className="w-full">

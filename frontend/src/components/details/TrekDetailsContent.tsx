@@ -71,9 +71,9 @@ const TrekDetailsContent = ({ trekId }: Props) => {
         <TreksSeason trekId={trekId} />
         <TreksExpect trekId={trekId} />
         <TreksAltitudeSickness trekId={trekId} />
-        <Gallery trekId={trekId} />
         {/* <TrialUpdate trekId={trekId} /> */}
         <GearCheckList trekId={trekId} />
+        <Gallery trekId={trekId} />
       </div>
 
       <Footer />
