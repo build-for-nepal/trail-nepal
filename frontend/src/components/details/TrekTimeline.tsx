@@ -118,7 +118,7 @@ const AccordionItem = ({
 
         <span
           className="flex-1 text-sm sm:text-[15px] font-semibold tracking-tight text-black/80"
-          style={{ fontFamily: "'Oldenburg', serif" }}
+          style={{ fontFamily: "var(--font-fraunces), serif" }}
         >
           {day.day ? `Day ${day.day} : ${day.title}` : day.title}
         </span>

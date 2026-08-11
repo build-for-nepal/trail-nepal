@@ -16,7 +16,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-export function MobileMenu() {
+export function MobileMenu({ scrolled = false }: { scrolled?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -29,7 +29,10 @@ export function MobileMenu() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <button
-          className="lg:hidden flex items-center justify-center p-1 text-white"
+          className={cn(
+            'lg:hidden flex items-center justify-center p-1 transition-colors duration-200',
+            scrolled ? 'text-gray-800' : 'text-white',
+          )}
           aria-label="Open menu"
         >
           <Menu size={28} />

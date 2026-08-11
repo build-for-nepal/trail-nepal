@@ -18,7 +18,7 @@ export default function NotFound() {
       {/* 2. Content Layer */}
       <div className="relative  flex min-h-screen flex-col items-center justify-center px-4 text-center gap-6">
         <div>
-          <h1 className="font-otomanopee text-white text-[40px]">
+          <h1 className="font-fraunces text-white text-[40px]">
             Looks Like You’ve Lost
             <br />
             the Trail...

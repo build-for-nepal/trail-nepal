@@ -7,7 +7,7 @@ import { NAV_LINKS } from '../../../static/nav-links.config';
 import { NavLinksProps } from '@/types/homepage';
 import { useEffect, useState } from 'react';
 
-export function NavLinks({ className }: NavLinksProps) {
+export function NavLinks({ className, scrolled = false }: NavLinksProps) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -34,10 +34,13 @@ export function NavLinks({ className }: NavLinksProps) {
                   'after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full',
                   'after:origin-left after:scale-x-0 after:rounded-full after:bg-brand',
                   'after:transition-transform after:duration-200',
-                  'hover:text-white hover:after:scale-x-100',
+                  'hover:after:scale-x-100',
+                  scrolled ? 'hover:text-black' : 'hover:text-white',
                   isActive
                     ? 'text-[#8cc63f] after:scale-x-100'
-                    : 'text-white/70',
+                    : scrolled
+                      ? 'text-gray-700'
+                      : 'text-white/70',
                 )}
               >
                 {label}

@@ -36,7 +36,7 @@ const TreksHeader = ({ trekId }: Props) => {
 
       <div className="page-wrapper relative z-10 flex flex-col justify-end h-full pb-16 md:pb-12 px-4 sm:px-8 md:px-[--spacing-page-x] items-center md:items-start text-center md:text-left">
         <div className="flex flex-col gap-3 md:gap-2 max-w-[800px] items-center md:items-start">
-          <h1 className="font-otomanopee font-bold text-white text-[42px] leading-[1.1] sm:text-5xl md:text-6xl tracking-tight drop-shadow-lg max-w-[300px] md:max-w-none">
+          <h1 className="font-fraunces font-bold text-white text-[42px] leading-[1.1] sm:text-5xl md:text-6xl tracking-tight drop-shadow-lg max-w-[300px] md:max-w-none">
             {data.name.split(' (')[0]}
           </h1>
 

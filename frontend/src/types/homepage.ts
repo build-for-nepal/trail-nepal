@@ -1,6 +1,7 @@
 import type { RefObject } from 'react';
 export interface NavLinksProps {
   className?: string;
+  scrolled?: boolean;
 }
 export interface HeroContentProps {
   slide: Slide;

@@ -12,13 +12,13 @@ const SectionHeader = ({
       id={id}
     >
       <h2
-        className={`text-[40px] font-normal leading-8 ${light ? 'text-white' : 'text-black'}`}
-        style={{ fontFamily: "'Oldenburg', serif" }}
+        className={`text-[36px] font-semibold leading-[1.1] ${light ? 'text-white' : 'text-black'}`}
+        style={{ fontFamily: "var(--font-fraunces), serif" }}
       >
         {title}
       </h2>
       <p
-        className={`text-base font-medium ${light ? 'text-white/80' : 'text-black'}`}
+        className={`text-base font-medium leading-[1.3] ${light ? 'text-white/80' : 'text-text-secondary'}`}
         style={{ fontFamily: "'Poppins', sans-serif" }}
       >
         {description}

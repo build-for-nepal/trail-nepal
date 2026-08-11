@@ -18,7 +18,7 @@ export function ExploreHeader() {
         <div className="flex flex-col gap-2 max-w-[500px]">
           <h1
             className="
-              font-otomanopee
+              font-fraunces
               leading-tight
               text-white/90
               text-3xl sm:text-4xl xl:text-[40px]

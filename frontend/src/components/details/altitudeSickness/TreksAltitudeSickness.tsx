@@ -202,7 +202,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                     >
                       <span
                         className="text-[15px] text-gray-800 tracking-[-0.01em]"
-                        style={{ fontFamily: "'Oldenburg', serif" }}
+                        style={{ fontFamily: "var(--font-fraunces), serif" }}
                       >
                         {key}
                       </span>

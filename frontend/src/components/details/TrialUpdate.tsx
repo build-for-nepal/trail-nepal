@@ -23,7 +23,7 @@ const TrialUpdate = ({ trekId }: Props) => {
         <div className="absolute inset-0 flex flex-col justify-center px-8 py-6 max-w-lg">
           <h2
             className="text-2xl font-bold text-gray-900 mb-2"
-            style={{ fontFamily: "'Oldenburg', serif" }}
+            style={{ fontFamily: "var(--font-fraunces), serif" }}
           >
             Share an Update from the Trail
           </h2>

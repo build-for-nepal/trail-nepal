@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import { Poppins, Playfair_Display, Oldenburg } from 'next/font/google';
+import { Poppins, Fraunces } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
 import { headers } from 'next/headers';
-
-const oldenburg = Oldenburg({ weight: '400', subsets: ['latin'] });
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -14,10 +12,10 @@ const poppins = Poppins({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700', '900'],
+  variable: '--font-fraunces',
   display: 'swap',
 });
 
@@ -69,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${playfair.variable} h-full antialiased`}
+      className={`${poppins.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
