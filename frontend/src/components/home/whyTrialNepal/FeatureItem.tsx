@@ -2,7 +2,7 @@ import { FeatureItemProps } from '@/types/homepage';
 
 const FeatureItem = ({ icon, title, description }: FeatureItemProps) => {
   return (
-    <div className="flex flex-col items-center gap-4 py-8 flex-1 text-center">
+    <div className="flex flex-col items-center gap-4 py-8 pb-2 flex-1 text-center">
       <span
         role="img"
         aria-label={title}

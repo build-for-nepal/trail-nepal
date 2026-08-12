@@ -8,6 +8,7 @@ import { NavLinks } from '../navigation/NavLinks';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from 'src/lib/utils';
+import FooterBackground from './FooterBackground';
 
 type Props = {
   isMainDisplay?: boolean;
@@ -20,28 +21,12 @@ const Footer = ({ isMainDisplay = false }: Props) => {
   return (
     <footer
       className={cn(
-        'relative w-full bg-[#376BB6] text-white  px-6 pt-[32px] pb-[32px] md:px-[40px] lg:px-4 lg:pt-[50px] lg:pb-[28px]',
+        "relative w-full overflow-hidden bg-[url('/footer-bg.png')] bg-cover bg-center bg-no-repeat text-white",
         !isMainDisplay && 'mt-20',
       )}
     >
-      {/* Wave Curve */}
-      <div
-        className={` ${isHomepage && 'bg-[#949072]'} absolute bottom-full left-0 w-full overflow-hidden leading-none z-10 h-[40px] md:h-[70px] lg:h-[100px]`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 430 38"
-          className="block w-full h-[40px] md:h-[70px] lg:h-[100px]"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 32.1699C0 32.1699 130.112 0.414969 215 0.00395019C300.92 -0.412065 430 32.1699 430 32.1699V38H0V32.1699Z"
-            fill="#376BB6"
-          />
-        </svg>
-      </div>
-
-      <div className="page-wrapper mx-auto max-w-[1920px]">
+      {/* Sunset sky + forest silhouette */}
+      <div className="page-wrapper relative z-10 mx-auto max-w-[1920px] -mt-px px-6 py-8 md:px-20 lg:px-20 lg:pt-50 lg:pb-7">
         <div className="grid grid-cols-1 items-center gap-[50px] lg:grid-cols-3 lg:gap-[40px]">
           {/* Left: Quick Links */}
           <div className="flex flex-col items-center gap-4 lg:items-start">

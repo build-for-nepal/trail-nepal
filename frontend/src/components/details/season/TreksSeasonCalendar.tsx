@@ -1,110 +1,307 @@
-import { CloudRain, LucideIcon, Snowflake, Sun } from 'lucide-react';
+'use client';
 
+import { useState } from 'react';
+import {
+  Cloud,
+  CloudLightning,
+  CloudRain,
+  CloudSnow,
+  CloudSun,
+  LucideIcon,
+  Moon,
+  Snowflake,
+  Sun,
+  Wind,
+} from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 import { TREK_DETAILS } from '@/static/trekDetails';
-import type { MonthData, Props, SeasonStatus } from '@/types/trek';
+import type { SeasonStatus } from '@/types/trek';
+import type { WeatherDaily } from '@/types/weather';
 
-const statusStyles: Record<
-  SeasonStatus,
-  { bg: string; text: string; border: string }
-> = {
-  peak: {
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-600',
-    border: 'bg-emerald-500',
-  },
-  danger: {
-    bg: 'bg-rose-50',
-    text: 'text-rose-500',
-    border: 'bg-rose-500',
-  },
-  caution: {
-    bg: 'bg-amber-50',
-    text: 'text-amber-500',
-    border: 'bg-amber-400',
-  },
+type Props = {
+  trekId: string;
+  today: WeatherDaily | null;
 };
 
-const parseSeasonData = (
-  condition: string,
-): { status: SeasonStatus; icon: LucideIcon } => {
-  const lowerCaseDesc = condition.toLowerCase();
+const statusText: Record<SeasonStatus, string> = {
+  peak: 'text-emerald-600',
+  danger: 'text-rose-500',
+  caution: 'text-amber-500',
+};
+
+const statusBadge: Record<SeasonStatus, { label: string; className: string }> =
+  {
+    peak: { label: 'Optimal', className: 'bg-emerald-50 text-emerald-600' },
+    danger: { label: 'Danger', className: 'bg-rose-50 text-rose-500' },
+    caution: { label: 'Caution', className: 'bg-amber-50 text-amber-600' },
+  };
+
+const trafficByStatus: Record<SeasonStatus, string> = {
+  peak: 'High',
+  danger: 'Very low',
+  caution: 'Moderate',
+};
+
+const lower = (value: string) => value.trim().toLowerCase();
+
+/** Expands the two-part season condition into a fuller, readable overview. */
+const buildOverview = (
+  monthName: string,
+  label: string,
+  detail: string,
+  status: SeasonStatus,
+): string => {
+  const traffic = trafficByStatus[status].toLowerCase();
+
+  const framing: Record<SeasonStatus, string> = {
+    peak: `${monthName} is one of the prime windows for this trek.`,
+    caution: `${monthName} is a transitional month that rewards flexible planning.`,
+    danger: `${monthName} is a demanding time to be on the trail.`,
+  };
+
+  const closing: Record<SeasonStatus, string> = {
+    peak: `Skies are typically stable and visibility is good, and trail traffic tends to be ${traffic}.`,
+    caution: `Weather can shift quickly and conditions vary from day to day, with ${traffic} trail traffic.`,
+    danger: `Expect tough going and frequently obscured mountain views, with ${traffic} trail traffic.`,
+  };
+
+  const conditions = detail
+    ? `Conditions are shaped by ${lower(label)}, bringing ${lower(detail)}.`
+    : `Conditions are shaped by ${lower(label)}.`;
+
+  return [framing[status], conditions, closing[status]].join(' ');
+};
+
+const getStatus = (condition: string): SeasonStatus => {
+  const s = condition.toLowerCase();
 
   if (
-    lowerCaseDesc.includes('heavy rain') ||
-    lowerCaseDesc.includes('peak monsoon') ||
-    lowerCaseDesc.includes('extremely cold') ||
-    lowerCaseDesc.includes('heavy snow')
+    s.includes('heavy rain') ||
+    s.includes('peak monsoon') ||
+    s.includes('extremely cold') ||
+    s.includes('heavy snow')
   ) {
-    const isCold =
-      lowerCaseDesc.includes('snow') || lowerCaseDesc.includes('cold');
-    return { status: 'danger', icon: isCold ? Snowflake : CloudRain };
+    return 'danger';
   }
 
   if (
-    lowerCaseDesc.includes('monsoon') ||
-    lowerCaseDesc.includes('freezing') ||
-    lowerCaseDesc.includes('winter') ||
-    lowerCaseDesc.includes('cloudy') ||
-    lowerCaseDesc.includes('muddy')
+    s.includes('monsoon') ||
+    s.includes('freezing') ||
+    s.includes('winter') ||
+    s.includes('chill') ||
+    s.includes('cloudy') ||
+    s.includes('muddy')
   ) {
-    const isCold =
-      lowerCaseDesc.includes('freezing') || lowerCaseDesc.includes('winter');
-    return { status: 'caution', icon: isCold ? Snowflake : CloudRain };
+    return 'caution';
   }
 
-  return { status: 'peak', icon: Sun };
+  return 'peak';
 };
 
-const TreksSeasonCalendar = ({ trekId }: Props) => {
+const getIcon = (condition: string): LucideIcon => {
+  const s = condition.toLowerCase();
+
+  if (
+    s.includes('thunder') ||
+    s.includes('storm') ||
+    s.includes('peak monsoon')
+  )
+    return CloudLightning;
+  if (s.includes('snow')) return CloudSnow;
+  if (
+    s.includes('freezing') ||
+    s.includes('extremely cold') ||
+    s.includes('chill') ||
+    (s.includes('cold') && !s.includes('rain'))
+  )
+    return Snowflake;
+  if (s.includes('wind')) return Wind;
+  if (
+    s.includes('rain') ||
+    s.includes('monsoon') ||
+    s.includes('wet') ||
+    s.includes('muddy') ||
+    s.includes('drizzle')
+  )
+    return CloudRain;
+  if (s.includes('overcast') || s.includes('cloud') || s.includes('fog'))
+    return Cloud;
+  if (s.includes('stable') || s.includes('cool')) return Moon;
+  if (
+    s.includes('bloom') ||
+    s.includes('spring') ||
+    s.includes('warm') ||
+    s.includes('clear') ||
+    s.includes('sun') ||
+    s.includes('perfect') ||
+    s.includes('popular') ||
+    s.includes('visibility') ||
+    s.includes('crisp')
+  )
+    return Sun;
+
+  return CloudSun;
+};
+
+const TreksSeasonCalendar = ({ trekId, today }: Props) => {
+  const now = new Date();
+  const currentMonthIndex = now.getMonth();
+  const [selectedIndex, setSelectedIndex] = useState(currentMonthIndex);
+
   const data = TREK_DETAILS[trekId];
   if (!data?.seasonalPlanning) return null;
 
-  const months: MonthData[] = data.seasonalPlanning.map((item) => {
-    const parsedParams = parseSeasonData(item.condition);
+  const months = data.seasonalPlanning.map((item, index) => {
+    const [label, detail] = item.condition.split(' / ');
 
     return {
-      title: item.month.toUpperCase(),
-      value: item.condition.split(' / ')[0],
-      fullDescription: item.condition,
-      status: parsedParams.status,
-      icon: parsedParams.icon,
+      index,
+      abbr: item.month.toUpperCase(),
+      label,
+      detail: detail ?? '',
+      status: getStatus(item.condition),
+      icon: getIcon(item.condition),
     };
   });
 
+  const selected =
+    months.find((month) => month.index === selectedIndex) ??
+    months[currentMonthIndex] ??
+    months[0];
+  const isCurrentSelected = selected.index === currentMonthIndex;
+  const badge = statusBadge[selected.status];
+  const monthFullName = new Date(
+    now.getFullYear(),
+    selected.index,
+    1,
+  ).toLocaleString('en-US', { month: 'long' });
+
+  const formatTemp = (value: number) => `${Math.round(value)}°`;
+
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">
-        {months.map((month) => {
-          const style = statusStyles[month.status];
-          const Icon = month.icon;
+    <div className="flex h-full flex-col gap-6">
+      <div className="flex flex-col gap-3">
+        <h3 className="font-poppins text-2xl font-bold text-gray-900">
+          Monthly Window
+        </h3>
+        <p className="font-poppins  leading-relaxed text-gray-600">
+          Timing is everything in the Himalayas. The window for a safe ascent is
+          narrow and dictated by the monsoon and winter winds.
+        </p>
+        {data.meta?.bestSeasons ? (
+          <p className="font-poppins font-medium italic text-gray-700">
+            Note: Best Months to trek {data.name} is {data.meta.bestSeasons}
+          </p>
+        ) : null}
+      </div>
 
-          return (
-            <div
-              key={month.title}
-              title={month.fullDescription}
-              className={`relative flex flex-col items-center gap-2 overflow-hidden rounded-xl px-2 py-6 text-center shadow-sm transition-transform hover:-translate-y-1 ${style.bg}`}
-            >
-              <div className="text-base font-bold tracking-wider text-gray-800 sm:text-lg">
-                {month.title}
-              </div>
+      <div className="flex flex-1 flex-col rounded-[24px] bg-[#EEF2F8] p-5 sm:p-6">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+          {months.map((month) => {
+            const Icon = month.icon;
+            const isCurrent = month.index === currentMonthIndex;
+            const isSelected = month.index === selected.index;
 
-              <Icon
-                className={`${style.text} my-1`}
-                size={28}
-                strokeWidth={2.5}
-              />
-
-              <div
-                className={`text-[11px] font-bold uppercase leading-snug tracking-wide sm:text-xs ${style.text}`}
+            return (
+              <button
+                type="button"
+                key={month.abbr}
+                onClick={() => setSelectedIndex(month.index)}
+                aria-pressed={isSelected}
+                title={month.detail || month.label}
+                className={cn(
+                  'relative flex min-h-[124px] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#376BB6]',
+                  isSelected &&
+                    'ring-2 ring-[#376BB6] ring-offset-2 ring-offset-[#EEF2F8]',
+                )}
               >
-                {month.value}
-              </div>
+                {isCurrent ? (
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 whitespace-nowrap rounded-full border border-[#376BB6]/25 bg-white px-2 py-0.5 text-[9px] font-semibold text-[#376BB6] shadow-sm">
+                    <span className="inline-block size-1.5 rounded-full bg-[#376BB6]" />
+                    Current Month
+                  </span>
+                ) : null}
 
-              <div
-                className={`absolute bottom-0 left-0 h-1.5 w-full ${style.border}`}
-              />
-            </div>
-          );
-        })}
+                <span className=" font-bold tracking-[0.08em] text-gray-700">
+                  {month.abbr}
+                </span>
+
+                <Icon
+                  className={statusText[month.status]}
+                  size={26}
+                  strokeWidth={2.25}
+                />
+
+                <span
+                  className={cn(
+                    'text-xs font-semibold leading-tight',
+                    statusText[month.status],
+                  )}
+                >
+                  {month.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-6 flex flex-1 flex-col border-t border-black/5 pt-5">
+          <div className="flex items-center gap-3">
+            <h4 className="font-poppins text-lg font-bold text-gray-900">
+              {monthFullName}
+            </h4>
+            <span
+              className={cn(
+                'rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide',
+                badge.className,
+              )}
+            >
+              {badge.label}
+            </span>
+          </div>
+          <p className="mt-1 font-poppins leading-relaxed text-gray-600">
+            {buildOverview(
+              monthFullName,
+              selected.label,
+              selected.detail,
+              selected.status,
+            )}
+          </p>
+
+          {isCurrentSelected && today ? (
+            <>
+              <p className="mt-4 font-poppins text-sm font-semibold text-gray-900">
+                Today&rsquo;s Forecast :
+              </p>
+              <div className="mt-2 flex flex-wrap gap-x-10 gap-y-3">
+                <div>
+                  <p className="font-poppins text-2xl font-bold text-gray-900">
+                    {formatTemp(today.tempMaxC)} / {formatTemp(today.tempMinC)}C
+                  </p>
+                  <p className="font-poppins text-gray-500">Day / Night</p>
+                </div>
+                <div>
+                  <p className="font-poppins text-2xl font-bold text-gray-900">
+                    {Math.round(today.precipMm)}mm
+                  </p>
+                  <p className="font-poppins text-gray-500">Rainfall</p>
+                </div>
+                <div>
+                  <p className="font-poppins text-2xl font-bold text-gray-900">
+                    {trafficByStatus[selected.status]}
+                  </p>
+                  <p className="font-poppins text-gray-500">Trail traffic</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <p className="mt-3 font-poppins text-xs text-gray-400">
+              Select the current month to see today&rsquo;s live forecast.
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
