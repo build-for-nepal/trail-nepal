@@ -55,6 +55,7 @@ const ContactInfoSidebar = ({
         text: 'low risk above 2000m',
         textColor: 'text-green-500',
         bg: 'bg-green-500',
+        pulse: false,
       };
     }
 
@@ -63,14 +64,26 @@ const ContactInfoSidebar = ({
         text: 'moderate risk above 3000m',
         textColor: 'text-blue-500',
         bg: 'bg-blue-500',
+        pulse: false,
+      };
+    }
+
+    if (altValue.number >= 5000) {
+      return {
+        text: 'Extreme risk above 5,000m with AMS & HACE',
+        textColor: 'text-[#B11F12]',
+        bg: 'bg-[#B11F12]',
+        // High/extreme altitudes get an attention-drawing pulsing dot.
+        pulse: true,
       };
     }
 
     if (altValue.number >= 4000) {
       return {
         text: 'High risk above 4000m',
-        textColor: 'text-red-500',
-        bg: 'bg-red-500',
+        textColor: 'text-[#B12013]',
+        bg: 'bg-[#B12013]',
+        pulse: true,
       };
     }
 
@@ -78,54 +91,63 @@ const ContactInfoSidebar = ({
       text: '',
       textColor: 'text-gray-500',
       bg: 'bg-gray-500',
+      pulse: false,
     };
   };
 
   const showText = displayInfo(trekInfo.meta.maxElevation);
 
+  const maxAlt = convertAltitudeData(trekInfo.meta.maxElevation);
+  const altNumber = maxAlt
+    ? maxAlt.number.toLocaleString('en-US')
+    : trekInfo.meta.maxElevation;
+  const altUnit = maxAlt?.unit ?? '';
+
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 w-full md:w-75 lg:w-[320px] shrink-0',
+        'flex flex-col gap-4 w-full md:w-75 lg:w-[400px] shrink-0 sticky top-16',
         className,
       )}
     >
-      <div className="bg-[#D4E4F6] px-5 pt-5 pb-4 border-b rounded-card border-gray-100">
-        <div className="flex flex-col mb-2">
-          <div className="flex items-start justify-between gap-2 text-[#2D2F27]">
-            <span className="text-3xl font-black text-[#2D2F27] tracking-tight">
-              {trekInfo.meta.maxElevation}
-            </span>
+      <div className="rounded-[24px] bg-[#3E6DB5] px-6 pt-6 pb-5 text-white shadow-sm">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[44px] font-extrabold leading-none tracking-tight">
+            {altNumber}
+          </span>
+          <span className="text-lg font-semibold text-white/90">{altUnit}</span>
+        </div>
+        <p className="mt-2.5 text-sm text-white/85">
+          Maximum altitude · {trekInfo.name.split(' (')[0]}
+        </p>
 
-            {showText?.text && (
+        {showText?.text && (
+          <div className="mt-4 flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2">
+            <span className="relative flex h-2 w-2 shrink-0 items-center justify-center">
+              {showText.pulse && (
+                <span
+                  className={cn(
+                    'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
+                    showText.bg,
+                  )}
+                />
+              )}
               <span
                 className={cn(
-                  'flex items-center capitalize gap-1 shrink-0 bg-white text-[9px] px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap',
-                  showText.textColor,
+                  'relative inline-flex h-1.5 w-1.5 rounded-full',
+                  showText.bg,
                 )}
-              >
-                <span
-                  className={cn('w-1 h-1 rounded-full shrink-0', showText.bg)}
-                />
-                {showText.text}
-              </span>
-            )}
+              />
+            </span>
+            <span className={cn('text-sm font-semibold', showText.textColor)}>
+              {showText.text}
+            </span>
           </div>
-          <p className="text-[10px]">
-            Maximum altitude: {trekInfo.name.split(' (')[0]}
-          </p>
-        </div>
-        <p className="text-[11px] text-[#2D2F27] leading-relaxed">
-          <span className="font-semibold text-[#2D2F27]">
-            High risk of altitude sickness beyond 4,000m.
-          </span>
-          <br />
-          Proper acclimatization is non-negotiable.
-        </p>
+        )}
       </div>
       <div
         className={cn(
-          'flex flex-col py-4  bg-[#ECF3FD] rounded-[24px] shadow-xl overflow-hidden',
+          'flex flex-col py-4  bg-[#EBF0F8] rounded-[24px] shadow-xl overflow-hidden',
         )}
       >
         {/* CTA Buttons */}
@@ -133,7 +155,7 @@ const ContactInfoSidebar = ({
           <CTAButtons
             name="Call Emergency (100)"
             icon={callImg}
-            className="bg-[#B12013]"
+            className="bg-[#B11F12]"
             phone="100"
           />
           <CTAButtons
@@ -153,7 +175,7 @@ const ContactInfoSidebar = ({
         {/* Reach out section */}
         <div className={cn('flex flex-col overflow-hidden')}>
           <div className="px-5 pt-4 pb-2 flex items-center justify-between shrink-0">
-            <p className="text-[10px] font-semibold tracking-widest uppercase text-[#376BB6]">
+            <p className="text-[12px] font-bold tracking-widest uppercase text-[#376BB6]">
               Reach Out To
             </p>
           </div>
@@ -168,7 +190,7 @@ const ContactInfoSidebar = ({
             )}
           >
             {/* Specialist Hospitals */}
-            <p className="text-[9px] font-bold tracking-widest uppercase text-gray-500 mb-2">
+            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-2">
               Specialist Hospitals
             </p>
             <div className="flex flex-col gap-2.5">
@@ -180,7 +202,7 @@ const ContactInfoSidebar = ({
                     </span>
                     <span
                       className={cn(
-                        'text-[11px] text-[#376BB6] font-medium',
+                        'text-[12px] text-[#376BB6] font-medium',
                         'flex flex-wrap justify-end gap-x-1',
                       )}
                     >
@@ -202,7 +224,7 @@ const ContactInfoSidebar = ({
             </div>
 
             {/* Helicopter Rescue */}
-            <p className="text-[9px] font-bold tracking-widest uppercase text-gray-500 mb-2 mt-4">
+            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-2 mt-4">
               Helicopter Rescue
             </p>
             <div className="flex flex-col gap-3 mb-4">
@@ -218,12 +240,12 @@ const ContactInfoSidebar = ({
                   </div>
                   <div className="flex items-center justify-between">
                     <span
-                      className={cn('text-[11px] text-[#376BB6] font-medium')}
+                      className={cn('text-[12px] text-[#376BB6] font-medium')}
                     >
                       {c.phone}
                     </span>
                     {c.address && (
-                      <span className="text-[9px] text-gray-400 text-right leading-tight shrink-0">
+                      <span className="text-[10px] text-gray-400 text-right leading-tight shrink-0">
                         {c.address}
                       </span>
                     )}
@@ -284,7 +306,7 @@ const CTAButtons = ({
         <div className="w-2.5 h-2.5">
           <Image src={icon} alt="contact-img" className="w-full h-full" />
         </div>
-        <span className="text-[13px] font-semibold">{name}</span>
+        <span className="text-sm font-semibold">{name}</span>
       </div>
       <ArrowRight className="w-4 h-4" />
     </a>

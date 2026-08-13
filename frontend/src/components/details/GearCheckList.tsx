@@ -309,7 +309,7 @@ const GearCheckList = ({ trekId }: Props) => {
   };
 
   return (
-    <div className="page-wrapper flex flex-col gap-16 py-20">
+    <div className="bg-[#EBF0F8] page-wrapper flex flex-col gap-16 py-20">
       <SectionHeader
         title="Gear Checklist"
         description="Make sure you have everything you need"
@@ -323,7 +323,7 @@ const GearCheckList = ({ trekId }: Props) => {
             {stats.checkedCount} / {stats.totalItems} Items
           </span>
         </div>
-        <div className="w-full max-w-lg h-2.5 bg-gray-200 rounded-full overflow-hidden">
+        <div className="w-full max-w-lg h-2.5 bg-white rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-[width] duration-500 ease-out"
             style={{
@@ -343,7 +343,7 @@ const GearCheckList = ({ trekId }: Props) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl">
+      <div className="bg rounded-2xl">
         <div className="flex min-h-130">
           {/* ── sidebar (desktop only) ── */}
           <aside className="w-44 sm:w-52 shrink-0 hidden md:flex flex-col">
@@ -375,7 +375,7 @@ const GearCheckList = ({ trekId }: Props) => {
 
             <div className="flex flex-col items-center pb-8 pt-6">
               <p
-                className="text-sm font-bold text-center"
+                className="text-sm font-bold text-center "
                 style={{ color: weightColor }}
               >
                 Weight: {stats.totalWeight.toFixed(1)} kg
@@ -425,9 +425,8 @@ const GearCheckList = ({ trekId }: Props) => {
                 );
               })}
             </div>
-
-            <section className="flex-1 flex flex-col shadow-md rounded-xl">
-              <div className="sticky top-0 z-10 bg-white border border-gray-100 px-6 py-4 flex flex-col gap-2">
+            <section className="flex-1 bg-white flex flex-col  shadow-md rounded-xl pb-6">
+              <div className="sticky top-0 z-10 bg-white border border-gray-100 px-6 py-4 flex flex-col gap-2 rounded-t-xl">
                 <div className="flex w-full justify-between">
                   <h2 className="text-base font-semibold text-gray-800">
                     {activeCategory.label.toLowerCase() === 'optional'

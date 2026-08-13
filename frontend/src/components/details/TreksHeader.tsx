@@ -1,5 +1,24 @@
+import {
+  CalendarDays,
+  CircleDollarSign,
+  Clock,
+  MapPin,
+  Mountain,
+  TrendingUp,
+} from 'lucide-react';
+
 import { TREK_DETAILS } from '@/static/trekDetails';
+import { cn } from '@/lib/utils';
 import { Props } from '@/types/trek';
+
+/** Pulls the leading amount from a timeline price string, e.g.
+ *  "NPR 2,800 (Accommodation: 800, Meals: 2,000)" -> 2800. */
+const parseDayAmount = (price?: string): number => {
+  if (!price) return 0;
+  const match = price.match(/[\d,]+/);
+  if (!match) return 0;
+  return Number(match[0].replace(/,/g, '')) || 0;
+};
 
 const TreksHeader = ({ trekId }: Props) => {
   const data = TREK_DETAILS[trekId];
@@ -10,10 +29,32 @@ const TreksHeader = ({ trekId }: Props) => {
     data.gallery?.[0]?.url ||
     '';
 
+  // Total the trek's estimated cost from the per-day timeline prices.
+  // Only shown when at least one day has a price; otherwise a dash.
+  const totalCost = data.timeline.reduce(
+    (sum, day) => sum + parseDayAmount(day.price),
+    0,
+  );
+  const estCost =
+    totalCost > 0 ? `NPR ${totalCost.toLocaleString('en-US')}` : '-';
+
+  const stats = [
+    { icon: Clock, label: 'Duration', value: data.meta.duration },
+    { icon: TrendingUp, label: 'Difficulty', value: data.meta.difficulty },
+    { icon: Mountain, label: 'Elevation', value: data.meta.maxElevation },
+    {
+      icon: CalendarDays,
+      label: 'Best Season',
+      value: data.meta.bestSeasons.split(',')[0].trim(),
+    },
+    { icon: MapPin, label: 'Starting Point', value: data.meta.startingPoint },
+    { icon: CircleDollarSign, label: 'Est. Cost', value: estCost },
+  ];
+
   return (
     <header
       role="banner"
-      className="page-wrapper relative w-full overflow-hidden h-[calc(100svh-100px)] md:h-[calc(100svh-140px)] min-h-[450px] bg-cover bg-center"
+      className="page-wrapper relative w-full pb-8 overflow-hidden h-[100svh] min-h-[520px] bg-cover bg-center"
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
       <div
@@ -34,7 +75,7 @@ const TreksHeader = ({ trekId }: Props) => {
         </button>
       </div>
 
-      <div className="page-wrapper relative z-10 flex flex-col justify-end h-full pb-16 md:pb-12 px-4 sm:px-8 md:px-[--spacing-page-x] items-center md:items-start text-center md:text-left">
+      <div className="page-wrapper relative z-10 flex flex-col justify-end h-full pb-8 md:pb-8 px-4 sm:px-8 md:px-[--spacing-page-x] items-center md:items-start text-center md:text-left">
         <div className="flex flex-col gap-3 md:gap-2 max-w-[800px] items-center md:items-start">
           <h1 className="font-fraunces font-bold text-white text-[42px] leading-[1.1] sm:text-5xl md:text-6xl tracking-tight drop-shadow-lg max-w-[300px] md:max-w-none">
             {data.name.split(' (')[0]}
@@ -49,6 +90,32 @@ const TreksHeader = ({ trekId }: Props) => {
           <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-[320px] sm:max-w-[85%] drop-shadow-md">
             {data.overview.substring(0, 130)}...
           </p>
+        </div>
+
+        {/* Quick stats bar */}
+        <div className="mt-6 w-full rounded-2xl bg-white/95 px-6 py-4 shadow-xl backdrop-blur-sm sm:px-6 md:mt-8">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-left sm:grid-cols-3 xl:flex xl:items-center xl:gap-0">
+            {stats.map(({ icon: Icon, label, value }, index) => (
+              <div
+                key={label}
+                className={cn(
+                  'flex items-center gap-3 xl:flex-1 xl:px-4',
+                  index > 0 && 'xl:border-l xl:border-gray-200',
+                )}
+              >
+                <Icon
+                  className="size-6 shrink-0 text-gray-700"
+                  strokeWidth={1.75}
+                />
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-sm text-gray-500">{label}</span>
+                  <span className="truncate text-[18px] font-bold text-gray-700">
+                    {value}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </header>

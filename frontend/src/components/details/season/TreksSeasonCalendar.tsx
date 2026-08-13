@@ -74,24 +74,24 @@ const buildOverview = (
 };
 
 const getStatus = (condition: string): SeasonStatus => {
-  const s = condition.toLowerCase();
+  const normalized = condition.toLowerCase();
 
   if (
-    s.includes('heavy rain') ||
-    s.includes('peak monsoon') ||
-    s.includes('extremely cold') ||
-    s.includes('heavy snow')
+    normalized.includes('heavy rain') ||
+    normalized.includes('peak monsoon') ||
+    normalized.includes('extremely cold') ||
+    normalized.includes('heavy snow')
   ) {
     return 'danger';
   }
 
   if (
-    s.includes('monsoon') ||
-    s.includes('freezing') ||
-    s.includes('winter') ||
-    s.includes('chill') ||
-    s.includes('cloudy') ||
-    s.includes('muddy')
+    normalized.includes('monsoon') ||
+    normalized.includes('freezing') ||
+    normalized.includes('winter') ||
+    normalized.includes('chill') ||
+    normalized.includes('cloudy') ||
+    normalized.includes('muddy')
   ) {
     return 'caution';
   }
@@ -100,44 +100,48 @@ const getStatus = (condition: string): SeasonStatus => {
 };
 
 const getIcon = (condition: string): LucideIcon => {
-  const s = condition.toLowerCase();
+  const normalized = condition.toLowerCase();
 
   if (
-    s.includes('thunder') ||
-    s.includes('storm') ||
-    s.includes('peak monsoon')
+    normalized.includes('thunder') ||
+    normalized.includes('storm') ||
+    normalized.includes('peak monsoon')
   )
     return CloudLightning;
-  if (s.includes('snow')) return CloudSnow;
+  if (normalized.includes('snow')) return CloudSnow;
   if (
-    s.includes('freezing') ||
-    s.includes('extremely cold') ||
-    s.includes('chill') ||
-    (s.includes('cold') && !s.includes('rain'))
+    normalized.includes('freezing') ||
+    normalized.includes('extremely cold') ||
+    normalized.includes('chill') ||
+    (normalized.includes('cold') && !normalized.includes('rain'))
   )
     return Snowflake;
-  if (s.includes('wind')) return Wind;
+  if (normalized.includes('wind')) return Wind;
   if (
-    s.includes('rain') ||
-    s.includes('monsoon') ||
-    s.includes('wet') ||
-    s.includes('muddy') ||
-    s.includes('drizzle')
+    normalized.includes('rain') ||
+    normalized.includes('monsoon') ||
+    normalized.includes('wet') ||
+    normalized.includes('muddy') ||
+    normalized.includes('drizzle')
   )
     return CloudRain;
-  if (s.includes('overcast') || s.includes('cloud') || s.includes('fog'))
-    return Cloud;
-  if (s.includes('stable') || s.includes('cool')) return Moon;
   if (
-    s.includes('bloom') ||
-    s.includes('spring') ||
-    s.includes('warm') ||
-    s.includes('clear') ||
-    s.includes('sun') ||
-    s.includes('perfect') ||
-    s.includes('popular') ||
-    s.includes('visibility') ||
-    s.includes('crisp')
+    normalized.includes('overcast') ||
+    normalized.includes('cloud') ||
+    normalized.includes('fog')
+  )
+    return Cloud;
+  if (normalized.includes('stable') || normalized.includes('cool')) return Moon;
+  if (
+    normalized.includes('bloom') ||
+    normalized.includes('spring') ||
+    normalized.includes('warm') ||
+    normalized.includes('clear') ||
+    normalized.includes('sun') ||
+    normalized.includes('perfect') ||
+    normalized.includes('popular') ||
+    normalized.includes('visibility') ||
+    normalized.includes('crisp')
   )
     return Sun;
 
@@ -196,8 +200,8 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col rounded-[24px] bg-[#EEF2F8] p-5 sm:p-6">
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+      <div className="flex flex-1 flex-col rounded-[24px] bg-[#EBF0F8] p-5 sm:p-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {months.map((month) => {
             const Icon = month.icon;
             const isCurrent = month.index === currentMonthIndex;
@@ -211,7 +215,7 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
                 aria-pressed={isSelected}
                 title={month.detail || month.label}
                 className={cn(
-                  'relative flex min-h-[124px] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#376BB6]',
+                  'relative flex min-h-[124px] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#376BB6]',
                   isSelected &&
                     'ring-2 ring-[#376BB6] ring-offset-2 ring-offset-[#EEF2F8]',
                 )}

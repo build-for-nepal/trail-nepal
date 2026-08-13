@@ -8,13 +8,13 @@ import Link from 'next/link';
 const PopularTrekSection = () => {
   return (
     <section className="relative py-[100px] overflow-hidden">
-      <Image
-        src="/images/hill.svg"
+      {/* <Image
+        src="/images/popularbg.jpg"
         alt=""
         fill
-        className="object-bottom object-cover pointer-events-none select-none"
+        className=" object-cover pointer-events-none select-none"
         aria-hidden="true"
-      />
+      /> */}
 
       <div className="page-wrapper relative z-10">
         <div className="relative w-full flex flex-col items-center gap-2 lg:block">

@@ -1,113 +1,78 @@
-import { Calendar, Activity, Clock, MapPin, Mountain } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import { Props } from '@/types/trek';
-import SubNav from 'src/components/layout/navigation/SubNav';
 
 const TreksHero = ({ trekId }: Props) => {
   const data = TREK_DETAILS[trekId];
   if (!data) return null;
 
-  const { meta, overview } = data;
+  const { overview, timeline } = data;
 
-  const cleanSeason = meta.bestSeasons?.split(',')[0] || '';
-  const cleanStartingPoint = meta.startingPoint?.split(' (')[0] || '';
+  const paragraphs = overview
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
 
-  const stats = [
+  // Daily walking hours — min/max across the itinerary's per-day durations.
+  const walkingHours: number[] = [];
+  timeline.forEach((day) => {
+    day.stats?.duration?.match(/\d+/g)?.forEach((n) => walkingHours.push(Number(n)));
+  });
+  const dailyWalkingHours = walkingHours.length
+    ? `${Math.min(...walkingHours)}-${Math.max(...walkingHours)} hrs`
+    : '—';
+
+  // Acclimatization days — itinerary days explicitly marked as acclimatization.
+  const acclimatizationDays = timeline.filter((day) =>
+    /acclimatiz/i.test(day.title),
+  ).length;
+
+  const tripFacts = [
+    { label: 'Flights', value: 'Kathmandu ⇄ Lukla' },
+    { label: 'Accommodation', value: 'Tea House / Camping' },
+    { label: 'Daily Walking Hours', value: dailyWalkingHours },
+    { label: 'Route Type', value: 'Out & Back' },
     {
-      icon: <Clock className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: 'Duration',
-      value: meta.duration,
+      label: 'Acclimatization Days',
+      value: acclimatizationDays > 0 ? `${acclimatizationDays} days` : '—',
     },
-    {
-      icon: <Activity className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: 'Difficulty',
-      value: meta.difficulty,
-    },
-    {
-      icon: <Mountain className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: 'Elevation',
-      value: meta.maxElevation,
-    },
-    {
-      icon: <Calendar className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: 'Best Season',
-      value: cleanSeason,
-    },
-    {
-      icon: <MapPin className="h-5 w-5 md:h-6 md:w-6 text-white" />,
-      title: 'Starting Point',
-      value: cleanStartingPoint,
-    },
+    { label: 'Permits', value: 'TIMS, National Park Permit' },
   ];
 
-  const chunkSize = 2;
-  const rows = [];
-  for (let i = 0; i < stats.length; i += chunkSize) {
-    rows.push(stats.slice(i, i + chunkSize));
-  }
-
   return (
-    <section className="w-full flex flex-col">
-      <div className="page-wrapper bg-[#4276b2] w-full py-6 md:py-8">
-        <div className="page-wrapper w-full mx-auto px-2 sm:px-8">
-          {/* mobile view */}
-          <div className="flex flex-col gap-6 md:hidden">
-            {rows.map((row, rowIndex) => (
-              <div
-                key={rowIndex}
-                className={`grid grid-cols-2 gap-4 ${
-                  row.length === 1 ? 'flex justify-center' : ''
-                }`}
-              >
-                {row.map((stat) => (
-                  <div
-                    className={`flex flex-col items-center justify-center px-1 ${
-                      row.length === 1 ? 'col-span-2 max-w-50 mx-auto' : ''
-                    }`}
-                    key={stat.title}
-                  >
-                    <div className="mb-1 md:mb-2">{stat.icon}</div>
-                    <div className="text-[16px] sm:text-[16px] font-bold text-white tracking-wide mb-0.5 md:mb-1 text-center whitespace-nowrap">
-                      {stat.title}
-                    </div>
-                    <div className="text-[12px] sm:text-[12px] text-white/90 text-center whitespace-nowrap">
-                      {stat.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          {/* desktop view - from md */}
-          <div className="hidden md:flex flex-row justify-around items-center w-full">
-            {stats.map((stat) => (
-              <div
-                className="flex flex-col items-center justify-center px-1"
-                key={stat.title}
-              >
-                <div className="mb-1 md:mb-2">{stat.icon}</div>
-                <div className="text-[12px] sm:text-[14px] md:text-[18px] lg:text-[22px] font-bold text-white tracking-wide mb-0.5 md:mb-1 text-center whitespace-nowrap">
-                  {stat.title}
-                </div>
-                <div className="text-[9px] sm:text-[12px] md:text-[13px] lg:text-[22px] text-white/90 text-center whitespace-nowrap">
-                  {stat.value}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="page-wrapper mx-auto flex flex-col px-6 sm:px-10 lg:px-20 py-12 lg:py-20 gap-8 w-full">
+    <section className="w-full">
+      <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-20 lg:py-20">
         <SectionHeader
           title="Trek Overview"
-          description="Everything you need to know about the journey"
+          description="Get an instant cost estimate for your adventure"
           id="overview"
         />
-        <div className="space-y-6 text-gray-700 leading-relaxed md:text-lg">
-          <p>{overview}</p>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12">
+          {/* Overview text */}
+          <div className="space-y-6 leading-relaxed text-gray-700 md:text-lg">
+            {paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+
+          {/* Trip Facts */}
+          <aside className="h-fit rounded-2xl bg-[#EEF3FB] p-6 sm:p-7">
+            <h3 className="text-lg font-bold text-gray-900">Trip Facts</h3>
+            <dl className="mt-4 flex flex-col">
+              {tripFacts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="flex items-center justify-between gap-4 border-b border-black/5 py-3.5 last:border-b-0"
+                >
+                  <dt className="text-sm text-gray-500">{fact.label}</dt>
+                  <dd className="text-right text-sm font-bold text-gray-900">
+                    {fact.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
         </div>
       </div>
     </section>

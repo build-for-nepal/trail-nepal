@@ -71,7 +71,7 @@ const TreksSeasonContent = ({ trekId, region, timeline }: Props) => {
           description="Climbing windows for Trek regions."
         />
 
-        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
+        <div className="grid grid-cols-1 items-stretch gap-8 xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
           <TreksSeasonCalendar trekId={trekId} today={today} />
 
           {showForecast ? (

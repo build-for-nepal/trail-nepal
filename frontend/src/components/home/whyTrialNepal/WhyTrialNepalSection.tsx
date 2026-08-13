@@ -10,7 +10,7 @@ const WhyNepalSection = () => {
           title="Why Trail Nepal?"
           description="Discover what makes Nepal a trekker's paradise"
         />
-        <div className="flex flex-col md:flex-row w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full">
           {WHY_NEPAL_FEATURES.map((feature) => (
             <FeatureItem key={feature.id} {...feature} />
           ))}
