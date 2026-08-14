@@ -40,16 +40,6 @@ const ComparePage = () => {
 
   return (
     <div className="page-wrapper">
-      <div className="flex flex-col gap-4 mt-20">
-        <h2 className="text-[48px] font-fraunces text-[#181C1D] font-[400]">
-          Compare Expeditions
-        </h2>
-        <p className="w-full md:w-[80%] lg:w-[50%] text-[#40484A]">
-          Detailed side-by-side analysis of our signature high-altitude routes
-          to help you choose your next peak performance objective.
-        </p>
-      </div>
-
       <div className="flex flex-col gap-3 mt-10">
         <p className="text-[#2D2F27] text-sm">
           Select up to 3 treks to compare side-by-side

@@ -21,13 +21,22 @@ const Footer = ({ isMainDisplay = false }: Props) => {
   return (
     <footer
       className={cn(
-        "relative w-full overflow-hidden bg-[url('/footer-bg.png')] bg-cover bg-center bg-no-repeat text-white",
-        !isMainDisplay && 'mt-20',
+        // Below lg (< ~1000px): plain solid dark footer — the wide mountain
+        // scene only reads well on desktop. lg+ shows the image (cover/center).
+        'relative w-full overflow-hidden max-lg:bg-[#0b0e13] text-white ',
+        !isMainDisplay && 'mt-12 lg:mt-20',
       )}
     >
-      {/* Sunset sky + forest silhouette */}
-      <div className="page-wrapper relative z-10 mx-auto max-w-[1920px] -mt-px px-6 py-8 md:px-20 lg:px-20 lg:pt-50 lg:pb-7">
-        <div className="grid grid-cols-1 items-center gap-[50px] lg:grid-cols-3 lg:gap-[40px]">
+      <div>
+        <Image
+          src="/footer-bg.png"
+          alt="Footer Background"
+          fill
+          className=" hidden lg:block max-xl:object-cover"
+        />
+      </div>
+      <div className="page-wrapper relative z-10 mx-auto max-w-[1920px] px-6 py-12 md:px-8 lg:px-20 lg:pt-50 lg:pb-7">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-3 lg:gap-[40px]">
           {/* Left: Quick Links */}
           <div className="flex flex-col items-center gap-4 lg:items-start">
             <h3 className="font-poppins text-lg font-semibold lg:text-xl">
@@ -70,7 +79,7 @@ const Footer = ({ isMainDisplay = false }: Props) => {
 
           {/* Right: Collaborations */}
 
-          <div className="flex flex-row items-center justify-center lg:justify-end lg:shrink-0 gap-6">
+          <div className="flex flex-col items-center lg:items-end justify-center lg:justify-end lg:shrink-0 gap-6">
             {/* Presented by */}
             <div className="flex flex-col items-center gap-2">
               <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90">
@@ -91,7 +100,7 @@ const Footer = ({ isMainDisplay = false }: Props) => {
 
             {/* Collaboration with */}
             <div className="flex flex-col items-center gap-2">
-              <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90">
+              <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90 ">
                 Collaboration with
               </p>
               <div className="flex items-center justify-center rounded-md bg-white px-3 py-2">

@@ -1,4 +1,6 @@
-export function ExploreHeader() {
+import comparebg from '@/assets/compare/comparebg.svg';
+
+export function CompareHeader() {
   return (
     <header
       role="banner"
@@ -24,12 +26,12 @@ export function ExploreHeader() {
               text-3xl sm:text-4xl xl:text-[40px]
             "
           >
-            Explore Nepal Treks
+            Compare Expeditions
           </h1>
 
           <p className="text-white/70">
-            Discover Nepal’s diverse trekking routes, landscapes, and hidden
-            gems to find the adventure that’s right for you.
+            Detailed side-by-side analysis of our routes to help you choose your
+            next peak performance objective.
           </p>
         </div>
       </div>

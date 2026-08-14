@@ -170,7 +170,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
   }, []);
 
   return (
-    <div className="w-full bg-[#EBF0F8]">
+    <div className="w-full ">
       <div
         ref={sectionRef}
         className={cn('page-wrapper w-full bg-white pb-16')}
