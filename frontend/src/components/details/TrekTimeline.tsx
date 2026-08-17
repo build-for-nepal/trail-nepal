@@ -11,82 +11,111 @@ import blackMountain from '@/assets/details/blackmountain.svg';
 import alertLine from '@/assets/details/alertline.svg';
 import moneyBag from '@/assets/details/moneybag.svg';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
-import { Map, List, UtensilsCrossed } from 'lucide-react';
+import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import TrekkingMap from './map/TrekkingMap';
-import FoodMenu from './FoodMenu';
-import { useSearchParams } from 'next/navigation';
-
-type tabsValue = 'journey' | 'overview' | 'foodmenu';
+// import FoodMenu from './FoodMenu';
 
 const AccordionItem = ({
   day,
-  index,
   isFirst,
   isLast,
+  open,
+  onToggle,
+  suppressScrollRef,
+  listRef,
 }: {
   day: TrekTimelineDay;
-  index: number;
   isFirst: boolean;
   isLast: boolean;
+  open: boolean;
+  onToggle: () => void;
+  suppressScrollRef: React.RefObject<boolean>;
+  listRef: React.RefObject<HTMLDivElement | null>;
 }) => {
-  const [open, setOpen] = useState(index === 0);
   const bodyRef = useRef<HTMLDivElement>(null);
   const chevronRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const didMount = useRef(false);
 
+  // Set the initial open/closed state once, without animating.
   useGSAP(
     () => {
       if (!bodyRef.current) return;
       gsap.set(bodyRef.current, {
         height: open ? 'auto' : 0,
         opacity: open ? 1 : 0,
+        display: open ? 'block' : 'none',
       });
+      if (chevronRef.current)
+        gsap.set(chevronRef.current, { rotate: open ? 180 : 0 });
     },
     { scope: containerRef },
   );
 
-  const toggle = () => {
-    if (!bodyRef.current || !chevronRef.current) return;
+  // Animate whenever the controlled `open` prop changes (after first mount).
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
+    const body = bodyRef.current;
+    const chevron = chevronRef.current;
+    if (!body || !chevron) return;
 
-    if (!open) {
-      gsap.set(bodyRef.current, { height: 'auto', display: 'block' });
-      const fullH = bodyRef.current.scrollHeight;
+    // Cancel any in-flight tween so rapid toggles animate from the current
+    // height instead of snapping to full/zero first.
+    gsap.killTweensOf(body);
+    const startH = body.getBoundingClientRect().height;
+
+    if (open) {
+      gsap.set(body, { display: 'block', height: 'auto' });
+      const fullH = body.scrollHeight;
       gsap.fromTo(
-        bodyRef.current,
-        { height: 0, opacity: 0 },
-        { height: fullH, opacity: 1, duration: 0.45, ease: 'power3.out' },
+        body,
+        { height: startH, opacity: startH === 0 ? 0 : 1 },
+        {
+          height: fullH,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+          onComplete: () => gsap.set(body, { height: 'auto' }),
+        },
       );
-      gsap.to(chevronRef.current, {
-        rotate: 180,
-        duration: 0.35,
-        ease: 'power2.out',
-      });
+      gsap.to(chevron, { rotate: 180, duration: 0.4, ease: 'power2.out' });
+
+      // Scroll this day's header up into view *at the same time* as it expands,
+      // so it reads as one motion (skipped during "Expand all"). The item's own
+      // top position is stable while it grows, so the target is accurate now.
+      const list = listRef.current;
+      const item = containerRef.current;
+      if (!suppressScrollRef.current && list && item) {
+        const delta =
+          item.getBoundingClientRect().top - list.getBoundingClientRect().top;
+        if (Math.abs(delta - 12) > 4) {
+          const target = Math.max(0, list.scrollTop + delta - 12);
+          gsap.to(list, {
+            scrollTop: target,
+            duration: 0.5,
+            ease: 'power2.out',
+          });
+        }
+      }
     } else {
-      const currentH = bodyRef.current.scrollHeight;
-      gsap.set(bodyRef.current, { height: currentH });
-      gsap.to(bodyRef.current, {
+      gsap.set(body, { height: startH });
+      gsap.to(body, {
         height: 0,
         opacity: 0,
         duration: 0.45,
-        ease: 'power3.inOut',
-        onComplete: () => {
-          if (bodyRef.current) gsap.set(bodyRef.current, { display: 'none' });
-        },
+        ease: 'power2.inOut',
+        onComplete: () => gsap.set(body, { display: 'none' }),
       });
-      gsap.to(chevronRef.current, {
-        rotate: 0,
-        duration: 0.35,
-        ease: 'power2.out',
-      });
+      gsap.to(chevron, { rotate: 0, duration: 0.4, ease: 'power2.out' });
     }
-
-    setOpen((prev) => !prev);
-  };
+  }, [open]);
 
   return (
     <div
@@ -99,7 +128,7 @@ const AccordionItem = ({
     >
       {/* Header */}
       <button
-        onClick={toggle}
+        onClick={onToggle}
         className="w-full flex items-center gap-3 px-5 py-4 text-left focus:outline-none cursor-pointer"
         aria-expanded={open}
       >
@@ -117,8 +146,8 @@ const AccordionItem = ({
         </span>
 
         <span
-          className="flex-1 text-sm sm:text-[15px] font-semibold tracking-tight text-black/80"
-          style={{ fontFamily: 'var(--font-fraunces), serif' }}
+          className="flex-1 text-sm sm:text-base font-semibold tracking-tight text-black/80"
+          style={{ fontFamily: 'var(--font-poppins), serif' }}
         >
           {day.day ? `Day ${day.day} : ${day.title}` : day.title}
         </span>
@@ -262,29 +291,39 @@ const StatPill = ({
 );
 
 const TrekTimeline = ({ trekId }: { trekId?: string }) => {
-  const searchParams = useSearchParams();
-  const hasFoodMenu = !!(trekId && TREK_DETAILS[trekId]?.foodMenu);
-  const validTabs: tabsValue[] = hasFoodMenu
-    ? ['journey', 'overview', 'foodmenu']
-    : ['journey', 'overview'];
-  const tabParam = searchParams.get('tab') as tabsValue;
+  // const hasFoodMenu = !!(trekId && TREK_DETAILS[trekId]?.foodMenu);
   const [hasPrice, setHasPrice] = useState(false);
-  const [activeView, setActiveView] = useState<tabsValue>(
-    validTabs.includes(tabParam) ? tabParam : 'journey',
-  );
-
-  const setTabUrl = (tab: tabsValue) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('tab', tab);
-    window.history.replaceState(null, '', `?${params.toString()}`);
-  };
-
-  const [bannerVisible, setBannerVisible] = useState(false);
 
   const days =
     trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];
 
+  // Controlled open/closed state for every accordion item (first day open by default).
+  const [openStates, setOpenStates] = useState<boolean[]>(() =>
+    days.map((_, i) => i === 0),
+  );
+
+  // Keep the open-state array in sync if the trek (and its day count) changes.
+  useEffect(() => {
+    setOpenStates(days.map((_, i) => i === 0));
+  }, [days.length]);
+
+  const allOpen = openStates.length > 0 && openStates.every(Boolean);
+
+  const toggleItem = (index: number) =>
+    setOpenStates((prev) => prev.map((v, i) => (i === index ? !v : v)));
+
+  // While an "Expand all" is in flight, items skip their scroll-into-view.
+  const suppressScrollRef = useRef(false);
+  const toggleAll = () => {
+    suppressScrollRef.current = true;
+    setOpenStates(days.map(() => !allOpen));
+    setTimeout(() => {
+      suppressScrollRef.current = false;
+    }, 700);
+  };
+
   const sectionRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (days && days.length > 0 && days.some((day) => day.price)) {
       setHasPrice(true);
@@ -292,160 +331,62 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
       setHasPrice(false);
     }
   }, [days]);
-  // ── Scroll-triggered banner
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setBannerVisible(entry.isIntersecting),
-      { threshold: 0.1 },
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
-  // ── GSAP accordion stagger on tab switch
+  // ── GSAP accordion stagger on mount
   useGSAP(
     () => {
-      if (activeView === 'overview') {
-        gsap.from('.accordion-item', {
-          y: 24,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.09,
-          ease: 'power3.out',
-          clearProps: 'transform,opacity',
-        });
-      }
+      gsap.from('.accordion-item', {
+        y: 24,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.09,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+      });
     },
-    { scope: sectionRef, dependencies: [activeView] },
+    { scope: sectionRef },
   );
 
   if (!days || days.length === 0) return null;
 
   return (
-    <div
-      ref={sectionRef}
-      className="relative  flex flex-col gap-6 bg-[#EBF0F8]"
-    >
-      {/* ── Scroll-triggered banner ── */}
-
-      <div
-        className={cn(
-          'overflow-hidden sticky top-[48px] z-40 h-20 transition-all duration-500 ease-in-out',
-          bannerVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
-        )}
-      >
-        {!hasPrice && (
-          <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            <p className="text-xs font-medium text-center">
-              We're currently preparing a detailed cost breakdown for this trek
-              to help you plan better.
-            </p>
-            <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#22416F]/10 tracking-wide flex-shrink-0">
-              <span className="shimmer-text">Coming soon</span>
-            </span>
-          </div>
-        )}
-        {hasPrice && (
-          <div className="flex items-center justify-center gap-2 px-4 py-3.5 sm:px-20 text-sm text-[#22416F] border-b  bg-yellow-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            <p className="text-xs font-medium text-center">
-              Estimated costs are approximate and may vary based on
-              accommodation, meals, transportation, personal spending, and
-              permit requirements.
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="page-wrapper pb-20  flex flex-col gap-6">
+    <div ref={sectionRef} className="relative flex flex-col gap-6 bg-[#EBF0F8]">
+      <div className="page-wrapper py-20 flex flex-col gap-8">
         <SectionHeader
           title="Trek Timeline"
           description="Day-by-day breakdown of your journey"
           id="timeline"
         />
 
-        <div className="mx-auto inline-flex items-center bg-white rounded-full p-1 shadow-sm border border-gray-200">
-          <button
-            onClick={() => {
-              setTabUrl('journey');
-              setActiveView('journey');
-            }}
-            className={cn(
-              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
-              activeView === 'journey'
-                ? 'bg-[#84b829] text-white shadow-md'
-                : 'text-gray-500 hover:text-gray-900',
-            )}
-          >
-            <Map size={16} />
-            Journey
-          </button>
-          <button
-            onClick={() => {
-              setTabUrl('overview');
-              setActiveView('overview');
-            }}
-            className={cn(
-              'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
-              activeView === 'overview'
-                ? 'bg-[#84b829] text-white shadow-md'
-                : 'text-gray-500 hover:text-gray-900',
-            )}
-          >
-            <List size={16} />
-            Overview
-          </button>
-          {hasFoodMenu && (
-            <button
-              onClick={() => {
-                setTabUrl('foodmenu');
-                setActiveView('foodmenu');
-              }}
-              className={cn(
-                'flex items-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap',
-                activeView === 'foodmenu'
-                  ? 'bg-[#84b829] text-white shadow-md'
-                  : 'text-gray-500 hover:text-gray-900',
-              )}
-            >
-              <UtensilsCrossed size={16} />
-              Food Menu
-            </button>
-          )}
-        </div>
+        {/* ── Split view: itinerary list (left) + map (right), merged as one card ── */}
+        <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-[#E2E8F0] bg-white shadow-sm lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+          {/* Itinerary list */}
+          <div className="flex flex-col p-4 sm:p-6 lg:h-[640px]">
+            <div className="mb-4 flex shrink-0 items-center justify-between gap-3">
+              <h3
+                className="text-xl font-bold tracking-tight text-black/90"
+                style={{ fontFamily: 'var(--font-poppins), serif' }}
+              >
+                {days.length} - day itinerary
+              </h3>
 
-        <div className="w-full">
-          {activeView === 'overview' ? (
-            <div className="flex flex-col w-full gap-3">
+              <button
+                onClick={toggleAll}
+                className="flex items-center gap-1.5 rounded-full border border-[#E2E8F0] px-3 py-1.5 text-xs font-semibold text-[#376BB6] transition-colors hover:bg-[#376BB6]/5 cursor-pointer"
+              >
+                {allOpen ? (
+                  <ChevronsDownUp size={14} />
+                ) : (
+                  <ChevronsUpDown size={14} />
+                )}
+                {allOpen ? 'Close all' : 'Expand all'}
+              </button>
+            </div>
+
+            <div
+              ref={listRef}
+              className="flex max-h-[520px] flex-col gap-3 overflow-y-auto pr-1 lg:max-h-none lg:flex-1"
+            >
               {days.map((day, index) => (
                 <div
                   key={day.id || day.day || index}
@@ -453,20 +394,47 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
                 >
                   <AccordionItem
                     day={day}
-                    index={index}
                     isFirst={index === 0}
                     isLast={index === days.length - 1}
+                    open={openStates[index] ?? false}
+                    onToggle={() => toggleItem(index)}
+                    suppressScrollRef={suppressScrollRef}
+                    listRef={listRef}
                   />
                 </div>
               ))}
             </div>
-          ) : activeView === 'journey' ? (
-            <div className="w-full h-150 rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100 flex items-center justify-center">
-              <TrekkingMap trekId={trekId} />
-            </div>
-          ) : (
-            <FoodMenu />
-          )}
+          </div>
+
+          {/* Map */}
+          <div className="h-[420px] w-full bg-gray-100 lg:h-[640px]">
+            <TrekkingMap trekId={trekId} />
+          </div>
+        </div>
+
+        {/* ── Cost breakdown note ── */}
+        <div className="flex items-center justify-center gap-2 text-center text-[#4B5563]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="shrink-0"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <p className="text-sm font-medium italic">
+            {hasPrice
+              ? 'Estimated costs are approximate and may vary based on accommodation, meals, transportation, personal spending, and permit requirements.'
+              : "We're currently preparing a detailed cost breakdown for this trek to help you plan better."}
+          </p>
         </div>
       </div>
     </div>
