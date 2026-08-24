@@ -30,6 +30,8 @@ interface MapClientProps {
   data: GeoJSONData | null;
   center: [number, number];
   trekId?: string;
+
+  onDayClick?: (index: number) => void;
 }
 
 function ControlBtn({
@@ -58,7 +60,12 @@ function ControlBtn({
   );
 }
 
-export default function MapClient({ data, center, trekId }: MapClientProps) {
+export default function MapClient({
+  data,
+  center,
+  trekId,
+  onDayClick,
+}: MapClientProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
 
@@ -67,7 +74,7 @@ export default function MapClient({ data, center, trekId }: MapClientProps) {
   const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
 
   useTrailData(map, mapLoaded, data);
-  useTrekMarkers(map, mapLoaded, timeline);
+  useTrekMarkers(map, mapLoaded, timeline, onDayClick);
   useTrailEndFlag(map, mapLoaded, data, trekId === 'mardi-himal-trek');
   useAccessRoute(map, mapLoaded, accessRoute);
 

@@ -23,7 +23,7 @@ const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://trails.buildfornepal.org';
 
 export const metadata: Metadata = {
-  title: 'Trail Nepal',
+  title: 'Trails Nepal',
   description: 'Discover and plan treks in Nepal',
   icons: {
     icon: [
@@ -36,16 +36,16 @@ export const metadata: Metadata = {
   },
   keywords: DEFAULT_SEO_DATA.META_KEYWORDS,
   openGraph: {
-    title: 'Trail Nepal',
+    title: 'Trails Nepal',
     description: 'Discover and plan treks in Nepal',
     url: `${BASE_URL}/`,
-    siteName: 'Trail Nepal',
+    siteName: 'Trails Nepal',
     images: [
       {
         url: `${BASE_URL}/ogimgs/og-siteimage.png`,
         width: 1200,
         height: 630,
-        alt: 'Trail Nepal Image',
+        alt: 'Trails Nepal Image',
       },
     ],
     locale: 'en_US',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trail Nepal',
+    title: 'Trails Nepal',
     description: 'Discover and plan treks in Nepal',
     images: [`${BASE_URL}/ogimgs/og-siteimage.png`],
   },

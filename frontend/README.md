@@ -1,6 +1,6 @@
-# Trail Nepal (Frontend)
+# Trails Nepal (Frontend)
 
-This folder contains the Next.js frontend for **Trail Nepal**.
+This folder contains the Next.js frontend for **Trails Nepal**.
 
 For full project documentation, see the repo-level `README.md`.
 

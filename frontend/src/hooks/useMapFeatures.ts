@@ -373,6 +373,7 @@ export function useTrekMarkers(
   map: maplibregl.Map | null,
   mapLoaded: boolean,
   timeline: TrekTimelineDay[],
+  onDayClick?: (index: number) => void,
 ) {
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
@@ -685,7 +686,9 @@ export function useTrailEndFlag(
     });
     if (allCoords.length < 1) return;
 
-    const [lng, lat] = flagAtStart ? allCoords[0] : allCoords[allCoords.length - 1];
+    const [lng, lat] = flagAtStart
+      ? allCoords[0]
+      : allCoords[allCoords.length - 1];
     markerRef.current?.remove();
     markerRef.current = new maplibregl.Marker({
       element: makeTrailEndFlagEl(),

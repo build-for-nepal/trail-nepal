@@ -35,9 +35,7 @@ export function Navbar() {
     <header
       className={cn(
         `z-50 w-full absolute top-0 backdrop-blur-md transition-colors duration-300`,
-        scrolled
-          ? 'bg-white shadow-md'
-          : 'bg-black/20',
+        scrolled ? 'bg-white shadow-md' : 'bg-black/20',
         isFixed && 'fixed',
       )}
     >
@@ -45,11 +43,11 @@ export function Navbar() {
         <Link
           href="/"
           className="shrink-0 transition-opacity duration-200 hover:opacity-80"
-          aria-label="Trail Nepal home"
+          aria-label="Trails Nepal home"
         >
           <Image
             src="/icons/logo.svg"
-            alt="Trail Nepal"
+            alt="Trails Nepal"
             width={49}
             height={35}
             priority

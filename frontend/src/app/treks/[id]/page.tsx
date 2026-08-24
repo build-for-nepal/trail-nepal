@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : `${BASE_URL}/ogimgs/${FALLBACK_OG_IMAGE}`;
 
   return {
-    title: `${trek.name} | Trail Nepal`,
+    title: `${trek.name} | Trails Nepal`,
     description: trek?.overview,
     openGraph: {
       title: trek.name,

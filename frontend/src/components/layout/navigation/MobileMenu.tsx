@@ -49,7 +49,7 @@ export function MobileMenu({ scrolled = false }: { scrolled?: boolean }) {
               <Link href="/" className="inline-block w-fit">
                 <Image
                   src="/icons/logo.svg"
-                  alt="Trail Nepal"
+                  alt="Trails Nepal"
                   width={80}
                   height={50}
                   priority

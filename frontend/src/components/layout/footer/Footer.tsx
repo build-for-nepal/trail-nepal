@@ -48,7 +48,7 @@ const Footer = ({ isMainDisplay = false }: Props) => {
           {/* Center: Branding & Socials */}
           <div className="flex flex-col items-center text-center gap-[8px]">
             <SectionHeader
-              title="Trail Nepal"
+              title="Trails Nepal"
               description="A web-based platform to inform about the trek plans in Nepal"
               light
             />
@@ -121,7 +121,7 @@ const Footer = ({ isMainDisplay = false }: Props) => {
         {/* Copyright */}
         <div className="mt-[32px] w-full border-t border-white/20 pt-[20px] text-center lg:mt-[50px]">
           <p className="font-poppins text-[12px] tracking-tight text-white/70">
-            &copy; {new Date().getFullYear()} Trail Nepal. All rights reserved.
+            &copy; {new Date().getFullYear()} Trails Nepal. All rights reserved.
           </p>
         </div>
       </div>

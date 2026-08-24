@@ -1,6 +1,6 @@
-# Trail Nepal
+# Trails Nepal
 
-Trail Nepal is a web frontend for discovering and planning treks in Nepal.
+Trails Nepal is a web frontend for discovering and planning treks in Nepal.
 
 This repository currently contains a single Next.js application under `frontend/`.
 

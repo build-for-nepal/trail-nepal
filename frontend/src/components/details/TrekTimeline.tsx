@@ -311,7 +311,9 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
   const toggleItem = (index: number) =>
     setOpenStates((prev) => prev.map((v, i) => (i === index ? !v : v)));
-
+  const openDayFromMap = (index: number) => {
+    setOpenStates((prev) => prev.map((_, i) => i === index));
+  };
   // While an "Expand all" is in flight, items skip their scroll-into-view.
   const suppressScrollRef = useRef(false);
   const toggleAll = () => {
@@ -408,7 +410,7 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
           {/* Map */}
           <div className="h-[420px] w-full bg-gray-100 lg:h-[640px]">
-            <TrekkingMap trekId={trekId} />
+            <TrekkingMap trekId={trekId} onDayClick={openDayFromMap} />
           </div>
         </div>
 
