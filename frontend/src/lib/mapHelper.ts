@@ -46,6 +46,8 @@ export function buildGroupedPopupHTML(days: TrekTimelineDay[]): string {
       (day, i) => `
     <button
       id="tab-${uid}-${i}"
+      class="trek-day-tab"
+      data-day-pos="${i}"
       onclick="
         document.querySelectorAll('[data-panel-${uid}]').forEach(function(p){p.style.display='none'});
         document.querySelectorAll('[data-tab-${uid}]').forEach(function(t){t.style.background='transparent';t.style.color='rgba(255,255,255,0.6)';t.style.borderBottom='2px solid transparent'});

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import startRoute from '@/assets/details/routestart.svg';
@@ -311,9 +311,9 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
   const toggleItem = (index: number) =>
     setOpenStates((prev) => prev.map((v, i) => (i === index ? !v : v)));
-  const openDayFromMap = (index: number) => {
+  const openDayFromMap = useCallback((index: number) => {
     setOpenStates((prev) => prev.map((_, i) => i === index));
-  };
+  }, []);
   // While an "Expand all" is in flight, items skip their scroll-into-view.
   const suppressScrollRef = useRef(false);
   const toggleAll = () => {
