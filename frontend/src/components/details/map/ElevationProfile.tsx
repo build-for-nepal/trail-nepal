@@ -175,7 +175,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
   return (
     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 sm:left-3 sm:translate-x-0 z-10 select-none w-[calc(100%-24px)] sm:w-[min(480px,calc(100%-76px))]">
       <div
-        className="rounded-2xl bg-white/40 backdrop-blur-md shadow-xl border border-white/30 overflow-hidden"
+        className="rounded-2xl bg-white/80 backdrop-blur-md shadow-xl border border-white/30 overflow-hidden"
         style={{
           transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1)',
           maxHeight: open ? `${expandedH + 2}px` : `${HANDLE_H}px`,
@@ -184,7 +184,7 @@ export default function ElevationProfile({ points, onHover }: Props) {
         {/* ── Handle bar ───────────────────────────────────────────────────── */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="w-full flex items-center gap-2.5 px-3.5 hover:bg-gray-50/70 transition-colors duration-150 min-w-0"
+          className="w-full flex items-center gap-2.5 px-3.5 hover:bg-white/90 transition-colors duration-150 min-w-0"
           style={{ height: HANDLE_H }}
         >
           {/* Mountain icon + stat chips — single row on both mobile and desktop.
@@ -308,7 +308,11 @@ export default function ElevationProfile({ points, onHover }: Props) {
             onTouchStart={handleTouchMove}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            style={{ display: 'block', cursor: 'crosshair', touchAction: 'none' }}
+            style={{
+              display: 'block',
+              cursor: 'crosshair',
+              touchAction: 'none',
+            }}
           >
             <defs>
               <clipPath id="ep-clip">

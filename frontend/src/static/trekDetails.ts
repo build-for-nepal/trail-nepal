@@ -5,6 +5,8 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
   'ebc-trek': {
     id: 'ebc-trek',
     name: 'Everest Base Camp (EBC) Trek',
+    summary:
+      'Trek through Sherpa villages, monasteries, glaciers, and iconic Himalayan peaks. Reach Everest Base Camp at 5,364m.',
     region: 'Khumbu region',
     meta: {
       duration: '14 Days',
@@ -12,6 +14,12 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       maxElevation: '5,364m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'Kathmandu ⇄ Lukla',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Sagarmatha National Park Permit, TIMS',
+      },
     },
     overview:
       'The Everest Base Camp trek is more than just a hike, it is a pilgrimage to the highest point on Earth and a deep dive into the heart of the Himalayas. Beginning with a pulse-pounding flight into the mountain-side airstrip of Lukla, the journey takes you through the sacred Sagarmatha National Park, a UNESCO World Heritage site. You will traverse high suspension bridges draped in prayer flags, navigate ancient glacial moraines, and walk through stone-walled villages that have remained unchanged for centuries. Beyond the physical challenge of reaching 5,364 meters, the trek offers a profound cultural encounter with the Sherpa people, whose hospitality and spiritual resilience are as legendary as the peaks they call home.',
@@ -286,6 +294,8 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
   'manaslu-circuit': {
     id: 'manaslu-circuit',
     name: 'Manaslu Circuit Trek',
+    summary:
+      'Circle the world’s eighth-highest mountain through remote valleys and alpine landscapes. Cross the challenging 5,106m Larkya La Pass.',
     region: 'Manaslu Region',
     meta: {
       duration: '14-18 Days',
@@ -293,6 +303,12 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       maxElevation: '5,106m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Circuit',
+        permits: 'Manaslu Restricted Area Permit, MCAP, ACAP',
+      },
     },
     overview:
       "The Manaslu Circuit is Nepal's most compelling wilderness loop, tracing a complete circle around Manaslu, the world's eighth-highest peak at 8,163 metres through terrain that changes so dramatically it feels like several expeditions rolled into one. The route follows the ancient Budhi Gandaki river valley northward, climbing from subtropical gorges at 700 metres through dense rhododendron and pine forests, past thundering waterfalls and traditional stone villages, before breaking into the high alpine world above 3,500 metres. Culturally, the trail moves through Gurung, Nubri, and Tsum communities whose Tibetan Buddhist traditions have remained largely intact mani walls, centuries-old gompas, and prayer flags strung across glacial ridgelines mark every significant landmark. Because the circuit sits within a restricted area requiring a special permit and a licensed guide, the trail sees a fraction of the traffic found on Everest or Annapurna routes, meaning you will share the path with yak caravans more often than other trekking groups.",
@@ -577,6 +593,8 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
   'langtang-valley': {
     id: 'langtang-valley',
     name: 'Langtang Valley Trek',
+    summary:
+      'Trek through forests, Tamang villages, and high alpine valleys. Reach Kyanjin Gompa and enjoy spectacular glacier and mountain views.',
     region: 'Langtang Region',
     meta: {
       duration: '7-10 Days',
@@ -584,6 +602,12 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       maxElevation: '4,773m',
       bestSeasons: 'March-May, September-December',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Langtang National Park Permit, TIMS',
+      },
     },
     overview:
       'The Langtang Valley Trek is one of Nepal’s most rewarding short Himalayan journeys, combining dramatic mountain scenery, Tamang culture, riverside trails, and high alpine landscapes in just one week. Starting with an overland drive from Kathmandu to Syabrubesi, the route follows the Langtang Khola through dense bamboo, oak, and rhododendron forests before opening into wide yak pastures and glacial valleys. As you move higher, the scenery shifts from deep woodland and waterfalls to prayer walls, Buddhist landmarks, and sweeping views of Langtang Lirung and surrounding peaks. The trek culminates at Kyanjin Gompa, a beautiful high-mountain settlement, and a hike to Kyanjin Ri, where sunrise views over glaciers, ridges, and snow-covered summits create the true highlight of the trip. This 7-day version is a compact and scenic adventure, ideal for trekkers who want a classic Nepal experience without the longer duration of Everest or Annapurna routes.',
@@ -928,6 +952,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'abc-trek': {
     id: 'annapurna-base-camp-ascent',
     name: 'Annapurna Base Camp (Direct Ascent)',
+    summary:
+      'Journey through the Annapurna Sanctuary beneath towering Himalayan peaks. Reach Annapurna Base Camp with Machhapuchhre and Annapurna views.',
     region: 'Annapurna Region',
     meta: {
       duration: '7-10 Days ',
@@ -935,6 +961,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '4,130m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Pokhara / Jhinu Trailhead',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Annapurna Conservation Area Permit, TIMS',
+      },
     },
     overview:
       'This route represents the direct, dramatic ascent into the Annapurna Sanctuary, bypassing the lower foothill loops to take you straight into the heart of the Himalayas. Starting from the suspension bridges of Jhinu Danda, the trail climbs the steep stone staircases of Chhomrong before plunging into the V-shaped Modi Khola gorge. Over four days of upward trekking, you will transition from lush, subtropical bamboo and rhododendron forests into a harsh, icy alpine environment. The climax of the upward journey brings you past the towering sheer face of Machhapuchhre (Fishtail) and through the sanctuary gates, ending at Annapurna Base Camp (4,130m) where you are completely surrounded by a 360-degree wall of 7,000m and 8,000m peaks.',
@@ -1190,6 +1222,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'gokyo-valley-trek': {
     id: 'gokyo-valley-trek',
     name: 'Gokyo Valley Trek',
+    summary:
+      'Explore turquoise glacial lakes and remote alpine valleys beyond the Khumbu. Climb Gokyo Ri at 5,357m for panoramic Himalayan views.',
     region: 'Khumbu Region',
     meta: {
       duration: '13-14 Days',
@@ -1197,6 +1231,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '5,357m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'Kathmandu ⇄ Lukla',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Sagarmatha National Park Permit, TIMS',
+      },
     },
     overview:
       "The Gokyo Valley is the Khumbu's better-kept secret. It shares a flight into Lukla and a walk through Namche Bazaar with the Everest Base Camp trek, then quietly peels away northwest at Kyanjuma and climbs toward a world that most Khumbu trekkers never see: high-altitude glacial lakes burning turquoise against a backdrop of ice and rock, Nepal's longest glacier spreading across the valley floor like a slow river of rubble, and a viewpoint at Gokyo Ri (5,357m) that many experienced trekkers argue is superior to Kala Patthar. From the summit of Gokyo Ri you see four 8,000m peaks simultaneously: Everest, Lhotse, Makalu, and Cho Oyu arranged across the horizon with the Ngozumpa Glacier directly below and the string of Gokyo Lakes glittering in the valley you just climbed through. It is a panorama that rewards the extra days and extra effort it takes to reach it.\n\nWhat separates Gokyo from EBC is the quality of solitude and the character of the landscape. Above Dole, the valley narrows, the trail empties, and the terrain shifts from forest and suspension bridges to alpine meadow, glacial moraine, and high-wind ridgeline. The six Gokyo Lakes designated a Ramsar Wetland Site in 2007, the world's highest freshwater lake system are sacred to local Sherpa communities and have a stillness that EBC's tent-city atmosphere cannot offer. Only around 35% of Khumbu trekkers take this route. That gap shows on the trail above Machhermo you may walk entire mornings without passing another group.",
@@ -1493,6 +1533,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'ghorepani-poon-hill-trek': {
     id: 'ghorepani-poon-hill-trek',
     name: 'Ghorepani Poon Hill Trek',
+    summary:
+      'Trek through rhododendron forests, traditional villages, and scenic ridges. Reach Poon Hill at 3,210m for spectacular Annapurna and Dhaulagiri sunrise views.',
     region: 'Annapurna Region',
     meta: {
       duration: '5-7 Days',
@@ -1500,6 +1542,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '3,210m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Pokhara',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Annapurna Conservation Area Permit, TIMS',
+      },
     },
     overview:
       'Ghorepani Poon Hill is the trek that introduces most people to the Himalayas. Short enough to complete in four days, accessible enough for reasonably fit beginners, yet rewarding enough to leave experienced trekkers genuinely moved. It sits in a rare category of routes that consistently over-deliver on expectation. The trail begins at Nayapul in the Modi Khola valley and climbs steadily through a series of traditional Magar and Gurung villages before arriving at Ghorepani, a ridge-top settlement perched at 2,860m in one of the densest rhododendron forests in Nepal. The centrepiece is the pre-dawn climb to Poon Hill at 3,210m, a summit that commands one of the most celebrated mountain panoramas in all of Nepal, taking in Dhaulagiri (8,167m), Annapurna I (8,091m), Machhapuchhre (6,993m), and dozens of lesser peaks across 180 degrees of horizon. Sunrise here is not a subtle affair, the first light hits the snowfields of Dhaulagiri and Annapurna simultaneously, turning them from grey to gold to blazing white in the space of fifteen minutes.',
@@ -1712,6 +1760,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'mardi-himal-trek': {
     id: 'mardi-himal-trek',
     name: 'Mardi Himal Trek',
+    summary:
+      'Follow a quiet alpine ridge through rhododendron forests with views of Machapuchare and Annapurna. Reach Mardi Himal Base Camp at 4,500m.',
     region: 'Annapurna Region',
     meta: {
       duration: '6-7 Days',
@@ -1719,6 +1769,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '4,500m',
       bestSeasons: 'March-May, September-December',
       startingPoint: 'Pokhara',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Annapurna Conservation Area Permit, TIMS',
+      },
     },
     overview:
       "Mardi Himal is Pokhara's best-kept secret, a steep, forested ridge trek that climbs directly above the city into one of the most dramatic viewpoints in the entire Annapurna region, yet sees only a fraction of the traffic of its famous neighbours. Opened officially to trekkers in 2012 after years as a restricted route, the trail follows the Mardi Himal ridgeline southeast of Machapuchare (6,993m), ascending through dense rhododendron and oak forest before breaking out onto a high open ridge at around 3,300m. From the Upper Camp and High Camp the views are intimate in a way that Annapurna Base Camp cannot quite replicate — Machapuchare's perfect pyramid fills the sky to the northwest, Annapurna South and Hiunchuli rise to the left, and Mardi Himal itself (5,587m) closes the horizon directly ahead. Most trekkers who do ABC or the Annapurna Circuit miss this trail entirely, which means on a clear October morning at High Camp you may find yourself alone with one of the finest mountain panoramas in Nepal.",
@@ -1960,6 +2016,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'shey-phoksundo': {
     id: 'shey-phoksundo',
     name: 'Shey Phoksundo Trek',
+    summary:
+      'Journey through remote Dolpo, past waterfalls, villages, and rugged trans-Himalayan landscapes. Discover turquoise Phoksundo Lake and Tibetan Buddhist culture.',
     region: 'Dolpo Region',
     meta: {
       duration: '10-12 Days',
@@ -1967,6 +2025,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '3,611m',
       bestSeasons: 'April-June, September-November',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'Kathmandu ⇄ Nepalgunj ⇄ Juphal',
+        accommodation: 'Tea House / Lodge',
+        routeType: 'Out & Back',
+        permits: 'Shey Phoksundo National Park Permit, Restricted Area Permit',
+      },
     },
 
     overview:
@@ -2288,6 +2352,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
   'tilicho-lake-trek': {
     id: 'tilicho-lake-trek',
     name: 'Tilicho Lake Trek',
+    summary:
+      'Cross lush valleys, Tibetan-influenced villages, and stark alpine terrain in the Annapurna region. Reach Tilicho Lake at 4,919m.',
     region: 'Annapurna Region',
 
     meta: {
@@ -2296,6 +2362,12 @@ view over Kyanjin Village and the upper Langtang Valley`,
       maxElevation: '4,919m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Kathmandu',
+      tripFacts: {
+        flights: 'None',
+        accommodation: 'Tea House',
+        routeType: 'Out & Back',
+        permits: 'Annapurna Conservation Area Permit, TIMS',
+      },
     },
 
     overview:

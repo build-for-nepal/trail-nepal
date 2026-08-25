@@ -35,11 +35,11 @@ export function Navbar() {
     <header
       className={cn(
         `z-50 w-full absolute top-0 backdrop-blur-md transition-colors duration-300`,
-        scrolled ? 'bg-white shadow-md' : 'bg-black/20',
+        scrolled ? 'bg-white shadow-md' : 'bg-black/40',
         isFixed && 'fixed',
       )}
     >
-      <div className="page-wrapper flex items-center justify-between py-6">
+      <div className="page-wrapper flex items-center justify-between py-4">
         <Link
           href="/"
           className="shrink-0 transition-opacity duration-200 hover:opacity-80"

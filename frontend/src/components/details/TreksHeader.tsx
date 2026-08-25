@@ -87,14 +87,14 @@ const TreksHeader = ({ trekId }: Props) => {
             </p>
           )}
 
-          <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-[320px] sm:max-w-[85%] drop-shadow-md">
-            {data.overview.substring(0, 130)}...
+          <p className="line-clamp-2 text-white/80 text-sm md:text-base leading-relaxed max-w-[320px] sm:max-w-[85%] drop-shadow-md">
+            {data.summary}{' '}
           </p>
         </div>
 
         {/* Quick stats bar */}
         <div className="mt-6 w-full rounded-2xl bg-white/95 px-6 py-4 shadow-xl backdrop-blur-sm sm:px-6 md:mt-8">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-left sm:grid-cols-3 xl:flex xl:items-center xl:gap-0">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-left sm:grid-cols-3 xl:grid-cols-6 xl:items-center xl:gap-0">
             {stats.map(({ icon: Icon, label, value }, index) => (
               <div
                 key={label}
