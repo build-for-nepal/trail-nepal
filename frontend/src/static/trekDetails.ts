@@ -957,10 +957,10 @@ view over Kyanjin Village and the upper Langtang Valley`,
     region: 'Annapurna Region',
     meta: {
       duration: '7-10 Days ',
-      difficulty: 'Moderate to Challenging',
+      difficulty: 'Challenging',
       maxElevation: '4,130m',
       bestSeasons: 'March-May, September-November',
-      startingPoint: 'Pokhara / Jhinu Trailhead',
+      startingPoint: 'Pokhara',
       tripFacts: {
         flights: 'None',
         accommodation: 'Tea House',
