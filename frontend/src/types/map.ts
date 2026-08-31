@@ -12,6 +12,7 @@ export interface MapClientProps {
 
 export interface TrekkingMapProps {
   trekId?: string;
+  onDayClick?: (index: number) => void;
 }
 
 export interface LayerSwitcherProps {

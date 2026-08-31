@@ -1,16 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { RefreshCw } from 'lucide-react';
 
-import {
-  formatForecastDayLabel,
-  getWeatherPresentation,
-} from '@/lib/weather/openMeteo';
+import { cn } from '@/lib/utils';
+import { getWeatherPresentation } from '@/lib/weather/openMeteo';
 import type { WeatherForecast, WeatherLocation } from '@/types/weather';
 
 import WeatherLocationDropdown from './WeatherLocationDropdown';
-import WeatherTemperatureChart from './WeatherTemperatureChart';
 
 type Props = {
   forecast: WeatherForecast;
@@ -18,154 +15,166 @@ type Props = {
   locations: WeatherLocation[];
   selectedLocationId: string;
   onLocationChange: (id: string) => void;
+  onRefresh?: () => void;
+  refreshing?: boolean;
 };
 
-const poppins = { fontFamily: "'Poppins', sans-serif" } as const;
+function formatRelative(fetchedAt: string, now: number): string {
+  const then = new Date(fetchedAt).getTime();
+  if (Number.isNaN(then)) return 'just now';
 
+  const diffMin = Math.max(0, Math.floor((now - then) / 60_000));
+  if (diffMin < 1) return 'just now';
+  if (diffMin === 1) return '1 min ago';
+  if (diffMin < 60) return `${diffMin} min ago`;
+
+  const diffHr = Math.floor(diffMin / 60);
+  return diffHr === 1 ? '1 hr ago' : `${diffHr} hrs ago`;
+}
+
+/** Re-render every minute so the "Updated …" label stays accurate. */
+function useUpdatedLabel(fetchedAt: string): string {
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const relative = formatRelative(fetchedAt, now);
+  const clock = fetchedAt
+    ? new Date(fetchedAt).toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: '2-digit',
+      })
+    : '';
+
+  return clock ? `Updated ${relative} · ${clock}` : `Updated ${relative}`;
+}
+
+function formatDayLabel(isoDate: string, index: number): string {
+  if (index === 0) return 'Today';
+
+  const date = new Date(`${isoDate}T12:00:00`);
+  if (index <= 6) {
+    return date.toLocaleDateString('en-US', { weekday: 'short' });
+  }
+  return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+}
+
+// Forecast card: live Open-Meteo data with a manual refresh control.
 const WeatherForecastCard = ({
   forecast,
   region,
   locations,
   selectedLocationId,
   onLocationChange,
+  onRefresh,
+  refreshing = false,
 }: Props) => {
-  const dayScrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  const daily = forecast.daily ?? [];
+  const updatedLabel = useUpdatedLabel(forecast.fetchedAt);
+
+  // The refetch often resolves from cache almost instantly, so drive the spin
+  // for a fixed, visible window whenever the user triggers a refresh.
+  const [manualSpin, setManualSpin] = useState(false);
 
   useEffect(() => {
-    const el = dayScrollRef.current;
-    if (!el) return;
-    const update = () => {
-      setCanScrollLeft(el.scrollLeft > 0);
-      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-    };
-    update();
-    el.addEventListener('scroll', update, { passive: true });
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => {
-      el.removeEventListener('scroll', update);
-      ro.disconnect();
-    };
-  }, []);
+    if (!manualSpin) return;
+    const id = window.setTimeout(() => setManualSpin(false), 900);
+    return () => window.clearTimeout(id);
+  }, [manualSpin]);
 
-  const { summary } = getWeatherPresentation(forecast.current.weatherCode);
-  const daily = forecast.daily ?? [];
-  const hourly = forecast.hourly ?? [];
+  const spinning = refreshing || manualSpin;
+
+  const handleRefresh = () => {
+    if (!onRefresh || manualSpin) return;
+    setManualSpin(true);
+    onRefresh();
+  };
 
   return (
-    <div
-      className="flex w-full min-w-0 flex-col gap-8 px-4 pt-5 text-white sm:gap-12 sm:px-10 sm:pt-6"
-      style={{
-        ...poppins,
-        backgroundColor: 'var(--color-forecast-card)',
-        borderRadius: '24px',
-        alignSelf: 'stretch',
-      }}
-    >
-      {/* Header — Figma: vertical flow, gap 48 to next section */}
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0 flex-1">
-          <h3 className="text-xl font-bold leading-tight">10 Day Forecast</h3>
-
-          <div className="mt-4 flex items-end gap-2">
-            <span className="text-[56px] font-semibold leading-none tracking-tight lg:text-[64px]">
-              {forecast.current.tempC}°
-            </span>
-            <span className="mb-2 text-base font-bold text-white lg:mb-3">C</span>
-          </div>
-
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/90">
-            {summary}
+    <div className="flex h-full w-full flex-col gap-5 rounded-[24px] bg-forecast-card px-6 py-6 font-poppins text-white">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-0.5">
+          <h3 className="text-2xl font-bold leading-tight">10 Day Forecast</h3>
+          <p className="flex items-center gap-1.5 text-xs font-medium text-white/70">
+            <span
+              className="inline-block size-1.5 rounded-full bg-emerald-300"
+              aria-hidden
+            />
+            {updatedLabel}
           </p>
         </div>
 
-        <div className="w-full min-w-0 sm:ml-auto sm:w-auto sm:max-w-[300px]">
-          <WeatherLocationDropdown
-            locations={locations}
-            region={region}
-            value={selectedLocationId}
-            onChange={onLocationChange}
-          />
-        </div>
+        {onRefresh ? (
+          <button
+            type="button"
+            onClick={handleRefresh}
+            disabled={spinning}
+            aria-label="Refresh forecast"
+            title="Refresh forecast"
+            className="shrink-0 rounded-full border border-white/25 bg-white/10 p-2 text-white transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            <RefreshCw
+              size={16}
+              strokeWidth={2.25}
+              className={cn(spinning && 'animate-spin')}
+            />
+          </button>
+        ) : null}
       </div>
 
-      {/* 10-day cards */}
-      <div className="-mx-4 flex items-center gap-3 sm:mx-0">
-        <button
-          type="button"
-          aria-label="Scroll left"
-          onClick={() => dayScrollRef.current?.scrollBy({ left: -(104 + 24) * 3, behavior: 'smooth' })}
-          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollLeft ? 'invisible' : ''}`}
-        >
-          <ChevronLeft size={18} strokeWidth={2.5} />
-        </button>
-
-        <div ref={dayScrollRef} className="flex-1 flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-4 sm:gap-6 sm:pl-0 sm:snap-x sm:snap-mandatory">
-          {daily.map((day, index) => {
-            const { Icon } = getWeatherPresentation(day.weatherCode);
-
-            return (
-              <div
-                key={day.date}
-                className="flex flex-auto w-[80px] shrink-0 snap-start flex-col items-center justify-between backdrop-blur-[10px] sm:w-[104px]"
-                style={{
-                  minHeight: '160px',
-                  borderRadius: '16px',
-                  paddingLeft: '10px',
-                  paddingRight: '10px',
-                  paddingTop: '14px',
-                  paddingBottom: '14px',
-                  backgroundColor: 'var(--color-forecast-glass)',
-                  gap: '12px',
-                }}
-              >
-                <span className="text-center text-xs font-semibold text-white">
-                  {formatForecastDayLabel(day.date, index)}
-                </span>
-
-                <span
-                  className="h-px w-10"
-                  style={{
-                    background:
-                      'linear-gradient(90deg, rgba(131, 172, 255, 0.30) 0%, #FFF 48.5%, rgba(131, 172, 255, 0.30) 100%)',
-                  }}
-                  aria-hidden
-                />
-
-                <div className="flex flex-1 items-center justify-center py-1">
-                  <Icon
-                    size={28}
-                    strokeWidth={1.35}
-                    className="text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)] sm:!size-[40px]"
-                  />
-                </div>
-
-                <span className="text-center text-[15px] font-bold text-white">
-                  {day.tempMaxC}°C
-                </span>
-              </div>
-            );
-          })}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-start gap-1">
+          <span className="text-[40px] font-semibold leading-none tracking-tight">
+            {Math.round(forecast.current.tempC)}°
+          </span>
+          <span className="mt-1 text-xs font-semibold text-white/75">C/F</span>
         </div>
 
-        <button
-          type="button"
-          aria-label="Scroll right"
-          onClick={() => dayScrollRef.current?.scrollBy({ left: (104 + 24) * 3, behavior: 'smooth' })}
-          className={`hidden shrink-0 text-white/70 transition-colors hover:text-white sm:block ${!canScrollRight ? 'invisible' : ''}`}
-        >
-          <ChevronRight size={18} strokeWidth={2.5} />
-        </button>
+        <WeatherLocationDropdown
+          locations={locations}
+          region={region}
+          value={selectedLocationId}
+          onChange={onLocationChange}
+          className="w-auto max-w-[150px]"
+        />
       </div>
 
-      {/* Temperature chart */}
-      {hourly.length > 0 ? (
-        <div className="-mx-4 min-w-0 sm:mx-0">
-          <WeatherTemperatureChart hourly={hourly} />
-        </div>
-      ) : null}
+      <ul className="flex flex-1 flex-col justify-between">
+        {daily.map((day, index) => {
+          const { Icon } = getWeatherPresentation(day.weatherCode);
+          const isToday = index === 0;
+
+          return (
+            <li
+              key={day.date}
+              className={cn(
+                'grid grid-cols-[1fr_auto_auto] items-center gap-4 border-t border-white/15 py-3 first:border-t-0',
+                isToday && 'font-semibold',
+              )}
+            >
+              <span className=" text-white">
+                {formatDayLabel(day.date, index)}
+              </span>
+
+              <Icon
+                size={22}
+                strokeWidth={1.75}
+                className="justify-self-center text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
+              />
+
+              <span className="flex w-14 items-center justify-end gap-2 font-semibold tabular-nums">
+                <span className="text-white">{Math.round(day.tempMaxC)}°</span>
+                <span className="text-white/55">
+                  {Math.round(day.tempMinC)}°
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
 
       <p className="sr-only">
         Forecast data provided by Open-Meteo. Mountain weather changes quickly.

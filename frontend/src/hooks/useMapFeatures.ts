@@ -373,6 +373,7 @@ export function useTrekMarkers(
   map: maplibregl.Map | null,
   mapLoaded: boolean,
   timeline: TrekTimelineDay[],
+  onDayClick?: (index: number) => void,
 ) {
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
@@ -440,6 +441,9 @@ export function useTrekMarkers(
         ? buildGroupedPopupHTML(days)
         : buildPopupHTML(days[0]);
 
+      // Timeline index of each day at this coordinate.
+      const dayIndices = days.map((d) => timeline.indexOf(d));
+
       wrapper.addEventListener('mouseenter', () => {
         clearHideTimer();
         inner.style.transform = 'scale(1.2)';
@@ -450,13 +454,22 @@ export function useTrekMarkers(
         if (popupEl) {
           popupEl.onmouseenter = clearHideTimer;
           popupEl.onmouseleave = () => scheduleHide(inner);
+
+          // Grouped popup: each day tab opens its own itinerary day.
+          popupEl
+            .querySelectorAll<HTMLElement>('.trek-day-tab')
+            .forEach((tab) => {
+              const pos = Number(tab.dataset.dayPos);
+              tab.addEventListener('click', () => onDayClick?.(dayIndices[pos]));
+            });
         }
       });
 
       wrapper.addEventListener('mouseleave', () => scheduleHide(inner));
-      wrapper.addEventListener('click', () =>
-        map.flyTo({ center: [lng, lat], zoom: 14, duration: 1200 }),
-      );
+
+      // Open this marker's itinerary day instead of zooming the map.
+      // A grouped marker opens its first day; the popup tabs open the rest.
+      wrapper.addEventListener('click', () => onDayClick?.(dayIndices[0]));
 
       const marker = new maplibregl.Marker({ element: wrapper })
         .setLngLat([lng, lat])
@@ -464,7 +477,7 @@ export function useTrekMarkers(
 
       markersRef.current.push(marker);
     });
-  }, [mapLoaded, timeline, map]);
+  }, [mapLoaded, timeline, map, onDayClick]);
 }
 
 // ─── Hook 4: Animated hiker on the trail ─────────────────────────────────────
@@ -685,7 +698,9 @@ export function useTrailEndFlag(
     });
     if (allCoords.length < 1) return;
 
-    const [lng, lat] = flagAtStart ? allCoords[0] : allCoords[allCoords.length - 1];
+    const [lng, lat] = flagAtStart
+      ? allCoords[0]
+      : allCoords[allCoords.length - 1];
     markerRef.current?.remove();
     markerRef.current = new maplibregl.Marker({
       element: makeTrailEndFlagEl(),

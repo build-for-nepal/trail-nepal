@@ -55,7 +55,7 @@ export default function ExploreLayout() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full pb-[80px]">
+    <section className="relative min-h-screen w-full pb-2">
       <div className="mx-auto flex w-full max-w-[1920px] gap-8 px-4 pt-8 md:px-[80px] md:pt-[60px] items-start">
         {/* Desktop Sidebar — self-contained, never stretches */}
         <aside className="sticky top-[112px] hidden lg:block flex-shrink-0 self-start">

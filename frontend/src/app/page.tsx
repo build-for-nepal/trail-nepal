@@ -9,9 +9,11 @@ export default function Home() {
     <main>
       <HeroSection />
       <PopularTrekSection />
-      <WhyTrialNepalSection />
-      {/* <EstimateCostSection /> */}
-      <Footer isMainDisplay={true} />
+      <div className="bg-[#EBF0F8]">
+        <WhyTrialNepalSection />
+        {/* <EstimateCostSection /> */}
+        <Footer isMainDisplay={true} />
+      </div>
     </main>
   );
 }

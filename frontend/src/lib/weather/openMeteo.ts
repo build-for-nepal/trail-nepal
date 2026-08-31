@@ -282,7 +282,8 @@ export async function fetchWeatherForecast(
   return {
     locationLabel,
     regionLabel,
-    fetchedAt: current.time,
+    // Wall-clock time the data was actually retrieved (drives the "Updated …" stamp).
+    fetchedAt: new Date().toISOString(),
     current: {
       tempC: Math.round(current.temperature_2m),
       weatherCode: current.weather_code,

@@ -75,7 +75,7 @@ const TrekSelectModal = ({
         {/* Header */}
         <div className="relative flex items-start justify-between px-6 pt-6 pb-4 border-b border-gray-100">
           <div>
-            <h2 className="font-otomanopee text-[#181C1D] text-2xl">
+            <h2 className="font-fraunces text-[#181C1D] text-2xl">
               Build your Comparison
             </h2>
             <p className="text-[#40484A] text-sm mt-1">
@@ -198,7 +198,7 @@ const TrekSelectModal = ({
 
                     {/* Info */}
                     <div className="p-3 bg-white">
-                      <p className="font-otomanopee text-[#181C1D] text-sm leading-snug line-clamp-1">
+                      <p className="font-fraunces text-[#181C1D] text-sm leading-snug line-clamp-1">
                         {trek.name}
                       </p>
                       <div className="flex flex-wrap gap-x-2 gap-y-1 mt-1.5">

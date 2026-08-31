@@ -50,7 +50,7 @@ export const HeroContent = memo(function HeroContent({
           ref={(el) => {
             textElemsRef.current[0] = el;
           }}
-          className="font-otomanopee text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold text-white mb-6 tracking-wide drop-shadow-lg line-clamp-2 text-center lg:text-left"
+          className="font-fraunces text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold text-white mb-6 tracking-wide drop-shadow-lg line-clamp-2 text-center lg:text-left"
         >
           {slide.title}
         </h1>

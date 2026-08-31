@@ -6,7 +6,7 @@ import { TrekkingMapProps } from '@/types/map';
 
 const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
 
-export default function TrekkingMap({ trekId }: TrekkingMapProps) {
+export default function TrekkingMap({ trekId, onDayClick }: TrekkingMapProps) {
   const { data: rawData, isLoading, error } = useTrekkingData(trekId);
 
   if (error) {
@@ -67,7 +67,12 @@ export default function TrekkingMap({ trekId }: TrekkingMapProps) {
 
       {/* Render the dynamically imported Map Client */}
       <div className="h-full w-full z-0">
-        <MapClient data={data} center={center} trekId={trekId} />
+        <MapClient
+          data={data}
+          center={center}
+          trekId={trekId}
+          onDayClick={onDayClick}
+        />{' '}
       </div>
     </div>
   );

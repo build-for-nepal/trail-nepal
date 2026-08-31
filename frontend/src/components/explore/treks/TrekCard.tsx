@@ -51,7 +51,7 @@ export default function TrekCard({
       <div className="flex flex-1 flex-col gap-3 p-[18px]">
         {/* Title + Region */}
         <div className="flex flex-col gap-0.5">
-          <h3 className="font-otomanopee line-clamp-1 text-[18px] font-bold tracking-tight text-text-primary">
+          <h3 className="font-fraunces line-clamp-1 text-[18px] font-bold tracking-tight text-text-primary">
             {title}
           </h3>
           <p className="text-[12px] font-medium text-text-secondary/80">

@@ -13,7 +13,7 @@ export default function TrekInfo({ trek }: TrekInfoProps) {
         <SearchBar variant="dark" />
       </div>
 
-      <h3 className="font-oldenburg text-3xl font-normal leading-tight text-black lg:text-[38px]">
+      <h3 className="font-fraunces text-3xl font-normal leading-tight text-black lg:text-[38px]">
         {trek.title}
       </h3>
 

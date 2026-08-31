@@ -41,7 +41,7 @@ const TrekCard = ({
       </div>
 
       <div className="flex flex-col gap-2 px-4 py-4 lg:absolute lg:bottom-0 lg:left-0 lg:w-full lg:px-5 lg:pb-5 lg:z-10">
-        <h3 className="font-otomanopee font-bold text-black text-lg sm:text-xl line-clamp-1">
+        <h3 className="font-fraunces font-bold text-black text-lg sm:text-xl line-clamp-1">
           {title}
         </h3>
 

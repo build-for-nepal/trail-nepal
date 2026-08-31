@@ -170,10 +170,10 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
   }, []);
 
   return (
-    <div className="w-full bg-[#EBF0F8]">
+    <div className="w-full ">
       <div
         ref={sectionRef}
-        className={cn('page-wrapper w-full bg-[#EBF0F8] pb-16')}
+        className={cn('page-wrapper w-full bg-white pb-16')}
       >
         <div className="flex flex-col py-16 lg:py-24 gap-12 lg:gap-16">
           <SectionHeader
@@ -192,7 +192,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                 return (
                   <div
                     key={key}
-                    className="altitude-accordion-item bg-white rounded-2xl shadow-sm overflow-hidden"
+                    className="altitude-accordion-item bg-[#EBF0F8] rounded-2xl shadow-sm overflow-hidden"
                   >
                     {/* Header */}
                     <button
@@ -201,8 +201,8 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                       aria-expanded={isOpen}
                     >
                       <span
-                        className="text-[15px] text-gray-800 tracking-[-0.01em]"
-                        style={{ fontFamily: "'Oldenburg', serif" }}
+                        className="text-md text-gray-800 tracking-[-0.01em]"
+                        style={{ fontFamily: 'var(--font-fraunces), serif' }}
                       >
                         {key}
                       </span>
@@ -226,25 +226,25 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                       <div className="px-6 pb-7 flex flex-col gap-6">
                         {/* Description */}
                         <div>
-                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-2">
+                          <p className="text-[12px] font-bold tracking-widest uppercase text-[#30628A] mb-2">
                             What it is?
                           </p>
-                          <p className="text-sm text-[#434843] leading-relaxed">
+                          <p className="text-md text-[#434843] leading-relaxed">
                             {item.description}
                           </p>
                         </div>
 
                         {/* Symptoms grid */}
                         <div>
-                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                          <p className="text-[12px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
                             Symptoms
                           </p>
-                          <div className="grid grid-cols-4 gap-2">
+                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
                             {item.symptoms.map((s) => {
                               return (
                                 <div
                                   key={s.name}
-                                  className="flex flex-col items-center gap-1.5 bg-gray-50 rounded-xl py-3 px-1"
+                                  className="flex flex-col items-center justify-between gap-1.5 bg-white rounded-xl py-3 px-1"
                                 >
                                   <span
                                     className={cn(
@@ -257,7 +257,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                                       className="w-full h-full"
                                     />
                                   </span>
-                                  <span className="text-[10px] text-center text-[#0D1D2A] leading-tight">
+                                  <span className="text-sm text-center text-[#0D1D2A] leading-tight">
                                     {s.name}
                                   </span>
                                 </div>
@@ -268,7 +268,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
 
                         {/* Severity levels */}
                         <div>
-                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                          <p className="text-[12px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
                             Severity Levels
                           </p>
                           <div className="flex flex-col gap-2">
@@ -296,7 +296,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                                     <div className="flex flex-col gap-1">
                                       <p
                                         className={cn(
-                                          'text-[11px] leading-relaxed font-bold capitalize',
+                                          'text-md leading-relaxed font-bold capitalize',
                                           style.titleStyle,
                                         )}
                                       >
@@ -304,7 +304,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                                       </p>
                                       <p
                                         className={cn(
-                                          'text-[11px]',
+                                          'text-sm',
                                           style.descStyle,
                                         )}
                                       >
@@ -320,14 +320,14 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
 
                         {/* prevention tips */}
                         <div>
-                          <p className="text-[10px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
+                          <p className="text-[12px] font-bold tracking-widest uppercase text-[#30628A] mb-3">
                             Prevention Tips
                           </p>
                           <ul className="flex flex-col gap-1.5">
                             {item.prevention_tips.map((tip) => (
                               <li key={tip} className="flex items-center gap-2">
                                 <Check className="w-3 h-3 text-blue-500" />
-                                <span className="text-[12px] text-gray-600 leading-relaxed">
+                                <span className="text-md text-gray-600 leading-relaxed">
                                   {tip}
                                 </span>
                               </li>

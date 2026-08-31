@@ -41,10 +41,7 @@ const WeatherLocationDropdown = ({
     if (!open) return;
 
     const handlePointerDown = (event: MouseEvent) => {
-      if (
-        rootRef.current &&
-        !rootRef.current.contains(event.target as Node)
-      ) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
@@ -64,7 +61,10 @@ const WeatherLocationDropdown = ({
   return (
     <div
       ref={rootRef}
-      className={cn('relative w-full max-w-full sm:max-w-[300px]', className)}
+      className={cn(
+        'relative w-full max-w-full sm:max-w-[200px] text-xs',
+        className,
+      )}
     >
       <button
         type="button"
@@ -72,7 +72,7 @@ const WeatherLocationDropdown = ({
         aria-expanded={open}
         aria-controls={listboxId}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-10 w-full items-center gap-2 rounded-full border px-4 text-left transition hover:bg-white/15 sm:h-11"
+        className="flex  w-full items-center gap-2 rounded-full border px-4 text-left transition hover:bg-white/15 py-2"
         style={{
           fontFamily: "'Poppins', sans-serif",
           borderColor: 'var(--color-forecast-pill-border)',
@@ -80,7 +80,7 @@ const WeatherLocationDropdown = ({
         }}
       >
         <MapPin size={16} className="shrink-0 text-white" strokeWidth={2.25} />
-        <span className="min-w-0 flex-1 truncate text-sm font-semibold text-white">
+        <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white">
           {triggerLabel}
         </span>
         <ChevronDown
@@ -119,7 +119,7 @@ const WeatherLocationDropdown = ({
                     setHoveredId(null);
                   }}
                   className={cn(
-                    'w-full px-4 py-2.5 text-left text-sm font-medium leading-snug transition-colors',
+                    'w-full px-4 py-2.5 text-left text-xs font-medium leading-snug transition-colors',
                     isHighlighted
                       ? 'bg-forecast-dropdown-active text-white'
                       : 'text-[#111827] hover:bg-forecast-dropdown-active hover:text-white',

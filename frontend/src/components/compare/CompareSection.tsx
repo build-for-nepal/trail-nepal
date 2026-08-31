@@ -133,7 +133,7 @@ const MobileTrekCard = ({ trek }: { trek: TrekDetail }) => {
         )}
       </div>
       <div className="px-5 pt-5 pb-4 border-b border-gray-100">
-        <h3 className="font-otomanopee text-[#181C1D] text-lg">{trek.name}</h3>
+        <h3 className="font-fraunces text-[#181C1D] text-lg">{trek.name}</h3>
       </div>
       {ROWS.map(({ label, key }, i) => {
         const value = getCellValue(trek, key);
@@ -222,7 +222,7 @@ const DesktopTable = ({ treks }: { treks: TrekDetail[] }) => {
             i < colCount - 1 ? 'pr-3' : '',
           )}
         >
-          <p className="font-otomanopee text-[#181C1D] text-base text-center">
+          <p className="font-fraunces text-[#181C1D] text-base text-center">
             {trek.name}
           </p>
         </div>

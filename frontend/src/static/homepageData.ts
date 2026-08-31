@@ -126,17 +126,17 @@ export const FOOTER_SOCIAL_LINKS: SocialLink[] = [
   {
     platform: 'facebook',
     href: 'https://facebook.com/trailnepal',
-    ariaLabel: 'Follow Trail Nepal on Facebook',
+    ariaLabel: 'Follow Trails Nepal on Facebook',
   },
   {
     platform: 'instagram',
     href: 'https://instagram.com/trailnepal',
-    ariaLabel: 'Follow Trail Nepal on Instagram',
+    ariaLabel: 'Follow Trails Nepal on Instagram',
   },
   {
     platform: 'youtube',
     href: 'https://youtube.com/trailnepal',
-    ariaLabel: 'Subscribe to Trail Nepal on YouTube',
+    ariaLabel: 'Subscribe to Trails Nepal on YouTube',
   },
 ];
 
