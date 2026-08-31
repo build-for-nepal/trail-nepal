@@ -27,12 +27,13 @@ const Footer = ({ isMainDisplay = false }: Props) => {
         !isMainDisplay && 'mt-12 lg:mt-20',
       )}
     >
-      <div>
+      <div className="">
         <Image
-          src="/footer-bg.png"
+          src="/footer-bg-1.svg"
           alt="Footer Background"
           fill
-          className=" hidden lg:block max-xl:object-cover"
+          priority
+          className="hidden lg:block object-fill"
         />
       </div>
       <div className="page-wrapper relative z-10 mx-auto max-w-[1920px] px-6 py-12 md:px-8 lg:px-20 lg:pt-50 lg:pb-7">

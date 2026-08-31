@@ -28,7 +28,7 @@ const SubNav = () => {
   };
 
   return (
-    <div className="overflow-x-auto bg-[#376BB6]/80 border-b border-black/20 px-4 md:px-20 py-2 text-white shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-md scrollbar-hide">
+    <div className="overflow-x-auto bg-[#376BB6]/80 border-b border-black/20 px-4 md:px-20 py-4 text-white shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-md scrollbar-hide">
       <div className="page-wrapper flex items-center justify-between">
         <ul className="flex min-w-max items-center gap-6 leading-6">
           {navItems.map((item) => (

@@ -248,7 +248,7 @@ const AccordionItem = ({
               )}
 
               {day.price && (
-                <span className="ml-auto flex items-center gap-1.5 text-sm font-bold text-black cursor-text select-text">
+                <span className="flex items-center gap-1.5 text-sm font-bold text-black cursor-text select-text">
                   <Image src={moneyBag} alt="price" width={18} height={18} />
                   {(() => {
                     const str = day.price as string;

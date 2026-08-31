@@ -101,8 +101,15 @@ export interface TrekDetail {
     maxElevation: string;
     bestSeasons: string;
     startingPoint: string;
+    tripFacts: {
+      flights: string;
+      accommodation: string;
+      routeType: string;
+      permits: string;
+    };
   };
   overview: string;
+  summary: string;
   timeline: TrekTimelineDay[];
   expectations: { title: string; description: string }[];
   seasonalPlanning: { month: string; condition: string }[];

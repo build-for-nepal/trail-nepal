@@ -16,7 +16,9 @@ const TreksHero = ({ trekId }: Props) => {
   // Daily walking hours — min/max across the itinerary's per-day durations.
   const walkingHours: number[] = [];
   timeline.forEach((day) => {
-    day.stats?.duration?.match(/\d+/g)?.forEach((n) => walkingHours.push(Number(n)));
+    day.stats?.duration
+      ?.match(/\d+/g)
+      ?.forEach((n) => walkingHours.push(Number(n)));
   });
   const dailyWalkingHours = walkingHours.length
     ? `${Math.min(...walkingHours)}-${Math.max(...walkingHours)} hrs`
@@ -28,15 +30,18 @@ const TreksHero = ({ trekId }: Props) => {
   ).length;
 
   const tripFacts = [
-    { label: 'Flights', value: 'Kathmandu ⇄ Lukla' },
-    { label: 'Accommodation', value: 'Tea House / Camping' },
+    { label: 'Flights', value: data.meta?.tripFacts?.flights ?? '—' },
+    {
+      label: 'Accommodation',
+      value: data.meta?.tripFacts?.accommodation ?? '—',
+    },
     { label: 'Daily Walking Hours', value: dailyWalkingHours },
-    { label: 'Route Type', value: 'Out & Back' },
+    { label: 'Route Type', value: data.meta?.tripFacts?.routeType ?? '—' },
     {
       label: 'Acclimatization Days',
       value: acclimatizationDays > 0 ? `${acclimatizationDays} days` : '—',
     },
-    { label: 'Permits', value: 'TIMS, National Park Permit' },
+    { label: 'Permits', value: data.meta?.tripFacts?.permits ?? '—' },
   ];
 
   return (
@@ -44,7 +49,7 @@ const TreksHero = ({ trekId }: Props) => {
       <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-20 lg:py-20">
         <SectionHeader
           title="Trek Overview"
-          description="Get an instant cost estimate for your adventure"
+          description="A quick look at what awaits on the trail."
           id="overview"
         />
 

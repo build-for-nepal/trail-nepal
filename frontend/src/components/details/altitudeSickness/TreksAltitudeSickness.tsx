@@ -355,7 +355,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
         <div
           className={cn(
             'group relative flex items-center justify-between w-full',
-            'rounded-xl bg-[#376BB6] px-[10px] md:px-[16px] py-[18px]',
+            'rounded-xl bg-[#376BB6] p-6',
             '[clip-path:inset(-80px_-20px_0px_-20px_round_12px)]',
           )}
         >
