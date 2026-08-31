@@ -15,11 +15,19 @@ const TreksHero = ({ trekId }: Props) => {
 
   // Daily walking hours — min/max across the itinerary's per-day durations.
   const walkingHours: number[] = [];
+
   timeline.forEach((day) => {
-    day.stats?.duration
-      ?.match(/\d+/g)
-      ?.forEach((n) => walkingHours.push(Number(n)));
+    const duration = day.stats?.duration;
+
+    if (!duration) return;
+
+    const hoursMatch = duration.match(/(\d+(?:\.\d+)?)\s*(?:hrs?|hours?)/i);
+
+    if (hoursMatch) {
+      walkingHours.push(Number(hoursMatch[1]));
+    }
   });
+
   const dailyWalkingHours = walkingHours.length
     ? `${Math.min(...walkingHours)}-${Math.max(...walkingHours)} hrs`
     : '—';
@@ -30,18 +38,23 @@ const TreksHero = ({ trekId }: Props) => {
   ).length;
 
   const tripFacts = [
-    { label: 'Flights', value: data.meta?.tripFacts?.flights ?? '—' },
-    {
-      label: 'Accommodation',
-      value: data.meta?.tripFacts?.accommodation ?? '—',
-    },
+    ...(data.meta?.tripFacts?.flights !== 'None'
+      ? [{ label: 'Flights', value: data.meta.tripFacts.flights }]
+      : []),
+    ...(data.meta?.tripFacts?.accommodation
+      ? [{ label: 'Accommodation', value: data.meta.tripFacts.accommodation }]
+      : []),
     { label: 'Daily Walking Hours', value: dailyWalkingHours },
-    { label: 'Route Type', value: data.meta?.tripFacts?.routeType ?? '—' },
+    ...(data.meta?.tripFacts?.routeType
+      ? [{ label: 'Route Type', value: data.meta.tripFacts.routeType }]
+      : []),
     {
       label: 'Acclimatization Days',
       value: acclimatizationDays > 0 ? `${acclimatizationDays} days` : '—',
     },
-    { label: 'Permits', value: data.meta?.tripFacts?.permits ?? '—' },
+    ...(data.meta?.tripFacts?.permits
+      ? [{ label: 'Permits', value: data.meta.tripFacts.permits }]
+      : []),
   ];
 
   return (

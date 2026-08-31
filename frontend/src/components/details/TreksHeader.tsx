@@ -12,12 +12,45 @@ import { cn } from '@/lib/utils';
 import { Props } from '@/types/trek';
 
 /** Pulls the leading amount from a timeline price string, e.g.
- *  "NPR 2,800 (Accommodation: 800, Meals: 2,000)" -> 2800. */
+ * "NPR 2,800 (Accommodation: 800, Meals: 2,000)" -> 2800. */
 const parseDayAmount = (price?: string): number => {
   if (!price) return 0;
+
   const match = price.match(/[\d,]+/);
   if (!match) return 0;
+
   return Number(match[0].replace(/,/g, '')) || 0;
+};
+
+/** Converts full month names to 3-letter abbreviations. */
+const formatBestSeason = (seasons?: string): string[] => {
+  if (!seasons) return [];
+
+  const months: Record<string, string> = {
+    January: 'Jan',
+    February: 'Feb',
+    March: 'Mar',
+    April: 'Apr',
+    May: 'May',
+    June: 'Jun',
+    July: 'Jul',
+    August: 'Aug',
+    September: 'Sep',
+    October: 'Oct',
+    November: 'Nov',
+    December: 'Dec',
+  };
+
+  return seasons
+    .split(',')
+    .map((season) =>
+      season
+        .trim()
+        .replace(
+          /January|February|March|April|May|June|July|August|September|October|November|December/g,
+          (month) => months[month],
+        ),
+    );
 };
 
 const TreksHeader = ({ trekId }: Props) => {
@@ -30,25 +63,47 @@ const TreksHeader = ({ trekId }: Props) => {
     '';
 
   // Total the trek's estimated cost from the per-day timeline prices.
-  // Only shown when at least one day has a price; otherwise a dash.
   const totalCost = data.timeline.reduce(
     (sum, day) => sum + parseDayAmount(day.price),
     0,
   );
+
   const estCost =
     totalCost > 0 ? `NPR ${totalCost.toLocaleString('en-US')}` : '-';
 
+  const bestSeasons = formatBestSeason(data.meta.bestSeasons);
+
   const stats = [
-    { icon: Clock, label: 'Duration', value: data.meta.duration },
-    { icon: TrendingUp, label: 'Difficulty', value: data.meta.difficulty },
-    { icon: Mountain, label: 'Elevation', value: data.meta.maxElevation },
+    {
+      icon: Clock,
+      label: 'Duration',
+      value: data.meta.duration,
+    },
+    {
+      icon: TrendingUp,
+      label: 'Difficulty',
+      value: data.meta.difficulty,
+    },
+    {
+      icon: Mountain,
+      label: 'Elevation',
+      value: data.meta.maxElevation,
+    },
     {
       icon: CalendarDays,
       label: 'Best Season',
-      value: data.meta.bestSeasons.split(',')[0].trim(),
+      value: bestSeasons,
     },
-    { icon: MapPin, label: 'Starting Point', value: data.meta.startingPoint },
-    { icon: CircleDollarSign, label: 'Est. Cost', value: estCost },
+    {
+      icon: MapPin,
+      label: 'Starting Point',
+      value: data.meta.startingPoint,
+    },
+    {
+      icon: CircleDollarSign,
+      label: 'Est. Cost',
+      value: estCost,
+    },
   ];
 
   return (
@@ -62,10 +117,10 @@ const TreksHeader = ({ trekId }: Props) => {
         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 md:from-black/80 md:via-black/30 md:to-transparent"
       />
 
-      <div className="absolute top-6 right-4 sm:right-8 z-20">
-        <button className="flex items-center gap-2 bg-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-[8px] sm:rounded-full shadow-lg hover:bg-gray-50 transition-colors">
+      <div className="absolute top-6 right-4 z-20 sm:right-8">
+        <button className="flex items-center gap-2 rounded-[8px] bg-white px-3 py-1.5 shadow-lg transition-colors hover:bg-gray-50 sm:rounded-full sm:px-4 sm:py-2">
           <svg
-            className="w-4 h-4 sm:w-5 sm:h-5 text-[#8dc63f]"
+            className="h-4 w-4 text-[#8dc63f] sm:h-5 sm:w-5"
             fill="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -75,20 +130,20 @@ const TreksHeader = ({ trekId }: Props) => {
         </button>
       </div>
 
-      <div className="page-wrapper relative z-10 flex flex-col justify-end h-full pb-8 md:pb-8 px-4 sm:px-8 md:px-[--spacing-page-x] items-center md:items-start text-center md:text-left">
-        <div className="flex flex-col gap-3 md:gap-2 max-w-[800px] items-center md:items-start">
-          <h1 className="font-fraunces font-bold text-white text-[42px] leading-[1.1] sm:text-5xl md:text-6xl tracking-tight drop-shadow-lg max-w-[300px] md:max-w-none">
+      <div className="page-wrapper relative z-10 flex h-full flex-col items-center justify-end px-4 pb-8 text-center sm:px-8 md:items-start md:px-[--spacing-page-x] md:pb-8 md:text-left">
+        <div className="flex max-w-[800px] flex-col items-center gap-3 md:items-start md:gap-2">
+          <h1 className="max-w-[300px] font-fraunces text-[42px] font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg sm:text-5xl md:max-w-none md:text-6xl">
             {data.name.split(' (')[0]}
           </h1>
 
           {data.region && (
-            <p className="text-white/95 text-xl sm:text-2xl font-bold mb-2 md:mb-2 drop-shadow-md">
+            <p className="mb-2 text-xl font-bold text-white/95 drop-shadow-md sm:text-2xl md:mb-2">
               {data.region}
             </p>
           )}
 
-          <p className="line-clamp-2 text-white/80 text-sm md:text-base leading-relaxed max-w-[320px] sm:max-w-[85%] drop-shadow-md">
-            {data.summary}{' '}
+          <p className="line-clamp-2 max-w-[320px] text-sm leading-relaxed text-white/80 drop-shadow-md sm:max-w-[85%] md:text-base">
+            {data.summary}
           </p>
         </div>
 
@@ -107,11 +162,21 @@ const TreksHeader = ({ trekId }: Props) => {
                   className="size-6 shrink-0 text-gray-700"
                   strokeWidth={1.75}
                 />
+
                 <div className="flex min-w-0 flex-col">
                   <span className="text-sm text-gray-500">{label}</span>
-                  <span className="truncate text-[18px] font-bold text-gray-700">
-                    {value}
-                  </span>
+
+                  {Array.isArray(value) ? (
+                    <div className="flex flex-col text-[18px] font-bold leading-tight text-gray-700">
+                      {value.map((season) => (
+                        <span key={season}>{season}</span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="truncate text-[18px] font-bold text-gray-700">
+                      {value}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
