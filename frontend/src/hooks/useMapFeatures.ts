@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay, AccessRoute } from '@/types/trek';
-import { GeoJSONData, LayerKey } from '@/types/map';
+import { GeoJSONData, LayerKey, DayFocus } from '@/types/map';
 import { LAYERS } from '@/static/mapConstants';
 import {
   buildPopupHTML,
@@ -11,6 +11,14 @@ import {
 
 const TRAIL_GREEN = '#84b829';
 const MARKER_ORANGE = '#f59e0b';
+
+// Focusing a single itinerary day is mostly a recenter: the point is eased to
+// the middle of the map with only a slight zoom nudge (+0.1 zoom level ≈ 7%
+// closer) on top of the current zoom — a gentle focus, not a deep zoom. The
+// nudge is bounded so repeatedly hopping day-to-day never creeps in too far,
+// and it never zooms out (an already-close view just recenters).
+const DAY_FOCUS_ZOOM_STEP = 0.1;
+const DAY_FOCUS_ZOOM_CEIL = 12.5;
 
 /**
  * Returns a wrapper element (given to MapLibre) containing an inner visual circle.
@@ -374,9 +382,15 @@ export function useTrekMarkers(
   mapLoaded: boolean,
   timeline: TrekTimelineDay[],
   onDayClick?: (index: number) => void,
+  focus?: DayFocus | null,
 ) {
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
+  // Timeline index → the marker's map position and its scalable inner element,
+  // so a focus request can fly to the point and briefly emphasise its marker.
+  const focusTargetsRef = useRef<
+    Map<number, { lng: number; lat: number; inner: HTMLElement }>
+  >(new Map());
 
   useEffect(() => {
     if (!mapLoaded || !map) return;
@@ -393,6 +407,7 @@ export function useTrekMarkers(
 
     markersRef.current.forEach((mk) => mk.remove());
     markersRef.current = [];
+    focusTargetsRef.current = new Map();
 
     let hideTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -444,6 +459,12 @@ export function useTrekMarkers(
       // Timeline index of each day at this coordinate.
       const dayIndices = days.map((d) => timeline.indexOf(d));
 
+      // Register every day at this coordinate as a focus target so opening it
+      // from the itinerary (or clicking this marker) can fly here.
+      dayIndices.forEach((di) => {
+        focusTargetsRef.current.set(di, { lng, lat, inner });
+      });
+
       wrapper.addEventListener('mouseenter', () => {
         clearHideTimer();
         inner.style.transform = 'scale(1.2)';
@@ -467,7 +488,8 @@ export function useTrekMarkers(
 
       wrapper.addEventListener('mouseleave', () => scheduleHide(inner));
 
-      // Open this marker's itinerary day instead of zooming the map.
+      // Open this marker's itinerary day; the parent routes that back as a focus
+      // request, so the map also gently recenters on this point.
       // A grouped marker opens its first day; the popup tabs open the rest.
       wrapper.addEventListener('click', () => onDayClick?.(dayIndices[0]));
 
@@ -478,6 +500,40 @@ export function useTrekMarkers(
       markersRef.current.push(marker);
     });
   }, [mapLoaded, timeline, map, onDayClick]);
+
+  // React to focus requests: gently recenter the map on the day's point with a
+  // slight zoom nudge, and pulse its marker so it's clear which point is meant.
+  useEffect(() => {
+    if (!map || !mapLoaded || !focus) return;
+
+    const target = focusTargetsRef.current.get(focus.index);
+    if (!target) return; // day has no marker (e.g. a return-journey day)
+
+    const { lng, lat, inner } = target;
+
+    // Center the point with only a small zoom nudge; never zoom out.
+    const current = map.getZoom();
+    const zoom = Math.max(
+      current,
+      Math.min(current + DAY_FOCUS_ZOOM_STEP, DAY_FOCUS_ZOOM_CEIL),
+    );
+
+    map.easeTo({
+      center: [lng, lat],
+      zoom,
+      duration: 800,
+      essential: true,
+    });
+
+    // A brief pulse makes it clear which point the focused day maps to — this
+    // carries the "show the point" cue now that the zoom change is subtle.
+    inner.style.transform = 'scale(1.45)';
+    const resetTimer = setTimeout(() => {
+      inner.style.transform = 'scale(1)';
+    }, 1000);
+
+    return () => clearTimeout(resetTimer);
+  }, [map, mapLoaded, focus]);
 }
 
 // ─── Hook 4: Animated hiker on the trail ─────────────────────────────────────
