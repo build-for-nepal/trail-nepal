@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 import { TREK_DETAILS } from '@/static/trekDetails';
-import { GeoJSONData, LayerKey } from '@/types/map';
+import { GeoJSONData, LayerKey, DayFocus } from '@/types/map';
 import { ElevationPoint } from '@/types/trek';
 import {
   useMapInit,
@@ -32,6 +32,7 @@ interface MapClientProps {
   trekId?: string;
 
   onDayClick?: (index: number) => void;
+  focus?: DayFocus | null;
 }
 
 function ControlBtn({
@@ -65,6 +66,7 @@ export default function MapClient({
   center,
   trekId,
   onDayClick,
+  focus,
 }: MapClientProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
@@ -74,7 +76,7 @@ export default function MapClient({
   const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
 
   useTrailData(map, mapLoaded, data);
-  useTrekMarkers(map, mapLoaded, timeline, onDayClick);
+  useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus);
   useTrailEndFlag(map, mapLoaded, data, trekId === 'mardi-himal-trek');
   useAccessRoute(map, mapLoaded, accessRoute);
 
