@@ -23,8 +23,8 @@ const parseDayAmount = (price?: string): number => {
 };
 
 /** Converts full month names to 3-letter abbreviations. */
-const formatBestSeason = (seasons?: string): string[] => {
-  if (!seasons) return [];
+const formatBestSeason = (seasons?: string): string => {
+  if (!seasons) return '';
 
   const months: Record<string, string> = {
     January: 'Jan',
@@ -50,7 +50,8 @@ const formatBestSeason = (seasons?: string): string[] => {
           /January|February|March|April|May|June|July|August|September|October|November|December/g,
           (month) => months[month],
         ),
-    );
+    )
+    .join(', ');
 };
 
 const TreksHeader = ({ trekId }: Props) => {
@@ -91,7 +92,7 @@ const TreksHeader = ({ trekId }: Props) => {
     },
     {
       icon: CalendarDays,
-      label: 'Best Season',
+      label: 'Best Months',
       value: bestSeasons,
     },
     {
@@ -99,11 +100,11 @@ const TreksHeader = ({ trekId }: Props) => {
       label: 'Starting Point',
       value: data.meta.startingPoint,
     },
-    {
-      icon: CircleDollarSign,
-      label: 'Est. Cost',
-      value: estCost,
-    },
+    // {
+    //   icon: CircleDollarSign,
+    //   label: 'Est. Cost',
+    //   value: estCost,
+    // },
   ];
 
   return (
@@ -149,7 +150,7 @@ const TreksHeader = ({ trekId }: Props) => {
 
         {/* Quick stats bar */}
         <div className="mt-6 w-full rounded-2xl bg-white/95 px-6 py-4 shadow-xl backdrop-blur-sm sm:px-6 md:mt-8">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-left sm:grid-cols-3 xl:grid-cols-6 xl:items-center xl:gap-0">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-left sm:grid-cols-3 xl:grid-cols-5 xl:items-center xl:gap-0">
             {stats.map(({ icon: Icon, label, value }, index) => (
               <div
                 key={label}
@@ -159,24 +160,16 @@ const TreksHeader = ({ trekId }: Props) => {
                 )}
               >
                 <Icon
-                  className="size-6 shrink-0 text-gray-700"
+                  className="size-5 shrink-0 text-gray-700 md:size-6"
                   strokeWidth={1.75}
                 />
 
                 <div className="flex min-w-0 flex-col">
                   <span className="text-sm text-gray-500">{label}</span>
 
-                  {Array.isArray(value) ? (
-                    <div className="flex flex-col text-[18px] font-bold leading-tight text-gray-700">
-                      {value.map((season) => (
-                        <span key={season}>{season}</span>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="truncate text-[18px] font-bold text-gray-700">
-                      {value}
-                    </span>
-                  )}
+                  <span className="break-words text-[13px] font-bold leading-tight text-gray-700 sm:text-[14px] md:text-[15px] xl:text-[16px]">
+                    {value}
+                  </span>
                 </div>
               </div>
             ))}

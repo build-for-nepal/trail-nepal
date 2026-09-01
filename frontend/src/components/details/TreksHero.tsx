@@ -13,7 +13,7 @@ const TreksHero = ({ trekId }: Props) => {
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 
-  // Daily walking hours — min/max across the itinerary's per-day durations.
+  // Daily walking hours — min/max across trekking segments only (excludes drive/flight).
   const walkingHours: number[] = [];
 
   timeline.forEach((day) => {
@@ -21,11 +21,38 @@ const TreksHero = ({ trekId }: Props) => {
 
     if (!duration) return;
 
-    const hoursMatch = duration.match(/(\d+(?:\.\d+)?)\s*(?:hrs?|hours?)/i);
+    const isDriveOnly =
+      /^(?:.*\b(?:drive|jeep|bus|road|transfer)\b)?\s*$/i.test(duration) ||
+      (/\b(?:drive|jeep|bus|road|transfer)\b/i.test(duration) &&
+        !/\b(?:trek|hik|walk|explor)/i.test(duration));
 
-    if (hoursMatch) {
-      walkingHours.push(Number(hoursMatch[1]));
-    }
+    if (isDriveOnly) return;
+
+    const parts = duration.split(/[,/+]/);
+
+    const trekParts = parts.filter((part) =>
+      /\b(?:trek|hik|walk|explor|round\s*trip)\b/i.test(part),
+    );
+
+    const segments =
+      trekParts.length > 0
+        ? trekParts
+        : parts.filter(
+            (part) =>
+              !/\b(?:drive|jeep|bus|road|transfer|flight|fly)\b/i.test(part),
+          );
+
+    segments.forEach((segment) => {
+      const match = segment.match(
+        /(\d+(?:\.\d+)?)\s*(?:hrs?|hours?|minutes?|min)/i,
+      );
+      if (!match) return;
+
+      let hours = Number(match[1]);
+      if (/min/i.test(match[0])) hours /= 60;
+
+      if (hours > 0) walkingHours.push(hours);
+    });
   });
 
   const dailyWalkingHours = walkingHours.length

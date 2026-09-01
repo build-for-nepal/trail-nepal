@@ -9,8 +9,8 @@ const navItems = [
   { label: 'Calendar', id: 'calendar' },
   { label: 'What to Expect', id: 'whattoexpect' },
   { label: 'Altitude', id: 'altitude' },
-  { label: 'Gallery', id: 'gallery' },
   { label: 'Gear Checklist', id: 'gearchecklist' },
+  { label: 'Gallery', id: 'gallery' },
 ];
 
 const SubNav = () => {
