@@ -4,134 +4,110 @@ import { LANGTANG_FOOD_MENU } from '@/static/foodMenuData';
 export const TREK_DETAILS: Record<string, TrekDetail> = {
   'ebc-trek': {
     id: 'ebc-trek',
-    name: 'Everest Base Camp (EBC) Trek',
+    name: 'EBC Trek',
     summary:
-      'Trek through Sherpa villages, monasteries, glaciers, and iconic Himalayan peaks. Reach Everest Base Camp at 5,364m.',
-    region: 'Khumbu region',
+      'Trek through the Khumbu region, passing Sherpa villages, monasteries, glaciers, and high Himalayan landscapes on the way to Everest Base Camp.',
+    region: 'Khumbu Region',
     meta: {
-      duration: '14 Days',
+      duration: '12 Days',
       difficulty: 'Challenging',
-      maxElevation: '5,364m',
+      maxElevation: '5,545m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Kathmandu',
       tripFacts: {
         flights: 'Kathmandu ⇄ Lukla',
-        accommodation: 'Tea House',
-        routeType: 'Out & Back',
-        permits: 'Sagarmatha National Park Permit, TIMS',
+        accommodation: 'Tea houses',
+        routeType: 'Out and Back',
+        permits:
+          'Sagarmatha National Park Entry Permit, Khumbu Pasang Lhamu Rural Municipality Trek-Card',
       },
     },
     overview:
-      'The Everest Base Camp trek is more than just a hike, it is a pilgrimage to the highest point on Earth and a deep dive into the heart of the Himalayas. Beginning with a pulse-pounding flight into the mountain-side airstrip of Lukla, the journey takes you through the sacred Sagarmatha National Park, a UNESCO World Heritage site. You will traverse high suspension bridges draped in prayer flags, navigate ancient glacial moraines, and walk through stone-walled villages that have remained unchanged for centuries. Beyond the physical challenge of reaching 5,364 meters, the trek offers a profound cultural encounter with the Sherpa people, whose hospitality and spiritual resilience are as legendary as the peaks they call home.',
+      "The Everest Base Camp trek follows the classic route through the Khumbu region of Nepal, beginning with a flight to Lukla and continuing through Sherpa settlements, Buddhist monasteries, forests, glacial valleys, and high-altitude terrain. The trail passes through Namche Bazaar, Tengboche, Dingboche, Lobuche, and Gorakshep before reaching Everest Base Camp at 5,364 m.\n\nAs the trail climbs deeper into the Himalayas, the landscape gradually changes from green valleys and rhododendron forests to open alpine terrain, rocky moraines, and snow-covered peaks. Two acclimatization days in Namche Bazaar and Dingboche allow for gradual adjustment to the increasing elevation. The journey reaches its highest point at Kala Patthar, 5,545 m, before descending through Pheriche and Namche Bazaar and returning to Lukla for the flight back to Kathmandu.",
     timeline: [
       {
         day: '01',
-        title: 'Kathmandu to Lukla & Trek to Phakding',
+        title: 'Kathmandu → Lukla → Phakding',
         description:
-          'Your adventure begins with a breathtaking 35-minute flight from Kathmandu to Lukla, often cited as one of the most scenic flights in the world. Upon landing at the Tenzing-Hillary Airport, you’ll meet your trekking team and begin the walk through the bustling village of Lukla. The trail descends gently, passing through small Sherpa hamlets like Chheplung and Ghat. You will follow the path of the Dudh Koshi river, crossing your first suspension bridges and smelling the fresh pine air, eventually reaching the riverside village of Phakding for your first night in a mountain teahouse.',
-        // accommodations: [
-        //   { name: "Phakding Guest House" },
-        //   { name: "Yeti Mountain Home (Luxury)" },
-        // ],
+          'The journey begins with a mountain flight to Tenzing-Hillary Airport in Lukla. Depending on the season and current flight operations, flights may depart from Kathmandu or Ramechhap. The flight from Kathmandu takes around 30–35 minutes, while the Ramechhap–Lukla sector is shorter. On clear days, the flight offers changing views of the Himalayan foothills, valleys, and mountain landscape. Flight schedules and operations can vary depending on weather and airport conditions.\n\nAfter landing in Lukla, the trail descends gradually through surrounding Sherpa settlements, passing Chheplung and Ghat before joining the Dudh Koshi valley. Pine and rhododendron forests, stone-built villages, mani walls, and the first suspension bridges introduce the landscapes of the Khumbu. The trail continues alongside the river to Phakding at approximately 2,610 m, where the first night is spent in a local tea house.',
         stats: { elevation: '2,610m', duration: '3-4 hours', distance: '8km' },
         coordinates: [27.737, 86.712],
-        price:
-          'NPR 14,500 (Flight: 12,000, Accommodation: 1,000, Meals: 1,500)',
+        price: 'NPR 2,500 (Accommodation: 1,000, Meals: 1,500)',
       },
       {
         day: '02',
-        title: 'Phakding to Namche Bazaar',
+        title: 'Phakding → Namche Bazaar',
         description:
-          'Today is a rigorous climb that serves as your introduction to the high Himalayas. You will crisscross the Dudh Koshi river multiple times over high suspension bridges, including the famous Hillary Bridge. After passing through the entrance of Sagarmatha National Park at Monjo, the trail drops to the riverbed before beginning a long, zig-zagging ascent through dense forests. Halfway up, you may catch your very first glimpse of Mount Everest peeking through the trees. The day ends as you emerge into the horseshoe-shaped amphitheater of Namche Bazaar, the vibrant commercial hub of the Khumbu region.',
-        // accommodations: [{ name: "Hotel Namche" }, { name: "Khumbu Lodge" }],
-
+          'From Phakding, the route follows the Dudh Koshi River north, crossing suspension bridges and passing small Sherpa settlements toward Monjo. Just beyond Monjo, the trail enters Sagarmatha National Park at Jorsale, where your park entry permit is checked at the checkpoint.\n\nBeyond Jorsale, the trail follows the river through forest before the main climb toward Namche Bazaar begins. The Dudh Koshi is crossed again on a suspension bridge, followed by a series of uphill sections through pine and rhododendron forest. Along the climb, a clear break in the trees can offer the first distant glimpse of Mount Everest. As you gain elevation, the valley gradually opens toward the mountains before reaching Namche Bazaar at approximately 3,440 m, a major Sherpa trading centre and an important acclimatization stop on the route.',
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
         coordinates: [27.805068, 86.7105936],
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
       {
         day: '03',
-        title: 'Acclimatization Day: Exploring Namche',
+        title: 'Acclimatization Day · Namche Bazaar',
         description:
-          'Acclimatization is the golden rule of high-altitude trekking. Instead of pushing higher, you spend the day in Namche to let your body adjust to the thinner air. A popular activity is a steep hike up to the Everest View Hotel, where you can sit on the terrace and enjoy a panoramic view of Everest, Lhotse, and Ama Dablam. On the way back, you can visit the Sherpa Culture Museum or the Everest Photo Gallery. The afternoon is best spent exploring the local bakeries, gear shops, and cafes of Namche, soaking in the unique mountain atmosphere.',
-        // accommodations: [{ name: "Hotel Namche" }, { name: "Khumbu Lodge" }],
+          "Namche Bazaar is the first major acclimatization stop of the trek, with a second night at approximately 3,440 m before the route continues toward higher elevations. Rather than gaining more overnight elevation, the day allows your body to adjust to the thinner air while you explore the hills and viewpoints around Namche before returning to the same elevation for the night.\n\nA popular acclimatization hike follows the trail toward Everest View Hotel, where the higher viewpoint opens to panoramic views of Everest, Lhotse, Ama Dablam, and the surrounding Himalayan peaks on clear days. The route then returns toward Namche, with options to visit the Sherpa Culture Museum and Everest Photo Gallery. Later, you can explore the town's bakeries, cafés, and gear shops, or simply take in the mountain atmosphere before the trek continues deeper into the Khumbu.",
         stats: {
           elevation: '3,440m',
           duration: '3-4 hours',
           distance: '4km',
-          note: 'Acclimatization Indicated',
+          note: 'Acclimatization Day',
         },
         coordinates: [27.805068, 86.7105936],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '04',
-        title: 'Namche Bazaar to Tengboche',
+        title: 'Namche Bazaar → Tengboche',
         description:
-          'The trail out of Namche is spectacular, winding around the mountainside with the giant peaks standing guard across the valley. After an easy walk to Kyanjuma, the trail descends steeply to the river at Phunki Tenga for lunch. From here, it is a steady, two-hour climb through rhododendron and silver fir forests to Tengboche. As you reach the ridge, you are greeted by the magnificent Tengboche Monastery, the largest in the region.',
-        // accommodations: [
-        //   { name: "Tengboche Guest House" },
-        //   { name: "Hotel Himalayan" },
-        // ],
+          "The trail leaves Namche along the mountainside, with open views across the Khumbu and Himalayan peaks rising beyond the valley. The route follows a relatively gentle section toward Kyangjuma before descending through forest toward Phunki Tenga, where the Dudh Koshi is crossed and the main climb toward Tengboche begins.\n\nFrom Phunki Tenga, you follow a steady uphill trail through rhododendron and conifer forests. As the trees thin near the ridge, Ama Dablam and the surrounding Himalayan peaks come into view before you reach Tengboche at approximately 3,860 m. The village is home to Tengboche Monastery, a leading Buddhist centre in the Khumbu region, set against a backdrop of Himalayan peaks.",
         stats: { elevation: '3,860m', duration: '5-6 hours', distance: '10km' },
         coordinates: [27.8352264, 86.7641614],
         price: 'NPR 3,350 (Accommodation: 1,000, Meals: 2,350)',
       },
       {
         day: '05',
-        title: 'Tengboche to Dingboche',
+        title: 'Tengboche → Dingboche',
         description:
-          'Leaving Tengboche, the trail descends through a forest of birch, conifers, and rhododendrons. The path is dotted with mani walls (stones carved with Buddhist prayers) as you head toward the village of Pangboche. You are now leaving the tree line behind, and the landscape becomes noticeably more arid and alpine. Crossing the Imja Khola, you begin a gradual climb into the Chukhung Valley. The day ends in Dingboche.',
-        // accommodations: [
-        //   { name: "Snow Lion Lodge" },
-        //   { name: "Hotel Good Luck" },
-        // ],
+          "The trail leaves Tengboche and descends through birch, conifer, and rhododendron forests, passing stone-built villages and mani walls carved with Buddhist prayers. The route continues toward Pangboche, with views of Ama Dablam and the surrounding mountains along the valley. As you move higher, the forest gradually thins and the landscape becomes more open, dry, and alpine.\n\nAfter crossing the Imja Khola, the trail continues through Pangboche and Shomare, following the Imja Valley toward Dingboche. The vegetation becomes increasingly sparse as the elevation rises, while the surrounding peaks become more prominent across the valley. The day ends in Dingboche at approximately 4,410 m, an important stop before the route moves into the higher reaches of the Khumbu.",
         stats: { elevation: '4,410m', duration: '5-6 hours', distance: '11km' },
         coordinates: [27.8873288, 86.8259632],
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '06',
-        title: 'Second Acclimatization Day: Dingboche',
+        title: 'Acclimatization Day · Dingboche',
         description:
-          "To prepare for the push above 5,000 meters, you spend another day acclimatizing. The most effective way to do this is to 'hike high, sleep low.' Most trekkers climb the steep ridge of Nangkartshang Peak, which rises directly above the village. From the summit (5,083m), you are rewarded with a 360-degree view of the surrounding giants. The rest of the day is for resting, hydrating, and mentally preparing for the higher altitudes ahead.",
-        // accommodations: [{ name: "Snow Lion Lodge" }],
+          'The second acclimatization day in Dingboche prepares you for the higher elevations ahead. The route follows the principle of "hike high, sleep low", with a climb into the surrounding hills before returning to Dingboche at approximately 4,410 m for the night.\n\nA popular option is the climb toward Nangkartshang Peak, which rises above Dingboche. From higher ground, you can take in wide views across the Imja Valley and surrounding Himalayan peaks before returning to the village. The rest of the day provides time to rest, hydrate, and prepare for the increasingly high-altitude terrain ahead.',
         stats: {
           elevation: '4,410m',
           duration: '4-5 hours',
           distance: '5km',
-          note: 'Acclimatization Indicated',
+          note: 'Acclimatization Day',
         },
         coordinates: [27.8873288, 86.8259632],
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '07',
-        title: 'Dingboche to Lobuche',
+        title: 'Dingboche → Lobuche',
         description:
-          "The trail today is a steady climb across a wide, glacier-carved valley. You will reach the small settlement of Thukla, situated at the foot of the massive Khumbu Glacier. After lunch, you face the 'Thukla Pass'—a steep, challenging climb to the top of the terminal moraine. Here, you will find a somber and beautiful memorial site dedicated to climbers who lost their lives on Everest. From the pass, the trail levels out to reach Lobuche.",
-        // accommodations: [
-        //   { name: "National Park Lodge" },
-        //   { name: "Oxygen Altitude Home" },
-        // ],
+          "The trail leaves Dingboche and climbs steadily through a wide, glacier-carved valley toward Thukla. As you gain elevation, the landscape becomes increasingly barren, with low vegetation giving way to rocky slopes and the surrounding peaks appearing closer across the valley.\n\nBeyond Thukla, you face a steeper climb toward the Thukla Pass, ascending the terminal moraine of the Khumbu Glacier. Along the ridge, a collection of memorials commemorates climbers and mountaineers who lost their lives in the Everest region. From here, the trail becomes gentler as you continue across the high valley toward Lobuche at approximately 4,940 m, one of the last settlements before Gorakshep.",
         stats: { elevation: '4,940m', duration: '5-6 hours', distance: '8km' },
         coordinates: [27.9477818, 86.8105368],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
         day: '08',
-        title: 'Lobuche to Gorak Shep & Everest Base Camp',
+        title: 'Lobuche → Gorakshep → Everest Base Camp',
         description:
-          'This is the most significant day of the trek. You start early, walking across rocky terrain toward Gorak Shep. After a quick meal, you push forward onto the Khumbu Glacier moraine toward Everest Base Camp. The trail is rugged and constantly shifting. Reaching Base Camp (5,364m) is an emotional milestone. You will stand among the colorful tents of expedition teams (if in spring) before returning to Gorak Shep for the night.',
-        // accommodations: [
-        //   { name: "Buddha Lodge" },
-        //   { name: "Snowland Highest Inn" },
-        // ],
+          "The trail leaves Lobuche early and continues across the rugged, high-altitude terrain toward Gorakshep. The route follows rocky paths and glacial moraine as you move deeper into the upper Khumbu, with Pumori, Nuptse, and other high peaks surrounding the valley.\n\nAfter reaching Gorakshep, the trail continues toward Everest Base Camp, following the moraine beside the Khumbu Glacier. The terrain becomes increasingly rocky and uneven, and the route can change with the movement of the glacier and seasonal conditions. At 5,364 m, Everest Base Camp marks the highest destination of the trek before you retrace the route to Gorakshep at approximately 5,164 m for the night.",
         stats: {
           elevation: '5,364m',
           duration: '8-9 hours',
           distance: '15km',
-          note: 'EBC elevation is 5,364m, sleeping at Gorak Shep',
+          note: 'EBC elevation is 5,364m, sleeping at Gorakshep 5,164m',
         },
         coordinates: [28.0029111, 86.855732],
         isDestination: true,
@@ -139,38 +115,47 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       },
       {
         day: '09',
-        title: 'Gorak Shep to Kala Patthar & Pheriche',
+        title: 'Gorakshep → Kala Patthar → Pheriche',
         description:
-          'Before dawn, you begin a grueling climb up Kala Patthar (5,545m). This is the highest point of the trek, and while the climb is difficult in the freezing dark, the reward is unmatched. As the sun rises, it illuminates the entire south face of Mount Everest. After descending back to Gorak Shep for breakfast, you begin the long journey down the valley to the lower, warmer altitude of Pheriche.',
-        // accommodations: [{ name: "Himalayan Hotel" }, { name: "Pumori Lodge" }],
+          "The day begins early with the climb toward Kala Patthar, reaching 5,545 m, the highest point of the trek. The ascent is demanding at this elevation, particularly in the cold early hours, but the ridge opens to one of the most expansive mountain views of the journey. As the light reaches the surrounding peaks, you can look across the upper Khumbu toward Everest, Nuptse, Pumori, and the surrounding Himalayan landscape.\n\nThe trail descends back to Gorakshep before continuing down the valley toward Pheriche. With each drop in elevation, the landscape gradually becomes less stark, with more vegetation returning to the valley. The day ends in Pheriche at approximately 4,371 m, providing a significant drop from the previous night's sleeping elevation.",
         stats: {
-          elevation: '4,371m',
+          elevation: '5,545m',
           duration: '7-8 hours',
           distance: '13km',
-          note: 'Sleeping elevation',
+          note: 'Kala Patthar is the highest point of the trek. Sleeping elevation Pheriche 4,371m.',
         },
         coordinates: [27.893, 86.818],
         price: 'NPR 4,500 (Accommodation: 1,000, Meals: 3,500)',
       },
       {
         day: '10',
-        title: 'Pheriche to Namche Bazaar',
+        title: 'Pheriche → Namche Bazaar',
         description:
-          "Today's trek is a long descent, but the increasing oxygen levels make you feel surprisingly energetic. You’ll pass back through the forests of Tengboche and descend to the river before climbing the hill on the opposite side. The trail winds around the mountain, eventually leading you back into the familiar, bustling streets of Namche Bazaar.",
-        // accommodations: [{ name: "Hotel Namche" }],
+          "The trail continues its long descent from Pheriche through the Khumbu Valley, retracing the route toward Tengboche. As you lose elevation, the landscape gradually changes from the sparse alpine terrain around Pheriche to greener surroundings and forested sections.\n\nFrom Tengboche, the trail descends toward the Dudh Koshi before climbing again toward the mountainside route leading to Namche. The return through familiar forests and villages offers a noticeable contrast to the high-altitude landscape of the previous days. The trail eventually reaches Namche Bazaar at approximately 3,440 m, where the lower elevation brings more oxygen and a more lively mountain atmosphere.",
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '14km' },
         coordinates: [27.806, 86.714],
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
       },
       {
         day: '11',
-        title: 'Namche Bazaar to Lukla',
+        title: 'Namche Bazaar → Lukla',
         description:
-          "The final day of trekking is a long one as you retrace your steps back to where it all began. You will descend the 'Namche Hill' for the last time, cross the Hillary Bridge, and walk through the villages of Monjo and Phakding. The final hour involves a gentle but tiring uphill climb to reach Lukla, where you can finally celebrate the completion of your trek.",
-        // accommodations: [{ name: "Paradise Lodge" }, { name: "Khumbu Resort" }],
+          "The trail retraces the route from Namche Bazaar toward Lukla, descending through the Dudh Koshi valley and passing familiar settlements along the way. You follow the trail through Monjo and Phakding, crossing suspension bridges and moving through increasingly green forest as the elevation decreases.\n\nBeyond Phakding, the route continues toward Lukla with a mixture of gradual descents and short uphill sections. The final approach climbs gently back toward Lukla at approximately 2,860 m, where the trekking portion of the journey comes to an end and you spend the final night in the Khumbu.",
         stats: { elevation: '2,860m', duration: '7-8 hours', distance: '18km' },
         coordinates: [27.686, 86.73],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+      },
+      {
+        day: '12',
+        title: 'Lukla → Kathmandu',
+        description:
+          "The final morning begins with a return flight from Tenzing-Hillary Airport in Lukla. Depending on the season and current flight operations, the flight may arrive in Kathmandu or connect through the operational departure arrangements in use at the time. The short mountain flight offers another perspective of the hills and valleys that surrounded the trek, with changing views depending on weather and visibility.\n\nAfter landing in Kathmandu, the 12-day Everest Base Camp journey comes to an end, bringing the route from the high valleys of the Khumbu back to the capital.",
+        stats: {
+          elevation: '1,400m',
+          duration: '35-min flight',
+          distance: '-',
+        },
+        coordinates: [27.7172, 85.324],
       },
     ],
     expectations: [
@@ -196,18 +181,18 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       },
     ],
     seasonalPlanning: [
-      { month: 'Jan', condition: 'Extremely Cold / Heavy Snow on Passes' },
-      { month: 'Feb', condition: 'Freezing Temperatures / Quiet Trails' },
-      { month: 'Mar', condition: 'Spring Bloom / Vibrant Rhododendrons' },
-      { month: 'Apr', condition: 'Perfect Climbing Weather / Peak Season' },
-      { month: 'May', condition: 'Warm Temperatures / Pre-Monsoon Views' },
-      { month: 'Jun', condition: 'Beginning of Monsoon / Cloudy Skies' },
-      { month: 'Jul', condition: 'Heavy Rain / Lush Greenery / Leeches' },
-      { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
-      { month: 'Sep', condition: 'Late-Monsoon / Crisp & Fresh Air' },
-      { month: 'Oct', condition: 'Crystal Clear Skies / Most Popular Month' },
-      { month: 'Nov', condition: 'Cool & Stable / Excellent Visibility' },
-      { month: 'Dec', condition: 'Winter Chill / Crystal Clear Blue Skies' },
+      { month: 'Jan', condition: 'Very Cold / Heavy Snow Above 4,000m / Experienced Trekkers Only' },
+      { month: 'Feb', condition: 'Freezing Temperatures / Quiet Trails / Icy at Night' },
+      { month: 'Mar', condition: 'Spring Begins / Rhododendrons in Bloom / Warming Temperatures' },
+      { month: 'Apr', condition: 'Stable Weather / Long Daylight / Peak Spring Season / Excellent Visibility' },
+      { month: 'May', condition: 'Warm & Clear / Pre-Monsoon Views / Expedition Season' },
+      { month: 'Jun', condition: 'Monsoon Builds / Views Blocked / Trails Slippery / Not Recommended' },
+      { month: 'Jul', condition: 'Full Monsoon / Heavy Rain / Landslide Risk / Avoid' },
+      { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails / High Risk / Avoid' },
+      { month: 'Sep', condition: 'Late-Monsoon / Fresh Air / Some Cloud Lingering / Quieter' },
+      { month: 'Oct', condition: 'Crystal Clear Skies / Best Mountain Views / Peak Season / Most Popular Month' },
+      { month: 'Nov', condition: 'Excellent Visibility / Cold at Night / Fewer Trekkers than October' },
+      { month: 'Dec', condition: 'Very Cold Above 4,000m / Clear Skies / Almost Empty Trail / Winter Chill' },
     ],
     gallery: [
       {
@@ -956,8 +941,8 @@ view over Kyanjin Village and the upper Langtang Valley`,
       'Journey through the Annapurna Sanctuary beneath towering Himalayan peaks. Reach Annapurna Base Camp with Machhapuchhre and Annapurna views.',
     region: 'Annapurna Region',
     meta: {
-      duration: '7-10 Days ',
-      difficulty: 'Challenging',
+      duration: '7 Days ',
+      difficulty: 'Moderate',
       maxElevation: '4,130m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Pokhara',
@@ -969,100 +954,106 @@ view over Kyanjin Village and the upper Langtang Valley`,
       },
     },
     overview:
-      'This route represents the direct, dramatic ascent into the Annapurna Sanctuary, bypassing the lower foothill loops to take you straight into the heart of the Himalayas. Starting from the suspension bridges of Jhinu Danda, the trail climbs the steep stone staircases of Chhomrong before plunging into the V-shaped Modi Khola gorge. Over four days of upward trekking, you will transition from lush, subtropical bamboo and rhododendron forests into a harsh, icy alpine environment. The climax of the upward journey brings you past the towering sheer face of Machhapuchhre (Fishtail) and through the sanctuary gates, ending at Annapurna Base Camp (4,130m) where you are completely surrounded by a 360-degree wall of 7,000m and 8,000m peaks.',
+      'The Annapurna Base Camp trek follows the Modi Khola valley into the Annapurna Sanctuary, beginning with a drive from Pokhara toward the lower trailhead near Jhinu Danda. From there, the route climbs through Chhomrong and Sinuwa before entering a narrower section of the valley surrounded by bamboo, oak, and rhododendron forest. The trail continues through Dovan and Deurali toward Machhapuchhre Base Camp, where the landscape becomes increasingly open and alpine. As the route gains elevation, the forest gradually gives way to rocky slopes, glacial terrain, and the high mountain environment of the Annapurna Sanctuary. The trail reaches Annapurna Base Camp at 4,130 m, surrounded by peaks including Annapurna I, Annapurna South, Hiunchuli, and Machhapuchhre. After reaching the highest point of the trek, the route retraces its path toward the lower valleys before descending to Jhinu Danda and returning to Pokhara.',
+
     timeline: [
       {
         day: '01',
         title: 'Pokhara to Chhomrong',
         description:
-          "An early jeep ride from Pokhara winds along the rough road to the Matkyu/Jhinu Danda trailhead (~2 hrs). Drop down through forest to cross the Kyumnu Khola on a steel suspension bridge, then begin the trek's first real test: thousands of stone steps climbing the ridge to Chhomrong. This sprawling Gurung village is the gateway to the Sanctuary — last reliable ATM, last bakery, and your first head-on view of Annapurna South and Hiunchuli.",
+          'The journey begins with a drive from Pokhara toward the roadhead near Jhinu Danda. From the trailhead, the route crosses the Modi Khola and climbs through forest toward Chhomrong. The first section includes a substantial series of stone steps, making this one of the more physically demanding climbs of the lower route. The trail continues upward through forest and scattered settlements before reaching Chhomrong at approximately 2,170 m. Set on a steep hillside above the Modi Khola valley, Chhomrong is one of the major Gurung settlements on the route and serves as the gateway toward the Annapurna Sanctuary.',
         stats: {
           elevation: '2,170m',
-          duration: '2 hrs drive, 3-4 hrs trek',
+          duration: '3-4 hrs trek',
           distance: '5km',
         },
         coordinates: [28.4200417, 83.8176077],
         price: 'NPR 4,300 (Transport: 2,000, Accommodation: 800, Meals: 1,500)',
       },
+
       {
         day: '02',
         title: 'Chhomrong to Dovan',
         description:
-          'Descend the long stone staircase to the Chhomrong Khola, cross the suspension bridge, and grind back up to Sinuwa (2,360m) on the opposite ridge. The trail then levels out and contours through Bamboo (2,310m) — a popular alternate stop — before plunging into damp, mossy forests of bamboo, oak, and rhododendron all the way to the small clearing at Dovan.',
-        stats: { elevation: '2,600m', duration: '5-6 hours', distance: '9km' },
+          'The trail descends from Chhomrong on a long series of stone steps toward the Chhomrong Khola before crossing the river and climbing again toward Sinuwa. From Sinuwa, the route enters the forested Modi Khola valley, passing through Bamboo before continuing toward Dovan. The vegetation becomes increasingly dense and humid along this section, with bamboo, oak, and rhododendron forest covering much of the trail. The valley gradually narrows as the route continues toward Dovan at approximately 2,600 m, where the surrounding terrain begins to feel more enclosed and mountainous.',
+        stats: {
+          elevation: '2,600m',
+          duration: '5-6 hrs',
+          distance: '9-12km',
+        },
         coordinates: [28.4697078, 83.8694284],
         price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
       },
+
       {
         day: '03',
-        title: 'Dovan to Deurali (Acclimatization Day)',
+        title: 'Dovan to Deurali',
         description:
-          'A deliberately short day to protect acclimatization. The valley narrows into a steep gorge as you pass the sacred Hinku Cave overhang and cross avalanche chutes (closed in heavy winter snow). Reach Deurali by lunch, drop your pack, and take a slow afternoon walk uphill toward the sanctuary gates before returning to sleep low. This split is the single most important change for AMS prevention on the route.',
+          'The trail continues uphill from Dovan through the narrowing Modi Khola valley. Sections of dense bamboo and rhododendron forest give way to steeper and rockier terrain as the route passes Himalaya and continues toward the Hinku Cave area. The landscape becomes more open as the trail approaches Deurali at approximately 3,200 m, marking the transition toward the higher alpine environment of the Annapurna Sanctuary. This is a relatively short trekking day compared with the longer lower-valley sections, but the increasing elevation makes a steady pace important.',
         stats: {
           elevation: '3,200m',
-          duration: '3-4 hours',
+          duration: '3-4 hrs',
           distance: '6km',
-          note: 'Sleeping elevation gain limited to ~600m for safer acclimatization',
         },
         coordinates: [28.4933, 83.893],
-        price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
+        price: 'NPR 2,200 (Accommodation: 600, Meals: 1,600)',
       },
+
       {
         day: '04',
         title: 'Deurali to Machhapuchhre Base Camp (MBC)',
         description:
-          "The treeline ends abruptly above Deurali, replaced by sparse alpine grass, glacial moraines, and the first long views into the Sanctuary. The climb is steady but never brutal. As you cross the threshold of the inner sanctuary, the staggering fluted face of Machhapuchhre (the 'Fishtail') rises directly above your lodge at MBC. Watch for blue sheep and Himalayan tahr on the slopes opposite.",
+          'Above Deurali, the forest gradually thins as the route enters more exposed alpine terrain. The valley opens toward the upper Modi Khola, with rocky slopes and glacial features replacing much of the vegetation found at lower elevations. The trail continues toward the entrance of the Annapurna Sanctuary. The route reaches Machhapuchhre Base Camp at approximately 3,700 m, positioned beneath the distinctive fluted face of Machhapuchhre (Fishtail). From here, the surrounding peaks become increasingly prominent and the landscape takes on a distinctly high-altitude character.',
         stats: {
           elevation: '3,700m',
-          duration: '2-3 hours',
-          distance: '4km',
-          note: 'Hydrate aggressively; symptoms of mild AMS often appear here',
+          duration: '3-4 hrs',
+          distance: '5km',
         },
         coordinates: [28.5132035, 83.9060408],
         price: 'NPR 2,400 (Accommodation: 800, Meals: 1,600)',
       },
+
       {
         day: '05',
         title: 'MBC to Annapurna Base Camp (ABC)',
         description:
-          'A short, awe-inspiring morning walk takes you into the true heart of the Sanctuary. The trail climbs gently alongside the lateral moraine of the South Annapurna Glacier. As you crest the final rise into ABC, you are completely enveloped by a 360° amphitheatre of giants — Hiunchuli, Annapurna South, Annapurna I (8,091m), Khangsar Kang, Tare Kang, Singu Chuli, and Machhapuchhre — culminating at the towering, icy South Face of Annapurna I.',
+          'The trail continues gently upward from Machhapuchhre Base Camp into the heart of the Annapurna Sanctuary. With the forest now completely behind you, the route crosses open alpine and glacial terrain while the surrounding peaks become increasingly dominant. The trail reaches Annapurna Base Camp at 4,130 m, where the valley opens into a natural amphitheatre surrounded by the Annapurna massif. Depending on weather and visibility, views can include Annapurna I, Annapurna South, Hiunchuli, Machhapuchhre, and other surrounding peaks.',
         stats: {
           elevation: '4,130m',
-          duration: '2-3 hours',
-          distance: '3km',
-          note: 'Target arrival before noon; clouds typically roll in by 1pm',
+          duration: '2-3 hrs',
+          distance: '3-4km',
         },
         coordinates: [28.5308115, 83.8777275],
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
         isDestination: true,
       },
+
       {
         day: '06',
         title: 'ABC to Bamboo (Descent)',
         description:
-          "Wake before dawn for the alpenglow show — the South Face of Annapurna I lighting up gold is the moment most trekkers come for. After breakfast, retrace your steps down through MBC, Deurali, and Dovan. Knees take a beating on the long stone stairs, so pace yourself. Bamboo's lower, warmer, oxygen-rich air is a noticeable relief after three nights at altitude.",
+          'The route retraces the trail from Annapurna Base Camp through Machhapuchhre Base Camp, Deurali, Himalaya, and Dovan before continuing toward Bamboo. The long descent brings a rapid change in elevation and landscape, with the open alpine environment gradually giving way to forest. Although the route is descending, the uneven trail and repeated stone steps can make this one of the more physically demanding days. By the time you reach Bamboo at approximately 2,310 m, the warmer and greener forest environment provides a noticeable contrast to the high Sanctuary.',
         stats: {
           elevation: '2,310m',
-          duration: '6-7 hours',
-          distance: '16km',
-          note: 'Trekking poles strongly recommended for the descent',
+          duration: '6-7 hrs',
+          distance: '13-16km',
         },
-        coordinates: [28.4801, 83.8589],
+        coordinates: [28.457, 83.8569],
         price: 'NPR 2,600 (Accommodation: 800, Meals: 1,800)',
       },
+
       {
         day: '07',
         title: 'Bamboo to Jhinu Danda & Drive to Pokhara',
         description:
-          'Descend through forest back to Sinuwa, then climb briefly to Chhomrong before the long stone-step descent to Jhinu Danda. Reward your legs with an hour at the natural hot springs beside the Modi Khola — a 20-minute walk below the village. Meet your jeep at the Jhinu road head for the bumpy ride back to Pokhara, and a real shower.',
+          'The final trekking section continues through the forest toward Sinuwa before climbing back toward Chhomrong. From Chhomrong, the trail follows a long staircase down toward Jhinu Danda, where the trekking route leaves the higher valley. The natural hot springs below Jhinu Danda provide an optional stop before the final drive to Pokhara. From the forested lower valley, the route returns to the roadhead and continues by vehicle toward Pokhara, bringing the seven-day journey into the Annapurna Sanctuary to an end.',
         stats: {
           elevation: '1,780m',
-          duration: '5-6 hrs trek, 2-3 hrs drive',
-          distance: '11km',
-          note: 'Hot springs entry: NPR 150 per person',
+          duration: '5-6 hrs trek + 2-3 hrs drive',
+          distance: '10-11km',
         },
-        coordinates: [28.385, 83.8197],
-        price: 'NPR 3,000 (Transport: 2000, Meals: 1,000)',
+        coordinates: [28.4096, 83.8241],
+        price: 'NPR 3,000 (Transport: 2,000, Meals: 1,000)',
       },
     ],
     expectations: [
@@ -1534,77 +1525,113 @@ view over Kyanjin Village and the upper Langtang Valley`,
     id: 'ghorepani-poon-hill-trek',
     name: 'Ghorepani Poon Hill Trek',
     summary:
-      'Trek through rhododendron forests, traditional villages, and scenic ridges. Reach Poon Hill at 3,210m for spectacular Annapurna and Dhaulagiri sunrise views.',
+      'Trek through the lower Annapurna region, passing Gurung and Magar villages, rhododendron forests, and terraced fields on the way to Poon Hill.',
     region: 'Annapurna Region',
     meta: {
       duration: '5-7 Days',
-      difficulty: 'Easy–Moderate',
+      difficulty: 'Moderate',
       maxElevation: '3,210m',
       bestSeasons: 'March-May, September-November',
       startingPoint: 'Pokhara',
       tripFacts: {
         flights: 'None',
         accommodation: 'Tea House',
-        routeType: 'Out & Back',
+        routeType: 'Circuit',
         permits: 'Annapurna Conservation Area Permit, TIMS',
       },
     },
     overview:
-      'Ghorepani Poon Hill is the trek that introduces most people to the Himalayas. Short enough to complete in four days, accessible enough for reasonably fit beginners, yet rewarding enough to leave experienced trekkers genuinely moved. It sits in a rare category of routes that consistently over-deliver on expectation. The trail begins at Nayapul in the Modi Khola valley and climbs steadily through a series of traditional Magar and Gurung villages before arriving at Ghorepani, a ridge-top settlement perched at 2,860m in one of the densest rhododendron forests in Nepal. The centrepiece is the pre-dawn climb to Poon Hill at 3,210m, a summit that commands one of the most celebrated mountain panoramas in all of Nepal, taking in Dhaulagiri (8,167m), Annapurna I (8,091m), Machhapuchhre (6,993m), and dozens of lesser peaks across 180 degrees of horizon. Sunrise here is not a subtle affair, the first light hits the snowfields of Dhaulagiri and Annapurna simultaneously, turning them from grey to gold to blazing white in the space of fifteen minutes.',
+      'The Ghorepani Poon Hill trek follows the classic trail through the lower foothills of the Annapurna region, beginning with a drive from Pokhara toward the trailhead at Birethanti or Nayapul. From there, the route ascends through terraced farmland, traditional Magar settlements, and dense oak and rhododendron forests toward Ulleri and Ghorepani. The trail steadily climbs through the Modi and Bhurungdi Khola valleys, where the landscape transitions from cultivated lower hills to rich temperate forest. As the route reaches Ghorepani, the surrounding forest gives way to panoramic views of the Annapurna and Dhaulagiri mountain ranges. An early morning ascent leads to the summit of Poon Hill at 3,210 m, providing panoramic mountain views before the route descends through Tadapani and the historic Gurung village of Ghandruk. After traversing dense forests and scenic terraced hillsides, the trek descends back toward Birethanti before returning to Pokhara.',
+
     timeline: [
       {
         day: '01',
-        title: 'Pokhara to Nayapul to Tikhedhunga',
+        title: 'Pokhara to Birethanti to Tikhedhunga / Ulleri',
+
         description:
-          'A morning drive from Pokhara along the Baglung Highway to Nayapul, where the trail begins beside the Modi Khola river. The first stretch follows a wide, flat riverbank path through Birethanti, a busy trailhead village with good coffee stops and the ACAP permit checkpoint. From Birethanti the trail climbs gently through Hile before a steeper section leads to Tikhedhunga, a small village split by a waterfall with several comfortable lodges. A short, enjoyable day designed to ease legs into the rhythm of walking.',
+          'The journey begins with a drive from Pokhara toward the trailhead near Birethanti. After crossing the Modi Khola and registering permits at the checkpoint, the route follows the Bhurungdi Khola valley through small settlements, terraced fields, and subtropical forest toward Tikhedhunga. From Tikhedhunga, the trail begins a sustained uphill climb featuring thousands of stone steps toward the village of Ulleri. As you gain elevation, the surrounding valley opens up to reveal views of Annapurna South and Hiunchuli. The day ends in Ulleri at approximately 1,960 m, a traditional Magar village set high on the hillside.',
 
         stats: {
-          elevation: '1,540m',
-          duration: '3-4 hours',
-          distance: '1.5hr drive + trek',
+          elevation: '1,960m',
+          duration: '4-5 hrs',
+          distance: '10km',
         },
-        coordinates: [28.33847, 83.7402],
-        price: 'NPR 3,500 (Transport: 1000, Accommodation: 500, Meals: 2,000)',
+
+        coordinates: [28.3573, 83.7354],
+
+        price: 'NPR 3,000 (Transport: 1,000 Accommodation: 500, Meals: 1,500)',
       },
+
       {
         day: '02',
-        title: 'Tikhedhunga to Ghorepani',
-        description:
-          'The most demanding day of the trek, and arguably the most rewarding. From Tikhedhunga the trail immediately attacks the famous stone staircase climb to Ulleri roughly 3,000 hand-cut stone steps ascending 500m in under two kilometres. Ulleri itself is a beautiful Magar village worth pausing in traditional stone houses, prayer wheels at the village entrance, and the first open views back down the Modi Khola valley. From Ulleri the trail enters the rhododendron forest and stays in it almost continuously through Banthanti (2,250m) and Nangethanti to Ghorepani. The forest above 2,500m is ancient and dense enormous rhododendron trees with gnarled trunks, carpeted in moss, tunnel over the path. In March and April the canopy is in full bloom. Ghorepani sits on a saddle between ridges and has the largest concentration of tea houses on the trek.',
+        title: 'Ulleri to Ghorepani',
 
-        stats: { elevation: '2,860m', duration: '6-7 hours', distance: '11km' },
-        coordinates: [28.39854, 83.70101],
-        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        description:
+          'The trail leaves Ulleri and enters a dense forest of oak, magnolia, and rhododendron. The route continues on a steady, gradual incline along the river, passing small teahouses and streams at Banthanti and Nangethanti as you move deeper into the forest. As you gain elevation, the trail becomes cooler and the forest canopy thicker, offering a quiet forest walk for much of the day. The final section climbs through the upper woodland before emerging into the ridge village of Ghorepani at approximately 2,870 m. From the village, clear openings across the ridge offer views toward Dhaulagiri and the Annapurna range.',
+
+        stats: {
+          elevation: '2,870m',
+          duration: '5-6 hrs',
+          distance: '11km',
+        },
+
+        coordinates: [28.4025, 83.6999],
+
+        price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
       },
+
       {
         day: '03',
-        title: 'Poon Hill Sunrise then Trek to Tadapani',
+        title: 'Ghorepani to Poon Hill to Tadapani',
+
         description:
-          "Wake at 4:30am and join the procession of headtorches climbing the 45-minute trail to Poon Hill. The wooden observation tower at the top fills quickly arrive by 5:30am in October and November for a good position before sunrise. The panorama on a clear morning is extraordinary: Dhaulagiri anchors the western horizon, Annapurna I and South dominate the centre, Machhapuchhre's perfect pyramid rises to the east, and the entire Annapurna Sanctuary wall stretches between them. After sunrise and breakfast back in Ghorepani, the day continues east toward Tadapani through more rhododendron forest via Deurali pass (3,090m). The forest on this section is quieter and less trodden look for Himalayan Monal pheasants in the undergrowth. Tadapani sits on a forested ridge with excellent evening views of Annapurna South and Machhapuchhre.",
+          'The day begins before dawn with a steep climb up the stone trail to Poon Hill at 3,210 m, the highest point of the trek. As the morning light reaches the mountains, the summit ridge opens to wide views stretching across Dhaulagiri I, Annapurna I, Annapurna South, Machhapuchhre, and Nilgiri. After descending to Ghorepani for breakfast, the route leaves the village and follows a high ridge through pine and rhododendron forest toward Deurali Pass. The trail then descends along a narrow forested canyon, crossing small streams before a short climb brings you to Tadapani at approximately 2,630 m, surrounded by close views of Annapurna South and Machhapuchhre.',
+
         stats: {
-          elevation: '2,630m',
-          duration: '5-6 hours',
-          distance: '14km',
-          note: 'Poon Hill summit elevation is 3,210m, sleeping at Tadapani',
+          elevation: '3,210m',
+          duration: '6-7 hrs',
+          distance: '12km',
         },
-        coordinates: [28.40007, 83.68959],
-        price: 'NPR 2,000 (Accommodation: 800, Meals: 1,200)',
-        isDestination: true,
+
+        coordinates: [28.3965, 83.7653],
+
+        price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
       },
+
       {
         day: '04',
-        title: 'Tadapani to Ghandruk to Nayapul, Drive to Pokhara',
+        title: 'Tadapani to Ghandruk',
+
         description:
-          'The descent to Ghandruk is steep and involves long stone staircase sections through dense forest, take it slowly on tired legs. Ghandruk is the largest Gurung village in the Annapurna region and one of the most beautifully preserved stone-flagged lanes, traditional slate-roofed houses, a small but excellent Gurung museum, and a community-run conservation project that has made it a model for sustainable tourism in Nepal. Allow an hour to walk through the village before descending further to Kimche, where jeeps and local buses run back to Nayapul and onward to Pokhara.',
+          'The trail leaves Tadapani and descends through quiet rhododendron and oak forest, where birdlife and shaded woodland trails lead down toward the lower valley. As you lose elevation, the forest gradually thins to reveal terraced slopes and small farming settlements. The route continues toward Ghandruk at approximately 1,940 m, one of the largest Gurung settlements in the Annapurna region. Set against the backdrop of Annapurna South, Hiunchuli, and Machhapuchhre, the village features traditional stone-paved alleys, slate-roofed houses, and the Gurung Cultural Museum.',
+
         stats: {
-          elevation: '820m',
-          duration: '5-6 hours',
-          distance: '14km + 1.5hr drive',
-          note: 'Ghandruk elevation is 1,940m. Optional overnight in Ghandruk on Day 5.',
+          elevation: '1,940m',
+          duration: '3-4 hrs',
+          distance: '7km',
         },
-        coordinates: [28.3799, 83.7567],
-        price:
-          'NPR 4,500 (Transport: 1,000, Accommodation: 1,500, Meals: 2,000)',
+
+        coordinates: [28.3769, 83.8078],
+
+        price: 'NPR 2,500 (Accommodation: 800, Meals: 1,700)',
+      },
+
+      {
+        day: '05',
+        title: 'Ghandruk to Birethanti & Drive to Pokhara',
+
+        description:
+          'The final day of the trek descends from Ghandruk through terraced fields and small stone hamlets toward the Modi Khola valley. The trail follows stone stairways down the hillside, passing local farmers and rural homesteads along the way. After reaching the valley floor, the route follows the river bank back toward Birethanti, where the trek officially concludes. From Birethanti, a short drive returns you to Pokhara, bringing the 5-day Ghorepani circuit from the foothills back to the lakeside city.',
+
+        stats: {
+          elevation: '1,940m',
+          duration: '4-5 hrs',
+          distance: '10km',
+        },
+
+        coordinates: [28.3095, 83.7748],
+
+        price: 'NPR 2,000 (Transport: 1,000, Meals: 1,000)',
       },
     ],
     expectations: [
@@ -1761,95 +1788,93 @@ view over Kyanjin Village and the upper Langtang Valley`,
     id: 'mardi-himal-trek',
     name: 'Mardi Himal Trek',
     summary:
-      'Follow a quiet alpine ridge through rhododendron forests with views of Machapuchare and Annapurna. Reach Mardi Himal Base Camp at 4,500m.',
+      'Trek along high ridges and through rhododendron forests in the Annapurna region, leading to the base of Mardi Himal directly below Machhapuchhre.',
     region: 'Annapurna Region',
     meta: {
-      duration: '6-7 Days',
+      duration: '5 Days',
       difficulty: 'Moderate',
       maxElevation: '4,500m',
-      bestSeasons: 'March-May, September-December',
+      bestSeasons: 'March-May, September-November',
       startingPoint: 'Pokhara',
       tripFacts: {
         flights: 'None',
         accommodation: 'Tea House',
-        routeType: 'Out & Back',
+        routeType: 'Circuit',
         permits: 'Annapurna Conservation Area Permit, TIMS',
       },
     },
     overview:
-      "Mardi Himal is Pokhara's best-kept secret, a steep, forested ridge trek that climbs directly above the city into one of the most dramatic viewpoints in the entire Annapurna region, yet sees only a fraction of the traffic of its famous neighbours. Opened officially to trekkers in 2012 after years as a restricted route, the trail follows the Mardi Himal ridgeline southeast of Machapuchare (6,993m), ascending through dense rhododendron and oak forest before breaking out onto a high open ridge at around 3,300m. From the Upper Camp and High Camp the views are intimate in a way that Annapurna Base Camp cannot quite replicate — Machapuchare's perfect pyramid fills the sky to the northwest, Annapurna South and Hiunchuli rise to the left, and Mardi Himal itself (5,587m) closes the horizon directly ahead. Most trekkers who do ABC or the Annapurna Circuit miss this trail entirely, which means on a clear October morning at High Camp you may find yourself alone with one of the finest mountain panoramas in Nepal.",
+      'The Mardi Himal trek follows a ridge trail through the eastern reaches of the Annapurna region, starting with a drive from Pokhara to the trailhead at Kande or Simrung. From the trailhead, the route ascends through forests of oak, maple, and rhododendron toward Australian Camp and Pothana before continuing along the forested ridgelines to Forest Camp. The trail steadily gains elevation while moving away from the busier main routes of the region. As the route continues beyond Low Camp and Badal Danda, the tree line drops away to reveal open ridge walking with views of Annapurna South, Hiunchuli, and Machhapuchhre. The trail reaches High Camp before making the final early morning ascent along the narrow ridge to Mardi Himal Base Camp at 4,500 m. After taking in close views of the surrounding peaks and glaciers, the route descends back through Middle Camp and Sidhing before driving back to Pokhara.',
+
     timeline: [
       {
         day: '01',
-        title: 'Pokhara to Kande to Australian Camp',
+        title: 'Pokhara to Kande to Forest Camp',
         description:
-          'A short drive from Pokhara to Kande where the trail begins immediately through a mix of farmland and lower forest. The ascent to Australian Camp is steady and well-marked, passing through Dhampus, a Gurung village with excellent Annapurna views. Sunsets here over Pokhara and the Annapurna range are genuinely spectacular.',
+          'The journey begins with a drive from Pokhara toward the trailhead at Kande. From Kande, the trail starts with an uphill climb through stone paths and terraced fields toward Australian Camp, opening to initial views across the Pokhara valley and Annapurna range. The route continues along a gentle forested trail through Pothana, where park permits are checked. Beyond Pothana, the trail leaves the main trekking route and enters a quieter, denser section of forest, winding gradually upward through oak and rhododendron trees until reaching Forest Camp (Kokar) at approximately 2,550 m.',
         stats: {
-          elevation: '2,100m',
-          duration: '3-4 hours',
-          distance: '45min drive + trek',
+          elevation: '2,550m',
+          duration: '5-6 hrs',
+          distance: '11km',
         },
-        coordinates: [28.3116342, 83.8290576],
-        price: 'NPR 2,500 (Transport: 1000, Accommodation: 500, Meals: 1,000)',
+        coordinates: [28.3593, 83.8449],
+        price: 'NPR 2,700 (Accommodation: 600, Meals: 1,600, Transport: 500)',
       },
+
       {
         day: '02',
-        title: 'Australian Camp to Forest Camp',
+        title: 'Forest Camp to Badal Danda',
         description:
-          "The trail enters dense rhododendron and oak forest almost immediately after Australian Camp, climbing steadily along the Mardi Himal ridge. The canopy is thick in March and April. The path is well-defined but steep in sections. Forest Camp sits in a clearing in the forest with basic but comfortable lodges and the first filtered views of Mardi Himal's upper ridge.",
-        stats: { elevation: '2,550m', duration: '5-6 hours', distance: '10km' },
-        coordinates: [28.3644746, 83.8448209],
-        price: 'NPR 1,700 (Accommodation: 500, Meals: 1,200)',
+          'The trail leaves Forest Camp and continues its steady climb through dense moss-covered forest. As the elevation increases, the vegetation begins to shift, with rhododendron and birch trees dominating the higher forest section toward Low Camp. Beyond Low Camp, the trail emerges above the tree line onto an open ridgeline. The landscape changes rapidly from dense woodland to sub-alpine ridge walking, offering unobstructed views of Machhapuchhre and Annapurna South. The day ends at Badal Danda at approximately 3,210 m, set high on the ridge above the clouds.',
+        stats: {
+          elevation: '3,210m',
+          duration: '4-5 hrs',
+          distance: '8km',
+        },
+        coordinates: [28.415, 83.8545],
+        price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
       },
+
       {
         day: '03',
-        title: 'Forest Camp to High Camp',
+        title: 'Badal Danda to High Camp',
         description:
-          'The day the ridge opens up. The trail passes through Low Camp (2,990m) and Upper Camp (3,580m) in quick succession, and by Upper Camp the forest gives way entirely to open alpine terrain. Machapuchare dominates the northwest horizon and the full Annapurna Sanctuary wall appears to the left. High Camp at 4,100m is exposed and wind-prone. Arrive early and rest well for tomorrow.',
+          'The route leaves Badal Danda and follows the narrow grassy ridge toward High Camp. Walking along the exposed spine of the ridge, clear openings on either side offer sweeping views of the Modi Khola valley to the west and the Mardi Khola valley to the east. As you gain elevation, the terrain becomes rockier and more alpine, with low shrubs replacing the alpine grasses. The short walking day allows time for acclimatization and rest upon reaching High Camp at approximately 3,580 m, preparing for the early morning ascent to the base camp.',
         stats: {
-          elevation: '4,100m',
-          duration: '5-6 hours',
-          distance: '7-8km',
+          elevation: '3,580m',
+          duration: '3-4 hrs',
+          distance: '4.5km',
         },
-        coordinates: [28.4373957, 83.8728109],
-        price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.4329, 83.8668],
+        price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
+
       {
         day: '04',
-        title: 'Trek to Mardi Himal Base Camp and back to Low Camp',
+        title: 'High Camp to Mardi Himal Base Camp to Badal Danda / Low Camp',
         description:
-          'Depart High Camp by 5–6am to reach Mardi Himal Base Camp at 4,500m before clouds build. The trail climbs steeply over loose rock and seasonal snowfields — sure-footedness is essential. At Base Camp the panorama includes Mardi Himal directly above, Machapuchare, Annapurna I, Annapurna South, Hiunchuli, and on clear days, Dhaulagiri to the west. Allow 45 minutes to an hour at the top. Descend all the way to Low Camp to ease altitude.',
+          'The day begins before dawn with a steep climb along the narrow, rocky ridgeline toward Mardi Himal Upper Viewpoint and Base Camp. As the morning light hits the surrounding sanctuary, the trail passes rocky outcrops before reaching Mardi Himal Base Camp at 4,500 m, sitting directly beneath the towering face of Machhapuchhre. After spending time at the base camp taking in views of Annapurna I, Annapurna South, and Hiunchuli, the route retraces its path down the ridge back to High Camp for breakfast. The trail then continues descending along the familiar ridge to spend the night at Badal Danda or Low Camp at approximately 2,970 m.',
         stats: {
-          elevation: '2,990m',
-          duration: '6-7 hours',
-          distance: '12km',
-          note: 'Base Camp elevation is 4,500m, sleeping at Low Camp',
+          elevation: '4,500m',
+          duration: '6-7 hrs',
+          distance: '10km',
         },
-        coordinates: [28.381536, 83.8427559],
-        price: 'NPR 2,600 (Accommodation: 600, Meals: 2,000)',
-        isDestination: true,
+        coordinates: [28.46, 83.895],
+        price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
       },
+
       {
         day: '05',
-        title: 'Low Camp to Sidhing Village',
+        title: 'Low Camp to Sidhing to Pokhara',
         description:
-          'An alternative descent route drops south off the ridge through dense forest to Sidhing, a quiet Gurung village in the Modi Khola valley largely untouched by trekking tourism. The trail is steeper and less used than the main ridge path — look for trail markers carefully. Sidhing has a handful of basic lodges and a warm, unhurried atmosphere.',
-        stats: { elevation: '1,700m', duration: '5-6 hours', distance: '11km' },
-        coordinates: [28.302, 83.885],
-        price: 'NPR 1,500 (Accommodation: 500, Meals: 1,000)',
-      },
-      {
-        day: '06',
-        title: 'Sidhing to Lwang Ghalel to Pokhara',
-        description:
-          'A gentle morning walk through terraced farmland and rhododendron forest to Lwang Ghalel, a community homestay village that has become a model for sustainable trekking tourism in the region. The community-run lodges here are excellent — clean, locally managed, and a direct channel for trekking income to the village. From Lwang a jeep or local bus runs back to Pokhara via Phedi.',
+          'The final day leaves the high ridge trail and takes a steep descent through dense rhododendron and oak forest toward the valley floor. The trail drops rapidly through shaded woodland before emerging into the terraced fields and traditional hamlets surrounding Sidhing village. Upon reaching Sidhing at approximately 1,700 m, the trekking portion concludes. From Sidhing, a local jeep drive follows the river valley back toward Lumre and connects to the main highway returning to Pokhara.',
         stats: {
-          elevation: '820m',
-          duration: '3-4 hours',
-          distance: '1.5hrs drive',
+          elevation: '2,970m',
+          duration: '4-5 hrs',
+          distance: '8.5km',
         },
-        coordinates: [28.28, 83.86],
-        price: 'NPR 2,500 (Transport: 1500, Meals: 1,000)',
+        coordinates: [28.3848, 83.8747],
+        price: 'NPR 2,000 (Meals: 1,000, Transport: 1,000)',
       },
     ],
     expectations: [

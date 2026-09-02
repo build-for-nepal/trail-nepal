@@ -92,7 +92,7 @@ const TreksHeader = ({ trekId }: Props) => {
     },
     {
       icon: CalendarDays,
-      label: 'Best Months',
+      label: 'Peak Season',
       value: bestSeasons,
     },
     {
@@ -110,7 +110,7 @@ const TreksHeader = ({ trekId }: Props) => {
   return (
     <header
       role="banner"
-      className="page-wrapper relative w-full pb-8 overflow-hidden h-[100svh] min-h-[520px] bg-cover bg-center"
+      className="page-wrapper relative w-full pb-8 overflow-hidden h-[100svh] min-h-[700px] bg-cover bg-center"
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
       <div

@@ -195,7 +195,7 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
         </p>
         {data.meta?.bestSeasons ? (
           <p className="font-poppins font-medium italic text-gray-700">
-            Note: Best Months to trek {data.name} is {data.meta.bestSeasons}
+            Note: Peak Season to trek {data.name} is {data.meta.bestSeasons}
           </p>
         ) : null}
       </div>
