@@ -13,13 +13,62 @@ const TreksHero = ({ trekId }: Props) => {
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 
-  // Daily walking hours — min/max across the itinerary's per-day durations.
+  // Daily walking hours — min/max across trekking segments only (excludes drive/flight).
   const walkingHours: number[] = [];
+
   timeline.forEach((day) => {
-    day.stats?.duration
-      ?.match(/\d+/g)
-      ?.forEach((n) => walkingHours.push(Number(n)));
+    const duration = day.stats?.duration;
+
+    if (!duration) return;
+
+    const isDriveOnly =
+      /^(?:.*\b(?:drive|jeep|bus|road|transfer)\b)?\s*$/i.test(duration) ||
+      (/\b(?:drive|jeep|bus|road|transfer)\b/i.test(duration) &&
+        !/\b(?:trek|hik|walk|explor)/i.test(duration));
+
+    if (isDriveOnly) return;
+
+    const parts = duration.split(/[,/+]/);
+
+    const trekParts = parts.filter((part) =>
+      /\b(?:trek|hik|walk|explor|round\s*trip)\b/i.test(part),
+    );
+
+    const segments =
+      trekParts.length > 0
+        ? trekParts
+        : parts.filter(
+            (part) =>
+              !/\b(?:drive|jeep|bus|road|transfer|flight|fly)\b/i.test(part),
+          );
+
+    segments.forEach((segment) => {
+      // Handle ranges like "3-4 hrs" / "5–7 hours" by capturing both bounds so
+      // the global min/max reflect the true min and max across all days.
+      const rangeMatch = segment.match(
+        /(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:hrs?|hours?|minutes?|min)/i,
+      );
+      if (rangeMatch) {
+        [rangeMatch[1], rangeMatch[2]].forEach((n) => {
+          let h = Number(n);
+          if (/min/i.test(rangeMatch[0])) h /= 60;
+          if (h > 0) walkingHours.push(h);
+        });
+        return;
+      }
+
+      const match = segment.match(
+        /(\d+(?:\.\d+)?)\s*(?:hrs?|hours?|minutes?|min)/i,
+      );
+      if (!match) return;
+
+      let hours = Number(match[1]);
+      if (/min/i.test(match[0])) hours /= 60;
+
+      if (hours > 0) walkingHours.push(hours);
+    });
   });
+
   const dailyWalkingHours = walkingHours.length
     ? `${Math.min(...walkingHours)}-${Math.max(...walkingHours)} hrs`
     : '—';
@@ -30,18 +79,23 @@ const TreksHero = ({ trekId }: Props) => {
   ).length;
 
   const tripFacts = [
-    { label: 'Flights', value: data.meta?.tripFacts?.flights ?? '—' },
-    {
-      label: 'Accommodation',
-      value: data.meta?.tripFacts?.accommodation ?? '—',
-    },
+    ...(data.meta?.tripFacts?.flights !== 'None'
+      ? [{ label: 'Flights', value: data.meta.tripFacts.flights }]
+      : []),
+    ...(data.meta?.tripFacts?.accommodation
+      ? [{ label: 'Accommodation', value: data.meta.tripFacts.accommodation }]
+      : []),
     { label: 'Daily Walking Hours', value: dailyWalkingHours },
-    { label: 'Route Type', value: data.meta?.tripFacts?.routeType ?? '—' },
+    ...(data.meta?.tripFacts?.routeType
+      ? [{ label: 'Route Type', value: data.meta.tripFacts.routeType }]
+      : []),
     {
       label: 'Acclimatization Days',
       value: acclimatizationDays > 0 ? `${acclimatizationDays} days` : '—',
     },
-    { label: 'Permits', value: data.meta?.tripFacts?.permits ?? '—' },
+    ...(data.meta?.tripFacts?.permits
+      ? [{ label: 'Permits', value: data.meta.tripFacts.permits }]
+      : []),
   ];
 
   return (

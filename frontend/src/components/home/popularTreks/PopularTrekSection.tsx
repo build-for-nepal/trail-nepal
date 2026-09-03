@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const PopularTrekSection = () => {
   return (
-    <section className="relative py-[100px] overflow-hidden">
+    <section className="relative bg-gradient-to-t from-[#EBF0F8] to-transparent py-[100px] overflow-hidden">
       {/* <Image
         src="/images/popularbg.jpg"
         alt=""

@@ -25,7 +25,7 @@ const ROWS: { label: string; key: RowKey }[] = [
   { label: 'Difficulty', key: 'difficulty' },
   { label: 'Max Altitude', key: 'maxElevation' },
   { label: 'Region', key: 'region' },
-  { label: 'Best Months', key: 'bestSeasons' },
+  { label: 'Peak Season', key: 'bestSeasons' },
   { label: 'Popularity', key: 'popularity' },
   { label: 'Budget Cost', key: 'budgetCost' },
   { label: 'Mid-range Cost', key: 'midRangeCost' },
