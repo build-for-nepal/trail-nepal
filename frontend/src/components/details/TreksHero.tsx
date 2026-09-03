@@ -43,6 +43,20 @@ const TreksHero = ({ trekId }: Props) => {
           );
 
     segments.forEach((segment) => {
+      // Handle ranges like "3-4 hrs" / "5–7 hours" by capturing both bounds so
+      // the global min/max reflect the true min and max across all days.
+      const rangeMatch = segment.match(
+        /(\d+(?:\.\d+)?)\s*[-–—]\s*(\d+(?:\.\d+)?)\s*(?:hrs?|hours?|minutes?|min)/i,
+      );
+      if (rangeMatch) {
+        [rangeMatch[1], rangeMatch[2]].forEach((n) => {
+          let h = Number(n);
+          if (/min/i.test(rangeMatch[0])) h /= 60;
+          if (h > 0) walkingHours.push(h);
+        });
+        return;
+      }
+
       const match = segment.match(
         /(\d+(?:\.\d+)?)\s*(?:hrs?|hours?|minutes?|min)/i,
       );
