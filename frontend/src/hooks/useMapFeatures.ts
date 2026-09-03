@@ -198,11 +198,14 @@ function makeGroupMarkerEl(
   const wrapper = document.createElement('div');
   wrapper.style.cssText = `height:28px;display:inline-flex;`;
 
+  // Keep the multi-day pill close in size to the single-day circles (28px):
+  // full height for alignment, but tight padding + a slightly smaller font so
+  // it reads as a compact sibling, not an oversized tag.
   const inner = document.createElement('div');
   inner.style.cssText = `
-    height:28px;padding:0 10px;border-radius:14px;background:${bg};
-    border:2.5px solid white;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
+    height:28px;padding:0 6px;border-radius:14px;background:${bg};
+    border:2px solid white;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:8.5px;font-weight:800;color:white;
     font-family:system-ui,sans-serif;cursor:pointer;white-space:nowrap;
     transition:transform 0.18s ease;
   `;
