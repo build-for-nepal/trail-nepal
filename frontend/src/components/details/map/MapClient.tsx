@@ -83,8 +83,22 @@ export default function MapClient({
     return d?.coordinates ? [d.coordinates[1], d.coordinates[0]] : null;
   }, [timeline]);
 
+  // Flattened route line ([lng, lat] positions) — lets the marker layer detect a
+  // loop trek and keep only on-trail days.
+  const routeCoords = useMemo<GeoJSON.Position[] | null>(() => {
+    if (!data) return null;
+    const all: GeoJSON.Position[] = [];
+    data.features.forEach((f) => {
+      if (f.geometry.type === 'LineString')
+        all.push(...f.geometry.coordinates);
+      else if (f.geometry.type === 'MultiLineString')
+        f.geometry.coordinates.forEach((seg) => all.push(...seg));
+    });
+    return all;
+  }, [data]);
+
   useTrailData(map, mapLoaded, data);
-  useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus);
+  useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus, routeCoords);
   useTrailEndFlag(
     map,
     mapLoaded,

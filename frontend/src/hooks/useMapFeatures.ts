@@ -24,6 +24,18 @@ function metersBetween(a: GeoJSON.Position, b: GeoJSON.Position): number {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
+// True when a day's [lat, lng] point lies within `maxM` metres of the route line.
+// Used to keep loop-trek transport days (which sit far off the trail) off the map.
+function isNearRoute(
+  dayCoord: [number, number],
+  route: GeoJSON.Position[],
+  maxM: number,
+): boolean {
+  const p: GeoJSON.Position = [dayCoord[1], dayCoord[0]]; // [lat,lng] → [lng,lat]
+  for (const v of route) if (metersBetween(p, v) < maxM) return true;
+  return false;
+}
+
 // Focusing a single itinerary day is mostly a recenter: the point is eased to
 // the middle of the map with only a slight zoom nudge (+0.1 zoom level ≈ 7%
 // closer) on top of the current zoom — a gentle focus, not a deep zoom. The
@@ -398,6 +410,7 @@ export function useTrekMarkers(
   timeline: TrekTimelineDay[],
   onDayClick?: (index: number) => void,
   focus?: DayFocus | null,
+  routeCoords?: GeoJSON.Position[] | null,
 ) {
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
@@ -441,23 +454,62 @@ export function useTrekMarkers(
       }, 150);
     };
 
-    // Only show outbound days on the map (up to and including isDestination).
-    // Return-journey days are visible in the overview sidebar only.
+    // A loop trek's trail closes back on its trailhead (first node ≈ last node).
+    const isLoop =
+      !!routeCoords &&
+      routeCoords.length >= 2 &&
+      metersBetween(routeCoords[0], routeCoords[routeCoords.length - 1]) < 200;
+
+    // Which days get a marker:
+    //  - Normal (out-and-back / point-to-point) treks: outbound days only, up
+    //    to and including isDestination. The return retraces the same villages
+    //    (so a second marker would just overlap) and the drive-home day sits
+    //    far off the trail. Return days stay in the sidebar only.
+    //  - Loop treks: the return leg is a *different* path with its own villages
+    //    (e.g. Ghandruk on Ghorepani Poon Hill), so show every day whose point
+    //    lies on the trail; off-trail transport days are dropped.
     const destIdx = timeline.findIndex((d) => d.isDestination);
-    const outbound = destIdx >= 0 ? timeline.slice(0, destIdx + 1) : timeline;
+    const candidates: TrekTimelineDay[] =
+      isLoop && routeCoords
+        ? timeline.filter(
+            (d) => d.coordinates && isNearRoute(d.coordinates, routeCoords, 500),
+          )
+        : destIdx >= 0
+          ? timeline.slice(0, destIdx + 1)
+          : timeline;
 
-    // Group days that share the same map coordinate so they render as one marker.
-    const coordGroups = new Map<string, typeof timeline>();
-    outbound.forEach((dayObj) => {
-      if (!dayObj.coordinates) return;
-      const [lat, lng] = dayObj.coordinates;
-      const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
-      if (!coordGroups.has(key)) coordGroups.set(key, []);
-      coordGroups.get(key)!.push(dayObj);
-    });
+    // Cluster days that share a point so a revisited spot renders once.
+    //  - Loops: proximity clustering (a revisit a few metres off still merges).
+    //  - Normal: exact 4-dp key (unchanged behaviour).
+    type DayGroup = { lat: number; lng: number; days: TrekTimelineDay[] };
+    const groups: DayGroup[] = [];
+    if (isLoop) {
+      for (const d of candidates) {
+        if (!d.coordinates) continue;
+        const [lat, lng] = d.coordinates;
+        const g = groups.find(
+          (gr) => metersBetween([gr.lng, gr.lat], [lng, lat]) < 150,
+        );
+        if (g) g.days.push(d);
+        else groups.push({ lat, lng, days: [d] });
+      }
+    } else {
+      const byKey = new Map<string, DayGroup>();
+      for (const d of candidates) {
+        if (!d.coordinates) continue;
+        const [lat, lng] = d.coordinates;
+        const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+        let g = byKey.get(key);
+        if (!g) {
+          g = { lat, lng, days: [] };
+          byKey.set(key, g);
+          groups.push(g);
+        }
+        g.days.push(d);
+      }
+    }
 
-    coordGroups.forEach((days, key) => {
-      const [lat, lng] = days[0].coordinates!;
+    groups.forEach(({ lat, lng, days }) => {
       const isGroup = days.length > 1;
       const label = isGroup
         ? `${days[0].day}–${days[days.length - 1].day}`
@@ -514,7 +566,7 @@ export function useTrekMarkers(
 
       markersRef.current.push(marker);
     });
-  }, [mapLoaded, timeline, map, onDayClick]);
+  }, [mapLoaded, timeline, map, onDayClick, routeCoords]);
 
   // React to focus requests: gently recenter the map on the day's point with a
   // slight zoom nudge, and pulse its marker so it's clear which point is meant.
