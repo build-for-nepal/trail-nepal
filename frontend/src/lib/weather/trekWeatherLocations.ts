@@ -24,10 +24,7 @@ function labelFromTitle(title: string): string {
     .trim();
 }
 
-function curateStops(
-  stops: WeatherLocation[],
-  max: number,
-): WeatherLocation[] {
+function curateStops(stops: WeatherLocation[], max: number): WeatherLocation[] {
   if (stops.length <= max) return stops;
 
   const first = stops[0]!;
@@ -49,7 +46,10 @@ function curateStops(
     const step = middle.length / (slotsLeft + 1);
 
     for (let i = 1; i <= slotsLeft; i++) {
-      const index = Math.min(middle.length - 1, Math.max(0, Math.floor(i * step) - 1));
+      const index = Math.min(
+        middle.length - 1,
+        Math.max(0, Math.floor(i * step) - 1),
+      );
       const stop = middle[index];
       if (stop) picked.set(stop.id, stop);
     }
@@ -77,7 +77,7 @@ export function getTrekWeatherLocations(
       label: labelFromTitle(day.title),
       lat,
       lng,
-      elevationM: parseElevationM(day.stats?.elevation),
+      elevationM: parseElevationM(day.stats?.elevation ?? undefined),
       dayIndex: index,
     });
   });
