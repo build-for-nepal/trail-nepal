@@ -195,7 +195,7 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
         </p>
         {data.meta?.bestSeasons ? (
           <p className="font-poppins font-medium italic text-gray-700">
-            Note: Best Months to trek {data.name} is {data.meta.bestSeasons}
+            Note: Peak Season to trek {data.name} is {data.meta.bestSeasons}
           </p>
         ) : null}
       </div>
@@ -215,7 +215,7 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
                 aria-pressed={isSelected}
                 title={month.detail || month.label}
                 className={cn(
-                  'relative flex min-h-[124px] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#376BB6]',
+                  'relative flex  cursor-pointer flex-col items-center justify-center gap-2 rounded-xl bg-white px-2 py-4 text-center shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#376BB6]',
                   isSelected &&
                     'ring-2 ring-[#376BB6] ring-offset-2 ring-offset-[#EEF2F8]',
                 )}

@@ -97,7 +97,15 @@ const AccordionItem = ({
         const delta =
           item.getBoundingClientRect().top - list.getBoundingClientRect().top;
         if (Math.abs(delta - 12) > 4) {
-          const target = Math.max(0, list.scrollTop + delta - 12);
+          const maxScroll = list.scrollHeight - list.clientHeight;
+          const target = Math.min(
+            Math.max(0, list.scrollTop + delta - 12),
+            Math.max(0, maxScroll),
+          );
+          // Kill any in-flight scroll tween first: rapid day switches (marker →
+          // marker, or marker → header) would otherwise stack competing
+          // scrollTop tweens on the same element and visibly jitter the list.
+          gsap.killTweensOf(list);
           gsap.to(list, {
             scrollTop: target,
             duration: 0.5,
@@ -169,14 +177,16 @@ const AccordionItem = ({
         style={{ display: open ? 'block' : 'none' }}
       >
         <div className="px-5 pb-5 flex flex-col gap-4">
-          {(day.description || day.content) && (
-            <p
-              className="text-sm text-black/90 leading-relaxed cursor-text select-text space-y-4"
-              dangerouslySetInnerHTML={{
-                __html: day.description || day.content || '',
-              }}
-            />
-          )}
+          {(day.description || day.content) &&
+            (day.description || day.content || '')
+              .split(/\n{2,}/)
+              .map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-sm text-black/90 leading-relaxed cursor-text select-text"
+                  dangerouslySetInnerHTML={{ __html: paragraph }}
+                />
+              ))}
 
           {day.accommodations && day.accommodations.length > 0 && (
             <div>
@@ -403,6 +413,15 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
             <div
               ref={listRef}
+              // scrollBehavior:'auto' — globals.css sets `* { scroll-behavior:
+              // smooth }`, so every scrollTop write the gsap tween makes would
+              // trigger the browser's OWN smooth-scroll easing on top of gsap's,
+              // and the two fight frame-by-frame → the list shakes. Letting gsap
+              // own the animation (auto) fixes it.
+              // overflow-anchor:none — while a day opens, sibling days collapse
+              // and shift content; the browser's scroll anchoring would otherwise
+              // also nudge scrollTop and compound the jitter.
+              style={{ overflowAnchor: 'none', scrollBehavior: 'auto' }}
               className="flex max-h-[520px] flex-col gap-3 overflow-y-auto pr-1 lg:max-h-none lg:flex-1"
             >
               {days.map((day, index) => (

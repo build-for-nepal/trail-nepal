@@ -51,11 +51,11 @@ export interface TrekAccommodation {
 }
 
 export interface TrekStat {
-  elevation?: string;
-  duration?: string;
-  distance?: string;
-  walk?: string;
-  note?: string;
+  elevation?: string | null;
+  duration?: string | null;
+  distance?: string | null;
+  walk?: string | null;
+  note?: string | null;
 }
 
 export interface TrekTimelineDay {

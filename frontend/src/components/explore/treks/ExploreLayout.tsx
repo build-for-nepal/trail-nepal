@@ -5,9 +5,11 @@ import { FilterState } from '@/types/explorepage';
 import FilterSidebar from '../filter/FilterSidebar';
 import TrekCard from './TrekCard';
 import { TREKS } from '@/static/trek';
+import { TREK_DETAILS } from 'src/static/trekDetails';
 
 export default function ExploreLayout() {
   const [filtered, setFiltered] = useState(TREKS);
+  // const data = TREK_DETAILS[trekId];
 
   const handleFilter = useCallback((f: FilterState) => {
     let result = TREKS;
@@ -72,13 +74,18 @@ export default function ExploreLayout() {
           {/* Grid Area */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 items-stretch">
             {filtered.length > 0 ? (
-              filtered.map((trek) => (
-                <TrekCard
-                  key={trek.id}
-                  {...trek}
-                  href={`/treks/${trek.id}`} // Dynamically inject the correct URL here
-                />
-              ))
+              filtered.map((trek) => {
+                const trekDetail = TREK_DETAILS[trek.id];
+
+                return (
+                  <TrekCard
+                    key={trek.id}
+                    {...trek}
+                    description={trekDetail?.summary ?? trek.description}
+                    href={`/treks/${trek.id}`}
+                  />
+                );
+              })
             ) : (
               <div className="col-span-full py-32 text-center text-lg font-medium text-text-secondary">
                 No treks found matching your filters.
