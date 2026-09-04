@@ -16,7 +16,7 @@ export const TREKS: Trek[] = [
     title: 'EBC Trek',
     region: 'Khumbu Valley',
     description:
-      "Trek to the base of the world's highest peak through the legendary Khumbu Valley. Pass through iconic Sherpa villages like Namche Bazaar and Tengboche, cross glacial moraines, and stand before the 5,364m marker surrounded by the world's greatest Himalayan giants.",
+      'Trek through the Khumbu region, passing Sherpa villages, monasteries, glaciers, and high Himalayan landscapes on the way to Everest Base Camp.',
     difficulty: 'Challenging',
     duration: '12 Days',
     altitude: '5,545m',
@@ -31,7 +31,7 @@ export const TREKS: Trek[] = [
     title: 'Manaslu Circuit Trek',
     region: 'Manaslu Region',
     description:
-      "A remote and rugged circuit around Manaslu, the world's eighth highest mountain, offering raw Himalayan wilderness far from the crowds. Cross the Larkya La Pass at 5,106m, traverse ancient Tibetan-influenced villages, and experience Nepal's most dramatic restricted-area trek.",
+      "Circle the world's eighth-highest mountain through the Budhi Gandaki Valley, upper Nubri settlements, and high alpine terrain before crossing the 5,106 m Larkya La Pass.",
     difficulty: 'Challenging',
     duration: '13 Days',
     altitude: '5,106m',
@@ -46,7 +46,7 @@ export const TREKS: Trek[] = [
     title: 'Langtang Valley Trek',
     region: 'Langtang Region',
     description:
-      'A culturally rich journey through lush rhododendron forests and traditional Tamang villages into the breathtaking Langtang Valley. Enjoy close-up views of glaciers and snow-capped peaks, and visit the ancient Kyanjin Gompa monastery nestled beneath the ice.',
+      'Follow the Langtang Khola from forested valleys and Tamang villages into the alpine landscape of Kyanjin Gompa, with a climb to Kyanjin Ri at 4,773 m.',
     difficulty: 'Moderate',
     duration: '7 Days',
     altitude: '4,773m',
@@ -144,8 +144,8 @@ export const TREKS: Trek[] = [
     description:
       'A dramatic high-altitude adventure through the arid valleys of Manang to the turquoise waters of Tilicho Lake, combined with the legendary crossing of Thorong La Pass beneath the towering Annapurna massif.',
     difficulty: 'Challenging',
-    duration: '12-15 Days',
-    altitude: '5,416m',
+    duration: '11 Days',
+    altitude: '4,919m',
     season: 'Mar-May, Sep-Nov',
     price: 22000,
     imageUrl: '/images/tilicho/tilicho.webp',

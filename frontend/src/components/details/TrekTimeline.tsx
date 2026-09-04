@@ -168,14 +168,16 @@ const AccordionItem = ({
         style={{ display: open ? 'block' : 'none' }}
       >
         <div className="px-5 pb-5 flex flex-col gap-4">
-          {(day.description || day.content) && (
-            <p
-              className="text-sm text-black/90 leading-relaxed cursor-text select-text space-y-4"
-              dangerouslySetInnerHTML={{
-                __html: day.description || day.content || '',
-              }}
-            />
-          )}
+          {(day.description || day.content) &&
+            (day.description || day.content || '')
+              .split(/\n{2,}/)
+              .map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-sm text-black/90 leading-relaxed cursor-text select-text"
+                  dangerouslySetInnerHTML={{ __html: paragraph }}
+                />
+              ))}
 
           {day.accommodations && day.accommodations.length > 0 && (
             <div>

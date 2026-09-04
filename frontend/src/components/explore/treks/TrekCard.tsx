@@ -59,13 +59,10 @@ export default function TrekCard({
           </p>
         </div>
 
-        {/* Description — fixed 3 lines always */}
-        <p className="line-clamp-3 text-[12px] leading-relaxed text-text-secondary/90">
+        {/* Description — fixed height, full featured text */}
+        <div className="h-[75px] overflow-hidden text-[12px] leading-relaxed text-text-secondary/90">
           {description}
-        </p>
-
-        {/* Spacer — pushes metrics/price/button to the bottom */}
-        <div className="flex-1" />
+        </div>
 
         {/* Metrics */}
         <div className="grid grid-cols-3 items-center pt-1 text-[10px] font-medium text-text-primary">
