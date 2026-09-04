@@ -6,7 +6,11 @@ import { TrekkingMapProps } from '@/types/map';
 
 const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
 
-export default function TrekkingMap({ trekId, onDayClick }: TrekkingMapProps) {
+export default function TrekkingMap({
+  trekId,
+  onDayClick,
+  focus,
+}: TrekkingMapProps) {
   const { data: rawData, isLoading, error } = useTrekkingData(trekId);
 
   if (error) {
@@ -72,6 +76,7 @@ export default function TrekkingMap({ trekId, onDayClick }: TrekkingMapProps) {
           center={center}
           trekId={trekId}
           onDayClick={onDayClick}
+          focus={focus}
         />{' '}
       </div>
     </div>

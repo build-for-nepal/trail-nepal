@@ -15,6 +15,7 @@ import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
+import { DayFocus } from '@/types/map';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import TrekkingMap from './map/TrekkingMap';
 // import FoodMenu from './FoodMenu';
@@ -96,7 +97,15 @@ const AccordionItem = ({
         const delta =
           item.getBoundingClientRect().top - list.getBoundingClientRect().top;
         if (Math.abs(delta - 12) > 4) {
-          const target = Math.max(0, list.scrollTop + delta - 12);
+          const maxScroll = list.scrollHeight - list.clientHeight;
+          const target = Math.min(
+            Math.max(0, list.scrollTop + delta - 12),
+            Math.max(0, maxScroll),
+          );
+          // Kill any in-flight scroll tween first: rapid day switches (marker →
+          // marker, or marker → header) would otherwise stack competing
+          // scrollTop tweens on the same element and visibly jitter the list.
+          gsap.killTweensOf(list);
           gsap.to(list, {
             scrollTop: target,
             duration: 0.5,
@@ -311,11 +320,26 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
   const allOpen = openStates.length > 0 && openStates.every(Boolean);
 
-  const toggleItem = (index: number) =>
-    setOpenStates((prev) => prev.map((v, i) => (i === index ? !v : v)));
-  const openDayFromMap = useCallback((index: number) => {
-    setOpenStates((prev) => prev.map((_, i) => i === index));
+  // Which itinerary day the map should center on. `nonce` bumps on every request
+  // so re-opening the same day still re-triggers the map's fly-to.
+  const [focus, setFocus] = useState<DayFocus | null>(null);
+  const focusDay = useCallback((index: number) => {
+    setFocus((prev) => ({ index, nonce: (prev?.nonce ?? 0) + 1 }));
   }, []);
+
+  // Opening a day (not collapsing one) points the map at that day.
+  const toggleItem = (index: number) => {
+    const willOpen = !openStates[index];
+    setOpenStates((prev) => prev.map((v, i) => (i === index ? !v : v)));
+    if (willOpen) focusDay(index);
+  };
+  const openDayFromMap = useCallback(
+    (index: number) => {
+      setOpenStates((prev) => prev.map((_, i) => i === index));
+      focusDay(index);
+    },
+    [focusDay],
+  );
   // While an "Expand all" is in flight, items skip their scroll-into-view.
   const suppressScrollRef = useRef(false);
   const toggleAll = () => {
@@ -389,6 +413,15 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
             <div
               ref={listRef}
+              // scrollBehavior:'auto' — globals.css sets `* { scroll-behavior:
+              // smooth }`, so every scrollTop write the gsap tween makes would
+              // trigger the browser's OWN smooth-scroll easing on top of gsap's,
+              // and the two fight frame-by-frame → the list shakes. Letting gsap
+              // own the animation (auto) fixes it.
+              // overflow-anchor:none — while a day opens, sibling days collapse
+              // and shift content; the browser's scroll anchoring would otherwise
+              // also nudge scrollTop and compound the jitter.
+              style={{ overflowAnchor: 'none', scrollBehavior: 'auto' }}
               className="flex max-h-[520px] flex-col gap-3 overflow-y-auto pr-1 lg:max-h-none lg:flex-1"
             >
               {days.map((day, index) => (
@@ -412,7 +445,11 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
 
           {/* Map */}
           <div className="h-[420px] w-full bg-gray-100 lg:h-[640px]">
-            <TrekkingMap trekId={trekId} onDayClick={openDayFromMap} />
+            <TrekkingMap
+              trekId={trekId}
+              onDayClick={openDayFromMap}
+              focus={focus}
+            />
           </div>
         </div>
 

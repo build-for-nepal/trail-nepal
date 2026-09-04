@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay, AccessRoute } from '@/types/trek';
-import { GeoJSONData, LayerKey } from '@/types/map';
+import { GeoJSONData, LayerKey, DayFocus } from '@/types/map';
 import { LAYERS } from '@/static/mapConstants';
 import {
   buildPopupHTML,
@@ -11,6 +11,38 @@ import {
 
 const TRAIL_GREEN = '#84b829';
 const MARKER_ORANGE = '#f59e0b';
+
+// Great-circle distance in metres between two [lng, lat] positions.
+function metersBetween(a: GeoJSON.Position, b: GeoJSON.Position): number {
+  const R = 6371000;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b[1] - a[1]);
+  const dLng = toRad(b[0] - a[0]);
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(a[1])) * Math.cos(toRad(b[1])) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// True when a day's [lat, lng] point lies within `maxM` metres of the route line.
+// Used to keep loop-trek transport days (which sit far off the trail) off the map.
+function isNearRoute(
+  dayCoord: [number, number],
+  route: GeoJSON.Position[],
+  maxM: number,
+): boolean {
+  const p: GeoJSON.Position = [dayCoord[1], dayCoord[0]]; // [lat,lng] → [lng,lat]
+  for (const v of route) if (metersBetween(p, v) < maxM) return true;
+  return false;
+}
+
+// Focusing a single itinerary day is mostly a recenter: the point is eased to
+// the middle of the map with only a slight zoom nudge (+0.1 zoom level ≈ 7%
+// closer) on top of the current zoom — a gentle focus, not a deep zoom. The
+// nudge is bounded so repeatedly hopping day-to-day never creeps in too far,
+// and it never zooms out (an already-close view just recenters).
+const DAY_FOCUS_ZOOM_STEP = 0.1;
+const DAY_FOCUS_ZOOM_CEIL = 12.5;
 
 /**
  * Returns a wrapper element (given to MapLibre) containing an inner visual circle.
@@ -190,11 +222,14 @@ function makeGroupMarkerEl(
   const wrapper = document.createElement('div');
   wrapper.style.cssText = `height:28px;display:inline-flex;`;
 
+  // Keep the multi-day pill close in size to the single-day circles (28px):
+  // full height for alignment, but tight padding + a slightly smaller font so
+  // it reads as a compact sibling, not an oversized tag.
   const inner = document.createElement('div');
   inner.style.cssText = `
-    height:28px;padding:0 10px;border-radius:14px;background:${bg};
-    border:2.5px solid white;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:10px;font-weight:800;color:white;
+    height:28px;padding:0 6px;border-radius:14px;background:${bg};
+    border:2px solid white;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.32);font-size:8.5px;font-weight:800;color:white;
     font-family:system-ui,sans-serif;cursor:pointer;white-space:nowrap;
     transition:transform 0.18s ease;
   `;
@@ -374,9 +409,16 @@ export function useTrekMarkers(
   mapLoaded: boolean,
   timeline: TrekTimelineDay[],
   onDayClick?: (index: number) => void,
+  focus?: DayFocus | null,
+  routeCoords?: GeoJSON.Position[] | null,
 ) {
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
+  // Timeline index → the marker's map position and its scalable inner element,
+  // so a focus request can fly to the point and briefly emphasise its marker.
+  const focusTargetsRef = useRef<
+    Map<number, { lng: number; lat: number; inner: HTMLElement }>
+  >(new Map());
 
   useEffect(() => {
     if (!mapLoaded || !map) return;
@@ -393,6 +435,7 @@ export function useTrekMarkers(
 
     markersRef.current.forEach((mk) => mk.remove());
     markersRef.current = [];
+    focusTargetsRef.current = new Map();
 
     let hideTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -411,23 +454,62 @@ export function useTrekMarkers(
       }, 150);
     };
 
-    // Only show outbound days on the map (up to and including isDestination).
-    // Return-journey days are visible in the overview sidebar only.
+    // A loop trek's trail closes back on its trailhead (first node ≈ last node).
+    const isLoop =
+      !!routeCoords &&
+      routeCoords.length >= 2 &&
+      metersBetween(routeCoords[0], routeCoords[routeCoords.length - 1]) < 200;
+
+    // Which days get a marker:
+    //  - Normal (out-and-back / point-to-point) treks: outbound days only, up
+    //    to and including isDestination. The return retraces the same villages
+    //    (so a second marker would just overlap) and the drive-home day sits
+    //    far off the trail. Return days stay in the sidebar only.
+    //  - Loop treks: the return leg is a *different* path with its own villages
+    //    (e.g. Ghandruk on Ghorepani Poon Hill), so show every day whose point
+    //    lies on the trail; off-trail transport days are dropped.
     const destIdx = timeline.findIndex((d) => d.isDestination);
-    const outbound = destIdx >= 0 ? timeline.slice(0, destIdx + 1) : timeline;
+    const candidates: TrekTimelineDay[] =
+      isLoop && routeCoords
+        ? timeline.filter(
+            (d) => d.coordinates && isNearRoute(d.coordinates, routeCoords, 500),
+          )
+        : destIdx >= 0
+          ? timeline.slice(0, destIdx + 1)
+          : timeline;
 
-    // Group days that share the same map coordinate so they render as one marker.
-    const coordGroups = new Map<string, typeof timeline>();
-    outbound.forEach((dayObj) => {
-      if (!dayObj.coordinates) return;
-      const [lat, lng] = dayObj.coordinates;
-      const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
-      if (!coordGroups.has(key)) coordGroups.set(key, []);
-      coordGroups.get(key)!.push(dayObj);
-    });
+    // Cluster days that share a point so a revisited spot renders once.
+    //  - Loops: proximity clustering (a revisit a few metres off still merges).
+    //  - Normal: exact 4-dp key (unchanged behaviour).
+    type DayGroup = { lat: number; lng: number; days: TrekTimelineDay[] };
+    const groups: DayGroup[] = [];
+    if (isLoop) {
+      for (const d of candidates) {
+        if (!d.coordinates) continue;
+        const [lat, lng] = d.coordinates;
+        const g = groups.find(
+          (gr) => metersBetween([gr.lng, gr.lat], [lng, lat]) < 150,
+        );
+        if (g) g.days.push(d);
+        else groups.push({ lat, lng, days: [d] });
+      }
+    } else {
+      const byKey = new Map<string, DayGroup>();
+      for (const d of candidates) {
+        if (!d.coordinates) continue;
+        const [lat, lng] = d.coordinates;
+        const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+        let g = byKey.get(key);
+        if (!g) {
+          g = { lat, lng, days: [] };
+          byKey.set(key, g);
+          groups.push(g);
+        }
+        g.days.push(d);
+      }
+    }
 
-    coordGroups.forEach((days, key) => {
-      const [lat, lng] = days[0].coordinates!;
+    groups.forEach(({ lat, lng, days }) => {
       const isGroup = days.length > 1;
       const label = isGroup
         ? `${days[0].day}–${days[days.length - 1].day}`
@@ -443,6 +525,12 @@ export function useTrekMarkers(
 
       // Timeline index of each day at this coordinate.
       const dayIndices = days.map((d) => timeline.indexOf(d));
+
+      // Register every day at this coordinate as a focus target so opening it
+      // from the itinerary (or clicking this marker) can fly here.
+      dayIndices.forEach((di) => {
+        focusTargetsRef.current.set(di, { lng, lat, inner });
+      });
 
       wrapper.addEventListener('mouseenter', () => {
         clearHideTimer();
@@ -467,7 +555,8 @@ export function useTrekMarkers(
 
       wrapper.addEventListener('mouseleave', () => scheduleHide(inner));
 
-      // Open this marker's itinerary day instead of zooming the map.
+      // Open this marker's itinerary day; the parent routes that back as a focus
+      // request, so the map also gently recenters on this point.
       // A grouped marker opens its first day; the popup tabs open the rest.
       wrapper.addEventListener('click', () => onDayClick?.(dayIndices[0]));
 
@@ -477,7 +566,41 @@ export function useTrekMarkers(
 
       markersRef.current.push(marker);
     });
-  }, [mapLoaded, timeline, map, onDayClick]);
+  }, [mapLoaded, timeline, map, onDayClick, routeCoords]);
+
+  // React to focus requests: gently recenter the map on the day's point with a
+  // slight zoom nudge, and pulse its marker so it's clear which point is meant.
+  useEffect(() => {
+    if (!map || !mapLoaded || !focus) return;
+
+    const target = focusTargetsRef.current.get(focus.index);
+    if (!target) return; // day has no marker (e.g. a return-journey day)
+
+    const { lng, lat, inner } = target;
+
+    // Center the point with only a small zoom nudge; never zoom out.
+    const current = map.getZoom();
+    const zoom = Math.max(
+      current,
+      Math.min(current + DAY_FOCUS_ZOOM_STEP, DAY_FOCUS_ZOOM_CEIL),
+    );
+
+    map.easeTo({
+      center: [lng, lat],
+      zoom,
+      duration: 800,
+      essential: true,
+    });
+
+    // A brief pulse makes it clear which point the focused day maps to — this
+    // carries the "show the point" cue now that the zoom change is subtle.
+    inner.style.transform = 'scale(1.45)';
+    const resetTimer = setTimeout(() => {
+      inner.style.transform = 'scale(1)';
+    }, 1000);
+
+    return () => clearTimeout(resetTimer);
+  }, [map, mapLoaded, focus]);
 }
 
 // ─── Hook 4: Animated hiker on the trail ─────────────────────────────────────
@@ -676,6 +799,7 @@ export function useTrailEndFlag(
   mapLoaded: boolean,
   data: GeoJSONData | null,
   flagAtStart = false,
+  loopDestCoord: [number, number] | null = null,
 ) {
   const markerRef = useRef<maplibregl.Marker | null>(null);
 
@@ -698,9 +822,24 @@ export function useTrailEndFlag(
     });
     if (allCoords.length < 1) return;
 
-    const [lng, lat] = flagAtStart
-      ? allCoords[0]
-      : allCoords[allCoords.length - 1];
+    const first = allCoords[0];
+    const last = allCoords[allCoords.length - 1];
+
+    // Loop treks (e.g. Ghorepani Poon Hill) return to their trailhead, so the
+    // last node is the start — not the destination. When the trail closes back
+    // on itself, plant the flag on the itinerary's destination day instead.
+    const isLoop = metersBetween(first, last) < 200;
+
+    let lng: number;
+    let lat: number;
+    if (isLoop && loopDestCoord) {
+      [lng, lat] = loopDestCoord;
+    } else if (flagAtStart) {
+      [lng, lat] = first as [number, number];
+    } else {
+      [lng, lat] = last as [number, number];
+    }
+
     markerRef.current?.remove();
     markerRef.current = new maplibregl.Marker({
       element: makeTrailEndFlagEl(),
@@ -708,7 +847,7 @@ export function useTrailEndFlag(
     })
       .setLngLat([lng, lat])
       .addTo(map);
-  }, [map, mapLoaded, data]);
+  }, [map, mapLoaded, data, loopDestCoord]);
 }
 
 // Returns a scale factor so the hiker appears consistently sized relative to
