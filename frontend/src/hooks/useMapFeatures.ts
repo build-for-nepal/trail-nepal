@@ -12,6 +12,18 @@ import {
 const TRAIL_GREEN = '#84b829';
 const MARKER_ORANGE = '#f59e0b';
 
+// Great-circle distance in metres between two [lng, lat] positions.
+function metersBetween(a: GeoJSON.Position, b: GeoJSON.Position): number {
+  const R = 6371000;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b[1] - a[1]);
+  const dLng = toRad(b[0] - a[0]);
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(a[1])) * Math.cos(toRad(b[1])) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
 // Focusing a single itinerary day is mostly a recenter: the point is eased to
 // the middle of the map with only a slight zoom nudge (+0.1 zoom level ≈ 7%
 // closer) on top of the current zoom — a gentle focus, not a deep zoom. The
@@ -735,6 +747,7 @@ export function useTrailEndFlag(
   mapLoaded: boolean,
   data: GeoJSONData | null,
   flagAtStart = false,
+  loopDestCoord: [number, number] | null = null,
 ) {
   const markerRef = useRef<maplibregl.Marker | null>(null);
 
@@ -757,9 +770,24 @@ export function useTrailEndFlag(
     });
     if (allCoords.length < 1) return;
 
-    const [lng, lat] = flagAtStart
-      ? allCoords[0]
-      : allCoords[allCoords.length - 1];
+    const first = allCoords[0];
+    const last = allCoords[allCoords.length - 1];
+
+    // Loop treks (e.g. Ghorepani Poon Hill) return to their trailhead, so the
+    // last node is the start — not the destination. When the trail closes back
+    // on itself, plant the flag on the itinerary's destination day instead.
+    const isLoop = metersBetween(first, last) < 200;
+
+    let lng: number;
+    let lat: number;
+    if (isLoop && loopDestCoord) {
+      [lng, lat] = loopDestCoord;
+    } else if (flagAtStart) {
+      [lng, lat] = first as [number, number];
+    } else {
+      [lng, lat] = last as [number, number];
+    }
+
     markerRef.current?.remove();
     markerRef.current = new maplibregl.Marker({
       element: makeTrailEndFlagEl(),
@@ -767,7 +795,7 @@ export function useTrailEndFlag(
     })
       .setLngLat([lng, lat])
       .addTo(map);
-  }, [map, mapLoaded, data]);
+  }, [map, mapLoaded, data, loopDestCoord]);
 }
 
 // Returns a scale factor so the hiker appears consistently sized relative to

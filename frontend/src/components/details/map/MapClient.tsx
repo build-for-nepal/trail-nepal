@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {
   Layers,
@@ -75,9 +75,23 @@ export default function MapClient({
   const timeline = trekInfo?.timeline ?? [];
   const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
 
+  // Destination point (the itinerary day flagged isDestination) as [lng, lat].
+  // Loop treks end back at the trailhead, so the summit flag can't rely on the
+  // trail's last node — it uses this instead.
+  const destFlagCoord = useMemo<[number, number] | null>(() => {
+    const d = timeline.find((day) => day.isDestination);
+    return d?.coordinates ? [d.coordinates[1], d.coordinates[0]] : null;
+  }, [timeline]);
+
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus);
-  useTrailEndFlag(map, mapLoaded, data, trekId === 'mardi-himal-trek');
+  useTrailEndFlag(
+    map,
+    mapLoaded,
+    data,
+    trekId === 'mardi-himal-trek',
+    destFlagCoord,
+  );
   useAccessRoute(map, mapLoaded, accessRoute);
 
   // Load elevation profile for the current trek
