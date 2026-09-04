@@ -435,7 +435,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '4,050m',
           duration: '3-5 hrs optional hike',
-          distance: '-',
+          distance: null,
           note: 'Acclimatization Day',
         },
         coordinates: [28.58467, 84.64404],
@@ -478,7 +478,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '5,106m',
           duration: '8-10 hrs',
-          distance: '-',
+          distance: null,
         },
         coordinates: [28.63384, 84.47129],
         price: 'NPR 4,000 (Accommodation: 1,000, Meals: 3,000)',
@@ -507,7 +507,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '760m',
           duration: '4-5 hrs + drive',
-          distance: '-',
+          distance: null,
         },
         coordinates: [28.23132, 84.37614],
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
@@ -521,7 +521,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '1,400m',
           duration: '6-8 hrs drive',
-          distance: '-',
+          distance: null,
         },
         coordinates: [27.7172, 85.324],
         price: 'NPR 3,500 (Transport: 2,500, Meals: 1,000)',
@@ -688,7 +688,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '1,500m · Syabrubesi',
           duration: 'Full-day overland journey',
-          distance: '-',
+          distance: null,
         },
         coordinates: [28.1657291, 85.3418267],
         price: 'NPR 1,500 (Accommodation: 500, Meals: 1,000)',
@@ -771,7 +771,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           'The final morning brings you back along the lower Langtang Khola to Syabrubesi. The route retraces the familiar trail through the lower settlements and suspension bridges before reaching Syabrubesi, where the trekking portion of your journey comes to an end.\n\nFrom Syabrubesi, you continue overland toward Kathmandu. Road and traffic conditions can affect the return journey, so the drive is best treated as a variable travel period rather than assigned a fixed duration.',
         stats: {
-          elevation: '-',
+          elevation: null,
           duration: '4-5 hrs trek + variable drive',
           distance: '11-12km',
         },
@@ -1407,7 +1407,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '1,400m',
           duration: '35-min flight + transfer',
-          distance: '-',
+          distance: null,
         },
         coordinates: [27.7172, 85.324],
         price: 'NPR 1,500 (Meals: 1,500)',
@@ -2199,8 +2199,8 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           'Board an early morning flight from Juphal airstrip to Nepalgunj, offering final aerial views over the rugged valleys of Dolpo. Connect in Nepalgunj for the flight back to Kathmandu, concluding the Shey Phoksundo journey.',
         stats: {
           elevation: '1,400 m',
-          duration: '—',
-          distance: '—',
+          duration: null,
+          distance: null,
         },
         coordinates: [27.717245, 85.323961],
         price: 'NPR 18,800 - 27,800 (Meals: 800, Transport: 18,000 - 27,000)',
@@ -2465,7 +2465,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         stats: {
           elevation: '3,540 m · Manang',
           duration: '3-5 hrs',
-          distance: '5 km*',
+          distance: '5 km',
           note: 'Acclimatization day · optional hike',
         },
         coordinates: [28.66668, 84.01975],
