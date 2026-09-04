@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {
   Layers,
@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 import { TREK_DETAILS } from '@/static/trekDetails';
-import { GeoJSONData, LayerKey } from '@/types/map';
+import { GeoJSONData, LayerKey, DayFocus } from '@/types/map';
 import { ElevationPoint } from '@/types/trek';
 import {
   useMapInit,
@@ -32,6 +32,7 @@ interface MapClientProps {
   trekId?: string;
 
   onDayClick?: (index: number) => void;
+  focus?: DayFocus | null;
 }
 
 function ControlBtn({
@@ -65,6 +66,7 @@ export default function MapClient({
   center,
   trekId,
   onDayClick,
+  focus,
 }: MapClientProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
@@ -73,9 +75,37 @@ export default function MapClient({
   const timeline = trekInfo?.timeline ?? [];
   const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
 
+  // Destination point (the itinerary day flagged isDestination) as [lng, lat].
+  // Loop treks end back at the trailhead, so the summit flag can't rely on the
+  // trail's last node — it uses this instead.
+  const destFlagCoord = useMemo<[number, number] | null>(() => {
+    const d = timeline.find((day) => day.isDestination);
+    return d?.coordinates ? [d.coordinates[1], d.coordinates[0]] : null;
+  }, [timeline]);
+
+  // Flattened route line ([lng, lat] positions) — lets the marker layer detect a
+  // loop trek and keep only on-trail days.
+  const routeCoords = useMemo<GeoJSON.Position[] | null>(() => {
+    if (!data) return null;
+    const all: GeoJSON.Position[] = [];
+    data.features.forEach((f) => {
+      if (f.geometry.type === 'LineString')
+        all.push(...f.geometry.coordinates);
+      else if (f.geometry.type === 'MultiLineString')
+        f.geometry.coordinates.forEach((seg) => all.push(...seg));
+    });
+    return all;
+  }, [data]);
+
   useTrailData(map, mapLoaded, data);
-  useTrekMarkers(map, mapLoaded, timeline, onDayClick);
-  useTrailEndFlag(map, mapLoaded, data, trekId === 'mardi-himal-trek');
+  useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus, routeCoords);
+  useTrailEndFlag(
+    map,
+    mapLoaded,
+    data,
+    trekId === 'mardi-himal-trek',
+    destFlagCoord,
+  );
   useAccessRoute(map, mapLoaded, accessRoute);
 
   // Load elevation profile for the current trek

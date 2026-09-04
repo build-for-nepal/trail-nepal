@@ -354,7 +354,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '8-10 hrs drive',
           distance: '160km',
         },
-        coordinates: [28.6469, 84.7254],
+        coordinates: [28.22931, 84.87377],
         price: 'NPR 4,200 (Transport: 2,500, Accommodation: 700, Meals: 1,000)',
       },
 
@@ -368,7 +368,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '6-7 hrs',
           distance: '20-22km',
         },
-        coordinates: [28.6658, 84.7178],
+        coordinates: [28.35141, 84.89586],
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
 
@@ -382,7 +382,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '5-7 hrs',
           distance: '19km',
         },
-        coordinates: [28.7547, 84.7542],
+        coordinates: [28.47907, 84.86704],
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
       },
 
@@ -396,7 +396,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '5-7 hrs',
           distance: '18km',
         },
-        coordinates: [28.7807, 84.7358],
+        coordinates: [28.54506, 84.76788],
         price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
       },
 
@@ -409,7 +409,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           elevation: '3,180m',
           duration: '4-5 hrs',
         },
-        coordinates: [28.7867, 84.6858],
+        coordinates: [28.57405, 84.70199],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
 
@@ -423,7 +423,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '3-5 hrs',
           distance: '15km',
         },
-        coordinates: [28.6537, 84.0274],
+        coordinates: [28.58467, 84.64404],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
 
@@ -438,7 +438,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: '-',
           note: 'Acclimatization Day',
         },
-        coordinates: [28.6537, 84.0274],
+        coordinates: [28.58467, 84.64404],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
 
@@ -452,7 +452,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '3-4 hrs',
           distance: '9km',
         },
-        coordinates: [28.6382, 84.0318],
+        coordinates: [28.65087, 84.63414],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
 
@@ -466,7 +466,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '3-4 hrs',
           distance: '7km',
         },
-        coordinates: [28.6617, 84.0394],
+        coordinates: [28.65892, 84.58443],
         price: 'NPR 2,500 (Accommodation: 1,000, Meals: 2,500)',
       },
 
@@ -480,7 +480,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '8-10 hrs',
           distance: '-',
         },
-        coordinates: [28.6667, 84.5636],
+        coordinates: [28.63384, 84.47129],
         price: 'NPR 4,000 (Accommodation: 1,000, Meals: 3,000)',
         isDestination: true,
       },
@@ -495,7 +495,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '5-7 hrs',
           distance: '20km',
         },
-        coordinates: [28.7227, 84.5525],
+        coordinates: [28.54519, 84.38119],
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
 
@@ -509,7 +509,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '4-5 hrs + drive',
           distance: '-',
         },
-        coordinates: [28.2316, 84.0098],
+        coordinates: [28.23132, 84.37614],
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
 
@@ -1354,7 +1354,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           'From Machhermo, the landscape opens toward the glacial terrain around the Ngozumpa Glacier. The route passes through Pangka before approaching the Gokyo lake system.\n\nThe first lakes appear as you continue north, followed by the second and third lakes. Gokyo village sits beside Dudh Pokhari, the third lake, at approximately 4,750 m. After reaching the village, the afternoon is best spent resting and taking in the high-altitude surroundings.',
         stats: { elevation: '4,750m', duration: '4-5 hours', distance: '7km' },
-        coordinates: [27.9603, 86.6839],
+        coordinates: [27.95409, 86.69459],
         price: 'NPR 5,000 (Accommodation: 2,000, Meals: 3,000)',
       },
       {
@@ -1368,7 +1368,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           distance: '10km',
           note: 'Gokyo Ri is the highest point of the trek. Start early and keep your pace controlled.',
         },
-        coordinates: [27.96154, 86.68313],
+        coordinates: [27.95409, 86.69459],
         price: 'NPR 4,000 (Accommodation: 1,500, Meals: 2,500)',
         isDestination: true,
       },
@@ -1378,7 +1378,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           'After the Gokyo Ri excursion, you begin the descent through the valley. The Gokyo Lakes and Ngozumpa Glacier gradually fall behind as the trail retraces the route toward Machhermo and Dole.\n\nThe drop in elevation makes the air feel noticeably easier, although the descent itself can be demanding on tired legs. Take care on rocky sections and allow yourself time to reach Dole at around 4,038 m.',
         stats: { elevation: '4,038m', duration: '5-6 hours', distance: '11km' },
-        coordinates: [27.865, 86.725],
+        coordinates: [27.86848, 86.74148],
         price: 'NPR 4,000 (Accommodation: 1,500, Meals: 2,500)',
       },
       {
@@ -1387,7 +1387,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
         description:
           'The return to Namche takes you back through Phortse Tenga and Mong La, with a mixture of descents and shorter climbs along the hillside. The forest becomes denser again as you lose altitude.\n\nEventually, the route reconnects with the familiar approach to Namche Bazaar at approximately 3,440 m. After several nights in the high valley, the lower elevation and more developed services in Namche provide a noticeable change.',
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
-        coordinates: [27.805, 86.7106],
+        coordinates: [27.80231, 86.71119],
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
       },
       {
@@ -1629,7 +1629,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '6-7 hrs',
           distance: '12km',
         },
-        coordinates: [28.3997, 83.7424],
+        coordinates: [28.39652, 83.76527],
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
         isDestination: true,
       },
@@ -1644,7 +1644,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '3-4 hrs',
           distance: '7km',
         },
-        coordinates: [28.3845, 83.8057],
+        coordinates: [28.37686, 83.80779],
         price: 'NPR 2,500 (Accommodation: 800, Meals: 1,700)',
       },
 
@@ -2174,7 +2174,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           duration: '~6-7 hrs',
           distance: '~18 km',
         },
-        coordinates: [29.0857, 82.9412],
+        coordinates: [29.00037, 82.91257],
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
       },
 
