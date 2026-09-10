@@ -160,4 +160,32 @@ export const TREKS: Trek[] = [
   },
 ];
 
+export const HIKES: Trek[] = [
+  {
+    id: 'nagarkot-changunarayan',
+    title: 'Nagarkot to Changunarayan Hike',
+    region: 'Kathmandu Valley',
+    description:
+      'A gentle, mostly downhill day hike from the Nagarkot ridge to the ancient Changunarayan temple, following forest paths, open hillsides, and terraced farmland with wide Himalayan views on clear mornings.',
+    difficulty: 'Easy',
+    duration: '1 Day',
+    altitude: '2,175m',
+    season: 'Oct-Dec, Feb-Apr',
+    imageUrl: '/images/nagarkot-changunarayan/nagarkot-changunarayan.jpg',
+    isPopular: false,
+    keywords: [
+      'nagarkot changunarayan hike',
+      'nagarkot',
+      'changunarayan',
+      'kathmandu valley day hike',
+      'day hike',
+    ],
+    type: 'hike',
+  },
+];
+
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
+
+// Shared discovery set: multi-day treks + single-day hikes. Explore, search,
+// and the homepage should iterate TRAILS to surface both content types.
+export const TRAILS: Trek[] = [...TREKS, ...HIKES];

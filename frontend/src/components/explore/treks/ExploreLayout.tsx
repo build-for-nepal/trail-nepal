@@ -41,11 +41,11 @@ export default function ExploreLayout() {
       });
     }
 
-    // 4. Budget (Works perfectly because t.price is a number!)
+    // 4. Budget (price is optional now — hikes omit it; treat absent as 0)
     if (f.minPrice)
-      result = result.filter((t) => t.price >= Number(f.minPrice));
+      result = result.filter((t) => (t.price ?? 0) >= Number(f.minPrice));
     if (f.maxPrice)
-      result = result.filter((t) => t.price <= Number(f.maxPrice));
+      result = result.filter((t) => (t.price ?? 0) <= Number(f.maxPrice));
 
     // 5. Elevation
     result = result.filter((t) => {

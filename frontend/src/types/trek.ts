@@ -23,7 +23,13 @@ export type TrekRouteCollection = FeatureCollection<
   RouteProperties
 >;
 
-//EXPLORE PAGE TYPES
+//EXPLORE PAGE / SHARED TRAIL CARD TYPES
+
+// The listing card is shared across content types. `type` discriminates a
+// multi-day trek from a single-day hike; treat an absent `type` as 'trek' so
+// existing trek data needs no migration.
+export type TrailType = 'trek' | 'hike';
+
 export interface Trek {
   id: string;
   title: string;
@@ -31,12 +37,13 @@ export interface Trek {
   duration: string;
   altitude: string;
   season: string;
-  price: number;
+  price?: number; // optional — hikes omit price
   difficulty: 'Easy' | 'Moderate' | 'Challenging' | 'Difficult' | 'Strenuous';
   imageUrl: string;
   description: string;
   isPopular: boolean;
   keywords: string[];
+  type?: TrailType; // discriminator; absent means 'trek'
 }
 
 export interface ExploreTrekCardProps extends Trek {

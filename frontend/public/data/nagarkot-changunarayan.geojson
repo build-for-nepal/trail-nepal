@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "generator": "trail-nepal-seed",
+  "copyright": "Seed geometry for the Nagarkot–Changunarayan day hike. Replace with an OpenStreetMap trace in Phase 5.",
+  "timestamp": "2026-09-10T07:05:43.585Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "seed/nagarkot-changunarayan",
+        "name": "Nagarkot to Changunarayan Hike",
+        "route": "hiking",
+        "type": "route"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            85.5205,
+            27.7172
+          ],
+          [
+            85.515,
+            27.7176
+          ],
+          [
+            85.509,
+            27.7181
+          ],
+          [
+            85.502,
+            27.7182
+          ],
+          [
+            85.495,
+            27.718
+          ],
+          [
+            85.488,
+            27.7181
+          ],
+          [
+            85.481,
+            27.7179
+          ],
+          [
+            85.474,
+            27.7178
+          ],
+          [
+            85.467,
+            27.7177
+          ],
+          [
+            85.46,
+            27.7175
+          ],
+          [
+            85.453,
+            27.7174
+          ],
+          [
+            85.446,
+            27.7172
+          ],
+          [
+            85.44,
+            27.717
+          ],
+          [
+            85.435,
+            27.7169
+          ],
+          [
+            85.43,
+            27.7168
+          ],
+          [
+            85.4279,
+            27.7168
+          ]
+        ]
+      }
+    }
+  ]
+}
