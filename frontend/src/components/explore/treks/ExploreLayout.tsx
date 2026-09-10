@@ -4,15 +4,24 @@ import { useState, useCallback } from 'react';
 import { FilterState } from '@/types/explorepage';
 import FilterSidebar from '../filter/FilterSidebar';
 import TrekCard from './TrekCard';
-import { TREKS } from '@/static/trek';
+import { TRAILS } from '@/static/trek';
 import { TREK_DETAILS } from 'src/static/trekDetails';
+import { isHike, trailHref } from '@/lib/trail';
+
+// Maps a trail card to the label used by the "Type" filter group.
+const typeLabel = (t: (typeof TRAILS)[number]) =>
+  isHike(t) ? 'Day Hike' : 'Trek';
 
 export default function ExploreLayout() {
-  const [filtered, setFiltered] = useState(TREKS);
-  // const data = TREK_DETAILS[trekId];
+  const [filtered, setFiltered] = useState(TRAILS);
 
   const handleFilter = useCallback((f: FilterState) => {
-    let result = TREKS;
+    let result = TRAILS;
+
+    // 0. Type (Trek / Day Hike)
+    if (f.types.length > 0) {
+      result = result.filter((t) => f.types.includes(typeLabel(t)));
+    }
 
     // 1. Region
     if (f.regions.length > 0) {
@@ -75,20 +84,24 @@ export default function ExploreLayout() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 items-stretch">
             {filtered.length > 0 ? (
               filtered.map((trek) => {
-                const trekDetail = TREK_DETAILS[trek.id];
+                // Hikes carry their own card summary; only treks look up the
+                // richer summary from the trek detail model.
+                const description = isHike(trek)
+                  ? trek.description
+                  : (TREK_DETAILS[trek.id]?.summary ?? trek.description);
 
                 return (
                   <TrekCard
                     key={trek.id}
                     {...trek}
-                    description={trekDetail?.summary ?? trek.description}
-                    href={`/treks/${trek.id}`}
+                    description={description}
+                    href={trailHref(trek)}
                   />
                 );
               })
             ) : (
               <div className="col-span-full py-32 text-center text-lg font-medium text-text-secondary">
-                No treks found matching your filters.
+                No trails found matching your filters.
               </div>
             )}
           </div>

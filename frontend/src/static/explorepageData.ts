@@ -1,10 +1,14 @@
 export const FILTER_OPTIONS = {
+  types: ['All', 'Trek', 'Day Hike'],
   regions: [
     'All',
     'Khumbu Valley',
     'Annapurna Region',
     'Langtang Region',
     'Manaslu Region',
+    'Kathmandu Valley',
+    'Kavrepalanchok',
+    'Lalitpur',
   ],
   durations: ['0-3 days', '3-5 days', '5-10 days', '10-15 days', '15+ days'],
   difficulties: ['All', 'Easy', 'Moderate', 'Challenging'],
