@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react';
 import TrekCard from './TrekCard';
 import { Trek } from '@/types/trek';
+import { trailHref } from '@/lib/trail';
 
 const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -91,7 +92,7 @@ const TrekCarousel = ({ treks }: { treks: Trek[] }) => {
       >
         {loopedTreks.map((trek, i) => (
           <div key={`${trek.id}-${i}`} className="shrink-0 w-[304px]">
-            <TrekCard {...trek} href={`/treks/${trek.id}`} />
+            <TrekCard {...trek} href={trailHref(trek)} />
           </div>
         ))}
       </div>

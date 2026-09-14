@@ -50,6 +50,18 @@ function statDescent(pts: ElevationPoint[]) {
   );
 }
 
+// Smallest "nice" gridline step (1 / 2 / 2.5 / 5 × 10ⁿ) that yields roughly five
+// gridlines across the given range — keeps Y-axis labels round whether the route
+// spans a few hundred metres (day hike) or several thousand (high trek).
+function niceStep(range: number): number {
+  const rough = range / 5;
+  const pow = Math.pow(10, Math.floor(Math.log10(rough)));
+  const candidates = [1, 2, 2.5, 5, 10].map((c) => c * pow);
+  return (
+    candidates.find((c) => c >= rough) ?? candidates[candidates.length - 1]
+  );
+}
+
 export default function ElevationProfile({ points, onHover }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [open, setOpen] = useState(false);
@@ -65,9 +77,15 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const rawRange = maxE - minE || 1;
   const ascent = statAscent(points);
   const descent = statDescent(points);
-  const chartMin = 300;
-  const chartMax = 6000;
-  const chartRange = chartMax - chartMin;
+
+  // Dynamic Y-axis: auto-scale to the route's own elevation band (± padding),
+  // snapped to a nice step so labels stay round. Replaces the old fixed
+  // 300–6,000 m window, which flattened low-elevation routes to a line.
+  const pad = Math.max(50, rawRange * 0.15);
+  const step = niceStep(maxE + pad - (minE - pad) || 1);
+  const chartMin = Math.max(0, Math.floor((minE - pad) / step) * step);
+  const chartMax = Math.ceil((maxE + pad) / step) * step;
+  const chartRange = chartMax - chartMin || 1;
 
   // Chart coordinate helpers — work in SVG logical space
   const toX = (d: number) => PL + (d / maxDist) * CW;
@@ -79,9 +97,9 @@ export default function ElevationProfile({ points, onHover }: Props) {
   const lineD = `M ${pathPts}`;
   const areaD = `M ${toX(0)} ${toY(chartMin)} ${pathPts} L ${toX(maxDist)} ${toY(chartMin)} Z`;
 
-  // Y gridlines: 500 at bottom, then 1000m steps up to chartMax
-  const yLabels: { e: number; y: number }[] = [{ e: 500, y: toY(500) }];
-  for (let e = 1000; e <= chartMax; e += 1000) {
+  // Y gridlines at the nice step, from chartMin up to chartMax.
+  const yLabels: { e: number; y: number }[] = [];
+  for (let e = chartMin; e <= chartMax + 0.5; e += step) {
     yLabels.push({ e, y: toY(e) });
   }
 

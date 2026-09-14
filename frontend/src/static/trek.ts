@@ -160,4 +160,76 @@ export const TREKS: Trek[] = [
   },
 ];
 
+export const HIKES: Trek[] = [
+  {
+    id: 'nagarkot-changunarayan',
+    title: 'Nagarkot to Changunarayan Hike',
+    region: 'Kathmandu Valley',
+    description:
+      'A mostly downhill day hike from the Nagarkot ridge through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
+    difficulty: 'Easy',
+    duration: '1 Day',
+    altitude: '2,175m',
+    season: 'Oct-Apr',
+    imageUrl: '/images/nagarkot-changunarayan/nagarkot-changunarayan.jpg',
+    isPopular: false,
+    keywords: [
+      'nagarkot changunarayan hike',
+      'nagarkot',
+      'changunarayan',
+      'kathmandu valley day hike',
+      'day hike',
+    ],
+    type: 'hike',
+  },
+  {
+    id: 'dhulikhel-namobuddha',
+    title: 'Dhulikhel to Namobuddha Hike',
+    region: 'Kavrepalanchok',
+    description:
+      'A cultural day hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, one of Nepal’s most important Buddhist pilgrimage sites.',
+    difficulty: 'Moderate',
+    duration: '1 Day',
+    altitude: '1,750m',
+    season: 'Oct-Apr',
+    imageUrl: '/images/dhulikhel-namobuddha/dhulikhel-namobuddha.jpg',
+    isPopular: false,
+    keywords: [
+      'dhulikhel namobuddha hike',
+      'dhulikhel',
+      'namobuddha',
+      'buddhist pilgrimage hike',
+      'kavre day hike',
+      'day hike',
+    ],
+    type: 'hike',
+  },
+  {
+    id: 'godawari-phulchoki',
+    title: 'Godawari to Phulchoki Hike',
+    region: 'Lalitpur',
+    description:
+      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, climbing through oak and rhododendron woodland to a summit temple and wide valley views.',
+    difficulty: 'Moderate',
+    duration: '1 Day',
+    altitude: '2,765m',
+    season: 'Mar-May, Oct-Nov',
+    imageUrl: '/images/godawari-phulchoki/godawari-phulchoki.jpg',
+    isPopular: false,
+    keywords: [
+      'godawari phulchoki hike',
+      'phulchoki',
+      'phulchowki',
+      'godawari',
+      'kathmandu valley summit hike',
+      'day hike',
+    ],
+    type: 'hike',
+  },
+];
+
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
+
+// Shared discovery set: multi-day treks + single-day hikes. Explore, search,
+// and the homepage should iterate TRAILS to surface both content types.
+export const TRAILS: Trek[] = [...TREKS, ...HIKES];

@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { DayFocus } from '@/types/map';
 import { TREK_DETAILS } from '@/static/trekDetails';
+import { ACCESS_ROUTES } from '@/static/accessRoutes';
 import TrekkingMap from './map/TrekkingMap';
 // import FoodMenu from './FoodMenu';
 
@@ -446,7 +447,10 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
           {/* Map */}
           <div className="h-[420px] w-full bg-gray-100 lg:h-[640px]">
             <TrekkingMap
-              trekId={trekId}
+              geojsonId={trekId}
+              waypoints={days}
+              accessRoute={trekId ? ACCESS_ROUTES[trekId] : undefined}
+              flagAtStart={trekId === 'mardi-himal-trek'}
               onDayClick={openDayFromMap}
               focus={focus}
             />

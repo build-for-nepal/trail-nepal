@@ -62,6 +62,13 @@ export const FilterPanel = ({
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
         <FilterGroup
+          title="Type"
+          options={FILTER_OPTIONS.types}
+          selected={filters.types}
+          onToggle={(v) => onToggle('types', v)}
+          onSelectOnly={(v) => onSelectOnly?.('types', v)}
+        />
+        <FilterGroup
           title="Region"
           options={FILTER_OPTIONS.regions}
           selected={filters.regions}

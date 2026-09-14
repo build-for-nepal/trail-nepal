@@ -7,23 +7,28 @@ import { TrekkingMapProps } from '@/types/map';
 const MapClient = dynamic(() => import('./MapClient'), { ssr: false });
 
 export default function TrekkingMap({
-  trekId,
+  geojsonId,
+  waypoints,
+  accessRoute,
+  flagAtStart,
   onDayClick,
   focus,
 }: TrekkingMapProps) {
-  const { data: rawData, isLoading, error } = useTrekkingData(trekId);
+  const { data: rawData, isLoading, error } = useTrekkingData(geojsonId);
 
   if (error) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-gray-100 text-gray-500">
-        Failed to load map data for {trekId}.
+        Failed to load map data for {geojsonId}.
       </div>
     );
   }
 
-  // Filter data for specific trek
+  // Per-route data fix: abc-trek's geojson bundles extra relations, so keep only
+  // the Annapurna Base Camp features. Keyed by geojsonId (not model state) and
+  // inert for every other route.
   let data = rawData;
-  if (rawData && trekId === 'abc-trek') {
+  if (rawData && geojsonId === 'abc-trek') {
     data = {
       ...rawData,
       features: rawData.features.filter(
@@ -64,7 +69,7 @@ export default function TrekkingMap({
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50 backdrop-blur-sm">
           <span className="text-sm font-medium text-gray-600 animate-pulse">
-            Loading {trekId} Route...
+            Loading {geojsonId} Route...
           </span>
         </div>
       )}
@@ -74,7 +79,10 @@ export default function TrekkingMap({
         <MapClient
           data={data}
           center={center}
-          trekId={trekId}
+          geojsonId={geojsonId}
+          waypoints={waypoints}
+          accessRoute={accessRoute}
+          flagAtStart={flagAtStart}
           onDayClick={onDayClick}
           focus={focus}
         />{' '}
