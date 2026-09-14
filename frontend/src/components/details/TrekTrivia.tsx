@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Check, RotateCcw, Share2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { TREK_DETAILS } from '@/static/trekDetails';
@@ -8,14 +7,22 @@ import {
   TRIVIA_QUESTIONS_BY_TREK,
   type TriviaQuestion,
 } from '@/static/triviaQuestions';
-import airplane from '@/assets/trivia/airplane.svg';
-import cloud from '@/assets/trivia/cloud2.svg';
-import destination from '@/assets/trivia/destination.svg';
-import grass from '@/assets/trivia/grassbg.svg';
-import mascot from '@/assets/trivia/mascot.svg';
+import {
+  Airplane,
+  Cloud2,
+  Destination,
+  GrassBg,
+  Mascot,
+} from '@/assets/trivia';
 import styles from './TrekTrivia.module.css';
 
-type Props = { trekId: string };
+type Props = {
+  trekId?: string;
+  questionPool?: TriviaQuestion[];
+  triviaNameOverride?: string;
+  autoStart?: boolean;
+  embedded?: boolean;
+};
 type GameScreen = 'intro' | 'question' | 'result';
 
 const ROUND_SIZE = 8;
@@ -54,10 +61,29 @@ const createRound = (questions: TriviaQuestion[]) =>
       };
     });
 
-export default function TrekTrivia({ trekId }: Props) {
-  const trek = TREK_DETAILS[trekId];
-  const [screen, setScreen] = useState<GameScreen>('intro');
-  const [round, setRound] = useState<TriviaQuestion[]>([]);
+export default function TrekTrivia({
+  trekId,
+  questionPool,
+  triviaNameOverride,
+  autoStart = false,
+  embedded = false,
+}: Props) {
+  const trek = trekId ? TREK_DETAILS[trekId] : undefined;
+  const availableQuestions =
+    questionPool ?? (trekId ? TRIVIA_QUESTIONS_BY_TREK[trekId] ?? [] : []);
+  const triviaName =
+    triviaNameOverride ??
+    (trek
+      ? trekId === 'ebc-trek'
+        ? 'Everest'
+        : getTriviaName(trek.name)
+      : 'Trail Nepal');
+  const [screen, setScreen] = useState<GameScreen>(
+    autoStart ? 'question' : 'intro',
+  );
+  const [round, setRound] = useState<TriviaQuestion[]>(() =>
+    autoStart ? createRound(availableQuestions) : [],
+  );
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [answerResults, setAnswerResults] = useState<(boolean | null)[]>(() =>
@@ -66,12 +92,10 @@ export default function TrekTrivia({ trekId }: Props) {
   const [score, setScore] = useState(0);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  if (!trek) return null;
+  if (availableQuestions.length < ROUND_SIZE) return null;
 
-  const triviaName =
-    trekId === 'ebc-trek' ? 'Everest' : getTriviaName(trek.name);
   const currentQuestion = round[questionIndex];
-  const routeMaskId = `trivia-route-mask-${trekId}`;
+  const routeMaskId = `trivia-route-mask-${trekId ?? 'general'}`;
   const isWrongAnswer =
     screen === 'question' &&
     selectedAnswer !== null &&
@@ -80,7 +104,7 @@ export default function TrekTrivia({ trekId }: Props) {
 
   const startGame = () => {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
-    setRound(createRound(TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []));
+    setRound(createRound(availableQuestions));
     setQuestionIndex(0);
     setSelectedAnswer(null);
     setAnswerResults(Array(ROUND_SIZE).fill(null));
@@ -127,20 +151,22 @@ export default function TrekTrivia({ trekId }: Props) {
   };
 
   return (
-    <section className="bg-white px-6 pb-8 pt-2 sm:px-10 lg:px-20 lg:pb-12">
+    <section
+      className={
+        embedded
+          ? 'bg-transparent p-0'
+          : 'bg-white px-6 pb-8 pt-2 sm:px-10 lg:px-20 lg:pb-12'
+      }
+    >
       <div
         id="trivia"
         className="relative mx-auto min-h-[560px] w-full max-w-7xl overflow-hidden rounded-3xl bg-[#bde4fa] px-5 py-8 shadow-[0_3px_8px_rgba(0,0,0,0.18)] sm:aspect-[2.5/1] sm:min-h-0 sm:px-10 lg:px-16"
       >
-        <Image
-          src={cloud}
-          alt=""
+        <Cloud2
           className={`${styles.cloudLeft} pointer-events-none absolute left-5 top-20 w-28 sm:left-10 sm:w-36 lg:w-44`}
           aria-hidden="true"
         />
-        <Image
-          src={cloud}
-          alt=""
+        <Cloud2
           className={`${styles.cloudRight} pointer-events-none absolute right-3 top-24 w-40 sm:right-8 sm:w-52 lg:w-64`}
           aria-hidden="true"
         />
@@ -151,7 +177,7 @@ export default function TrekTrivia({ trekId }: Props) {
               className={`${styles.airplane} pointer-events-none absolute top-44 z-10 w-16 sm:w-22 lg:top-46 lg:w-28`}
               aria-hidden="true"
             >
-              <Image src={airplane} alt="" className="h-auto w-full" />
+              <Airplane className="h-auto w-full" aria-hidden="true" />
             </div>
             <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center pt-2 text-center lg:pt-4">
               <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-[#536c0b] sm:text-base">
@@ -406,9 +432,7 @@ export default function TrekTrivia({ trekId }: Props) {
               }}
             />
           ))}
-        <Image
-          src={grass}
-          alt=""
+        <GrassBg
           className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full"
           aria-hidden="true"
         />
@@ -417,24 +441,24 @@ export default function TrekTrivia({ trekId }: Props) {
             className={`${styles.mascotJourney} absolute bottom-8 left-5 z-10 w-18 sm:w-24 lg:w-28`}
           >
             <div className={styles.mascotWalker}>
-              <Image
-                src={mascot}
-                alt="Trail Nepal hiker mascot at the destination"
+              <Mascot
+                role="img"
+                aria-label="Trail Nepal hiker mascot at the destination"
                 className="h-auto w-full"
               />
             </div>
           </div>
         ) : (
-          <Image
-            src={mascot}
-            alt="Trail Nepal hiker mascot"
+          <Mascot
+            role="img"
+            aria-label="Trail Nepal hiker mascot"
             className={`${styles.mascot} absolute bottom-8 left-5 z-10 w-18 sm:left-12 sm:w-24 lg:left-24 lg:w-28`}
           />
         )}
         {screen !== 'intro' && (
-          <Image
-            src={destination}
-            alt="Trail destination flag"
+          <Destination
+            role="img"
+            aria-label="Trail destination flag"
             className="absolute bottom-8 right-4 z-10 w-24 sm:right-10 sm:w-32 lg:right-18 lg:w-40"
           />
         )}
