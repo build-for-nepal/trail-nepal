@@ -1,20 +1,17 @@
 import React from 'react';
 import SectionHeader from '../common/SectionHeader';
-import { TREK_DETAILS } from '@/static/trekDetails';
 
 type Props = {
-  trekId: string;
+  expectations: { title: string; description: string }[];
+  overview: string;
+  /** Resolved hero/portrait image for the left panel. */
+  imageSrc: string;
+  /** Used for the image alt text. */
+  name: string;
 };
 
-const TreksExpect = ({ trekId }: Props) => {
-  const data = TREK_DETAILS[trekId];
-  if (!data || !data.expectations) return null;
-
-  // Find a portrait image from the gallery for the left side, or fallback to the first image
-  const imageSrc =
-    data.gallery?.find((img) => img.type === 'portrait')?.url ||
-    data.gallery?.[0]?.url ||
-    '/images/ABC.jpg';
+const TreksExpect = ({ expectations, overview, imageSrc, name }: Props) => {
+  if (!expectations || expectations.length === 0) return null;
 
   return (
     <div className="w-full bg-[#EBF0F8]">
@@ -30,21 +27,21 @@ const TreksExpect = ({ trekId }: Props) => {
           <div className="relative w-full max-w-[450px] mx-auto lg:mx-0 lg:max-w-none">
             <img
               src={imageSrc}
-              alt={`${data.name} expectations`}
+              alt={`${name} expectations`}
               className="rounded-2xl object-cover w-full h-[400px] sm:h-[450px] lg:h-[550px] shadow-lg"
             />
 
             {/* Dynamic Quote Box */}
             <div className="absolute -bottom-6 -right-2 sm:-left-6 sm:right-auto bg-white rounded-xl shadow-xl px-6 py-4 max-w-[280px] sm:max-w-sm z-10">
               <p className="text-sm text-gray-700 italic font-medium leading-relaxed">
-                “{data.overview.substring(0, 95).trim()}...”
+                “{overview.substring(0, 95).trim()}...”
               </p>
             </div>
           </div>
 
           {/* RIGHT TEXT SECTION */}
           <div className="flex flex-col gap-8 text-gray-700 leading-relaxed text-sm sm:text-base mt-6 lg:mt-0">
-            {data.expectations.map((item, index) => (
+            {expectations.map((item, index) => (
               <p key={index} className="tracking-wide">
                 <span className="font-bold text-gray-900 text-base sm:text-lg block mb-1">
                   {item.title}

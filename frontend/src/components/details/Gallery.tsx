@@ -3,8 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import SectionHeader from '../common/SectionHeader';
-import { TREK_DETAILS } from '@/static/trekDetails';
-import { Props } from '@/types/trek';
+import { TrekImage } from '@/types/trek';
 
 const BENTO_PATTERN = [
   'row-span-2',
@@ -14,9 +13,12 @@ const BENTO_PATTERN = [
   'row-span-1',
 ];
 
-export const Gallery = ({ trekId }: Props) => {
-  const galleryData =
-    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].gallery : null;
+type Props = {
+  images?: TrekImage[] | null;
+};
+
+export const Gallery = ({ images }: Props) => {
+  const galleryData = images ?? null;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
