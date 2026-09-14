@@ -41,7 +41,7 @@ const HikeHero = ({ hike }: { hike: HikeDetail }) => {
     <section className="w-full">
       <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-20 lg:py-20">
         <SectionHeader
-          title="Hike Overview"
+          title="Overview"
           description="A quick look at what awaits on the trail."
           id="overview"
         />

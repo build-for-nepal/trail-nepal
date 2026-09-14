@@ -48,6 +48,7 @@ export interface Trek {
 
 export interface ExploreTrekCardProps extends Trek {
   href: string;
+  isHike?: boolean;
 }
 
 //TREK DETAIL PAGE TYPES
