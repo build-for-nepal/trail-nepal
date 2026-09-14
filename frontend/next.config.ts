@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     rules: {
       '*.svg': {
+        condition: {
+          all: [
+            { not: 'foreign' },
+            { path: /^src\/assets\/trivia\/.*\.svg$/ },
+          ],
+        },
         loaders: ['@svgr/webpack'],
         as: '*.js',
       },
@@ -14,6 +20,7 @@ const nextConfig: NextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
+      include: /[\\/]src[\\/]assets[\\/]trivia[\\/]/,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });

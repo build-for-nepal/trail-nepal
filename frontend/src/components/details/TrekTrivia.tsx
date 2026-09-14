@@ -70,7 +70,7 @@ export default function TrekTrivia({
 }: Props) {
   const trek = trekId ? TREK_DETAILS[trekId] : undefined;
   const availableQuestions =
-    questionPool ?? (trekId ? TRIVIA_QUESTIONS_BY_TREK[trekId] ?? [] : []);
+    questionPool ?? (trekId ? (TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []) : []);
   const triviaName =
     triviaNameOverride ??
     (trek
@@ -101,6 +101,14 @@ export default function TrekTrivia({
     selectedAnswer !== null &&
     currentQuestion !== undefined &&
     selectedAnswer !== currentQuestion.correctAnswer;
+  const responsiveHeight =
+    screen === 'question'
+      ? isWrongAnswer
+        ? 'h-[620px] sm:h-[560px] xl:h-auto xl:min-h-0'
+        : 'min-h-[760px] sm:min-h-[650px]'
+      : screen === 'result'
+        ? 'min-h-[620px] sm:min-h-[560px]'
+        : 'min-h-[560px]';
 
   const startGame = () => {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
@@ -160,14 +168,14 @@ export default function TrekTrivia({
     >
       <div
         id="trivia"
-        className="relative mx-auto min-h-[560px] w-full max-w-7xl overflow-hidden rounded-3xl bg-[#bde4fa] px-5 py-8 shadow-[0_3px_8px_rgba(0,0,0,0.18)] sm:aspect-[2.5/1] sm:min-h-0 sm:px-10 lg:px-16"
+        className={`relative mx-auto w-full max-w-7xl overflow-hidden rounded-3xl bg-[#bde4fa] px-4 py-7 shadow-[0_3px_8px_rgba(0,0,0,0.18)] sm:px-10 sm:py-8 xl:aspect-[2.5/1] xl:min-h-0 xl:px-16 ${responsiveHeight}`}
       >
         <Cloud2
-          className={`${styles.cloudLeft} pointer-events-none absolute left-5 top-20 w-28 sm:left-10 sm:w-36 lg:w-44`}
+          className={`${styles.cloudLeft} pointer-events-none absolute left-3 top-24 w-20 sm:left-10 sm:top-20 sm:w-36 lg:w-44`}
           aria-hidden="true"
         />
         <Cloud2
-          className={`${styles.cloudRight} pointer-events-none absolute right-3 top-24 w-40 sm:right-8 sm:w-52 lg:w-64`}
+          className={`${styles.cloudRight} pointer-events-none absolute right-2 top-28 w-28 sm:right-8 sm:top-24 sm:w-52 lg:w-64`}
           aria-hidden="true"
         />
 
@@ -179,11 +187,11 @@ export default function TrekTrivia({
             >
               <Airplane className="h-auto w-full" aria-hidden="true" />
             </div>
-            <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center pt-2 text-center lg:pt-4">
+            <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center px-1 pt-2 text-center sm:px-0 lg:pt-4">
               <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-[#536c0b] sm:text-base">
                 {triviaName} Trivia
               </p>
-              <h2 className="max-w-xl text-3xl font-semibold text-[#272922] sm:text-4xl lg:text-[42px]">
+              <h2 className="max-w-xl text-3xl font-semibold leading-tight text-[#272922] sm:text-4xl lg:text-[42px]">
                 How well do you know {triviaName}?
               </h2>
               <div className="mt-4 flex items-center gap-4 text-xs font-medium text-[#272922] sm:text-sm">
@@ -194,7 +202,7 @@ export default function TrekTrivia({
               <button
                 type="button"
                 onClick={startGame}
-                className="mt-7 rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:text-base"
+                className="mt-7 w-full max-w-sm rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:w-auto sm:text-base"
               >
                 Play {triviaName} Trivia
               </button>
@@ -205,7 +213,7 @@ export default function TrekTrivia({
         {screen === 'question' && currentQuestion && (
           <div
             key={questionIndex}
-            className={`${styles.scene} relative ${isWrongAnswer ? 'z-40' : 'z-20'}`}
+            className={`${styles.scene} relative pb-36 sm:pb-40 xl:pb-0 ${isWrongAnswer ? 'z-40' : 'z-20'}`}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -218,7 +226,7 @@ export default function TrekTrivia({
                 </p>
               </div>
               <div
-                className="flex gap-1.5 pt-2"
+                className="flex w-full gap-1 pt-2 sm:w-auto sm:gap-1.5"
                 aria-label={`Question ${questionIndex + 1} of ${ROUND_SIZE}`}
               >
                 {round.map((_, index) => {
@@ -233,7 +241,7 @@ export default function TrekTrivia({
                   return (
                     <span
                       key={index}
-                      className={`h-2.5 w-8 rounded-full transition-colors duration-300 sm:w-10 ${segmentColor}`}
+                      className={`h-2.5 min-w-0 flex-1 rounded-full transition-colors duration-300 sm:w-10 sm:flex-none ${segmentColor}`}
                     />
                   );
                 })}
@@ -245,12 +253,12 @@ export default function TrekTrivia({
               {selectedAnswer !== null &&
               selectedAnswer !== currentQuestion.correctAnswer ? (
                 <h2
-                  className={`${styles.feedback} text-3xl font-semibold text-[#40545a]`}
+                  className={`${styles.feedback} text-2xl font-semibold text-[#40545a] sm:text-3xl`}
                 >
                   OOPS, <span className="text-[#eb542d]">WRONG ONE</span>
                 </h2>
               ) : (
-                <h2 className="text-2xl font-semibold text-[#272922]">
+                <h2 className="text-xl font-semibold leading-snug text-[#272922] sm:text-2xl">
                   {selectedAnswer === currentQuestion.correctAnswer ? (
                     <span className={`${styles.feedback} text-[#668600]`}>
                       Correct!
@@ -276,10 +284,10 @@ export default function TrekTrivia({
                     type="button"
                     disabled={selectedAnswer !== null}
                     onClick={() => chooseAnswer(index)}
-                    className={`${styles.optionTilt} flex items-center gap-4 rounded-2xl border-2 px-4 text-left text-sm font-medium text-[#272922] shadow-sm transition-all duration-300 sm:px-5 ${isWrongAnswer ? 'min-h-12 sm:min-h-14' : 'min-h-18'} ${isCorrect ? 'border-[#88B112] bg-[#F3F7E7]' : isWrong ? 'border-[#eb542d] bg-[#fff0ed]' : 'border-white bg-white hover:border-[#88B112]'}`}
+                    className={`${styles.optionTilt} flex items-center gap-3 rounded-2xl border-2 px-3 py-2 text-left text-sm font-medium leading-snug text-[#272922] shadow-sm transition-all duration-300 sm:gap-4 sm:px-5 sm:py-0 ${isWrongAnswer ? 'min-h-12 sm:min-h-14' : 'min-h-16 sm:min-h-18'} ${isCorrect ? 'border-[#88B112] bg-[#F3F7E7]' : isWrong ? 'border-[#eb542d] bg-[#fff0ed]' : 'border-white bg-white hover:border-[#88B112]'}`}
                   >
                     <span
-                      className={`flex size-10 shrink-0 items-center justify-center rounded-xl ${isCorrect ? 'bg-[#9bc331] text-white' : isWrong ? 'bg-[#eb542d] text-white' : 'bg-[#eef0ed] text-[#72766e]'}`}
+                      className={`flex size-9 shrink-0 items-center justify-center rounded-xl sm:size-10 ${isCorrect ? 'bg-[#9bc331] text-white' : isWrong ? 'bg-[#eb542d] text-white' : 'bg-[#eef0ed] text-[#72766e]'}`}
                     >
                       {isCorrect ? (
                         <Check
@@ -305,52 +313,50 @@ export default function TrekTrivia({
           </div>
         )}
 
-        {screen === 'question' &&
-          currentQuestion &&
-          isWrongAnswer && (
-            <>
-              <div
-                className={`${styles.blurOverlay} pointer-events-none absolute inset-0 z-30 bg-white/5 backdrop-blur-[2px]`}
-              />
-              <div
-                className={`${styles.explanationPanel} absolute inset-x-0 bottom-0 z-50 rounded-t-2xl bg-white p-5 pt-7 text-left shadow-[0_-8px_30px_rgba(0,0,0,0.14)] sm:px-7 sm:pb-6 sm:pt-8`}
-              >
-                <span className="absolute -top-5 left-6 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase text-[#40545a] shadow-sm">
-                  Explanation
-                </span>
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                  <div className="flex max-w-5xl flex-col gap-3">
-                    <p className="text-sm font-medium text-[#40545a] sm:text-base">
-                      Correct answer:{' '}
-                      <strong>
-                        {LETTERS[currentQuestion.correctAnswer]} -{' '}
-                        {currentQuestion.answers[currentQuestion.correctAnswer]}
-                      </strong>
-                    </p>
-                    <p className="text-sm leading-6 text-[#5f665f] sm:text-base">
-                      {currentQuestion.explanation}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={advanceQuestion}
-                    className="shrink-0 self-start rounded-xl bg-[#88b112] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#789f00] sm:self-auto"
-                  >
-                    {questionIndex === ROUND_SIZE - 1
-                      ? 'See results'
-                      : 'Next question'}
-                  </button>
+        {screen === 'question' && currentQuestion && isWrongAnswer && (
+          <>
+            <div
+              className={`${styles.blurOverlay} pointer-events-none absolute inset-0 z-30 bg-white/5 backdrop-blur-[2px]`}
+            />
+            <div
+              className={`${styles.explanationPanel} absolute inset-x-0 bottom-0 z-50 overflow-visible rounded-t-2xl bg-white p-4 pt-7 text-left shadow-[0_-8px_30px_rgba(0,0,0,0.14)] sm:px-7 sm:pb-6 sm:pt-8`}
+            >
+              <span className="absolute -top-5 left-6 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase text-[#40545a] shadow-sm">
+                Explanation
+              </span>
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="flex max-w-5xl flex-col gap-3">
+                  <p className="text-sm font-medium text-[#40545a] sm:text-base">
+                    Correct answer:{' '}
+                    <strong>
+                      {LETTERS[currentQuestion.correctAnswer]} -{' '}
+                      {currentQuestion.answers[currentQuestion.correctAnswer]}
+                    </strong>
+                  </p>
+                  <p className="text-sm leading-6 text-[#5f665f] sm:text-base">
+                    {currentQuestion.explanation}
+                  </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={advanceQuestion}
+                  className="w-full shrink-0 self-start rounded-xl bg-[#88b112] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#789f00] md:w-auto md:self-auto"
+                >
+                  {questionIndex === ROUND_SIZE - 1
+                    ? 'See results'
+                    : 'Next question'}
+                </button>
               </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
 
         {screen === 'result' && (
-          <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center pt-10 text-center">
+          <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center px-1 pt-4 text-center sm:px-0 sm:pt-10">
             <p className="text-sm font-semibold tracking-[0.2em] text-[#536c0b]">
               {triviaName} Trivia complete
             </p>
-            <h2 className="mt-3 text-4xl font-semibold text-[#272922] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-semibold text-[#272922] sm:text-5xl">
               You scored {score}/{ROUND_SIZE}
             </h2>
             <p className="mt-4 max-w-md text-sm font-medium text-[#40545a] sm:text-base">
@@ -360,11 +366,11 @@ export default function TrekTrivia({
                   ? 'You know the trail well!'
                   : 'Every trek starts with a little learning.'}
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <div className="mt-7 flex w-full flex-wrap justify-center gap-3 sm:w-auto">
               <button
                 type="button"
                 onClick={startGame}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#88b112] px-6 py-3 font-medium text-white hover:bg-[#789f00]"
+                className="inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-xl bg-[#88b112] px-6 py-3 font-medium text-white hover:bg-[#789f00] sm:w-auto"
               >
                 <RotateCcw className="size-4" />
                 Play again
@@ -383,7 +389,7 @@ export default function TrekTrivia({
 
         {screen !== 'intro' && (
           <svg
-            className="pointer-events-none absolute bottom-12 left-[9%] z-10 hidden h-16 w-[82%] sm:block"
+            className="pointer-events-none absolute  left-[12%] w-[70%] bottom-[5%] xl:left-[9%] z-10 hidden h-16 xl:w-[82%] sm:block"
             viewBox="0 0 900 90"
             fill="none"
             aria-hidden="true"
@@ -433,12 +439,12 @@ export default function TrekTrivia({
             />
           ))}
         <GrassBg
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full"
+          className="pointer-events-none max-sm:h-[19%] max-sm:bottom-0 absolute -left-[20%] bottom-0 h-auto w-[140%] max-w-none sm:-left-[10%] sm:w-[120%] lg:inset-x-0 lg:w-full"
           aria-hidden="true"
         />
         {screen === 'result' ? (
           <div
-            className={`${styles.mascotJourney} absolute bottom-8 left-5 z-10 w-18 sm:w-24 lg:w-28`}
+            className={`${styles.mascotJourney} absolute bottom-10 left-5 z-10 w-18 sm:bottom-12 sm:w-24 lg:bottom-8 lg:w-28`}
           >
             <div className={styles.mascotWalker}>
               <Mascot
@@ -452,14 +458,14 @@ export default function TrekTrivia({
           <Mascot
             role="img"
             aria-label="Trail Nepal hiker mascot"
-            className={`${styles.mascot} absolute bottom-8 left-5 z-10 w-18 sm:left-12 sm:w-24 lg:left-24 lg:w-28`}
+            className={`${styles.mascot} absolute bottom-10 left-5 z-10 w-18 sm:bottom-12 sm:left-12 sm:w-24 lg:bottom-8 lg:left-24 lg:w-28`}
           />
         )}
         {screen !== 'intro' && (
           <Destination
             role="img"
             aria-label="Trail destination flag"
-            className="absolute bottom-8 right-4 z-10 w-24 sm:right-10 sm:w-32 lg:right-18 lg:w-40"
+            className="absolute bottom-10 right-4 z-10 w-24 sm:bottom-12 sm:right-10 sm:w-32 lg:bottom-8 lg:right-18 lg:w-40"
           />
         )}
       </div>
