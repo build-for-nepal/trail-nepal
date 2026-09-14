@@ -328,7 +328,7 @@ const HikeRoute = ({
                 className="text-xl font-bold tracking-tight text-black/90"
                 style={{ fontFamily: 'var(--font-poppins), serif' }}
               >
-                {route.length} - section route
+                Route Sections
               </h3>
 
               <button

@@ -5,7 +5,7 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
     id: 'nagarkot-changunarayan',
     name: 'Nagarkot to Changunarayan Hike',
     summary:
-      'A mostly downhill day hike from the Nagarkot ridge through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
+      'A mostly downhill walk from Nagarkot to the historic Changunarayan temple.',
     region: 'Kathmandu Valley',
     meta: {
       duration: '1 Day',
@@ -210,7 +210,7 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
     id: 'dhulikhel-namobuddha',
     name: 'Dhulikhel to Namobuddha Hike',
     summary:
-      'A cultural day hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, one of the most important Buddhist pilgrimage sites in Nepal.',
+      'A cultural hike from Dhulikhel to the Namobuddha pilgrimage site.',
     region: 'Kavrepalanchok',
     meta: {
       duration: '1 Day',
@@ -415,7 +415,7 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
     id: 'godawari-phulchoki',
     name: 'Godawari to Phulchoki Hike',
     summary:
-      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, climbing through dense oak and rhododendron woodland to a summit temple and wide valley views.',
+      'A forest climb from Godawari to the Phulchoki summit temple.',
     region: 'Lalitpur',
     meta: {
       duration: '1 Day',

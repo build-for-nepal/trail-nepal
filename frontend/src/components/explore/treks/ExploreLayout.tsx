@@ -96,6 +96,7 @@ export default function ExploreLayout() {
                     {...trek}
                     description={description}
                     href={trailHref(trek)}
+                    isHike={isHike(trek)}
                   />
                 );
               })

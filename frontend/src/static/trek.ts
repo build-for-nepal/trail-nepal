@@ -166,7 +166,7 @@ export const HIKES: Trek[] = [
     title: 'Nagarkot to Changunarayan Hike',
     region: 'Kathmandu Valley',
     description:
-      'A mostly downhill day hike from the Nagarkot ridge through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
+      'A mostly downhill walk from the Nagarkot ridge through villages and pine forest to the historic Changunarayan temple.',
     difficulty: 'Easy',
     duration: '1 Day',
     altitude: '2,175m',
@@ -187,7 +187,7 @@ export const HIKES: Trek[] = [
     title: 'Dhulikhel to Namobuddha Hike',
     region: 'Kavrepalanchok',
     description:
-      'A cultural day hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, one of Nepal’s most important Buddhist pilgrimage sites.',
+      'A cultural hike from Dhulikhel through terraced farmland and forest to the Buddhist pilgrimage site of Namobuddha.',
     difficulty: 'Moderate',
     duration: '1 Day',
     altitude: '1,750m',
@@ -209,7 +209,7 @@ export const HIKES: Trek[] = [
     title: 'Godawari to Phulchoki Hike',
     region: 'Lalitpur',
     description:
-      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, climbing through oak and rhododendron woodland to a summit temple and wide valley views.',
+      'A full-day forest climb from Godawari through oak and rhododendron woodland to the Phulchoki summit temple.',
     difficulty: 'Moderate',
     duration: '1 Day',
     altitude: '2,765m',
