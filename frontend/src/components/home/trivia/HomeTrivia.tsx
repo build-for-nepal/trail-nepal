@@ -114,7 +114,7 @@ const HomeTrivia = () => {
             aria-hidden="true"
           />
           <GrassBg
-            className="pointer-events-none absolute inset-x-0 -bottom-8 xl:-bottom-24 h-auto w-full"
+            className="pointer-events-none absolute inset-x-0 -bottom-8 lg:-bottom-24 xl:-bottom-36 h-auto w-full"
             aria-hidden="true"
           />
           <div className="relative z-10 grid grid-cols-1 xl:grid-cols-5  rounded-card border px-6  xl:px-12 py-6">

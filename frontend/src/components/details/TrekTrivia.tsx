@@ -182,10 +182,10 @@ export default function TrekTrivia({
         {screen === 'intro' && (
           <>
             <div
-              className={`${styles.airplane} pointer-events-none absolute top-44 z-10 w-16 sm:w-22 lg:top-46 lg:w-28`}
+              className={`${styles.airplane} pointer-events-none absolute top-44 w-16 sm:w-22 lg:top-46 lg:w-28`}
               aria-hidden="true"
             >
-              <Airplane className="h-auto w-full" aria-hidden="true" />
+              <Airplane className="size-20" aria-hidden="true" />
             </div>
             <div className="relative z-20 mx-auto flex max-w-2xl flex-col items-center px-1 pt-2 text-center sm:px-0 lg:pt-4">
               <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-[#536c0b] sm:text-base">
@@ -438,10 +438,29 @@ export default function TrekTrivia({
               }}
             />
           ))}
-        <GrassBg
+        {/* <GrassBg
           className="pointer-events-none max-sm:h-[19%] max-sm:bottom-0 absolute -left-[20%] bottom-0 h-auto w-[140%] max-w-none sm:-left-[10%] sm:w-[120%] lg:inset-x-0 lg:w-full"
           aria-hidden="true"
+        /> */}
+
+        <GrassBg
+          className=" 
+    pointer-events-none
+    absolute bottom-0
+    -left-[20%] w-[140%] h-auto max-w-none
+
+    max-[425px]:left-0
+    max-[425px]:w-full
+    max-[425px]:bottom-0
+
+    sm:-left-[10%]
+    sm:w-[120%]
+    lg:inset-x-0
+    lg:w-full
+  "
+          aria-hidden="true"
         />
+
         {screen === 'result' ? (
           <div
             className={`${styles.mascotJourney} absolute bottom-10 left-5 z-10 w-18 sm:bottom-12 sm:w-24 lg:bottom-8 lg:w-28`}
