@@ -221,8 +221,7 @@ export default function TrekTrivia({
                   {triviaName} Trivia
                 </p>
                 <p className="mt-1 text-sm font-medium text-[#272922] sm:text-sm">
-                  Question {questionIndex + 1}
-                  <span className="mx-3 text-white">•</span>~ 25 secs
+                  {questionIndex + 1}/{ROUND_SIZE} Questions
                 </p>
               </div>
               <div
@@ -234,9 +233,11 @@ export default function TrekTrivia({
                   const segmentColor =
                     result === false
                       ? 'bg-[#eb542d]'
-                      : result === true || index === questionIndex
+                      : result === true
                         ? 'bg-[#88b112]'
-                        : 'bg-[#f4f6e7]';
+                        : index === questionIndex
+                          ? 'bg-white'
+                          : 'bg-gray-400';
 
                   return (
                     <span
