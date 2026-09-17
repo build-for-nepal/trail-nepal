@@ -14,7 +14,7 @@ import maplibregl from 'maplibre-gl';
 
 import { makeCircleMarkerEl, useMapInit } from '@/hooks/useMapFeatures';
 import { fitToBounds, buildSitePopupHTML } from '@/lib/mapHelper';
-import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
+import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES, SITE_MARKER_COLOR } from '@/static/mapConstants';
 import type { CulturalSite } from '@/types/cultural';
 import type { DayFocus, LayerKey } from '@/types/map';
 import { GeoJSONData } from '@/types/map';
@@ -26,7 +26,6 @@ type Props = {
   focus?: DayFocus | null;
 };
 
-const MARKER_COLOR = '#f59e0b';
 const FOCUS_ZOOM_STEP = 0.1;
 const FOCUS_ZOOM_CEIL = 15;
 
@@ -134,7 +133,7 @@ export default function CulturalMapClient({
       const [lat, lng] = site.coordinates;
       const { wrapper, inner } = makeCircleMarkerEl(
         String(site.order),
-        MARKER_COLOR,
+        SITE_MARKER_COLOR,
         true,
       );
 

@@ -70,7 +70,7 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
         </div>
 
         <Suspense fallback={null}>
-          <CulturalSites sites={tour.sites} tourName={tour.name} />
+          <CulturalSites tour={tour} />
         </Suspense>
 
         <TreksSeason

@@ -1,5 +1,7 @@
 import { LayerKey } from '@/types/map';
 
+export const SITE_MARKER_COLOR = '#f59e0b';
+
 export const LAYER_THUMBNAILS: Record<LayerKey, string> = {
   satellite:
     'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/9/213/375',
