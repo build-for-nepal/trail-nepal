@@ -228,8 +228,39 @@ export const HIKES: Trek[] = [
   },
 ];
 
+export const CULTURAL_TOURS: Trek[] = [
+  {
+    id: 'lumbini-tour',
+    title: 'Lumbini Tour',
+    region: 'Lumbini, Rupandehi',
+    description:
+      'Explore Lumbini, the birthplace of Siddhartha Gautama Buddha, through the Sacred Garden, Maya Devi Temple, ancient archaeological remains, international monasteries, and pilgrimage sites connected to Buddhist heritage.',
+    difficulty: 'Easy',
+    duration: '3 Days',
+    altitude: '150m',
+    season: 'Year-Round',
+    imageUrl: '/images/lumbini-tour/lumbini-cover.jpg',
+    isPopular: true,
+    keywords: [
+      'lumbini tour',
+      'lumbini',
+      'buddha birthplace',
+      'maya devi temple',
+      'sacred garden',
+      'tilaurakot',
+      'kudan',
+      'buddhist pilgrimage',
+      'kapilavastu',
+      'world peace pagoda',
+      'cultural tour',
+    ],
+    type: 'cultural',
+  },
+];
+
 export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
 
-// Shared discovery set: multi-day treks + single-day hikes. Explore, search,
-// and the homepage should iterate TRAILS to surface both content types.
-export const TRAILS: Trek[] = [...TREKS, ...HIKES];
+// Shared discovery set: multi-day treks + single-day hikes + cultural tours.
+// Explore, search, and the homepage should iterate TRAILS to surface all
+// content types.
+export const TRAILS: Trek[] = [...TREKS, ...HIKES, ...CULTURAL_TOURS];
