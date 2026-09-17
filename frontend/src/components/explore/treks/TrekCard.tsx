@@ -22,6 +22,7 @@ export default function TrekCard({
   region,
   href,
   isHike,
+  isCultural,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
@@ -54,7 +55,7 @@ export default function TrekCard({
         <div className="flex flex-col gap-0.5">
           <h3
             className={`font-fraunces text-[18px] font-bold tracking-tight text-text-primary ${
-              isHike ? 'leading-snug' : 'line-clamp-1'
+              isHike || isCultural ? 'leading-snug' : 'line-clamp-1'
             }`}
           >
             {title}

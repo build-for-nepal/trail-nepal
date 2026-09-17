@@ -258,9 +258,9 @@ export const CULTURAL_TOURS: Trek[] = [
   },
 ];
 
-export const POPULAR_TREKS = TREKS.filter((trek) => trek.isPopular);
-
 // Shared discovery set: multi-day treks + single-day hikes + cultural tours.
 // Explore, search, and the homepage should iterate TRAILS to surface all
 // content types.
 export const TRAILS: Trek[] = [...TREKS, ...HIKES, ...CULTURAL_TOURS];
+
+export const POPULAR_TREKS = TRAILS.filter((trek) => trek.isPopular);
