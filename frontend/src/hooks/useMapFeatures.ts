@@ -49,7 +49,7 @@ const DAY_FOCUS_ZOOM_CEIL = 12.5;
  * MapLibre owns the wrapper's `transform` for geo-positioning.
  * We only ever touch `inner.style.transform` for hover scaling — never the wrapper.
  */
-function makeCircleMarkerEl(
+export function makeCircleMarkerEl(
   label: string,
   bg: string,
   clickable = false,

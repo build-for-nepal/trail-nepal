@@ -3,7 +3,7 @@ import type { AccessRoute, TrekTimelineDay } from '@/types/trek';
 export type LayerKey = 'satellite' | 'terrain' | 'topo';
 
 export type GeoJSONData = GeoJSON.FeatureCollection<
-  GeoJSON.LineString | GeoJSON.MultiLineString
+  GeoJSON.LineString | GeoJSON.MultiLineString | GeoJSON.Point
 >;
 
 /**

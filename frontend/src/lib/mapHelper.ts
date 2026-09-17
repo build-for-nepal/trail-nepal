@@ -1,5 +1,6 @@
 import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay } from '@/types/trek';
+import { CulturalSite } from '@/types/cultural';
 import { GeoJSONData } from '@/types/map';
 
 export function fitToBounds(
@@ -21,6 +22,8 @@ export function fitToBounds(
       if (f.geometry.type === 'LineString') extend(f.geometry.coordinates);
       else if (f.geometry.type === 'MultiLineString')
         f.geometry.coordinates.forEach(extend);
+      else if (f.geometry.type === 'Point')
+        extend([f.geometry.coordinates]);
     });
 
     extraPoints?.forEach(([lng, lat]) => {
@@ -146,6 +149,39 @@ export function buildPopupHTML(day: TrekTimelineDay): string {
             <div style="font-size:12px;font-weight:700;color:#111827;">${day.stats?.duration ?? 'N/A'}</div>
           </div>
         </div>
+      </div>
+    </div>`;
+}
+
+export function buildSitePopupHTML(site: CulturalSite): string {
+  const description = site.description
+    ? `<p style="margin:0;font-size:12px;line-height:1.5;color:#374151;">${site.description}</p>`
+    : '';
+
+  const hoursRow = site.openHours
+    ? `<div style="border-top:1px solid #f3f4f6;padding-top:7px;">
+        <div style="font-size:9px;font-weight:600;text-transform:uppercase;color:#9ca3af;margin-bottom:2px;">Opening Times</div>
+        <div style="font-size:12px;font-weight:700;color:#111827;">${site.openHours}</div>
+      </div>`
+    : '';
+
+  const entryRow = site.entryInfo
+    ? `<div style="${site.openHours ? 'padding-top:7px;' : 'border-top:1px solid #f3f4f6;padding-top:7px;'}">
+        <div style="font-size:9px;font-weight:600;text-transform:uppercase;color:#9ca3af;margin-bottom:2px;">Practical Info</div>
+        <div style="font-size:12px;font-weight:600;color:#b45309;line-height:1.4;">${site.entryInfo}</div>
+      </div>`
+    : '';
+
+  return `
+    <div style="width:240px;font-family:system-ui,sans-serif;border-radius:12px;overflow:hidden;">
+      <div style="background:var(--color-trail);padding:10px 12px;">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.75);margin-bottom:3px;">Heritage Site</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;">${site.name}</div>
+      </div>
+      <div style="padding:10px 12px;background:#fff;display:flex;flex-direction:column;gap:8px;">
+        ${description}
+        ${hoursRow}
+        ${entryRow}
       </div>
     </div>`;
 }
