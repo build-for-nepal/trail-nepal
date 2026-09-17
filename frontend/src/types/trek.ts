@@ -79,8 +79,9 @@ export interface TrekTimelineDay {
   price?: string;
   isDestination?: boolean;
   // Shared-map reuse: 'day' (trek, default) renders a "Day N" popup with an
-  // elevation cell; 'section' (hike) drops the "Day" prefix and the elevation.
-  variant?: 'day' | 'section';
+  // elevation cell; 'section' (hike) drops the "Day" prefix and the elevation;
+  // 'site' (cultural) feeds only the weather-location derivation.
+  variant?: 'day' | 'section' | 'site';
 }
 
 export interface TrekImage {

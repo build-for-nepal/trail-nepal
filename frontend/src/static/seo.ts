@@ -18,6 +18,12 @@ export const HIKE_OG_IMAGES: Record<string, string> = {
   'godawari-phulchoki': 'og-godawari-phulchoki.jpg',
 };
 
+// Cultural tours are keyed by their plain string id (like hikes) so a new tour
+// never silently falls back to the site image instead of its own OG graphic.
+export const CULTURAL_TOUR_OG_IMAGES: Record<string, string> = {
+  'lumbini-tour': 'og-lumbini-tour.jpg',
+};
+
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
 
 export const DEFAULT_SEO_DATA = {

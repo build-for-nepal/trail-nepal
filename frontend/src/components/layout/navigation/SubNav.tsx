@@ -26,6 +26,16 @@ export const HIKE_NAV_ITEMS: SubNavItem[] = [
   { label: 'Gallery', id: 'gallery' },
 ];
 
+// Cultural tour anchor set: highlight "Sites" (with the map) instead of a
+// route/timeline, and no altitude or gear sections.
+export const CULTURAL_NAV_ITEMS: SubNavItem[] = [
+  { label: 'Overview', id: 'overview' },
+  { label: 'Sites', id: 'sites' },
+  { label: 'Calendar', id: 'calendar' },
+  { label: 'What to Expect', id: 'whattoexpect' },
+  { label: 'Gallery', id: 'gallery' },
+];
+
 const SubNav = ({ items = TREK_NAV_ITEMS }: { items?: SubNavItem[] }) => {
   const handleScroll = (id: string) => {
     const element = document.getElementById(id);
