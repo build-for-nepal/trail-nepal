@@ -12,6 +12,7 @@ export type CulturalMapProps = {
   sites: CulturalSite[];
   onSiteClick?: (index: number) => void;
   focus?: DayFocus | null;
+  siteColors?: string[];
 };
 
 const FALLBACK_CENTER: [number, number] = [27.71, 85.32];
@@ -27,7 +28,12 @@ function meanCenter(sites: CulturalSite[]): [number, number] {
   return [lat, lng];
 }
 
-export default function CulturalMap({ sites, onSiteClick, focus }: CulturalMapProps) {
+export default function CulturalMap({
+  sites,
+  onSiteClick,
+  focus,
+  siteColors,
+}: CulturalMapProps) {
   const center = meanCenter(sites);
 
   if (sites.length === 0) {
@@ -45,6 +51,7 @@ export default function CulturalMap({ sites, onSiteClick, focus }: CulturalMapPr
         center={center}
         onSiteClick={onSiteClick}
         focus={focus}
+        siteColors={siteColors}
       />
     </div>
   );

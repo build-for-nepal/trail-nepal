@@ -8,6 +8,7 @@ export interface CulturalSite {
   openHours?: string;
   entryInfo?: string;
   isHighlight?: boolean;
+  dayId?: string; // itinerary day that covers this site
 }
 
 export interface CulturalTourDay {
@@ -16,6 +17,7 @@ export interface CulturalTourDay {
   title: string;
   description: string;
   transport: string;
+  color: string; // marker/pin color shared with the map
   highlights: string[];
   coordinates?: [number, number]; // [lat, lng] stored
 }

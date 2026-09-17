@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { MapPin } from 'lucide-react';
 
 import SectionHeader from '../common/SectionHeader';
 import CulturalMap from './map/CulturalMap';
@@ -34,6 +35,11 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
   const { sites, itinerary, name } = tour;
 
   const siteByName = new Map(sites.map((site) => [site.name, site]));
+  const dayById = new Map(itinerary.map((day) => [day.id, day]));
+  const siteColors = sites.map((site) => {
+    const day = site.dayId ? dayById.get(site.dayId) : undefined;
+    return day?.color ?? SITE_MARKER_COLOR;
+  });
 
   const [focus, setFocus] = useState<DayFocus | null>(null);
   const [activePlace, setActivePlace] = useState<number | null>(null);
@@ -90,12 +96,12 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                 <div key={day.id} className="cultural-site-item">
                   <article className="rounded-2xl border border-[#E2E8F0] bg-white">
                     <header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-5 pt-4">
-                      <span
-                        className="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-bold text-white"
-                        style={{ backgroundColor: SITE_MARKER_COLOR }}
-                      >
-                        {day.day}
-                      </span>
+<span
+  className="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-bold text-white"
+  style={{ backgroundColor: day.color }}
+>
+  {day.day}
+</span>
                       <h4 className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-black/80">
                         {day.title}
                       </h4>
@@ -108,48 +114,41 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                       {day.description}
                     </p>
 
-                    <ul className="flex flex-wrap gap-2 px-5 py-4">
-                      {day.highlights.map((highlight) => {
-                        const site = siteByName.get(highlight);
-                        const siteIndex = site ? sites.indexOf(site) : -1;
-                        const isActive =
-                          siteIndex >= 0 && activePlace === siteIndex;
-                        return (
-                          <li key={highlight}>
-                            <button
-                              onClick={() => {
-                                if (site) focusSite(siteIndex);
-                              }}
-                              disabled={!site}
-                              className={cn(
-                                'flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium text-black/80 transition-colors',
-                                site
-                                  ? 'cursor-pointer hover:border-[#f59e0b]/60'
-                                  : 'cursor-default',
-                                isActive
-                                  ? 'border-[#f59e0b] bg-[#f59e0b]/10'
-                                  : 'border-[#E2E8F0] bg-transparent',
-                              )}
-                            >
-                              {site ? (
-                                <span
-                                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white"
-                                  style={{ backgroundColor: SITE_MARKER_COLOR }}
-                                >
-                                  {site.order}
-                                </span>
-                              ) : (
-                                <span
-                                  className="h-2 w-2 shrink-0 rounded-full"
-                                  style={{ backgroundColor: SITE_MARKER_COLOR }}
-                                />
-                              )}
-                              {highlight}
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
+<ul className="flex flex-wrap gap-2 px-5 py-4">
+  {day.highlights.map((highlight) => {
+    const site = siteByName.get(highlight);
+    const siteIndex = site ? sites.indexOf(site) : -1;
+    const isActive = siteIndex >= 0 && activePlace === siteIndex;
+    return (
+      <li key={highlight}>
+        <button
+          onClick={() => {
+            if (site) focusSite(siteIndex);
+          }}
+          disabled={!site}
+          className={cn(
+            'flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-black/80 transition-colors',
+            site
+              ? 'cursor-pointer hover:border-(--day) hover:bg-gray-50'
+              : 'cursor-default',
+            isActive
+              ? 'border-(--day) bg-(--day)/10'
+              : 'border-[#E2E8F0] bg-transparent',
+          )}
+          style={{ '--day': day.color } as React.CSSProperties}
+        >
+          <MapPin
+            size={13}
+            strokeWidth={2.2}
+            className="shrink-0"
+            style={{ color: day.color }}
+          />
+          {highlight}
+        </button>
+      </li>
+    );
+  })}
+</ul>
                   </article>
                 </div>
               ))}
@@ -158,7 +157,12 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
 
           {/* Map */}
           <div className="h-[420px] w-full bg-gray-100 lg:h-[640px]">
-            <CulturalMap sites={sites} onSiteClick={focusSite} focus={focus} />
+            <CulturalMap
+  sites={sites}
+  onSiteClick={focusSite}
+  focus={focus}
+  siteColors={siteColors}
+/>
           </div>
         </div>
       </div>

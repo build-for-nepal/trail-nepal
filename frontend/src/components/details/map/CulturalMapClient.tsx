@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import maplibregl from 'maplibre-gl';
 
-import { makeCircleMarkerEl, useMapInit } from '@/hooks/useMapFeatures';
+import { useMapInit } from '@/hooks/useMapFeatures';
 import { fitToBounds, buildSitePopupHTML } from '@/lib/mapHelper';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES, SITE_MARKER_COLOR } from '@/static/mapConstants';
 import type { CulturalSite } from '@/types/cultural';
@@ -24,10 +24,47 @@ type Props = {
   center: [number, number];
   onSiteClick?: (index: number) => void;
   focus?: DayFocus | null;
+  siteColors?: string[];
 };
 
 const FOCUS_ZOOM_STEP = 0.1;
 const FOCUS_ZOOM_CEIL = 15;
+
+function makePinMarkerEl(color: string): {
+  wrapper: HTMLElement;
+  inner: SVGSVGElement;
+} {
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'width:28px;height:38px;';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '28');
+  svg.setAttribute('height', '38');
+  svg.setAttribute('viewBox', '0 0 28 38');
+  svg.style.cssText =
+    'display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.35));' +
+    'transform-origin:bottom center;transition:transform 0.18s ease;cursor:pointer;';
+
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute(
+    'd',
+    'M14 2 C8.2 2 3.5 6.8 3.5 12.6 C3.5 19.8 14 36 14 36 C14 36 24.5 19.8 24.5 12.6 C24.5 6.8 19.8 2 14 2 Z',
+  );
+  path.setAttribute('fill', color);
+  path.setAttribute('stroke', '#ffffff');
+  path.setAttribute('stroke-width', '1.6');
+  svg.appendChild(path);
+
+  const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  dot.setAttribute('cx', '14');
+  dot.setAttribute('cy', '12.8');
+  dot.setAttribute('r', '4.2');
+  dot.setAttribute('fill', '#ffffff');
+  svg.appendChild(dot);
+
+  wrapper.appendChild(svg);
+  return { wrapper, inner: svg };
+}
 
 function ControlBtn({
   onClick,
@@ -60,6 +97,7 @@ export default function CulturalMapClient({
   center,
   onSiteClick,
   focus,
+  siteColors,
 }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
@@ -67,7 +105,7 @@ export default function CulturalMapClient({
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
   const focusTargetsRef = useRef<
-    Map<number, { lng: number; lat: number; inner: HTMLElement }>
+    Map<number, { lng: number; lat: number; inner: { style: CSSStyleDeclaration } }>
   >(new Map());
 
   // Minimal Point feature collection driving the initial fit-to-bounds.
@@ -119,7 +157,7 @@ export default function CulturalMapClient({
       }
     };
 
-    const scheduleHide = (innerEl: HTMLElement) => {
+    const scheduleHide = (innerEl: { style: CSSStyleDeclaration }) => {
       hideTimer = setTimeout(() => {
         innerEl.style.transform = 'scale(1)';
         popupRef.current?.remove();
@@ -131,11 +169,8 @@ export default function CulturalMapClient({
       if (!site.coordinates) return;
 
       const [lat, lng] = site.coordinates;
-      const { wrapper, inner } = makeCircleMarkerEl(
-        String(site.order),
-        SITE_MARKER_COLOR,
-        true,
-      );
+      const color = siteColors?.[index] ?? SITE_MARKER_COLOR;
+      const { wrapper, inner } = makePinMarkerEl(color);
 
       focusTargetsRef.current.set(index, {
         lng,
@@ -161,7 +196,10 @@ export default function CulturalMapClient({
       wrapper.addEventListener('mouseleave', () => scheduleHide(inner));
       wrapper.addEventListener('click', () => onSiteClick?.(index));
 
-      const marker = new maplibregl.Marker({ element: wrapper })
+      const marker = new maplibregl.Marker({
+        element: wrapper,
+        anchor: 'bottom',
+      })
         .setLngLat([lng, lat])
         .addTo(map);
 
@@ -173,7 +211,7 @@ export default function CulturalMapClient({
       markersRef.current.forEach((mk) => mk.remove());
       markersRef.current = [];
     };
-  }, [mapLoaded, map, sites, onSiteClick]);
+  }, [mapLoaded, map, sites, onSiteClick, siteColors]);
 
   // Initial framing over the site points.
   useEffect(() => {

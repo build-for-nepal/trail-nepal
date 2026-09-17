@@ -33,6 +33,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
           'The centre of the pilgrimage site, where the Maya Devi Temple, Ashoka Pillar, Puskarini Pond and surrounding archaeological remains connect the site with its ancient history.',
         openHours: '06:00–18:00',
         isHighlight: true,
+        dayId: 'day-01',
       },
       {
         order: 2,
@@ -42,6 +43,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
           'The temple at the heart of the Sacred Garden that marks the traditional birthplace of Siddhartha Gautama.',
         openHours: '06:00–18:00',
         isHighlight: true,
+        dayId: 'day-01',
       },
       {
         order: 3,
@@ -49,6 +51,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.4691, 83.2759],
         description:
           'An inscribed pillar within the Sacred Garden, part of the archaeological remains that connect the site with its ancient history.',
+        dayId: 'day-01',
       },
       {
         order: 4,
@@ -56,6 +59,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.471, 83.277],
         description:
           'The pond within the Sacred Garden, part of the traditional landscape around the Buddha\u2019s birthplace.',
+        dayId: 'day-01',
       },
       {
         order: 5,
@@ -63,6 +67,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.477, 83.281],
         description:
           'Monasteries and temples built by Buddhist communities from across Asia, with distinct architectural styles, religious spaces, sculptures and landscaped gardens across the eastern and western zones.',
+        dayId: 'day-02',
       },
       {
         order: 6,
@@ -70,6 +75,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.4796, 83.2765],
         description:
           'A landmark within the wider Lumbini landscape.',
+        dayId: 'day-02',
       },
       {
         order: 7,
@@ -78,6 +84,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         description:
           'An archaeological site identified with the ancient city of Kapilavastu, associated with the Shakya kingdom and the period of Siddhartha Gautama\u2019s life before his departure from the royal household. Excavated remains reveal the foundations and layout of the ancient settlement.',
         isHighlight: true,
+        dayId: 'day-03',
       },
       {
         order: 8,
@@ -85,6 +92,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.464, 83.312],
         description:
           'An archaeological site associated with the Buddha\u2019s life and his return to the region after enlightenment.',
+        dayId: 'day-03',
       },
     ],
     itinerary: [
@@ -92,6 +100,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         day: 'Day 01',
         id: 'day-01',
         title: 'Kathmandu → Lumbini',
+        color: '#F59E0B',
         description:
           'The journey begins in Kathmandu and heads west toward Lumbini, leaving the hills of the Kathmandu Valley behind as the landscape gradually opens into the plains of southern Nepal. After arriving, the first exploration focuses on the Sacred Garden, the centre of the pilgrimage site, where the Maya Devi Temple marks the traditional birthplace and nearby remains connect the sacred landscape with Lumbini\u2019s ancient history.',
         transport: 'Road transport + walking',
@@ -108,6 +117,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         day: 'Day 02',
         id: 'day-02',
         title: 'Lumbini',
+        color: '#376BB6',
         description:
           'The second day explores the wider monastic area of Lumbini, where monasteries and temples built by Buddhist communities from across Asia reflect the international character of the pilgrimage site. The eastern and western monastic zones feature distinct architectural styles, religious spaces, sculptures and landscaped gardens, with the World Peace Pagoda adding another landmark within the wider landscape.',
         transport: 'Walking',
@@ -123,6 +133,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         day: 'Day 03',
         id: 'day-03',
         title: 'Lumbini → Tilaurakot → Kathmandu',
+        color: '#8DC63F',
         description:
           'The final day follows the wider archaeological landscape associated with Siddhartha Gautama\u2019s early life. Tilaurakot, identified with the ancient city of Kapilavastu, is associated with the Shakya kingdom and the period before his departure from the royal household. The journey continues to Kudan before heading back toward Kathmandu.',
         transport: 'Road transport + walking',
