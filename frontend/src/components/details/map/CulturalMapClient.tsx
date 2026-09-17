@@ -14,7 +14,7 @@ import maplibregl from 'maplibre-gl';
 
 import { useMapInit } from '@/hooks/useMapFeatures';
 import { fitToBounds, buildSitePopupHTML } from '@/lib/mapHelper';
-import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES, SITE_MARKER_COLOR } from '@/static/mapConstants';
+import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES, SITE_MARKER_COLOR, SITE_PIN_PATH } from '@/static/mapConstants';
 import type { CulturalSite } from '@/types/cultural';
 import type { DayFocus, LayerKey } from '@/types/map';
 import { GeoJSONData } from '@/types/map';
@@ -46,10 +46,7 @@ function makePinMarkerEl(color: string): {
     'transform-origin:bottom center;transition:transform 0.18s ease;cursor:pointer;';
 
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute(
-    'd',
-    'M14 2 C8.2 2 3.5 6.8 3.5 12.6 C3.5 19.8 14 36 14 36 C14 36 24.5 19.8 24.5 12.6 C24.5 6.8 19.8 2 14 2 Z',
-  );
+  path.setAttribute('d', SITE_PIN_PATH);
   path.setAttribute('fill', color);
   path.setAttribute('stroke', '#ffffff');
   path.setAttribute('stroke-width', '1.6');

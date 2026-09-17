@@ -7,6 +7,7 @@ import { MapPin } from 'lucide-react';
 
 import SectionHeader from '../common/SectionHeader';
 import CulturalMap from './map/CulturalMap';
+import CulturalPin from './CulturalPin';
 import { cn } from '@/lib/utils';
 import { SITE_MARKER_COLOR } from '@/static/mapConstants';
 import type { CulturalTourDetail } from '@/types/cultural';
@@ -95,20 +96,15 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
               {itinerary.map((day) => (
                 <div key={day.id} className="cultural-site-item">
                   <article className="rounded-2xl border border-[#E2E8F0] bg-white">
-                    <header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-5 pt-4">
-<span
-  className="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-bold text-white"
-  style={{ backgroundColor: day.color }}
->
-  {day.day}
-</span>
-                      <h4 className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-black/80">
-                        {day.title}
-                      </h4>
-                      <span className="whitespace-nowrap text-[10px] font-medium text-gray-500">
-                        {day.transport}
-                      </span>
-                    </header>
+<header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-5 pt-4">
+  <CulturalPin color={day.color} size={26} />
+  <h4 className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-black/80">
+    {day.title}
+  </h4>
+  <span className="whitespace-nowrap text-[10px] font-medium text-gray-500">
+    {day.transport}
+  </span>
+</header>
 
                     <p className="px-5 pt-2 text-[13px] leading-relaxed text-gray-600">
                       {day.description}

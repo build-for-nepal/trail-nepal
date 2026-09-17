@@ -2,6 +2,9 @@ import { LayerKey } from '@/types/map';
 
 export const SITE_MARKER_COLOR = '#f59e0b';
 
+export const SITE_PIN_PATH =
+  'M14 2 C8.2 2 3.5 6.8 3.5 12.6 C3.5 19.8 14 36 14 36 C14 36 24.5 19.8 24.5 12.6 C24.5 6.8 19.8 2 14 2 Z';
+
 export const LAYER_THUMBNAILS: Record<LayerKey, string> = {
   satellite:
     'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/9/213/375',

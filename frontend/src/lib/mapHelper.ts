@@ -155,7 +155,10 @@ export function buildPopupHTML(day: TrekTimelineDay): string {
 
 export function buildSitePopupHTML(site: CulturalSite): string {
   return `
-    <div style="width:max-content;max-width:260px;font-family:system-ui,sans-serif;background:#fff;">
-      <div style="font-size:13px;font-weight:600;color:#111827;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${site.name}</div>
+    <div style="width:240px;font-family:system-ui,sans-serif;border-radius:12px;overflow:hidden;">
+      <div style="background:var(--color-trail);padding:10px 12px;">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.75);margin-bottom:3px;">Heritage Site</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;">${site.name}</div>
+      </div>
     </div>`;
 }
