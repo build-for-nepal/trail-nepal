@@ -28,7 +28,7 @@ export type TrekRouteCollection = FeatureCollection<
 // The listing card is shared across content types. `type` discriminates a
 // multi-day trek from a single-day hike; treat an absent `type` as 'trek' so
 // existing trek data needs no migration.
-export type TrailType = 'trek' | 'hike';
+export type TrailType = 'trek' | 'hike' | 'cultural';
 
 export interface Trek {
   id: string;
@@ -49,6 +49,7 @@ export interface Trek {
 export interface ExploreTrekCardProps extends Trek {
   href: string;
   isHike?: boolean;
+  isCultural?: boolean;
 }
 
 //TREK DETAIL PAGE TYPES
@@ -78,8 +79,9 @@ export interface TrekTimelineDay {
   price?: string;
   isDestination?: boolean;
   // Shared-map reuse: 'day' (trek, default) renders a "Day N" popup with an
-  // elevation cell; 'section' (hike) drops the "Day" prefix and the elevation.
-  variant?: 'day' | 'section';
+  // elevation cell; 'section' (hike) drops the "Day" prefix and the elevation;
+  // 'site' (cultural) feeds only the weather-location derivation.
+  variant?: 'day' | 'section' | 'site';
 }
 
 export interface TrekImage {

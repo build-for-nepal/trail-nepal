@@ -3,7 +3,7 @@ import type { AccessRoute, TrekTimelineDay } from '@/types/trek';
 export type LayerKey = 'satellite' | 'terrain' | 'topo';
 
 export type GeoJSONData = GeoJSON.FeatureCollection<
-  GeoJSON.LineString | GeoJSON.MultiLineString
+  GeoJSON.LineString | GeoJSON.MultiLineString | GeoJSON.Point
 >;
 
 /**
@@ -13,6 +13,18 @@ export type GeoJSONData = GeoJSON.FeatureCollection<
  */
 export interface DayFocus {
   index: number;
+  nonce: number;
+}
+
+/**
+ * A request to frame the map around every site belonging to one itinerary day.
+ * Cultural tours focus a whole day rather than a single waypoint, so the map
+ * fits bounds over `indices` (positions into the `sites` array) instead of
+ * easing to one point. `nonce` bumps per request for the same reason as
+ * {@link DayFocus}. An empty `indices` array is a no-op.
+ */
+export interface SiteGroupFocus {
+  indices: number[];
   nonce: number;
 }
 

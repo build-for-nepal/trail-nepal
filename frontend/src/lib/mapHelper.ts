@@ -1,11 +1,13 @@
 import maplibregl from 'maplibre-gl';
 import { TrekTimelineDay } from '@/types/trek';
+import { CulturalSite } from '@/types/cultural';
 import { GeoJSONData } from '@/types/map';
 
 export function fitToBounds(
   m: maplibregl.Map,
   data: GeoJSONData,
   extraPoints?: [number, number][], // [lng, lat]
+  opts?: Partial<maplibregl.FitBoundsOptions>,
 ) {
   try {
     const bounds = new maplibregl.LngLatBounds();
@@ -21,6 +23,7 @@ export function fitToBounds(
       if (f.geometry.type === 'LineString') extend(f.geometry.coordinates);
       else if (f.geometry.type === 'MultiLineString')
         f.geometry.coordinates.forEach(extend);
+      else if (f.geometry.type === 'Point') extend([f.geometry.coordinates]);
     });
 
     extraPoints?.forEach(([lng, lat]) => {
@@ -32,6 +35,7 @@ export function fitToBounds(
       m.fitBounds(bounds, {
         padding: 120,
         duration: 2000,
+        ...opts,
       });
   } catch (e) {
     console.error('Error fitting bounds', e);
@@ -148,4 +152,27 @@ export function buildPopupHTML(day: TrekTimelineDay): string {
         </div>
       </div>
     </div>`;
+}
+
+const escapeHTML = (value: string) =>
+  value.replace(
+    /[&<>"']/g,
+    (ch) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[ch] ?? ch,
+  );
+
+/**
+ * Compact dark name-only tooltip for cultural site pins. Deliberately carries
+ * no eyebrow, stats or body copy — the itinerary panel owns the detail, the
+ * hover state only needs to name the pin under the cursor. Chrome (background,
+ * radius, tip colour) lives in `POPUP_STYLES` under `.trail-popup--site`.
+ */
+export function buildSitePopupHTML(site: CulturalSite): string {
+  return `<div style="padding:6px 11px;color:#fff;white-space:nowrap;font:600 12px/1.25 system-ui,sans-serif;letter-spacing:0.01em;">${escapeHTML(site.name)}</div>`;
 }

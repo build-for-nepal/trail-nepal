@@ -1131,7 +1131,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       {
         title: 'Intense Vertical Gains',
         description:
-          "Be prepared for the famous 'Nepali flat'—thousands of steep stone staircases that test your leg endurance on the way up to the sanctuary.",
+          "Be prepared for the famous 'Nepali flat': thousands of steep stone staircases that test your leg endurance on the way up to the sanctuary.",
       },
     ],
     seasonalPlanning: [
@@ -1343,7 +1343,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
           elevation: '4,470m',
           duration: '3-4 hours',
           distance: '7km',
-          note: 'Short day by design — critical acclimatization gain',
+          note: 'Short day by design, critical acclimatization gain',
         },
         coordinates: [27.90763, 86.7215],
         price: 'NPR 3,700 (Accommodation: 1,200, Meals: 2,500)',
@@ -1909,7 +1909,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       {
         title: 'Iconic Machapuchare Views',
         description:
-          "Witness Machapuchare's perfect pyramid filling the sky at close range alongside the full Annapurna massif — a perspective most Annapurna trekkers never see.",
+          "Witness Machapuchare's perfect pyramid filling the sky at close range alongside the full Annapurna massif, a perspective most Annapurna trekkers never see.",
       },
       {
         title: 'Gurung Village Culture',
@@ -1919,7 +1919,7 @@ export const TREK_DETAILS: Record<string, TrekDetail> = {
       {
         title: 'The Ridge Experience',
         description:
-          'Walk an exposed alpine spine with the Modi Khola valley dropping away to the south and the Annapurna Sanctuary walls rising to the north — one of the finest ridge walks in Nepal.',
+          'Walk an exposed alpine spine with the Modi Khola valley dropping away to the south and the Annapurna Sanctuary walls rising to the north, one of the finest ridge walks in Nepal.',
       },
       {
         title: 'Uncrowded Solitude',
