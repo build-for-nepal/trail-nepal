@@ -16,7 +16,7 @@
 
 .mascot {
   transform-origin: 50% 100%;
-  animation: mascot-exercise 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: mascot-sway 3.2s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .mascotJourney {
-  --mascot-destination-left: calc(100% - 9.5rem);
+  --mascot-destination-left: calc(100% - 11.5rem);
   animation: mascot-walk-route 2.7s linear forwards;
   will-change: left;
 }
@@ -54,7 +54,7 @@
 .mascotWalker {
   position: relative;
   transform-origin: 50% 100%;
-  animation: mascot-step 385ms ease-in-out 7;
+  animation: mascot-hop 385ms ease-in-out 7;
 }
 
 .routeEraser {
@@ -91,13 +91,13 @@
   }
 }
 
-@keyframes mascot-step {
+@keyframes mascot-hop {
   0%,
   100% {
-    transform: translateY(0) rotate(-1.2deg) scaleY(1);
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-2px) rotate(1.2deg) scaleY(0.985);
+    transform: translateY(-5px) scaleX(1.01) scaleY(0.98);
   }
 }
 
@@ -159,19 +159,19 @@
   }
 }
 
-@keyframes mascot-exercise {
+@keyframes mascot-sway {
   0%,
   100% {
-    transform: rotate(0deg) scale(1);
+    transform: translateY(0) rotate(0deg);
   }
   25% {
-    transform: rotate(-2.5deg) scale(1);
+    transform: translateY(-2px) rotate(-1.5deg);
   }
   50% {
-    transform: rotate(0deg) scaleX(1.025) scaleY(0.96);
+    transform: translateY(-3px) rotate(0deg);
   }
   75% {
-    transform: rotate(2.5deg) scale(1);
+    transform: translateY(-2px) rotate(1.5deg);
   }
 }
 
@@ -247,13 +247,13 @@
 
 @media (min-width: 640px) {
   .mascotJourney {
-    --mascot-destination-left: calc(100% - 13rem);
+    --mascot-destination-left: calc(100% - 15.5rem);
   }
 }
 
 @media (min-width: 1024px) {
   .mascotJourney {
-    --mascot-destination-left: calc(100% - 15.5rem);
+    --mascot-destination-left: calc(100% - 19.25rem);
   }
 }
 

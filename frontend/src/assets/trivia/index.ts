@@ -5,6 +5,7 @@ import Cloud2 from './cloud2.svg';
 import Compass from './compass.svg';
 import Destination from './destination.svg';
 import GrassBg from './grassbg.svg';
+import HimalMascot from './himal_mascot.svg';
 import Mascot from './mascot.svg';
 import MountainTree from './mountaintree.svg';
 
@@ -16,6 +17,7 @@ export {
   Compass,
   Destination,
   GrassBg,
+  HimalMascot,
   Mascot,
   MountainTree,
 };

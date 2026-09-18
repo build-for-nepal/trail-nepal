@@ -12,7 +12,7 @@ import {
   Cloud2,
   Destination,
   GrassBg,
-  Mascot,
+  HimalMascot,
 } from '@/assets/trivia';
 import styles from './TrekTrivia.module.css';
 
@@ -464,21 +464,21 @@ export default function TrekTrivia({
 
         {screen === 'result' ? (
           <div
-            className={`${styles.mascotJourney} absolute bottom-10 left-5 z-10 w-18 sm:bottom-12 sm:w-24 lg:bottom-8 lg:w-28`}
+            className={`${styles.mascotJourney} absolute bottom-10 left-5 z-20 w-24 sm:bottom-12 sm:w-32 lg:bottom-8 lg:w-36`}
           >
             <div className={styles.mascotWalker}>
-              <Mascot
+              <HimalMascot
                 role="img"
-                aria-label="Trail Nepal hiker mascot at the destination"
+                aria-label="Trail Nepal Himal mascot at the destination"
                 className="h-auto w-full"
               />
             </div>
           </div>
         ) : (
-          <Mascot
+          <HimalMascot
             role="img"
-            aria-label="Trail Nepal hiker mascot"
-            className={`${styles.mascot} absolute bottom-10 left-5 z-10 w-18 sm:bottom-12 sm:left-12 sm:w-24 lg:bottom-8 lg:left-24 lg:w-28`}
+            aria-label="Trail Nepal Himal mascot"
+            className={`${styles.mascot} absolute bottom-10 left-5 z-20 h-auto w-24 sm:bottom-12 sm:left-12 sm:w-32 lg:bottom-8 lg:left-24 lg:w-36`}
           />
         )}
         {screen !== 'intro' && (
