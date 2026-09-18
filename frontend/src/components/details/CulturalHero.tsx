@@ -11,9 +11,13 @@ const CulturalHero = ({ tour }: { tour: CulturalTourDetail }) => {
 
   const { tripFacts } = meta;
 
+  // Location facts are authored per tour — a single-destination tour supplies
+  // `destination`/`keyAreas`, a city-hopping tour supplies `cities`. The filter
+  // drops whichever a tour omits, so the order here covers both shapes.
   const facts = [
     { label: 'Start', value: tripFacts.start },
     { label: 'Destination', value: tripFacts.destination },
+    { label: 'Cities', value: tripFacts.cities },
     { label: 'Key Areas', value: tripFacts.keyAreas },
     { label: 'Tour Type', value: tripFacts.tourType },
     { label: 'Transport', value: tripFacts.transport },

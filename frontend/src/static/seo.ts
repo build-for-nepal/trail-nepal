@@ -22,6 +22,8 @@ export const HIKE_OG_IMAGES: Record<string, string> = {
 // never silently falls back to the site image instead of its own OG graphic.
 export const CULTURAL_TOUR_OG_IMAGES: Record<string, string> = {
   'lumbini-tour': 'og-lumbini-tour.jpg',
+  'kathmandu-valley-heritage-tour': 'og-kathmandu-valley-heritage-tour.jpg',
+  'bandipur-hill-town': 'og-bandipur-hill-town.jpg',
 };
 
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';

@@ -14,21 +14,50 @@ import maplibregl from 'maplibre-gl';
 
 import { useMapInit } from '@/hooks/useMapFeatures';
 import { fitToBounds, buildSitePopupHTML } from '@/lib/mapHelper';
-import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES, SITE_MARKER_COLOR, SITE_PIN_PATH } from '@/static/mapConstants';
+import {
+  LAYER_THUMBNAILS,
+  LAYERS,
+  POPUP_STYLES,
+  SITE_MARKER_COLOR,
+  SITE_PIN_PATH,
+} from '@/static/mapConstants';
 import type { CulturalSite } from '@/types/cultural';
-import type { DayFocus, LayerKey } from '@/types/map';
+import type { LayerKey, SiteGroupFocus } from '@/types/map';
 import { GeoJSONData } from '@/types/map';
 
 type Props = {
   sites: CulturalSite[];
   center: [number, number];
   onSiteClick?: (index: number) => void;
-  focus?: DayFocus | null;
+  focus?: SiteGroupFocus | null;
   siteColors?: string[];
 };
 
-const FOCUS_ZOOM_STEP = 0.1;
-const FOCUS_ZOOM_CEIL = 15;
+/** Cultural tours need a deeper ceiling than the trek/hike default of 16: a
+ *  heritage day can be three monuments ~40m apart, which stay a single blob at
+ *  zoom 16 (≈2.1 m/px). */
+const CULTURAL_MAX_ZOOM = 19;
+
+/** Framing applied when the itinerary panel focuses one day's sites. Tighter
+ *  padding and a shorter flight than the initial whole-tour fit. `maxZoom` is
+ *  the balance point: deep enough to pull apart pins tens of metres apart,
+ *  shallow enough that the basemap is not heavily upscaled (the imagery has no
+ *  native tiles past z17, and enabled terrain magnifies the view further). */
+const DAY_FOCUS_OPTS = {
+  padding: 90,
+  duration: 900,
+  maxZoom: 17.5,
+  essential: true,
+} as const;
+
+/** fitToBounds derives its box from features + extraPoints; day focus only
+ *  supplies points, so it passes this placeholder collection. */
+const EMPTY_FC = {
+  type: 'FeatureCollection',
+  features: [],
+} as unknown as GeoJSONData;
+
+type FocusTarget = { lng: number; lat: number; inner: SVGSVGElement };
 
 function makePinMarkerEl(color: string): {
   wrapper: HTMLElement;
@@ -97,13 +126,14 @@ export default function CulturalMapClient({
   siteColors,
 }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const { containerRef, map, mapLoaded } = useMapInit(center);
+  const { containerRef, map, mapLoaded } = useMapInit(
+    center,
+    CULTURAL_MAX_ZOOM,
+  );
 
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const popupRef = useRef<maplibregl.Popup | null>(null);
-  const focusTargetsRef = useRef<
-    Map<number, { lng: number; lat: number; inner: { style: CSSStyleDeclaration } }>
-  >(new Map());
+  const focusTargetsRef = useRef<Map<number, FocusTarget>>(new Map());
 
   // Minimal Point feature collection driving the initial fit-to-bounds.
   const pointFC = useMemo(() => {
@@ -135,7 +165,7 @@ export default function CulturalMapClient({
       popupRef.current = new maplibregl.Popup({
         closeButton: false,
         closeOnClick: false,
-        className: 'trail-popup',
+        className: 'trail-popup trail-popup--site',
         offset: 18,
         maxWidth: 'none',
       });
@@ -154,7 +184,7 @@ export default function CulturalMapClient({
       }
     };
 
-    const scheduleHide = (innerEl: { style: CSSStyleDeclaration }) => {
+    const scheduleHide = (innerEl: SVGSVGElement) => {
       hideTimer = setTimeout(() => {
         innerEl.style.transform = 'scale(1)';
         popupRef.current?.remove();
@@ -207,41 +237,47 @@ export default function CulturalMapClient({
       clearHideTimer();
       markersRef.current.forEach((mk) => mk.remove());
       markersRef.current = [];
+      // Focus targets are keyed by site index, so a tour with fewer sites would
+      // otherwise inherit the previous tour's trailing entries and focus a day
+      // onto pins that no longer exist.
+      focusTargetsRef.current.clear();
     };
   }, [mapLoaded, map, sites, onSiteClick, siteColors]);
 
-  // Initial framing over the site points.
+  // Initial framing over the site points. Capped so a tour whose sites all sit
+  // in one courtyard still opens as an overview rather than at street level.
   useEffect(() => {
     if (!mapLoaded || !map) return;
-    fitToBounds(map, pointFC);
+    fitToBounds(map, pointFC, undefined, { maxZoom: 16 });
   }, [mapLoaded, map, pointFC]);
 
-  // React to focus requests from the site list.
+  // Frame every site belonging to the day the itinerary panel just opened.
+  // Markers are registered by the effect above, which runs first, so
+  // `focusTargetsRef` is already populated for the current `sites`.
   useEffect(() => {
-    if (!map || !mapLoaded || !focus) return;
+    if (!map || !mapLoaded || !focus || focus.indices.length === 0) return;
 
-    const target = focusTargetsRef.current.get(focus.index);
-    if (!target) return;
+    const targets = focus.indices
+      .map((index) => focusTargetsRef.current.get(index))
+      .filter((target): target is FocusTarget => Boolean(target));
 
-    const { lng, lat, inner } = target;
+    if (targets.length === 0) return;
 
-    const current = map.getZoom();
-    const zoom = Math.max(
-      current,
-      Math.min(current + FOCUS_ZOOM_STEP, FOCUS_ZOOM_CEIL),
+    fitToBounds(
+      map,
+      EMPTY_FC,
+      targets.map(({ lng, lat }) => [lng, lat] as [number, number]),
+      DAY_FOCUS_OPTS,
     );
 
-    map.easeTo({
-      center: [lng, lat],
-      zoom,
-      duration: 800,
-      essential: true,
+    targets.forEach(({ inner }) => {
+      inner.style.transform = 'scale(1.35)';
     });
-
-    inner.style.transform = 'scale(1.45)';
     const resetTimer = setTimeout(() => {
-      inner.style.transform = 'scale(1)';
-    }, 1000);
+      targets.forEach(({ inner }) => {
+        inner.style.transform = 'scale(1)';
+      });
+    }, 1200);
 
     return () => clearTimeout(resetTimer);
   }, [map, mapLoaded, focus]);
@@ -332,6 +368,7 @@ export default function CulturalMapClient({
         <div className="relative">
           <ControlBtn
             onClick={() => setShowLayerPicker((p) => !p)}
+            disabled={!mapLoaded}
             active={showLayerPicker}
             title="Change map style"
           >

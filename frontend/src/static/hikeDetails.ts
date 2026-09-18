@@ -414,8 +414,7 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
   'godawari-phulchoki': {
     id: 'godawari-phulchoki',
     name: 'Godawari to Phulchoki Hike',
-    summary:
-      'A forest climb from Godawari to the Phulchoki summit temple.',
+    summary: 'A forest climb from Godawari to the Phulchoki summit temple.',
     region: 'Lalitpur',
     meta: {
       duration: '1 Day',
@@ -567,11 +566,23 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
         condition: 'Cold Mornings / Clear Skies / Crisp Summit Air',
       },
     ],
+    // img_01 and img_07 are Unsplash stock (Unsplash License: free commercial
+    // use, no attribution required). They are representative Nepali hill and
+    // forest scenes rather than verified photographs of Phulchoki, so their alt
+    // text describes only what is in frame and does not name the location.
+    //
+    // img_07 exists so What to Expect gets its own image: HikeDetailsContent
+    // resolves that slot as `gallery.find(type === 'portrait') ?? gallery[0]`,
+    // so without a portrait entry it fell back to the hero and the page showed
+    // the same photo twice. Despite the name, `'portrait'` is only that slot's
+    // selector and not a claim about orientation: the slot is wider than it is
+    // tall at every breakpoint, so this image is 4:3 to match the landscape
+    // images the trek pages already use there.
     gallery: [
       {
         id: 'img_01',
         url: '/images/godawari-phulchoki/godawari-phulchoki.jpg',
-        alt: 'Kathmandu Valley spread out below the Phulchoki ridge',
+        alt: 'Forested ridges falling away to a hillside town, fading into morning haze',
         type: 'hero',
       },
       {
@@ -603,6 +614,12 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
         url: '/images/godawari-phulchoki/naudhara.jpg',
         alt: 'Naudhara resting point along the forest climb',
         type: 'landscape',
+      },
+      {
+        id: 'img_07',
+        url: '/images/godawari-phulchoki/forest-trail-climb.jpg',
+        alt: 'A walker heading up a shaded forest trail towards a break of light in the canopy',
+        type: 'portrait',
       },
     ],
     gearChecklist: {

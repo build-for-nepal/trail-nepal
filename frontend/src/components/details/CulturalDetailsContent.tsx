@@ -11,6 +11,7 @@ import SubNav, {
 } from '@/components/layout/navigation/SubNav';
 import { CULTURAL_TOUR_DETAILS } from '@/static/culturalTours';
 
+import CulturalEntryFees from './CulturalEntryFees';
 import CulturalHeader from './CulturalHeader';
 import CulturalHero from './CulturalHero';
 import CulturalSites, { toSiteWaypoints } from './CulturalSites';
@@ -18,6 +19,14 @@ import CulturalSites, { toSiteWaypoints } from './CulturalSites';
 type Props = {
   tourId: string;
 };
+
+/**
+ * Entry Fees is hidden for now. The section and its sub-nav anchor are both gated
+ * on this one switch, so flipping it back to `true` restores the feature without
+ * touching anything else. The component and the per-tour `entryFees` data are
+ * left in place deliberately.
+ */
+const SHOW_ENTRY_FEES = false;
 
 const CulturalDetailsContent = ({ tourId }: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -48,6 +57,19 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
     tour.gallery?.[0]?.url ||
     '/images/ABC.jpg';
 
+  // Only tours with ticketed monuments publish a fee table, so the Entry Fees
+  // anchor is added per tour instead of sitting in the shared cultural anchor
+  // set — otherwise the other tours would carry a link to a missing section.
+  const showEntryFees = SHOW_ENTRY_FEES && Boolean(tour.entryFees);
+
+  const navItems = showEntryFees
+    ? CULTURAL_NAV_ITEMS.flatMap((item) =>
+        item.id === 'sites'
+          ? [item, { label: 'Entry Fees', id: 'entryfees' }]
+          : [item],
+      )
+    : CULTURAL_NAV_ITEMS;
+
   return (
     <div className="w-full flex flex-col bg-(--color-surface-page)">
       <CulturalHeader tour={tour} />
@@ -61,7 +83,7 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
               : '-translate-y-full opacity-0 pointer-events-none'
           }`}
         >
-          <SubNav items={CULTURAL_NAV_ITEMS} />
+          <SubNav items={navItems} />
         </div>
 
         {/* Overview */}
@@ -72,6 +94,10 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
         <Suspense fallback={null}>
           <CulturalSites tour={tour} />
         </Suspense>
+
+        {showEntryFees && tour.entryFees && (
+          <CulturalEntryFees entryFees={tour.entryFees} />
+        )}
 
         <TreksSeason
           seasonalPlanning={tour.seasonalPlanning}

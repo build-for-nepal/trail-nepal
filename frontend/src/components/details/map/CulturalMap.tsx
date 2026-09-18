@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import type { CulturalSite } from '@/types/cultural';
-import type { DayFocus } from '@/types/map';
+import type { SiteGroupFocus } from '@/types/map';
 
 const CulturalMapClient = dynamic(() => import('./CulturalMapClient'), {
   ssr: false,
@@ -11,7 +11,7 @@ const CulturalMapClient = dynamic(() => import('./CulturalMapClient'), {
 export type CulturalMapProps = {
   sites: CulturalSite[];
   onSiteClick?: (index: number) => void;
-  focus?: DayFocus | null;
+  focus?: SiteGroupFocus | null;
   siteColors?: string[];
 };
 

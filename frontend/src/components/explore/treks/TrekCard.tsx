@@ -55,7 +55,12 @@ export default function TrekCard({
         <div className="flex flex-col gap-0.5">
           <h3
             className={`font-fraunces text-[18px] font-bold tracking-tight text-text-primary ${
-              isHike || isCultural ? 'leading-snug' : 'line-clamp-1'
+              isHike || isCultural
+                ? // Titles here are not clamped, so a two-line title would make the
+                  // card taller than its one-line neighbours. Reserving two lines
+                  // keeps every card the same height without cutting any title.
+                  'leading-snug min-h-[50px]'
+                : 'line-clamp-1'
             }`}
           >
             {title}
@@ -65,8 +70,9 @@ export default function TrekCard({
           </p>
         </div>
 
-        {/* Description — fixed height, full featured text */}
-        <div className="h-[75px] overflow-hidden text-[12px] leading-relaxed text-text-secondary/90">
+        {/* Description — reserves a consistent block so the CTA lines up across
+            cards, but grows rather than clipping if a description runs long. */}
+        <div className="min-h-[75px] text-[12px] leading-relaxed text-text-secondary/90">
           {description}
         </div>
 
@@ -102,8 +108,9 @@ export default function TrekCard({
           ~ Nrs. {price.toLocaleString()}
         </div> */}
 
-        {/* CTA — always pinned at bottom */}
-        <div className="mt-1 flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
+        {/* CTA — always pinned at bottom. `mt-auto` is what actually does it, so
+            a longer description in one card cannot misalign its neighbours. */}
+        <div className="mt-auto flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
           See More
         </div>
       </div>

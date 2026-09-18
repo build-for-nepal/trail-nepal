@@ -16,6 +16,18 @@ export interface DayFocus {
   nonce: number;
 }
 
+/**
+ * A request to frame the map around every site belonging to one itinerary day.
+ * Cultural tours focus a whole day rather than a single waypoint, so the map
+ * fits bounds over `indices` (positions into the `sites` array) instead of
+ * easing to one point. `nonce` bumps per request for the same reason as
+ * {@link DayFocus}. An empty `indices` array is a no-op.
+ */
+export interface SiteGroupFocus {
+  indices: number[];
+  nonce: number;
+}
+
 export interface MapClientProps {
   data: GeoJSONData | null;
   center: [number, number];

@@ -240,7 +240,12 @@ function makeGroupMarkerEl(
 
 // ─── Hook 1: Map initialisation ──────────────────────────────────────────────
 
-export function useMapInit(center: [number, number]) {
+/**
+ * `maxZoom` defaults to the trek/hike ceiling. Cultural tours override it:
+ * a heritage "day" can be three monuments inside one courtyard (tens of
+ * metres apart), which stay a single visual blob at zoom 16.
+ */
+export function useMapInit(center: [number, number], maxZoom = 16) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -257,6 +262,11 @@ export function useMapInit(center: [number, number]) {
           type: 'raster',
           tiles: cfg.tiles,
           tileSize: 256,
+          // The Esri Clarity imagery has no native coverage past z17 in Nepal
+          // and answers z18+ with a non-CORS error, so without this cap
+          // MapLibre spams failed tile requests once a map zooms in that far.
+          // Declaring the ceiling makes it overzoom the z17 parent instead.
+          maxzoom: 17,
           attribution: cfg.attribution,
         };
         layerSpecs.push({
@@ -273,6 +283,9 @@ export function useMapInit(center: [number, number]) {
       tiles: [
         'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png',
       ],
+      // Terrarium coverage tops out at z15; without the cap, 3D mode at high
+      // zoom requests deeper tiles that only ever 404.
+      maxzoom: 15,
       encoding: 'terrarium',
     };
 
@@ -284,7 +297,7 @@ export function useMapInit(center: [number, number]) {
       pitch: 0,
       bearing: 0,
       minZoom: 6,
-      maxZoom: 16,
+      maxZoom,
       fadeDuration: 0,
       attributionControl: { compact: false },
     });
@@ -472,7 +485,8 @@ export function useTrekMarkers(
     const candidates: TrekTimelineDay[] =
       isLoop && routeCoords
         ? timeline.filter(
-            (d) => d.coordinates && isNearRoute(d.coordinates, routeCoords, 500),
+            (d) =>
+              d.coordinates && isNearRoute(d.coordinates, routeCoords, 500),
           )
         : destIdx >= 0
           ? timeline.slice(0, destIdx + 1)
@@ -548,7 +562,9 @@ export function useTrekMarkers(
             .querySelectorAll<HTMLElement>('.trek-day-tab')
             .forEach((tab) => {
               const pos = Number(tab.dataset.dayPos);
-              tab.addEventListener('click', () => onDayClick?.(dayIndices[pos]));
+              tab.addEventListener('click', () =>
+                onDayClick?.(dayIndices[pos]),
+              );
             });
         }
       });

@@ -233,14 +233,20 @@ export const CULTURAL_TOURS: Trek[] = [
     id: 'lumbini-tour',
     title: 'Lumbini Tour',
     region: 'Lumbini, Rupandehi',
+    // Card teaser, trimmed from the PDF's Description so it fits the card's
+    // description block without being clipped. The full authored Description is
+    // on the detail page hero.
     description:
-      'Explore Lumbini, the birthplace of Siddhartha Gautama Buddha, through the Sacred Garden, Maya Devi Temple, ancient archaeological remains, international monasteries, and pilgrimage sites connected to Buddhist heritage.',
+      'Explore the birthplace of Siddhartha Gautama Buddha: the Sacred Garden, Maya Devi Temple, and the international monastic zone.',
     difficulty: 'Easy',
     duration: '3 Days',
     altitude: '150m',
     season: 'Year-Round',
     imageUrl: '/images/lumbini-tour/lumbini-cover.jpg',
-    isPopular: true,
+    // Left off the homepage grid on purpose: POPULAR_TREKS filters TRAILS, and
+    // PopularTrekSection maps the whole list into a 3-column grid with no slice,
+    // so a fourth popular trail leaves an orphaned card on a second row.
+    isPopular: false,
     keywords: [
       'lumbini tour',
       'lumbini',
@@ -252,6 +258,64 @@ export const CULTURAL_TOURS: Trek[] = [
       'buddhist pilgrimage',
       'kapilavastu',
       'world peace pagoda',
+      'cultural tour',
+    ],
+    type: 'cultural',
+  },
+  {
+    id: 'kathmandu-valley-heritage-tour',
+    title: 'Kathmandu Valley Heritage Tour',
+    region: 'Kathmandu Valley',
+    // Trimmed from the PDF Description to fit the card; full text is on the hero.
+    description:
+      'Explore the historic cities of Kathmandu, Patan, and Bhaktapur: palace squares, temples, courtyards, and traditional streets.',
+    difficulty: 'Easy',
+    duration: '3 Days',
+    altitude: '1400m',
+    season: 'Year-Round',
+    imageUrl:
+      '/images/kathmandu-valley-heritage-tour/kathmandu-valley-cover.jpg',
+    // Left off the homepage grid on purpose: POPULAR_TREKS filters TRAILS, so a
+    // popular cultural tour competes with the treks for the 3-column section.
+    isPopular: false,
+    keywords: [
+      'kathmandu valley heritage tour',
+      'kathmandu durbar square',
+      'patan durbar square',
+      'bhaktapur durbar square',
+      'swayambhunath',
+      'pashupatinath',
+      'boudhanath',
+      'nyatapola',
+      'newar architecture',
+      'unesco world heritage kathmandu',
+      'cultural tour',
+    ],
+    type: 'cultural',
+  },
+  {
+    id: 'bandipur-hill-town',
+    title: 'Bandipur Hill Town',
+    region: 'Tanahun District',
+    // Trimmed from the PDF Description to fit the card; full text is on the hero.
+    description:
+      'Explore the historic hill town of Bandipur: preserved Newar streets, traditional houses, temples, and surrounding hills.',
+    difficulty: 'Easy',
+    duration: '2 Days',
+    altitude: '1030m',
+    season: 'Year-Round',
+    imageUrl: '/images/bandipur-hill-town/bandipur-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'bandipur hill town',
+      'bandipur',
+      'bandipur bazaar',
+      'siddha gufa',
+      'siddha cave',
+      'bindhyabasini temple',
+      'tanahun',
+      'newar town',
+      'hill station nepal',
       'cultural tour',
     ],
     type: 'cultural',

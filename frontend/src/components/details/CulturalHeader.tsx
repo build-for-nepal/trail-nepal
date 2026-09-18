@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, Landmark, MapPin } from 'lucide-react';
+import { CalendarDays, Clock, MapPin, TrendingUp } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import type { CulturalTourDetail } from '@/types/cultural';
@@ -41,19 +41,18 @@ const CulturalHeader = ({ tour }: { tour: CulturalTourDetail }) => {
     tour.gallery?.[0]?.url ||
     '';
 
+  // Same stat set, order, labels and icons as TreksHeader and HikeHeader, minus
+  // their Elevation stat: these tours stay in valleys and hill towns, so a peak
+  // altitude is not a planning figure a reader needs up front.
   const stats = [
     { icon: Clock, label: 'Duration', value: tour.meta.duration },
+    { icon: TrendingUp, label: 'Difficulty', value: tour.meta.difficulty },
     {
       icon: CalendarDays,
       label: 'Peak Season',
       value: formatBestSeason(tour.meta.bestSeasons),
     },
     { icon: MapPin, label: 'Starting Point', value: tour.meta.startingPoint },
-    {
-      icon: Landmark,
-      label: 'Sites',
-      value: `${tour.sites.length} heritage sites`,
-    },
   ];
 
   return (
@@ -79,7 +78,10 @@ const CulturalHeader = ({ tour }: { tour: CulturalTourDetail }) => {
             </p>
           )}
 
-          <p className="line-clamp-2 max-w-[320px] text-sm leading-relaxed text-white/80 drop-shadow-md sm:max-w-[85%] md:text-base">
+          {/* No line clamp, unlike TreksHeader and HikeHeader: this paragraph is
+              the operator's authored Description verbatim, and clamping it to
+              two lines cut the longer tours off mid-sentence. */}
+          <p className="max-w-[320px] text-sm leading-relaxed text-white/80 drop-shadow-md sm:max-w-[85%] md:text-base">
             {tour.summary}
           </p>
         </div>
