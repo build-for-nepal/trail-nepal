@@ -168,11 +168,25 @@ const escapeHTML = (value: string) =>
   );
 
 /**
- * Compact dark name-only tooltip for cultural site pins. Deliberately carries
- * no eyebrow, stats or body copy — the itinerary panel owns the detail, the
- * hover state only needs to name the pin under the cursor. Chrome (background,
- * radius, tip colour) lives in `POPUP_STYLES` under `.trail-popup--site`.
+ * Hover tooltip for cultural site pins. Mirrors `buildPopupHTML`'s chrome (same
+ * 220px width, green header band, white body) so the cultural map reads as the
+ * same product as the trek and hike maps — client review asked for it to "be
+ * similar to previous trek design". No stats grid: a site has no elevation,
+ * distance or duration, so the body carries one short line of copy instead.
+ *
+ * Prefers `site.tooltip`, the short hover-length line, and falls back to the
+ * full `description` for any site that has not been given one yet.
  */
 export function buildSitePopupHTML(site: CulturalSite): string {
-  return `<div style="padding:6px 11px;color:#fff;white-space:nowrap;font:600 12px/1.25 system-ui,sans-serif;letter-spacing:0.01em;">${escapeHTML(site.name)}</div>`;
+  const body = site.tooltip ?? site.description;
+
+  return `
+    <div style="width:220px;font-family:system-ui,sans-serif;border-radius:12px;overflow:hidden;">
+      <div style="background:var(--color-trail);padding:10px 12px;">
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;">${escapeHTML(site.name)}</div>
+      </div>
+      <div style="padding:10px 12px;background:#fff;">
+        <div style="font-size:11px;font-weight:500;line-height:1.45;color:#4b5563;">${escapeHTML(body)}</div>
+      </div>
+    </div>`;
 }

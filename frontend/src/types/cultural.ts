@@ -5,6 +5,9 @@ export interface CulturalSite {
   name: string;
   coordinates: [number, number]; // [lat, lng] stored
   description: string;
+  /** One short line for the map hover tooltip. The full `description` is too
+   *  long to read on hover; falls back to it when absent. */
+  tooltip?: string;
   openHours?: string;
   entryInfo?: string;
   isHighlight?: boolean;
@@ -76,6 +79,12 @@ export interface CulturalTourDetail {
   overview: string;
   summary: string;
   sites: CulturalSite[]; // ordered highlight sites; replaces trek `timeline`/hike `route`
+  /** Fixed zoom for the map's opening view, instead of a fit over the site
+   *  bounds. Set this only when a tour needs a guaranteed scale: a fit is
+   *  viewport-dependent, so the same tour opens at a different zoom (and a
+   *  different scale-bar reading) on mobile and desktop. See
+   *  `CulturalMapClient`'s initial-framing effect. */
+  mapOverviewZoom?: number;
   itinerary: CulturalTourDay[]; // day-by-day plan with transport + highlights
   entryFees?: CulturalEntryFees;
   expectations: { title: string; description: string }[];
