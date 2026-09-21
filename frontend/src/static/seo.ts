@@ -10,6 +10,22 @@ export const OG_IMAGES: Record<TrekIdEnum, string> = {
   [TrekIdEnum.MARDI_HIMAL_TREK]: 'og-mardi-himal-trek.webp',
 };
 
+// Hikes are keyed by their plain string id (not the TrekIdEnum) so adding a hike
+// never silently falls back to the site image the way the enum-keyed treks can.
+export const HIKE_OG_IMAGES: Record<string, string> = {
+  'nagarkot-changunarayan': 'og-nagarkot-changunarayan.jpg',
+  'dhulikhel-namobuddha': 'og-dhulikhel-namobuddha.jpg',
+  'godawari-phulchoki': 'og-godawari-phulchoki.jpg',
+};
+
+// Cultural tours are keyed by their plain string id (like hikes) so a new tour
+// never silently falls back to the site image instead of its own OG graphic.
+export const CULTURAL_TOUR_OG_IMAGES: Record<string, string> = {
+  'lumbini-tour': 'og-lumbini-tour.jpg',
+  'kathmandu-valley-heritage-tour': 'og-kathmandu-valley-heritage-tour.jpg',
+  'bandipur-hill-town': 'og-bandipur-hill-town.jpg',
+};
+
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
 
 export const DEFAULT_SEO_DATA = {

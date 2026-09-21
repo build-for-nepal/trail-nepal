@@ -15,12 +15,15 @@ import {
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { TREK_DETAILS } from '@/static/trekDetails';
 import type { SeasonStatus } from '@/types/trek';
 import type { WeatherDaily } from '@/types/weather';
 
 type Props = {
-  trekId: string;
+  seasonalPlanning: { month: string; condition: string }[];
+  /** Trail name, used in the "Peak Season to trek {name}" note. */
+  name: string;
+  /** Best-seasons string for the note line; omit to hide it. */
+  bestSeasons?: string;
   today: WeatherDaily | null;
 };
 
@@ -148,15 +151,19 @@ const getIcon = (condition: string): LucideIcon => {
   return CloudSun;
 };
 
-const TreksSeasonCalendar = ({ trekId, today }: Props) => {
+const TreksSeasonCalendar = ({
+  seasonalPlanning,
+  name,
+  bestSeasons,
+  today,
+}: Props) => {
   const now = new Date();
   const currentMonthIndex = now.getMonth();
   const [selectedIndex, setSelectedIndex] = useState(currentMonthIndex);
 
-  const data = TREK_DETAILS[trekId];
-  if (!data?.seasonalPlanning) return null;
+  if (!seasonalPlanning || seasonalPlanning.length === 0) return null;
 
-  const months = data.seasonalPlanning.map((item, index) => {
+  const months = seasonalPlanning.map((item, index) => {
     const [label, detail] = item.condition.split(' / ');
 
     return {
@@ -193,9 +200,9 @@ const TreksSeasonCalendar = ({ trekId, today }: Props) => {
           Timing is everything in the Himalayas. The window for a safe ascent is
           narrow and dictated by the monsoon and winter winds.
         </p>
-        {data.meta?.bestSeasons ? (
+        {bestSeasons ? (
           <p className="font-poppins font-medium italic text-gray-700">
-            Note: Peak Season to trek {data.name} is {data.meta.bestSeasons}
+            Note: Peak Season to trek {name} is {bestSeasons}
           </p>
         ) : null}
       </div>

@@ -21,6 +21,8 @@ export default function TrekCard({
   season,
   region,
   href,
+  isHike,
+  isCultural,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
@@ -51,7 +53,18 @@ export default function TrekCard({
       <div className="flex flex-1 flex-col gap-3 p-[18px]">
         {/* Title + Region */}
         <div className="flex flex-col gap-0.5">
-          <h3 className="font-fraunces line-clamp-1 text-[18px] font-bold tracking-tight text-text-primary">
+          <h3
+            className={`font-fraunces text-[18px] font-bold tracking-tight text-text-primary ${
+              isHike || isCultural
+                ? // Titles here wrap freely and their height is deliberately
+                  // NOT reserved or capped (client review: "don't limit the
+                  // height of the title"), so a card with a two-line title is
+                  // taller than its one-line neighbours. The stats row and CTA
+                  // stay bottom-aligned via `mt-auto` on the metrics row.
+                  'leading-snug'
+                : 'line-clamp-1'
+            }`}
+          >
             {title}
           </h3>
           <p className="text-[12px] font-medium text-text-secondary/80">
@@ -59,13 +72,19 @@ export default function TrekCard({
           </p>
         </div>
 
-        {/* Description — fixed height, full featured text */}
-        <div className="h-[75px] overflow-hidden text-[12px] leading-relaxed text-text-secondary/90">
+        {/* Description — reserves a consistent block so short descriptions still
+            push the metrics down to roughly the same place across cards, but
+            grows rather than clipping if a description runs long. */}
+        <div className="min-h-[75px] text-[12px] leading-relaxed text-text-secondary/90">
           {description}
         </div>
 
-        {/* Metrics */}
-        <div className="grid grid-cols-3 items-center pt-1 text-[10px] font-medium text-text-primary">
+        {/* Metrics — `mt-auto` lives HERE, not on the CTA. In a row of unequal
+            cards the shorter ones have slack to distribute, and the client asked
+            for that slack to sit ABOVE the stats so the stats always rest
+            directly on top of the button. Pushing this row down carries the CTA
+            with it, so the CTA stays flush with the bottom either way. */}
+        <div className="mt-auto grid grid-cols-3 items-center pt-1 text-[10px] font-medium text-text-primary">
           <span className="flex items-center gap-1.5 whitespace-nowrap">
             <Clock className="size-4" strokeWidth={2.2} />
             {duration}
@@ -96,8 +115,9 @@ export default function TrekCard({
           ~ Nrs. {price.toLocaleString()}
         </div> */}
 
-        {/* CTA — always pinned at bottom */}
-        <div className="mt-1 flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
+        {/* CTA — sits immediately under the metrics, and lands flush at the
+            bottom because the metrics row above it carries `mt-auto`. */}
+        <div className="flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
           See More
         </div>
       </div>

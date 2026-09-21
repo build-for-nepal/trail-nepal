@@ -11,10 +11,14 @@ import { cn } from 'src/lib/utils';
 export function Navbar() {
   const pathname = usePathname();
 
-  // Disable fixed navbar on dynamic trek detail pages
-  const isTrekDetailPage = pathname.startsWith('/treks/');
+  // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
+  // a full-screen hero the navbar sits transparently over).
+  const isDetailPage =
+    pathname.startsWith('/treks/') ||
+    pathname.startsWith('/hikes/') ||
+    pathname.startsWith('/cultural-tours/');
 
-  const isFixed = !isTrekDetailPage;
+  const isFixed = !isDetailPage;
 
   // Transparent over the hero at the top; solid white once scrolled past it.
   const [scrolled, setScrolled] = useState(false);

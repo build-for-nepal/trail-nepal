@@ -3,7 +3,9 @@
 const navLinkClass =
   'relative block py-1 transition-all duration-300 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:rounded-full after:bg-white after:shadow-[0_0_10px_rgba(255,255,255,0.9)] after:transition-all after:duration-300 group-hover:after:w-full';
 
-const navItems = [
+export type SubNavItem = { label: string; id: string };
+
+const TREK_NAV_ITEMS: SubNavItem[] = [
   { label: 'Overview', id: 'overview' },
   { label: 'Timeline', id: 'timeline' },
   { label: 'Calendar', id: 'calendar' },
@@ -13,7 +15,28 @@ const navItems = [
   { label: 'Gallery', id: 'gallery' },
 ];
 
-const SubNav = () => {
+// Hike anchor set: no altitude section, and the itinerary is "Route" (sections
+// 01→05) rather than a day-by-day "Timeline".
+export const HIKE_NAV_ITEMS: SubNavItem[] = [
+  { label: 'Overview', id: 'overview' },
+  { label: 'Route', id: 'route' },
+  { label: 'Calendar', id: 'calendar' },
+  { label: 'What to Expect', id: 'whattoexpect' },
+  { label: 'Gear Checklist', id: 'gearchecklist' },
+  { label: 'Gallery', id: 'gallery' },
+];
+
+// Cultural tour anchor set: highlight "Sites" (with the map) instead of a
+// route/timeline, and no altitude or gear sections.
+export const CULTURAL_NAV_ITEMS: SubNavItem[] = [
+  { label: 'Overview', id: 'overview' },
+  { label: 'Sites', id: 'sites' },
+  { label: 'Calendar', id: 'calendar' },
+  { label: 'What to Expect', id: 'whattoexpect' },
+  { label: 'Gallery', id: 'gallery' },
+];
+
+const SubNav = ({ items = TREK_NAV_ITEMS }: { items?: SubNavItem[] }) => {
   const handleScroll = (id: string) => {
     const element = document.getElementById(id);
 
@@ -31,7 +54,7 @@ const SubNav = () => {
     <div className="overflow-x-auto bg-[#376BB6]/80 border-b border-black/20 px-4 md:px-20 py-4 text-white shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-md scrollbar-hide">
       <div className="page-wrapper flex items-center justify-between">
         <ul className="flex min-w-max items-center gap-6 leading-6">
-          {navItems.map((item) => (
+          {items.map((item) => (
             <li key={item.id} className="group">
               <button
                 onClick={() => handleScroll(item.id)}

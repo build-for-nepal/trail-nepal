@@ -12,6 +12,7 @@ import Footer from '@/components/layout/footer/Footer';
 import TreksAltitudeSickness from '@/components/details/altitudeSickness/TreksAltitudeSickness';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import SubNav from 'src/components/layout/navigation/SubNav';
+import { TREK_DETAILS } from '@/static/trekDetails';
 
 type Props = {
   trekId: string;
@@ -20,6 +21,16 @@ type Props = {
 const TrekDetailsContent = ({ trekId }: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [showSubNav, setShowSubNav] = useState(false);
+
+  // Resolve the trek's data once here (the composition root) and pass slices as
+  // props; the shared detail sections stay presentational and content-agnostic.
+  const trek = TREK_DETAILS[trekId];
+
+  // "What to Expect" hero: prefer a portrait gallery image, else the first.
+  const expectImage =
+    trek?.gallery?.find((img) => img.type === 'portrait')?.url ||
+    trek?.gallery?.[0]?.url ||
+    '/images/ABC.jpg';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,13 +79,23 @@ const TrekDetailsContent = ({ trekId }: Props) => {
           <TrekTimeline trekId={trekId} />
         </Suspense>
 
-        <TreksSeason trekId={trekId} />
-        <TreksExpect trekId={trekId} />
+        <TreksSeason
+          seasonalPlanning={trek?.seasonalPlanning ?? []}
+          region={trek?.region ?? ''}
+          waypoints={trek?.timeline ?? []}
+          name={trek?.name ?? ''}
+          bestSeasons={trek?.meta?.bestSeasons}
+        />
+        <TreksExpect
+          expectations={trek?.expectations ?? []}
+          overview={trek?.overview ?? ''}
+          imageSrc={expectImage}
+          name={trek?.name ?? ''}
+        />
         <TreksAltitudeSickness trekId={trekId} />
         {/* <TrialUpdate trekId={trekId} /> */}
-        <GearCheckList trekId={trekId} />
-        <Gallery trekId={trekId} />
-        <TrekTrivia trekId={trekId} />
+        <GearCheckList gearChecklist={trek?.gearChecklist} />
+        <Gallery images={trek?.gallery} />
       </div>
 
       <Footer />

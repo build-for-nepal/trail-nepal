@@ -4,6 +4,7 @@ import TrekCard from './TrekCard';
 import TrekCarousel from './TrekCarousel';
 import Image from 'next/image';
 import Link from 'next/link';
+import { trailHref } from '@/lib/trail';
 
 const PopularTrekSection = () => {
   return (
@@ -32,7 +33,7 @@ const PopularTrekSection = () => {
 
         <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 mt-15">
           {POPULAR_TREKS.map((trek) => (
-            <TrekCard key={trek.id} {...trek} href={`/treks/${trek.id}`} />
+            <TrekCard key={trek.id} {...trek} href={trailHref(trek)} />
           ))}
         </div>
 

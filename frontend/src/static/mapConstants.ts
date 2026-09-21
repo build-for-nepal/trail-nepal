@@ -1,5 +1,10 @@
 import { LayerKey } from '@/types/map';
 
+export const SITE_MARKER_COLOR = '#f59e0b';
+
+export const SITE_PIN_PATH =
+  'M14 2 C8.2 2 3.5 6.8 3.5 12.6 C3.5 19.8 14 36 14 36 C14 36 24.5 19.8 24.5 12.6 C24.5 6.8 19.8 2 14 2 Z';
+
 export const LAYER_THUMBNAILS: Record<LayerKey, string> = {
   satellite:
     'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/9/213/375',
@@ -39,5 +44,24 @@ export const LAYERS: Record<
 
 export const POPUP_STYLES = `
   .trail-popup .maplibregl-popup-content { padding: 0; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.25); overflow: hidden; }
-  .trail-popup .maplibregl-popup-tip { border-top-color: var(--color-trail) !important; }
+
+  /* The tip must match whichever band of the card it touches, and which band
+     that is depends on the anchor MapLibre picks (it flips the popup near the
+     viewport edges). The card is a green header above a white body, so:
+       - popup BELOW the point  -> tip sits at the card's top    -> green
+       - popup ABOVE the point  -> tip sits at the card's bottom -> white
+       - popup BESIDE the point -> tip sits against the body     -> white
+     Colouring border-top-color green for every anchor (as this block used to)
+     bled a green wedge into the side-anchored tips, because for those the top
+     border is one of the two transparent edges of the triangle. */
+  .trail-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip,
+  .trail-popup.maplibregl-popup-anchor-top-left .maplibregl-popup-tip,
+  .trail-popup.maplibregl-popup-anchor-top-right .maplibregl-popup-tip { border-bottom-color: var(--color-trail) !important; }
+
+  .trail-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+  .trail-popup.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+  .trail-popup.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip { border-top-color: #fff !important; }
+
+  .trail-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: #fff !important; }
+  .trail-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: #fff !important; }
 `;

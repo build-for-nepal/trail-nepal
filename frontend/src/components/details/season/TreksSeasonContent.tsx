@@ -14,15 +14,24 @@ import TreksSeasonCalendar from './TreksSeasonCalendar';
 import WeatherForecastCard from './WeatherForecastCard';
 
 type Props = {
-  trekId: string;
+  seasonalPlanning: { month: string; condition: string }[];
+  name: string;
+  bestSeasons?: string;
   region: string;
-  timeline: TrekTimelineDay[];
+  /** Waypoints (trek days / hike sections) used to derive weather locations. */
+  waypoints: TrekTimelineDay[];
 };
 
-const TreksSeasonContent = ({ trekId, region, timeline }: Props) => {
+const TreksSeasonContent = ({
+  seasonalPlanning,
+  name,
+  bestSeasons,
+  region,
+  waypoints,
+}: Props) => {
   const locations = useMemo(
-    () => getTrekWeatherLocations(timeline),
-    [timeline],
+    () => getTrekWeatherLocations(waypoints),
+    [waypoints],
   );
   const showForecast = locations.length > 0;
 
@@ -72,7 +81,12 @@ const TreksSeasonContent = ({ trekId, region, timeline }: Props) => {
         />
 
         <div className="grid grid-cols-1 items-stretch gap-8 xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
-          <TreksSeasonCalendar trekId={trekId} today={today} />
+          <TreksSeasonCalendar
+            seasonalPlanning={seasonalPlanning}
+            name={name}
+            bestSeasons={bestSeasons}
+            today={today}
+          />
 
           {showForecast ? (
             <div className="h-full" aria-busy={isLoading} aria-live="polite">
