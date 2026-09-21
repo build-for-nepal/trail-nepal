@@ -11,6 +11,11 @@ export enum TrekIdEnum {
 }
 
 export const TREKS: Trek[] = [
+  // The `description` on each trek MUST match TREK_DETAILS[id].summary in
+  // static/trekDetails.ts exactly. The card and the detail page show the same
+  // copy on purpose (client review); do not trim it here to fit the card, change
+  // the card layout instead. The description block in TrekCard is a min-height,
+  // not a clamp, so it grows.
   {
     id: 'ebc-trek',
     title: 'EBC Trek',
@@ -61,7 +66,7 @@ export const TREKS: Trek[] = [
     title: 'Annapurna Base Camp Trek',
     region: 'Annapurna Region',
     description:
-      'A breathtaking trek through terraced fields, rhododendron forests, and Gurung villages, leading to the heart of the Annapurna Sanctuary surrounded by towering Himalayan peaks.',
+      'Trek through the Annapurna Sanctuary, passing Gurung villages, bamboo and rhododendron forests, the Modi Khola valley, and alpine terrain on the way to Annapurna Base Camp.',
     difficulty: 'Moderate',
     duration: '7 Days',
     altitude: '4,130m',
@@ -82,7 +87,7 @@ export const TREKS: Trek[] = [
     title: 'Gokyo Valley Trek',
     region: 'Khumbu Region',
     description:
-      "The quieter alternative glacial lakes, Nepal's longest glacier, and four 8,000m peaks from a single summit.",
+      'Trek through the Gokyo Valley to a series of high-altitude glacial lakes, alongside the Ngozumpa Glacier, and climb Gokyo Ri at 5,357 m for expansive Himalayan views.',
     difficulty: 'Challenging',
     duration: '11 Days',
     altitude: '5,357m',
@@ -97,7 +102,7 @@ export const TREKS: Trek[] = [
     title: 'Ghorepani Poon Hill Trek',
     region: 'Annapurna Region',
     description:
-      'Beginner-friendly on paper, genuinely jaw-dropping in practice."',
+      'Trek through the lower Annapurna region, passing Gurung and Magar villages, rhododendron forests, and terraced fields on the way to Poon Hill.',
     difficulty: 'Moderate',
     duration: '5 Days',
     altitude: '3,210m',
@@ -112,7 +117,7 @@ export const TREKS: Trek[] = [
     title: 'Mardi Himal Trek',
     region: 'Annapurna Region',
     description:
-      "Intimate, uncrowded, and closer to Machapuchare's perfect pyramid than any other trail in the Annapurna region.",
+      'Trek along high ridges and through rhododendron forests in the Annapurna region, leading to the base of Mardi Himal directly below Machhapuchhre.',
     difficulty: 'Moderate',
     duration: '5 Days',
     altitude: '4,500m',
@@ -127,7 +132,7 @@ export const TREKS: Trek[] = [
     title: 'Shey Phoksundo Trek',
     region: 'Dolpo Region',
     description:
-      'A remote Himalayan journey into Dolpo’s stark, cinematic wilderness leading to the surreal turquoise waters of Shey Phoksundo Lake, framed by cliffs, ancient villages, and untouched Tibetan-Bon culture.',
+      'Journey into the remote Lower Dolpo region to the turquoise waters of Lake Phoksundo, ancient Bon monasteries, and dramatic alpine landscapes.',
     difficulty: 'Moderate',
     duration: '8 Days',
     altitude: '3,660m',
@@ -142,7 +147,7 @@ export const TREKS: Trek[] = [
     title: 'Tilicho Lake Trek',
     region: 'Annapurna Region',
     description:
-      'A dramatic high-altitude adventure through the arid valleys of Manang to the turquoise waters of Tilicho Lake, combined with the legendary crossing of Thorong La Pass beneath the towering Annapurna massif.',
+      'Follow the Marsyangdi Valley into the high Manang region, then branch toward Tilicho Lake through dry alpine terrain, traditional mountain villages, and exposed trails. Reach Tilicho Lake at 4,919 m.',
     difficulty: 'Challenging',
     duration: '11 Days',
     altitude: '4,919m',
@@ -161,12 +166,16 @@ export const TREKS: Trek[] = [
 ];
 
 export const HIKES: Trek[] = [
+  // The `description` on each hike MUST match HIKE_DETAILS[id].summary in
+  // static/hikeDetails.ts exactly — both carry the operator's authored
+  // Description verbatim. Raised twice in client review; do not trim copy here
+  // to fit the card, change the card layout instead.
   {
     id: 'nagarkot-changunarayan',
     title: 'Nagarkot to Changunarayan Hike',
     region: 'Kathmandu Valley',
     description:
-      'A mostly downhill walk from the Nagarkot ridge through villages and pine forest to the historic Changunarayan temple.',
+      'Hike from Nagarkot through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
     difficulty: 'Easy',
     duration: '1 Day',
     altitude: '2,175m',
@@ -187,7 +196,7 @@ export const HIKES: Trek[] = [
     title: 'Dhulikhel to Namobuddha Hike',
     region: 'Kavrepalanchok',
     description:
-      'A cultural hike from Dhulikhel through terraced farmland and forest to the Buddhist pilgrimage site of Namobuddha.',
+      'Hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, a major Buddhist pilgrimage site.',
     difficulty: 'Moderate',
     duration: '1 Day',
     altitude: '1,750m',
@@ -209,7 +218,7 @@ export const HIKES: Trek[] = [
     title: 'Godawari to Phulchoki Hike',
     region: 'Lalitpur',
     description:
-      'A full-day forest climb from Godawari through oak and rhododendron woodland to the Phulchoki summit temple.',
+      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, passing through dense forest, rhododendron and oak woodland before reaching the summit.',
     difficulty: 'Moderate',
     duration: '1 Day',
     altitude: '2,765m',
@@ -229,15 +238,17 @@ export const HIKES: Trek[] = [
 ];
 
 export const CULTURAL_TOURS: Trek[] = [
+  // The `description` on each tour MUST match
+  // CULTURAL_TOUR_DETAILS[id].summary in static/culturalTours.ts exactly — both
+  // carry the operator's authored Description verbatim. These were previously
+  // hand-trimmed "to fit the card"; that was reversed in client review, because
+  // the card's description block is a min-height rather than a clamp.
   {
     id: 'lumbini-tour',
     title: 'Lumbini Tour',
     region: 'Lumbini, Rupandehi',
-    // Card teaser, trimmed from the PDF's Description so it fits the card's
-    // description block without being clipped. The full authored Description is
-    // on the detail page hero.
     description:
-      'Explore the birthplace of Siddhartha Gautama Buddha: the Sacred Garden, Maya Devi Temple, and the international monastic zone.',
+      'Explore Lumbini, the birthplace of Siddhartha Gautama Buddha, through the Sacred Garden, Maya Devi Temple, ancient archaeological remains, international monasteries, and pilgrimage sites connected to Buddhist heritage.',
     difficulty: 'Easy',
     duration: '3 Days',
     altitude: '150m',
@@ -266,9 +277,8 @@ export const CULTURAL_TOURS: Trek[] = [
     id: 'kathmandu-valley-heritage-tour',
     title: 'Kathmandu Valley Heritage Tour',
     region: 'Kathmandu Valley',
-    // Trimmed from the PDF Description to fit the card; full text is on the hero.
     description:
-      'Explore the historic cities of Kathmandu, Patan, and Bhaktapur: palace squares, temples, courtyards, and traditional streets.',
+      'Explore the historic cities of Kathmandu, Patan, and Bhaktapur, moving through palace squares, temples, courtyards, traditional streets, and living cultural neighbourhoods across the Kathmandu Valley.',
     difficulty: 'Easy',
     duration: '3 Days',
     altitude: '1400m',
@@ -297,9 +307,8 @@ export const CULTURAL_TOURS: Trek[] = [
     id: 'bandipur-hill-town',
     title: 'Bandipur Hill Town',
     region: 'Tanahun District',
-    // Trimmed from the PDF Description to fit the card; full text is on the hero.
     description:
-      'Explore the historic hill town of Bandipur: preserved Newar streets, traditional houses, temples, and surrounding hills.',
+      'Explore the historic hill town of Bandipur, walking through its preserved Newar streets, traditional houses, temples, viewpoints, and surrounding hills.',
     difficulty: 'Easy',
     duration: '2 Days',
     altitude: '1030m',
