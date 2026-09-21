@@ -96,6 +96,7 @@ const TrekDetailsContent = ({ trekId }: Props) => {
         {/* <TrialUpdate trekId={trekId} /> */}
         <GearCheckList gearChecklist={trek?.gearChecklist} />
         <Gallery images={trek?.gallery} />
+        <TrekTrivia trekId={trekId} />
       </div>
 
       <Footer />
