@@ -85,7 +85,7 @@ const HikeDetailsContent = ({ hikeId }: Props) => {
         />
         <TreksExpect
           expectations={hike.expectations}
-          overview={hike.overview}
+          summary={hike.summary}
           imageSrc={expectImage}
           name={hike.name}
         />
