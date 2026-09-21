@@ -4,6 +4,7 @@ import { Check, RotateCcw, Share2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import {
+  GENERAL_TRIVIA_QUESTIONS,
   TRIVIA_QUESTIONS_BY_TREK,
   type TriviaQuestion,
 } from '@/static/triviaQuestions';
@@ -18,7 +19,6 @@ import styles from './TrekTrivia.module.css';
 
 type Props = {
   trekId?: string;
-  questionPool?: TriviaQuestion[];
   triviaNameOverride?: string;
   autoStart?: boolean;
   embedded?: boolean;
@@ -26,6 +26,7 @@ type Props = {
 type GameScreen = 'intro' | 'question' | 'result';
 
 const ROUND_SIZE = 8;
+const TREK_QUESTION_COUNT = 2;
 const LETTERS = ['A', 'B', 'C', 'D'];
 const getTriviaName = (name: string) => name.replace(/\s+Trek$/i, '').trim();
 
@@ -41,10 +42,18 @@ const shuffle = <T,>(items: T[]) => {
   return shuffled;
 };
 
-const createRound = (questions: TriviaQuestion[]) =>
-  shuffle(questions)
-    .slice(0, ROUND_SIZE)
-    .map((question) => {
+const createRound = (trekQuestions: TriviaQuestion[] = []) => {
+  const selectedTrekQuestions = shuffle(trekQuestions).slice(
+    0,
+    TREK_QUESTION_COUNT,
+  );
+  const selectedGeneralQuestions = shuffle(GENERAL_TRIVIA_QUESTIONS).slice(
+    0,
+    ROUND_SIZE - selectedTrekQuestions.length,
+  );
+
+  return shuffle([...selectedGeneralQuestions, ...selectedTrekQuestions]).map(
+    (question) => {
       const shuffledAnswers = shuffle(
         question.answers.map((answer, index) => ({
           answer,
@@ -59,18 +68,18 @@ const createRound = (questions: TriviaQuestion[]) =>
         ) as TriviaQuestion['answers'],
         correctAnswer: shuffledAnswers.findIndex(({ correct }) => correct),
       };
-    });
+    },
+  );
+};
 
 export default function TrekTrivia({
   trekId,
-  questionPool,
   triviaNameOverride,
   autoStart = false,
   embedded = false,
 }: Props) {
   const trek = trekId ? TREK_DETAILS[trekId] : undefined;
-  const availableQuestions =
-    questionPool ?? (trekId ? (TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []) : []);
+  const trekQuestions = trekId ? (TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []) : [];
   const triviaName =
     triviaNameOverride ??
     (trek
@@ -82,7 +91,7 @@ export default function TrekTrivia({
     autoStart ? 'question' : 'intro',
   );
   const [round, setRound] = useState<TriviaQuestion[]>(() =>
-    autoStart ? createRound(availableQuestions) : [],
+    autoStart ? createRound(trekQuestions) : [],
   );
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -92,7 +101,8 @@ export default function TrekTrivia({
   const [score, setScore] = useState(0);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  if (availableQuestions.length < ROUND_SIZE) return null;
+  if (GENERAL_TRIVIA_QUESTIONS.length + trekQuestions.length < ROUND_SIZE)
+    return null;
 
   const currentQuestion = round[questionIndex];
   const routeMaskId = `trivia-route-mask-${trekId ?? 'general'}`;
@@ -112,7 +122,7 @@ export default function TrekTrivia({
 
   const startGame = () => {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
-    setRound(createRound(availableQuestions));
+    setRound(createRound(trekQuestions));
     setQuestionIndex(0);
     setSelectedAnswer(null);
     setAnswerResults(Array(ROUND_SIZE).fill(null));

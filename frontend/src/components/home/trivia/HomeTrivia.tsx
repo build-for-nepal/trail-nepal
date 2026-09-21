@@ -1,10 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  TRIVIA_QUESTIONS_BY_TREK,
-  TriviaQuestion,
-} from 'src/static/triviaQuestions';
 import { TREK_DETAILS } from 'src/static/trekDetails';
 import TrekTrivia from 'src/components/details/TrekTrivia';
 import { ArrowLeft } from 'lucide-react';
@@ -22,7 +18,6 @@ type ActiveQuiz = {
   key: string;
   name: string;
   trekId?: string;
-  questions: TriviaQuestion[];
 };
 
 const HomeTrivia = () => {
@@ -49,7 +44,6 @@ const HomeTrivia = () => {
     },
   ];
 
-  const GENERAL_QUESTIONS = Object.values(TRIVIA_QUESTIONS_BY_TREK).flat();
   const getTrekCover = (trekId: string) => {
     const gallery = TREK_DETAILS[trekId]?.gallery ?? [];
     return (
@@ -64,7 +58,6 @@ const HomeTrivia = () => {
       key: trek.id,
       trekId: trek.id,
       name: trek.name,
-      questions: TRIVIA_QUESTIONS_BY_TREK[trek.id] ?? [],
     });
   };
 
@@ -72,7 +65,6 @@ const HomeTrivia = () => {
     setActiveQuiz({
       key: 'general',
       name: 'Trail Nepal',
-      questions: GENERAL_QUESTIONS,
     });
   };
 
@@ -91,7 +83,6 @@ const HomeTrivia = () => {
           <TrekTrivia
             key={activeQuiz.key}
             trekId={activeQuiz.trekId}
-            questionPool={activeQuiz.questions}
             triviaNameOverride={activeQuiz.name}
             autoStart
             embedded
