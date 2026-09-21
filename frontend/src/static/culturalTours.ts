@@ -40,6 +40,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.4696086, 83.2758312],
         description:
           'The temple at the heart of the Sacred Garden that marks the traditional birthplace of Siddhartha Gautama.',
+        tooltip: 'Marks the traditional birthplace of the Buddha.',
         isHighlight: true,
         dayId: 'day-01',
       },
@@ -50,6 +51,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.469681, 83.2756678],
         description:
           'An inscribed pillar within the Sacred Garden, part of the archaeological remains that connect the site with its ancient history.',
+        tooltip: 'An inscribed pillar recording the site’s ancient history.',
         dayId: 'day-01',
       },
       {
@@ -59,6 +61,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.4693056, 83.275627],
         description:
           'The pond within the Sacred Garden, part of the traditional landscape around the Buddha\u2019s birthplace.',
+        tooltip: 'The sacred pond beside the Buddha’s birthplace.',
         dayId: 'day-01',
       },
       {
@@ -68,6 +71,8 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.4785789, 83.2758587],
         description:
           'Monasteries and temples built by Buddhist communities from across Asia, with distinct architectural styles, religious spaces, sculptures and landscaped gardens across the eastern and western zones.',
+        tooltip:
+          'Explore monasteries representing Buddhist traditions from around the world.',
         dayId: 'day-02',
       },
       {
@@ -76,6 +81,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         // OSM way/844764523 (Shanti Stupa / World Peace Pagoda)
         coordinates: [27.4989068, 83.2762616],
         description: 'A landmark within the wider Lumbini landscape.',
+        tooltip: 'A white stupa landmark on the edge of Lumbini.',
         dayId: 'day-02',
       },
       {
@@ -85,6 +91,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.5758757, 83.0548105],
         description:
           'An archaeological site identified with the ancient city of Kapilavastu, associated with the Shakya kingdom and the period of Siddhartha Gautama\u2019s life before his departure from the royal household. Excavated remains reveal the foundations and layout of the ancient settlement.',
+        tooltip: 'Excavated remains of the ancient city of Kapilavastu.',
         isHighlight: true,
         dayId: 'day-03',
       },
@@ -95,6 +102,8 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.5279937, 83.0405605],
         description:
           'An archaeological site associated with the Buddha\u2019s life and his return to the region after enlightenment.',
+        tooltip:
+          'Where the Buddha is said to have returned after enlightenment.',
         dayId: 'day-03',
       },
     ],
@@ -368,6 +377,8 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.7042916, 85.3065551],
         description:
           'Palace courtyards, temples, shrines and carved timber architecture reflecting the city\u2019s royal history. The surrounding old city extends into narrow streets and traditional neighbourhoods where temples and courtyards remain part of everyday life.',
+        tooltip:
+          'Royal palace courtyards, temples and carved timber architecture.',
         isHighlight: true,
         dayId: 'day-01',
       },
@@ -378,6 +389,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.7149389, 85.2903913],
         description:
           'A hilltop Buddhist stupa reached by stone stairways above the city, and one of the valley\u2019s most important religious sites.',
+        tooltip: 'A hilltop Buddhist stupa reached by stone stairways.',
         dayId: 'day-01',
       },
       {
@@ -387,6 +399,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.7104647, 85.3486653],
         description:
           'A major Hindu temple complex on the banks of the Bagmati and an active site of daily ritual and worship.',
+        tooltip: 'A major Hindu temple complex on the Bagmati river.',
         entryInfo:
           'Some areas of the complex are restricted to Hindus. Follow posted signs and local guidance.',
         dayId: 'day-01',
@@ -398,6 +411,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.7213911, 85.3620399],
         description:
           'One of the valley\u2019s largest Buddhist stupas, ringed by monasteries, shops and cafés, and an active site of daily worship.',
+        tooltip: 'One of the valley’s largest stupas, ringed by monasteries.',
         isHighlight: true,
         dayId: 'day-01',
       },
@@ -408,6 +422,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.6734454, 85.325035],
         description:
           'The centre of the day\u2019s exploration in Patan, with palace courtyards, temples, stone sculptures and traditional architectural details. Entry includes the Patan Museum.',
+        tooltip: 'Palace courtyards, temples and stone sculpture in Patan.',
         isHighlight: true,
         dayId: 'day-02',
       },
@@ -418,6 +433,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.6752237, 85.3247105],
         description:
           'A Buddhist bahal in the streets behind the main square, known for its metalwork and ornamented shrine \u2014 one of the clearest examples of Patan\u2019s Buddhist architecture and craftsmanship.',
+        tooltip: 'A Buddhist bahal known for its ornamented metalwork shrine.',
         dayId: 'day-02',
       },
       {
@@ -427,6 +443,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.6689984, 85.3271415],
         description:
           'A brick and terracotta temple set among Patan\u2019s residential streets, adding a further example of the Buddhist architecture and craftsmanship for which the city is known.',
+        tooltip: 'A brick and terracotta temple among Patan’s back streets.',
         dayId: 'day-02',
       },
       {
@@ -436,6 +453,8 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.672078, 85.4281306],
         description:
           'The main focus of the final day, where the palace complex and surrounding temples form one of the valley\u2019s major historic centres.',
+        tooltip:
+          'A palace complex and temple square at the heart of Bhaktapur.',
         isHighlight: true,
         dayId: 'day-03',
       },
@@ -446,6 +465,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.6714098, 85.4293725],
         description:
           'A five-storey temple rising above Taumadhi Square, among the tallest traditional temples in the valley.',
+        tooltip: 'A five-storey temple rising above Taumadhi Square.',
         dayId: 'day-03',
       },
       {
@@ -455,6 +475,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.669897, 85.427743],
         description:
           'A working potters\u2019 square offering a closer look at one of Bhaktapur\u2019s traditional craft practices.',
+        tooltip: 'A working potters’ square and a living Bhaktapur craft.',
         dayId: 'day-03',
       },
       {
@@ -464,6 +485,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.6735387, 85.4353586],
         description:
           'A historic square east of the main monument area, where a temple and the adjoining neighbourhoods extend the exploration beyond the main squares.',
+        tooltip: 'A historic temple square east of the main monument area.',
         dayId: 'day-03',
       },
     ],
@@ -724,6 +746,18 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
   },
   'bandipur-hill-town': {
     id: 'bandipur-hill-town',
+    // Opens at the 500 m scale bar (client request). MEASURED in-browser, not
+    // computed: `setTerrain` is applied even at pitch 0, magnifying the
+    // effective ground scale ~1.1-1.3x by a factor that depends on canvas
+    // HEIGHT, so the zoom number alone does not predict the bar. Measured
+    // "500 m" band is z12.57-13.45 on a 501px canvas and z12.62-13.54 on
+    // 1009px; 13.2 sits inside both, with all four pins comfortably in frame at
+    // either width.
+    //
+    // Do NOT "tidy" this to 13.0. At exactly integer zoom MapLibre collapses to
+    // flat Mercator (magnification 1.00 vs 1.26 at 13.2) — a reproducible ~22%
+    // scale jump that also makes pin visibility non-monotonic in zoom.
+    mapOverviewZoom: 13.2,
     // "Trip Highlights" Title / Region / Description, verbatim from the PDF.
     name: 'Bandipur Hill Town',
     summary:
@@ -762,6 +796,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.9372428, 84.405208],
         description:
           'The pedestrian heart of the historic town, lined with timber-framed Newar houses, carved wooden windows, temples and old trading buildings.',
+        tooltip: 'A pedestrian street of timber-framed Newar town houses.',
         isHighlight: true,
         dayId: 'day-01',
       },
@@ -772,6 +807,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.9378027, 84.4070803],
         description:
           'A temple along the bazaar walk and part of the town\u2019s religious and community life.',
+        tooltip: 'A working temple on the bazaar walk.',
         dayId: 'day-01',
       },
       {
@@ -781,6 +817,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.9484399, 84.4185018],
         description:
           'An optional longer excursion from town and one of the area\u2019s notable natural attractions, reached by a path of stone steps and natural surfaces.',
+        tooltip: 'A large limestone cave reached by a steep stone path.',
         entryInfo:
           'The path includes stone steps and natural surfaces that can become slippery when wet. Carry a torch for the cave.',
         isHighlight: true,
@@ -793,6 +830,7 @@ export const CULTURAL_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         coordinates: [27.943828, 84.4039104],
         description:
           'A viewpoint on the ridge above town, with wider views across the valleys and mountains when weather and visibility allow.',
+        tooltip: 'A ridge viewpoint over the valleys and mountains.',
         dayId: 'day-02',
       },
     ],

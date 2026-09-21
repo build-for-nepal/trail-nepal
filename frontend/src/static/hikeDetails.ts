@@ -4,8 +4,10 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
   'nagarkot-changunarayan': {
     id: 'nagarkot-changunarayan',
     name: 'Nagarkot to Changunarayan Hike',
+    // Must stay identical to HIKES['nagarkot-changunarayan'].description in
+    // static/trek.ts — this is the operator's authored Description verbatim.
     summary:
-      'A mostly downhill walk from Nagarkot to the historic Changunarayan temple.',
+      'Hike from Nagarkot through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
     region: 'Kathmandu Valley',
     meta: {
       duration: '1 Day',
@@ -14,8 +16,8 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
       bestSeasons: 'October-April',
       startingPoint: 'Nagarkot',
       tripFacts: {
-        start: 'Nagarkot View Tower area (~2,175 m)',
-        finish: 'Changunarayan Temple (~1,541 m)',
+        start: 'Nagarkot (~2,175)',
+        finish: 'Changunarayan (~1,541)',
         distance: '~12 km',
         walkingTime: '~3–4 hrs',
         routeType: 'Point-to-point',
@@ -209,8 +211,10 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
   'dhulikhel-namobuddha': {
     id: 'dhulikhel-namobuddha',
     name: 'Dhulikhel to Namobuddha Hike',
+    // Must stay identical to HIKES['dhulikhel-namobuddha'].description in
+    // static/trek.ts — this is the operator's authored Description verbatim.
     summary:
-      'A cultural hike from Dhulikhel to the Namobuddha pilgrimage site.',
+      'Hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, a major Buddhist pilgrimage site.',
     region: 'Kavrepalanchok',
     meta: {
       duration: '1 Day',
@@ -219,8 +223,8 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
       bestSeasons: 'October-April',
       startingPoint: 'Dhulikhel',
       tripFacts: {
-        start: 'Dhulikhel (~1,550 m)',
-        finish: 'Namobuddha (~1,750 m)',
+        start: 'Dhulikhel (~1,550)',
+        finish: 'Namobuddha (~1,750)',
         distance: '~10 km',
         walkingTime: '~4–5 hrs',
         routeType: 'Point-to-point',
@@ -414,7 +418,10 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
   'godawari-phulchoki': {
     id: 'godawari-phulchoki',
     name: 'Godawari to Phulchoki Hike',
-    summary: 'A forest climb from Godawari to the Phulchoki summit temple.',
+    // Must stay identical to HIKES['godawari-phulchoki'].description in
+    // static/trek.ts — this is the operator's authored Description verbatim.
+    summary:
+      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, passing through dense forest, rhododendron and oak woodland before reaching the summit.',
     region: 'Lalitpur',
     meta: {
       duration: '1 Day',
@@ -423,8 +430,8 @@ export const HIKE_DETAILS: Record<string, HikeDetail> = {
       bestSeasons: 'March-May, October-November',
       startingPoint: 'Godawari',
       tripFacts: {
-        start: 'Godawari (~1,500 m)',
-        finish: 'Phulchoki Summit (~2,765 m)',
+        start: 'Godawari (~1,500)',
+        finish: 'Phulchoki (~2,765)',
         distance: '~14–16 km round trip',
         walkingTime: '~6–8 hrs',
         routeType: 'Out-and-back',

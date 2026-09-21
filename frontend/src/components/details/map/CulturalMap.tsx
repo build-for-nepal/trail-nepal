@@ -13,6 +13,7 @@ export type CulturalMapProps = {
   onSiteClick?: (index: number) => void;
   focus?: SiteGroupFocus | null;
   siteColors?: string[];
+  overviewZoom?: number;
 };
 
 const FALLBACK_CENTER: [number, number] = [27.71, 85.32];
@@ -33,6 +34,7 @@ export default function CulturalMap({
   onSiteClick,
   focus,
   siteColors,
+  overviewZoom,
 }: CulturalMapProps) {
   const center = meanCenter(sites);
 
@@ -52,6 +54,7 @@ export default function CulturalMap({
         onSiteClick={onSiteClick}
         focus={focus}
         siteColors={siteColors}
+        overviewZoom={overviewZoom}
       />
     </div>
   );

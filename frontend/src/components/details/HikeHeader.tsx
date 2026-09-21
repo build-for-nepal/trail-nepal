@@ -95,7 +95,10 @@ const HikeHeader = ({ hike }: { hike: HikeDetail }) => {
             </p>
           )}
 
-          <p className="line-clamp-2 max-w-[320px] text-sm leading-relaxed text-white/80 drop-shadow-md sm:max-w-[85%] md:text-base">
+          {/* Clamped at 3 lines: the summary carries the operator's authored
+              Description verbatim, which runs long enough on some hikes that a
+              2-line clamp cut it mid-sentence. */}
+          <p className="line-clamp-3 max-w-[320px] text-sm leading-relaxed text-white/80 drop-shadow-md sm:max-w-[85%] md:text-base">
             {hike.summary}
           </p>
         </div>

@@ -12,7 +12,9 @@ import {
 
 import SectionHeader from '../common/SectionHeader';
 import CulturalMap from './map/CulturalMap';
-import CulturalPin from './CulturalPin';
+import Image from 'next/image';
+import startRoute from '@/assets/details/routestart.svg';
+import FlagLine from '@/assets/details/flagline.svg';
 import { cn } from '@/lib/utils';
 import { SITE_MARKER_COLOR } from '@/static/mapConstants';
 import type { CulturalTourDay, CulturalTourDetail } from '@/types/cultural';
@@ -41,12 +43,16 @@ export const toSiteWaypoints = (
 
 const DayItem = ({
   day,
+  isFirst,
+  isLast,
   open,
   onToggle,
   suppressScrollRef,
   listRef,
 }: {
   day: CulturalTourDay;
+  isFirst: boolean;
+  isLast: boolean;
   open: boolean;
   onToggle: () => void;
   suppressScrollRef: React.RefObject<boolean>;
@@ -153,7 +159,23 @@ const DayItem = ({
         className="flex w-full cursor-pointer items-center gap-3 px-5 py-4 text-left focus:outline-none"
         aria-expanded={open}
       >
-        <CulturalPin color={day.color} size={22} />
+        {/* Start icon on day 01, finish flag on the last day, plain dots
+            between — matches TrekTimeline so the two itinerary accordions read
+            the same. The per-day colour still distinguishes the pins on the
+            map; client review asked for the coloured pin to be dropped from
+            this list. */}
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+          {isFirst ? (
+            <Image src={startRoute} alt="start" width={18} height={18} />
+          ) : isLast ? (
+            <Image src={FlagLine} alt="finish" width={18} height={18} />
+          ) : (
+            <span
+              className="h-3 w-3 rounded-full"
+              style={{ backgroundColor: '#376BB6' }}
+            />
+          )}
+        </span>
 
         <span
           className="flex-1 text-sm font-semibold tracking-tight text-black/80 sm:text-base"
@@ -356,6 +378,8 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                 <div key={day.id} className="cultural-site-item">
                   <DayItem
                     day={day}
+                    isFirst={index === 0}
+                    isLast={index === itinerary.length - 1}
                     open={openStates[index] ?? false}
                     onToggle={() => toggleItem(index)}
                     suppressScrollRef={suppressScrollRef}
@@ -373,6 +397,7 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
               onSiteClick={openFromMap}
               focus={focus}
               siteColors={siteColors}
+              overviewZoom={tour.mapOverviewZoom}
             />
           </div>
         </div>

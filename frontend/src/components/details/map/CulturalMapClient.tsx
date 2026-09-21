@@ -31,6 +31,9 @@ type Props = {
   onSiteClick?: (index: number) => void;
   focus?: SiteGroupFocus | null;
   siteColors?: string[];
+  /** Fixed opening zoom, from `CulturalTourDetail.mapOverviewZoom`. When
+   *  omitted the map fits the site bounds instead. */
+  overviewZoom?: number;
 };
 
 /** Cultural tours need a deeper ceiling than the trek/hike default of 16: a
@@ -39,14 +42,18 @@ type Props = {
 const CULTURAL_MAX_ZOOM = 19;
 
 /** Framing applied when the itinerary panel focuses one day's sites. Tighter
- *  padding and a shorter flight than the initial whole-tour fit. `maxZoom` is
- *  the balance point: deep enough to pull apart pins tens of metres apart,
- *  shallow enough that the basemap is not heavily upscaled (the imagery has no
- *  native tiles past z17, and enabled terrain magnifies the view further). */
+ *  padding and a shorter flight than the initial whole-tour fit.
+ *
+ *  `maxZoom` is held deliberately shallow (client review, twice: "don't zoom
+ *  too much"). A day's sites are often only tens of metres apart — Bandipur
+ *  day 01 is two sites ~190 m apart, Lumbini day 01 three within ~50 m — so an
+ *  uncapped fit drops to street level. Framing the day in its surroundings
+ *  reads better than filling the viewport with the gap between two pins;
+ *  CULTURAL_MAX_ZOOM still lets a reader pinch in for detail. */
 const DAY_FOCUS_OPTS = {
   padding: 90,
   duration: 900,
-  maxZoom: 17.5,
+  maxZoom: 14,
   essential: true,
 } as const;
 
@@ -92,6 +99,41 @@ function makePinMarkerEl(color: string): {
   return { wrapper, inner: svg };
 }
 
+/** Pin geometry, and the scale applied while a pin is hovered. The marker is
+ *  `anchor: 'bottom'`, so the pin body occupies this height ABOVE the
+ *  coordinate — and the popup is only ever visible while the pin is hovered,
+ *  so clearance has to be measured against the SCALED size. */
+const PIN_W = 28;
+const PIN_H = 38;
+const PIN_HOVER_SCALE = 1.2;
+const PIN_GAP = 5;
+
+const HOVER_H = PIN_H * PIN_HOVER_SCALE;
+const HOVER_HALF_W = (PIN_W / 2) * PIN_HOVER_SCALE;
+/** Vertical middle of the hovered pin body, for side-anchored popups. */
+const PIN_MID_Y = -HOVER_H / 2;
+
+/**
+ * Per-anchor popup offsets. A scalar offset is measured from the coordinate,
+ * which put the popup inside the 38px pin whenever MapLibre anchored it
+ * `bottom` (popup above the marker). Each entry shifts the popup clear of the
+ * pin instead: up past its full height when above, down from the tip when
+ * below, and sideways past its half-width when beside.
+ */
+const SITE_POPUP_OFFSET: maplibregl.Offset = {
+  bottom: [0, -(HOVER_H + PIN_GAP)],
+  'bottom-left': [0, -(HOVER_H + PIN_GAP)],
+  'bottom-right': [0, -(HOVER_H + PIN_GAP)],
+  // The pin sits entirely above the coordinate, so a popup below it only has
+  // to clear the point itself.
+  top: [0, PIN_GAP],
+  'top-left': [0, PIN_GAP],
+  'top-right': [0, PIN_GAP],
+  left: [HOVER_HALF_W + PIN_GAP, PIN_MID_Y],
+  right: [-(HOVER_HALF_W + PIN_GAP), PIN_MID_Y],
+  center: [0, PIN_MID_Y],
+};
+
 function ControlBtn({
   onClick,
   disabled,
@@ -124,6 +166,7 @@ export default function CulturalMapClient({
   onSiteClick,
   focus,
   siteColors,
+  overviewZoom,
 }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(
@@ -157,6 +200,24 @@ export default function CulturalMapClient({
     } as unknown as GeoJSONData;
   }, [sites]);
 
+  /** Centre of the site bounding box, as MapLibre `[lng, lat]`. Only used by
+   *  the fixed-zoom opening view. Deliberately NOT the `center` prop, which is
+   *  the arithmetic mean of the site coordinates and so gets pulled toward
+   *  whichever cluster has the most pins; the bounds centre frames the outliers
+   *  evenly. `null` when no site has usable coordinates. */
+  const boundsCenter = useMemo<[number, number] | null>(() => {
+    const coords = sites.filter((site) => site.coordinates?.length === 2);
+    if (coords.length === 0) return null;
+
+    const lats = coords.map((site) => site.coordinates[0]);
+    const lngs = coords.map((site) => site.coordinates[1]);
+
+    return [
+      (Math.min(...lngs) + Math.max(...lngs)) / 2,
+      (Math.min(...lats) + Math.max(...lats)) / 2,
+    ];
+  }, [sites]);
+
   // One marker per site; hover shows the site popup, click opens it in the list.
   useEffect(() => {
     if (!mapLoaded || !map) return;
@@ -165,8 +226,11 @@ export default function CulturalMapClient({
       popupRef.current = new maplibregl.Popup({
         closeButton: false,
         closeOnClick: false,
-        className: 'trail-popup trail-popup--site',
-        offset: 18,
+        // Plain `trail-popup` only: the site tooltip now uses the same branded
+        // green-header card as treks and hikes, so the base tip colouring
+        // applies and the old dark `--site` override is gone.
+        className: 'trail-popup',
+        offset: SITE_POPUP_OFFSET,
         maxWidth: 'none',
       });
     }
@@ -244,12 +308,27 @@ export default function CulturalMapClient({
     };
   }, [mapLoaded, map, sites, onSiteClick, siteColors]);
 
-  // Initial framing over the site points. Capped so a tour whose sites all sit
-  // in one courtyard still opens as an overview rather than at street level.
+  // Initial framing. Two modes:
+  //
+  //  - `overviewZoom` set (currently Bandipur): open at exactly that zoom,
+  //    centred on the site bounds. A FIXED zoom is what pins the scale-bar
+  //    reading, because a fit is viewport-dependent — Bandipur's four sites fit
+  //    at ~14.4 on a wide canvas but ~13.3 on a narrow one, which reads "200 m"
+  //    and "500 m" respectively. Pick the value by MEASURING in a browser, not
+  //    by computing it: terrain is applied even at pitch 0 and magnifies the
+  //    effective scale by a canvas-dependent 1.1-1.3x.
+  //  - otherwise: fit the site bounds, capped shallow so a compact tour opens
+  //    as a town-level overview rather than at street level.
   useEffect(() => {
     if (!mapLoaded || !map) return;
-    fitToBounds(map, pointFC, undefined, { maxZoom: 16 });
-  }, [mapLoaded, map, pointFC]);
+
+    if (overviewZoom !== undefined && boundsCenter) {
+      map.easeTo({ center: boundsCenter, zoom: overviewZoom, duration: 2000 });
+      return;
+    }
+
+    fitToBounds(map, pointFC, undefined, { maxZoom: 14 });
+  }, [mapLoaded, map, pointFC, overviewZoom, boundsCenter]);
 
   // Frame every site belonging to the day the itinerary panel just opened.
   // Markers are registered by the effect above, which runs first, so
