@@ -88,7 +88,7 @@ const TrekDetailsContent = ({ trekId }: Props) => {
         />
         <TreksExpect
           expectations={trek?.expectations ?? []}
-          overview={trek?.overview ?? ''}
+          summary={trek?.summary ?? ''}
           imageSrc={expectImage}
           name={trek?.name ?? ''}
         />

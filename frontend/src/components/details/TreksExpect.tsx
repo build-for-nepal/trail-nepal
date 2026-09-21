@@ -3,15 +3,18 @@ import SectionHeader from '../common/SectionHeader';
 
 type Props = {
   expectations: { title: string; description: string }[];
-  overview: string;
+  /** The trip's authored summary, shown in full as the quote over the image. */
+  summary: string;
   /** Resolved hero/portrait image for the left panel. */
   imageSrc: string;
   /** Used for the image alt text. */
   name: string;
 };
 
-const TreksExpect = ({ expectations, overview, imageSrc, name }: Props) => {
+const TreksExpect = ({ expectations, summary, imageSrc, name }: Props) => {
   if (!expectations || expectations.length === 0) return null;
+
+  const quote = summary.trim();
 
   return (
     <div className="w-full bg-[#EBF0F8]">
@@ -31,12 +34,14 @@ const TreksExpect = ({ expectations, overview, imageSrc, name }: Props) => {
               className="rounded-2xl object-cover w-full h-[400px] sm:h-[450px] lg:h-[550px] shadow-lg"
             />
 
-            {/* Dynamic Quote Box */}
-            <div className="absolute -bottom-6 -right-2 sm:-left-6 sm:right-auto bg-white rounded-xl shadow-xl px-6 py-4 max-w-[280px] sm:max-w-sm z-10">
-              <p className="text-sm text-gray-700 italic font-medium leading-relaxed">
-                “{overview.substring(0, 95).trim()}...”
-              </p>
-            </div>
+            {/* Quote box — the summary is shown in full, never truncated. */}
+            {quote && (
+              <div className="absolute -bottom-6 -right-2 sm:-left-6 sm:right-auto bg-white rounded-xl shadow-xl px-6 py-4 max-w-[280px] sm:max-w-sm z-10">
+                <p className="text-sm text-gray-700 italic font-medium leading-relaxed">
+                  {`\u201C${quote}\u201D`}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* RIGHT TEXT SECTION */}

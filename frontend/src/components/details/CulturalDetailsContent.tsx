@@ -108,7 +108,7 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
         />
         <TreksExpect
           expectations={tour.expectations}
-          overview={tour.overview}
+          summary={tour.summary}
           imageSrc={expectImage}
           name={tour.name}
         />
