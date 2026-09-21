@@ -1,4 +1,5 @@
 export const DEFAULT_FILTER_STATE: FilterState = {
+  types: [],
   regions: [],
   durations: [],
   difficulties: [],
@@ -18,6 +19,7 @@ export type Region =
   | string;
 
 export interface FilterState {
+  types: string[];
   regions: string[];
   durations: string[];
   difficulties: string[];
@@ -25,21 +27,19 @@ export interface FilterState {
   maxPrice: string;
   maxElevation: number;
 }
+
+// Array-valued filter dimensions (checkbox groups).
+export type FilterArrayKey = 'types' | 'regions' | 'durations' | 'difficulties';
+
 export type FilterPanelProps = {
   filters: FilterState;
-  onToggle: (
-    key: 'regions' | 'durations' | 'difficulties',
-    value: string,
-  ) => void;
+  onToggle: (key: FilterArrayKey, value: string) => void;
   onRangeChange: (
     key: 'minPrice' | 'maxPrice' | 'maxElevation',
     value: string | number,
   ) => void;
   onReset: () => void;
-  onSelectOnly?: (
-    key: 'regions' | 'durations' | 'difficulties',
-    value: string,
-  ) => void;
+  onSelectOnly?: (key: FilterArrayKey, value: string) => void;
   mobile?: boolean;
   headerHeight?: number;
 };

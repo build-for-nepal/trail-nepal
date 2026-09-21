@@ -7,11 +7,10 @@ import gearBag from '@/assets/details/gearbag.svg';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { GearCategory, GearCategoryKey, GearChecklist } from '@/types/trek';
-import { TREK_DETAILS } from '@/static/trekDetails';
 import { gearCheckListDescriptions } from '@/static/constants';
 import { Minus, Plus } from 'lucide-react';
 
-// Fallback data if no trekId is provided
+// Fallback data if no checklist is provided
 const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
   essentials: [
     { item: 'Waterproof Shell Jacket', weight: '0.6kg' },
@@ -20,11 +19,29 @@ const FALLBACK_GEAR_CHECKLIST: GearChecklist = {
   optional: [{ item: 'Fleece Jacket', weight: '0.5kg' }],
 };
 
-const getWeightMeta = (kg: number): { label: string; color: string } => {
+// Upper bounds (kg) for each pack-weight band. Multi-day treks carry more than a
+// day hike, so the bands are configurable per content type.
+export interface LoadThresholds {
+  light: number; // below this → "Light Load"
+  optimal: number; // below this → "Optimal Load"
+  heavy: number; // below this → "Heavy Load"; at/above → "Over Limit"
+}
+
+const DEFAULT_LOAD_THRESHOLDS: LoadThresholds = {
+  light: 3,
+  optimal: 7,
+  heavy: 12,
+};
+
+const getWeightMeta = (
+  kg: number,
+  thresholds: LoadThresholds,
+): { label: string; color: string } => {
   if (kg === 0) return { label: 'Empty', color: '#9ca3af' };
-  if (kg < 3) return { label: 'Light Load', color: '#376bb6' };
-  if (kg < 7) return { label: 'Optimal Load', color: '#22c55e' };
-  if (kg < 12) return { label: 'Heavy Load', color: '#f59e0b' };
+  if (kg < thresholds.light) return { label: 'Light Load', color: '#376bb6' };
+  if (kg < thresholds.optimal)
+    return { label: 'Optimal Load', color: '#22c55e' };
+  if (kg < thresholds.heavy) return { label: 'Heavy Load', color: '#f59e0b' };
   return { label: 'Over Limit', color: '#ef4444' };
 };
 
@@ -184,15 +201,15 @@ const CheckItem = ({
 };
 
 interface Props {
-  trekId?: string;
+  gearChecklist?: GearChecklist;
+  /** Pack-weight bands; defaults to multi-day trek thresholds. */
+  loadThresholds?: LoadThresholds;
 }
 
-const GearCheckList = ({ trekId }: Props) => {
-  const gearChecklist =
-    trekId && TREK_DETAILS[trekId]
-      ? TREK_DETAILS[trekId].gearChecklist
-      : FALLBACK_GEAR_CHECKLIST;
-
+const GearCheckList = ({
+  gearChecklist = FALLBACK_GEAR_CHECKLIST,
+  loadThresholds = DEFAULT_LOAD_THRESHOLDS,
+}: Props) => {
   const parseWeightToKg = (weightStr: string): number => {
     const value = parseFloat(weightStr);
     if (isNaN(value)) return 0;
@@ -293,6 +310,7 @@ const GearCheckList = ({ trekId }: Props) => {
 
   const { label: weightLabel, color: weightColor } = getWeightMeta(
     stats.totalWeight,
+    loadThresholds,
   );
   const activeCategory = categories.find((c) => c.key === activeTab);
 

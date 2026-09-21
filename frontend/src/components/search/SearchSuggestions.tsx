@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/command';
 import { ChevronRight } from 'lucide-react';
 import type { Trek } from '@/types/trek';
+import { trailHref } from '@/lib/trail';
 
 interface SearchSuggestionsProps {
   results: Trek[];
@@ -24,8 +25,8 @@ export function SearchSuggestions({
 }: SearchSuggestionsProps) {
   const router = useRouter();
 
-  function handleSelect(trekId: string) {
-    router.push(`/treks/${trekId}`);
+  function handleSelect(trail: Trek) {
+    router.push(trailHref(trail));
     onSelect();
   }
 
@@ -37,21 +38,21 @@ export function SearchSuggestions({
       >
         <CommandList>
           <CommandEmpty className="py-4 text-center text-sm text-gray-400">
-            No treks found for &quot;{query}&quot;
+            No trails found for &quot;{query}&quot;
           </CommandEmpty>
           <CommandGroup>
-            {results.map((trek) => (
+            {results.map((trail) => (
               <CommandItem
-                key={trek.id}
-                value={trek.id}
-                onSelect={() => handleSelect(trek.id)}
+                key={trail.id}
+                value={trail.id}
+                onSelect={() => handleSelect(trail)}
                 className="flex cursor-pointer items-center justify-between border-b border-gray-100 px-4 py-3 last:border-0"
               >
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-gray-900">
-                    {trek.title}
+                    {trail.title}
                   </span>
-                  <span className="text-xs text-gray-400">{trek.region}</span>
+                  <span className="text-xs text-gray-400">{trail.region}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 shrink-0 text-gray-400" />
               </CommandItem>

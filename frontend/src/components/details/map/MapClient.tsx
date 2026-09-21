@@ -11,8 +11,8 @@ import {
   Minimize2,
 } from 'lucide-react';
 
-import { TREK_DETAILS } from '@/static/trekDetails';
-import { GeoJSONData, LayerKey, DayFocus } from '@/types/map';
+import { LayerKey } from '@/types/map';
+import type { MapClientProps } from '@/types/map';
 import { ElevationPoint } from '@/types/trek';
 import {
   useMapInit,
@@ -22,18 +22,8 @@ import {
   useHikerMarker,
   useAccessRoute,
 } from '@/hooks/useMapFeatures';
-import { ACCESS_ROUTES } from '@/static/accessRoutes';
 import { LAYER_THUMBNAILS, LAYERS, POPUP_STYLES } from '@/static/mapConstants';
 import ElevationProfile from './ElevationProfile';
-
-interface MapClientProps {
-  data: GeoJSONData | null;
-  center: [number, number];
-  trekId?: string;
-
-  onDayClick?: (index: number) => void;
-  focus?: DayFocus | null;
-}
 
 function ControlBtn({
   onClick,
@@ -64,16 +54,17 @@ function ControlBtn({
 export default function MapClient({
   data,
   center,
-  trekId,
+  geojsonId,
+  waypoints = [],
+  accessRoute,
+  flagAtStart = false,
   onDayClick,
   focus,
 }: MapClientProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { containerRef, map, mapLoaded } = useMapInit(center);
 
-  const trekInfo = trekId ? TREK_DETAILS?.[trekId] : null;
-  const timeline = trekInfo?.timeline ?? [];
-  const accessRoute = trekId ? ACCESS_ROUTES[trekId] : undefined;
+  const timeline = waypoints;
 
   // Destination point (the itinerary day flagged isDestination) as [lng, lat].
   // Loop treks end back at the trailhead, so the summit flag can't rely on the
@@ -89,8 +80,7 @@ export default function MapClient({
     if (!data) return null;
     const all: GeoJSON.Position[] = [];
     data.features.forEach((f) => {
-      if (f.geometry.type === 'LineString')
-        all.push(...f.geometry.coordinates);
+      if (f.geometry.type === 'LineString') all.push(...f.geometry.coordinates);
       else if (f.geometry.type === 'MultiLineString')
         f.geometry.coordinates.forEach((seg) => all.push(...seg));
     });
@@ -99,24 +89,18 @@ export default function MapClient({
 
   useTrailData(map, mapLoaded, data);
   useTrekMarkers(map, mapLoaded, timeline, onDayClick, focus, routeCoords);
-  useTrailEndFlag(
-    map,
-    mapLoaded,
-    data,
-    trekId === 'mardi-himal-trek',
-    destFlagCoord,
-  );
+  useTrailEndFlag(map, mapLoaded, data, flagAtStart, destFlagCoord);
   useAccessRoute(map, mapLoaded, accessRoute);
 
-  // Load elevation profile for the current trek
+  // Load elevation profile for the current route
   const [elevationPoints, setElevationPoints] = useState<ElevationPoint[]>([]);
   useEffect(() => {
-    if (!trekId) return;
-    fetch(`/data/elevation/${trekId}-elevation.json`)
+    if (!geojsonId) return;
+    fetch(`/data/elevation/${geojsonId}-elevation.json`)
       .then((r) => r.json())
       .then(setElevationPoints)
       .catch(() => {});
-  }, [trekId]);
+  }, [geojsonId]);
 
   // Map interaction control: keep page scroll smooth until user explicitly enables map zoom.
   const [mapInteractionEnabled, setMapInteractionEnabled] = useState(false);

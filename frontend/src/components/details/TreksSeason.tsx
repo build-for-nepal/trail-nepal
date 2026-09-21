@@ -1,16 +1,31 @@
 import TreksSeasonContent from '@/components/details/season/TreksSeasonContent';
-import { TREK_DETAILS } from '@/static/trekDetails';
-import type { Props } from '@/types/trek';
+import type { TrekTimelineDay } from '@/types/trek';
 
-const TreksSeason = ({ trekId }: Props) => {
-  const data = TREK_DETAILS[trekId];
-  if (!data?.seasonalPlanning) return null;
+type Props = {
+  seasonalPlanning: { month: string; condition: string }[];
+  region: string;
+  /** Waypoints (trek days / hike sections) used to derive weather locations. */
+  waypoints: TrekTimelineDay[];
+  name: string;
+  bestSeasons?: string;
+};
+
+const TreksSeason = ({
+  seasonalPlanning,
+  region,
+  waypoints,
+  name,
+  bestSeasons,
+}: Props) => {
+  if (!seasonalPlanning || seasonalPlanning.length === 0) return null;
 
   return (
     <TreksSeasonContent
-      trekId={trekId}
-      region={data.region}
-      timeline={data.timeline}
+      seasonalPlanning={seasonalPlanning}
+      name={name}
+      bestSeasons={bestSeasons}
+      region={region}
+      waypoints={waypoints}
     />
   );
 };

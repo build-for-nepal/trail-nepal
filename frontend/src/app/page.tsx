@@ -3,6 +3,7 @@ import Footer from '@/components/layout/footer/Footer';
 import { HeroSection } from '@/components/home/hero/HeroSection';
 import PopularTrekSection from '@/components/home/popularTreks/PopularTrekSection';
 import WhyTrialNepalSection from '@/components/home/whyTrialNepal/WhyTrialNepalSection';
+import HomeTrivia from 'src/components/home/trivia/HomeTrivia';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <PopularTrekSection />
       <div className="bg-[#EBF0F8]">
         <WhyTrialNepalSection />
+        <HomeTrivia />
         {/* <EstimateCostSection /> */}
         <Footer isMainDisplay={true} />
       </div>

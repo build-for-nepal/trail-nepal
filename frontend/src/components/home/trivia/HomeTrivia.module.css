@@ -1,0 +1,62 @@
+.cloudLeft {
+  animation: home-cloud-left 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cloudRight {
+  animation: home-cloud-right 24s ease-in-out 1.2s infinite;
+  will-change: transform;
+}
+
+.trekScroller {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(95, 124, 13, 0.45) transparent;
+}
+
+.trekScroller::-webkit-scrollbar {
+  height: 5px;
+}
+
+.trekScroller::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(95, 124, 13, 0.45);
+}
+
+@keyframes home-cloud-left {
+  0%,
+  100% {
+    transform: translate3d(-4px, 1px, 0);
+  }
+  30% {
+    transform: translate3d(5px, -2px, 0);
+  }
+  48% {
+    transform: translate3d(22px, -3px, 0);
+  }
+  76% {
+    transform: translate3d(28px, 2px, 0);
+  }
+}
+
+@keyframes home-cloud-right {
+  0%,
+  100% {
+    transform: translate3d(8px, -1px, 0);
+  }
+  34% {
+    transform: translate3d(-2px, 2px, 0);
+  }
+  52% {
+    transform: translate3d(-24px, 4px, 0);
+  }
+  80% {
+    transform: translate3d(-30px, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloudLeft,
+  .cloudRight {
+    animation: none;
+  }
+}
