@@ -48,6 +48,10 @@ frontend/public/images/**/originals/
 # Local Claude Code project config
 .claude/
 
+# Local agent operating guide (not for the shared repo).
+# Anchored so it does not shadow the tracked frontend/AGENTS.md.
+/AGENTS.md
+
 # Local-only image compression scripts
 frontend/scripts/compress-images.mjs
 frontend/scripts/compress_images.js
