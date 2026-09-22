@@ -28,7 +28,8 @@ type GameScreen = 'intro' | 'question' | 'result';
 const ROUND_SIZE = 8;
 const TREK_QUESTION_COUNT = 2;
 const LETTERS = ['A', 'B', 'C', 'D'];
-const getTriviaName = (name: string) => name.replace(/\s+Trek$/i, '').trim();
+const getTriviaName = (name: string) =>
+  name.replace(/\s+(Trek|Hike|Tour)$/i, '').trim();
 
 const shuffle = <T,>(items: T[]) => {
   const shuffled = [...items];
@@ -80,13 +81,13 @@ export default function TrekTrivia({
 }: Props) {
   const trek = trekId ? TREK_DETAILS[trekId] : undefined;
   const trekQuestions = trekId ? (TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []) : [];
-  const triviaName =
-    triviaNameOverride ??
-    (trek
+  const triviaName = triviaNameOverride
+    ? getTriviaName(triviaNameOverride)
+    : trek
       ? trekId === 'ebc-trek'
         ? 'Everest'
         : getTriviaName(trek.name)
-      : 'Trail Nepal');
+      : 'Trail Nepal';
   const [screen, setScreen] = useState<GameScreen>(
     autoStart ? 'question' : 'intro',
   );
