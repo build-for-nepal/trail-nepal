@@ -305,10 +305,15 @@ If the repository contains shared components or a design system, use it.
 For example:
 
 ```text
-carepilot-components
+src/components/ui/     shadcn/ui primitives — button, chart, checkbox, command,
+                       dialog, input, input-group, sheet, textarea
+src/components/        shared feature components
 ```
 
 should be preferred over creating duplicate components.
+
+Extend the existing `ui` primitives rather than adding a parallel component
+library.
 
 Before implementing a UI element, search for an existing equivalent.
 
