@@ -1,0 +1,7 @@
+# Prettier 3 already honors .gitignore, so node_modules/, .expo/, dist/, /ios
+# and /android need NO entry here — they are covered by mobile/.gitignore.
+# Only list paths that are TRACKED but should not be reformatted.
+
+# npm owns this file's formatting; prettier rewriting it is pointless churn
+# and it is the slowest file in the run.
+package-lock.json
