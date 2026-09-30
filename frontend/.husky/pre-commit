@@ -1,1 +1,7 @@
-cd frontend && npx lint-staged
+set -e
+
+# Format staged files for each app. lint-staged is a no-op when nothing in a
+# given workspace is staged, so both lines are safe on every commit.
+# Subshells keep each `cd` from leaking into the next.
+(cd frontend && npx lint-staged)
+(cd mobile && npx lint-staged)
