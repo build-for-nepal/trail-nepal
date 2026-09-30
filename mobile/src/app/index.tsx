@@ -4,7 +4,6 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Trails Nepal</Text>
-      <Text style={styles.subtitle}>Mobile scaffold ready.</Text>
     </View>
   );
 }
@@ -19,9 +18,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
-  },
-  subtitle: {
-    fontSize: 14,
-    opacity: 0.6,
   },
 });
