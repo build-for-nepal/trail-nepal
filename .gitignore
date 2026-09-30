@@ -56,6 +56,9 @@ frontend/public/images/**/originals/
 /AGENTS.md
 /mobile/AGENTS.md
 
+# Local design boards and mockups (reference only, not shipped)
+/mobile/design/
+
 # Local-only image compression scripts
 frontend/scripts/compress-images.mjs
 frontend/scripts/compress_images.js
