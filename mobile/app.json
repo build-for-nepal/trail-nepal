@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Trails Nepal",
+    "slug": "trails-nepal",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "trailsnepal",
+    "userInterfaceStyle": "light",
+    "android": {
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
