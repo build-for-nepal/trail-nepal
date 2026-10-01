@@ -24,6 +24,7 @@ module.exports = {
         // 6.0:1 on white. The mockup's original #6B7F76 was 4.3:1 and failed AA.
         muted: '#55685F',
         sand: '#F6F3EE',
+        field: '#ECE9E3',
       },
     },
   },
