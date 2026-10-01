@@ -12,3 +12,7 @@ export const searchBarColor = {
   icon: '#55685F',
   placeholder: '#55685F',
 } as const;
+
+export const filterBarColor = {
+  icon: '#0C1B16',
+} as const;

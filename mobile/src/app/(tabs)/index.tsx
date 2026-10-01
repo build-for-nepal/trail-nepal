@@ -1,17 +1,20 @@
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { SearchBar } from '@/features/explore';
+import { FilterBar, SearchBar } from '@/features/explore';
 
 export default function Explore() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      className="flex-1 bg-sand px-[18px]"
-      style={{ paddingTop: insets.top + 10 }}
-    >
-      <SearchBar />
+    <View className="flex-1 bg-sand" style={{ paddingTop: insets.top + 10 }}>
+      <View className="px-[18px]">
+        <SearchBar />
+      </View>
+
+      <View className="mt-[12px]">
+        <FilterBar />
+      </View>
     </View>
   );
 }
