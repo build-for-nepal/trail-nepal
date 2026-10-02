@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { FilterBar, SearchBar } from '@/features/explore';
+import { FilterBar, SearchBar, TypeToggle } from '@/features/explore';
 
 export default function Explore() {
   const insets = useSafeAreaInsets();
@@ -14,6 +14,10 @@ export default function Explore() {
 
       <View className="mt-[12px]">
         <FilterBar />
+      </View>
+
+      <View className="mt-[14px] px-[18px]">
+        <TypeToggle />
       </View>
     </View>
   );
