@@ -17,7 +17,9 @@ module.exports = {
     extend: {
       colors: {
         ink: '#0C1B16',
-        primary: '#125B42',
+        // Monochrome accent, same as ink, chosen 2026-10-02 over teal and the mockup's #125B42.
+        // Kept as its own token so selected states can take a colour again in one edit.
+        primary: '#0C1B16',
         accent: '#E0762B',
         surface: '#FFFFFF',
         border: '#E4E0D8',

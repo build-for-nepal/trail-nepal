@@ -13,6 +13,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@react-native-community/slider": "5.2.0",
     "@rn-primitives/toggle-group": "^1.5.2",
     "expo": "~57.0.25",
     "expo-constants": "~57.0.19",

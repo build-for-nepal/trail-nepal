@@ -2,7 +2,7 @@
 // text-primary. tailwind.config.js is the palette's source of truth; keep these in step.
 // A cssInterop() wrapper in components/ui/ would remove the duplication.
 export const tabIconColor = {
-  active: '#125B42',
+  active: '#0C1B16',
   inactive: '#55685F',
 } as const;
 
@@ -15,4 +15,19 @@ export const searchBarColor = {
 
 export const filterBarColor = {
   icon: '#0C1B16',
+  selected: '#0C1B16',
+} as const;
+
+// @gorhom/bottom-sheet styles its animated views through props, not className.
+export const bottomSheetColor = {
+  surface: '#FFFFFF',
+  grab: '#D9D5CC',
+  scrim: 'rgba(8, 20, 16, 0.42)',
+} as const;
+
+// The native slider only takes tint props.
+export const sliderColor = {
+  fill: '#0C1B16',
+  track: '#E4E0D8',
+  thumb: '#0C1B16',
 } as const;
