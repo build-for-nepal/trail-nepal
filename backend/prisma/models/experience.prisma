@@ -1,0 +1,84 @@
+enum Difficulty {
+  EASY
+  EASY_MODERATE
+  MODERATE
+  MODERATE_CHALLENGING
+  CHALLENGING
+}
+
+enum ExperienceType {
+  TREK
+  HIKE
+  CULTURAL
+  SIGHTSEEING
+  ACTIVITY
+}
+
+enum ExperienceStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ExperienceRegion {
+  EVEREST
+  ANNAPURNA
+  LANGTANG
+  MANASLU
+  KATHMANDU_VALLEY
+  POKHARA
+}
+
+model Experience {
+  id String @id @default(uuid()) @db.Uuid
+
+  // Stable URL segment, separate from the internal ID and display name.
+  slug   String           @unique
+  name   String
+  type   ExperienceType
+  status ExperienceStatus @default(PUBLISHED)
+
+  // short description 
+  // Used for cards, search results and comparison.
+  shortDescription String @map("short_description")
+
+  // comparison factors
+  durationDays Int  @map("duration_days")
+  minDays      Int? @map("min_days")
+  maxDays      Int? @map("max_days")
+
+  difficulty      Difficulty
+  difficultyScore Int?       @map("difficulty_score")
+  thumbnail       String?
+
+  maxElevationM Int?  @map("max_elevation_m")
+  peakSeason    Int[] @map("peak_season")
+  priceNpr      Int?  @map("price_npr")
+
+  region ExperienceRegion
+
+  startPoint String? @map("start_point")
+
+  // tags
+  interest String[] // 'nature', 'wildlife', 'culture', 'mountains'
+  activity String[] // 'trekking', 'safari', 'rafting'
+
+  isPopular Boolean  @default(false) @map("is_popular")
+  ratingAvg Decimal? @map("rating_avg") @db.Decimal(3, 2)
+
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // contents 
+  details  ExperienceDetail[]
+  timeline ExperienceTimeline[]
+  route    ExperienceRoute?
+  images   ExperienceImage[]
+
+  @@index([durationDays, difficulty])
+  @@index([region, durationDays])
+  @@index([maxElevationM])
+  @@index([isPopular])
+  @@map("experience")
+}
