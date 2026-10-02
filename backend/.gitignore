@@ -34,3 +34,6 @@ prisma/*.db-journal
 .agents/
 skills-lock.json
 /src/generated/prisma
+
+# guides
+refer-notes/
