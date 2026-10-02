@@ -68,3 +68,6 @@ count-coords.js
 fix-trek-data.js
 frontend/scripts/fetch-elevation.js
 frontend/scripts/arrange-geojson-coords.js
+
+# guides
+refer-notes/

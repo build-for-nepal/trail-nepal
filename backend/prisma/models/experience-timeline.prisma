@@ -1,0 +1,59 @@
+model ExperienceTimeline {
+  id           String     @id @default(uuid()) @db.Uuid
+  experienceId String     @unique @map("experience_id") @db.Uuid
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  title       String?
+  description String? @map("description")
+
+  information Json?
+  items       ExperienceTimelineItem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("experience_timeline")
+}
+
+model ExperienceTimelineItem {
+  id         String             @id @default(uuid()) @db.Uuid
+  timelineId String             @map("timeline_id") @db.Uuid
+  timeline   ExperienceTimeline @relation(fields: [timelineId], references: [id], onDelete: Cascade)
+
+  order     Int?
+  dayNumber Int?    @map("day_number")
+  title     String?
+
+  data Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([timelineId])
+  @@map("experience_timeline_item")
+}
+
+model ExperienceRoute {
+  id           String     @id @default(uuid()) @db.Uuid
+  experienceId String     @unique @map("experience_id") @db.Uuid
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  // Complete route geometry from start to end.
+  geojson Json? @db.JsonB
+
+  startCoords Float[] @map("start_coords")
+  endCoords   Float[] @map("end_coords")
+
+  distanceKm    Decimal? @map("distance_km") @db.Decimal(7, 2)
+  maxElevationM Int?     @map("max_elevation_m")
+  ascentM       Int?
+  descentM      Int?
+
+  routeDifficulty Difficulty? @map("route_difficulty")
+  source          String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("experience_route")
+}

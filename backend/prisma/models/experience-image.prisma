@@ -1,0 +1,21 @@
+enum ImageType {
+  HERO
+  GALLERY
+  SECTION
+}
+
+model ExperienceImage {
+  id           String     @id @default(uuid()) @db.Uuid
+  experienceId String     @map("experience_id") @db.Uuid
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  url        String?
+  storageKey String?   @map("storage_key")
+  alt        String?
+  type       ImageType @default(GALLERY)
+
+  metadata Json?
+
+  @@index([experienceId, type])
+  @@map("experience_image")
+}
