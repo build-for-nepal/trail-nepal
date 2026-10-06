@@ -48,13 +48,7 @@ export const listExperienceQuerySchema = z.object({
 });
 
 export const getExperienceParamsSchema = z.object({
-  slug: z
-    .string()
-    .min(2)
-    .max(120)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
-      message: 'Slug must be lowercase words separated by single hyphens',
-    }),
+  id: z.uuid({ message: 'id must be a UUID' }),
 });
 
 export type ListExperienceQuery = z.infer<typeof listExperienceQuerySchema>;

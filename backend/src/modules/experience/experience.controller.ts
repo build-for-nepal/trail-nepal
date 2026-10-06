@@ -23,14 +23,14 @@ export async function listExperiencesController(
   return handleResponse(res, result);
 }
 
-// GET /api/experiences/:slug - detail sections, timeline, images and route.
+// GET /api/experiences/:id - detail sections, timeline, images and route.
 export async function getExperienceController(
   req: Request,
   res: Response,
 ): Promise<Response<GetExperienceResponse>> {
-  const { slug } = req.params as GetExperienceParams;
+  const { id } = req.params as GetExperienceParams;
 
-  const experience = await getExperienceDetail(slug);
+  const experience = await getExperienceDetail(id);
 
   return handleResponse(res, experience);
 }

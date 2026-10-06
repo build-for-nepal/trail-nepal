@@ -51,14 +51,14 @@ export async function listExperiences(
 // Detail rows, timeline, images and route load together: the page needs all
 // four, so splitting them would mean four sequential queries on the hot path.
 export async function getExperienceDetail(
-  slug: string,
+  id: string,
 ): Promise<ExperienceDetail> {
   const experience = await db.experience.findFirst({
-    where: { slug, status: 'PUBLISHED', isActive: true },
+    where: { id, status: 'PUBLISHED', isActive: true },
     select: detailSelect,
   });
 
-  // slug is unique, so a miss is a 404 rather than an empty detail page.
+  // A miss is a 404 rather than an empty detail page.
   if (!experience) {
     throw new AppError(404, 'Experience not found');
   }

@@ -14,7 +14,7 @@ export const experienceRouter = Router();
 experienceRouter.get('/', validate({ query: listExperienceQuerySchema }), listExperiencesController);
 
 experienceRouter.get(
-  '/:slug',
+  '/:id',
   validate({ params: getExperienceParamsSchema }),
   getExperienceController,
 );
