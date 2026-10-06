@@ -71,6 +71,10 @@ export function formatMetres(value: number): string {
   return `${value.toLocaleString('en-US')} m`;
 }
 
+export function formatDays(value: number): string {
+  return value === 1 ? '1 day' : `${value} days`;
+}
+
 // Chip order follows the sheet's section order.
 export function toAppliedFilters(filters: TrekFilters): AppliedFilter[] {
   const applied: AppliedFilter[] = [

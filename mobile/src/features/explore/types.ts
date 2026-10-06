@@ -1,4 +1,23 @@
+import type { ImageRequireSource } from 'react-native';
+
 export type Difficulty = 'easy' | 'moderate' | 'challenging';
+
+/** The web's TrailType values. */
+export type TripType = 'trek' | 'hike' | 'cultural';
+
+/** One trek, day hike or cultural tour, with the fields its card shows. */
+export type Trip = {
+  id: string;
+  title: string;
+  type: TripType;
+  region: string;
+  days: number;
+  /** Metres, at the trip's highest point. */
+  maxAltitudeM: number;
+  difficulty: Difficulty;
+  /** A photo bundled with require(). */
+  image: ImageRequireSource;
+};
 
 export type DurationBucket = '0-3' | '3-5' | '5-10' | '10-15' | '15+';
 
