@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -6,13 +7,16 @@ import {
   FilterSheet,
   SearchBar,
   toAppliedFilters,
+  TrekList,
   TypeToggle,
   useTrekFilters,
 } from '@/features/explore';
+import type { TripType } from '@/features/explore';
 
 export default function Explore() {
   const insets = useSafeAreaInsets();
   const filters = useTrekFilters();
+  const [type, setType] = useState<TripType>('trek');
 
   return (
     <View className="flex-1 bg-sand" style={{ paddingTop: insets.top + 10 }}>
@@ -29,8 +33,10 @@ export default function Explore() {
       </View>
 
       <View className="mt-[14px] px-[18px]">
-        <TypeToggle />
+        <TypeToggle value={type} onValueChange={setType} />
       </View>
+
+      <TrekList type={type} />
 
       <FilterSheet controller={filters} />
     </View>

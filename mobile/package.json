@@ -13,6 +13,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo-google-fonts/fraunces": "^0.4.1",
+    "@expo-google-fonts/poppins": "^0.4.1",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@react-native-community/slider": "5.2.0",
     "@rn-primitives/toggle-group": "^1.5.2",

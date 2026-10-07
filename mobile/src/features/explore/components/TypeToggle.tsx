@@ -1,35 +1,45 @@
-import { useState } from 'react';
 import { Text } from 'react-native';
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { cn } from '@/lib/utils';
 
-const TYPES = [
+import type { TripType } from '../types';
+
+const TYPES: readonly { value: TripType; label: string }[] = [
   { value: 'trek', label: 'Treks' },
-  { value: 'day-hike', label: 'Day hikes' },
-  { value: 'cultural-tour', label: 'Cultural tours' },
-] as const;
+  { value: 'hike', label: 'Day hikes' },
+  { value: 'cultural', label: 'Cultural tours' },
+];
 
-export function TypeToggle() {
-  const [type, setType] = useState<string>('trek');
+const TYPE_VALUES: readonly string[] = TYPES.map((o) => o.value);
 
+function isTripType(value: string): value is TripType {
+  return TYPE_VALUES.includes(value);
+}
+
+type TypeToggleProps = {
+  value: TripType;
+  onValueChange: (value: TripType) => void;
+};
+
+export function TypeToggle({ value, onValueChange }: TypeToggleProps) {
   return (
     <ToggleGroup
       type="single"
-      value={type}
+      value={value}
       // Tapping the selected option clears it in the primitive; one type always stays selected.
       onValueChange={(next) => {
-        if (next) setType(next);
+        if (next && isTripType(next)) onValueChange(next);
       }}
       className="h-[36px] flex-row rounded-[8px] bg-field"
     >
-      {TYPES.map(({ value, label }) => {
-        const selected = value === type;
+      {TYPES.map((option) => {
+        const selected = option.value === value;
 
         return (
           <ToggleGroupItem
-            key={value}
-            value={value}
+            key={option.value}
+            value={option.value}
             className={cn('flex-1 rounded-[8px]', selected && 'bg-surface')}
           >
             <Text
@@ -39,7 +49,7 @@ export function TypeToggle() {
                 selected ? 'text-ink' : 'text-muted',
               )}
             >
-              {label}
+              {option.label}
             </Text>
           </ToggleGroupItem>
         );
