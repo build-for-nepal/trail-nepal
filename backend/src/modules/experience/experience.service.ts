@@ -1,5 +1,6 @@
 import { db } from '../../config/db.js';
 import { AppError } from '../../middleware/errorHandler.js';
+import type { Prisma } from '../../generated/prisma/client.js';
 import type { Paginated } from '../../utils/handleResponse.js';
 import {
   orderDetailsByType,
@@ -50,15 +51,19 @@ export async function listExperiences(
 
 // Detail rows, timeline, images and route load together: the page needs all
 // four, so splitting them would mean four sequential queries on the hot path.
-export async function getExperienceDetail(
-  id: string,
-): Promise<ExperienceDetail> {
-  const experience = await db.experience.findFirst({
-    where: { id, status: 'PUBLISHED', isActive: true },
-    select: detailSelect,
-  });
-
+export async function getExperienceDetail(id: string): Promise<ExperienceDetail> {
   // A miss is a 404 rather than an empty detail page.
+  return findExperienceDetail({ id, status: 'PUBLISHED', isActive: true });
+}
+
+// Shared loader. Writes call it without the PUBLISHED filter so a draft can be
+// read straight back after creating it, which is exactly when it is invisible
+// to getExperienceDetail.
+export async function findExperienceDetail(
+  where: Prisma.ExperienceWhereInput,
+): Promise<ExperienceDetail> {
+  const experience = await db.experience.findFirst({ where, select: detailSelect });
+
   if (!experience) {
     throw new AppError(404, 'Experience not found');
   }

@@ -24,7 +24,9 @@ export function orderDetailsByType(type: string, details: DetailRow[]) {
   // SIGHTSEEING and ACTIVITY have no definitions yet, so they keep stored order.
   if (!definitions) return details;
 
-  return definitions.flatMap((definition) => {
+  const knownKeys = new Set(definitions.map((definition) => definition.key));
+
+  const ordered = definitions.flatMap((definition) => {
     const detail = details.find(
       (candidate) => candidate.key === definition.key,
     );
@@ -43,4 +45,8 @@ export function orderDetailsByType(type: string, details: DetailRow[]) {
       },
     ];
   });
+
+  // A stored key with no matching definition would be dropped by the mapping
+  // above; append it so custom sections still reach the client.
+  return [...ordered, ...details.filter((detail) => !knownKeys.has(detail.key))];
 }

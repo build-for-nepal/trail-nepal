@@ -18,3 +18,5 @@ export type ExperienceDetail = Omit<
 
 export type ListExperiencesResponse = PaginatedResponse<ListExperienceItem>;
 export type GetExperienceResponse = ApiResponse<ExperienceDetail>;
+// Create and update return the full detail payload, same as GET /:id.
+export type WriteExperienceResponse = GetExperienceResponse;
