@@ -67,12 +67,13 @@ export function isDurationBucket(value: string): value is DurationBucket {
   return DURATION_VALUES.includes(value);
 }
 
+// Non-breaking space keeps the number and unit on one line.
 export function formatMetres(value: number): string {
-  return `${value.toLocaleString('en-US')} m`;
+  return `${value.toLocaleString('en-US')}\u00A0m`;
 }
 
 export function formatDays(value: number): string {
-  return value === 1 ? '1 day' : `${value} days`;
+  return value === 1 ? '1\u00A0day' : `${value}\u00A0days`;
 }
 
 // Chip order follows the sheet's section order.

@@ -27,6 +27,19 @@ module.exports = {
         muted: '#55685F',
         sand: '#F6F3EE',
         field: '#ECE9E3',
+        brand: '#8EB125',
+        difficulty: {
+          easy: '#047857',
+          moderate: '#4D7C0F',
+          challenging: '#B45309',
+        },
+      },
+      // One family per weight: don't add font-bold or font-medium on top.
+      fontFamily: {
+        fraunces: ['Fraunces_700Bold'],
+        poppins: ['Poppins_400Regular'],
+        'poppins-medium': ['Poppins_500Medium'],
+        'poppins-semibold': ['Poppins_600SemiBold'],
       },
     },
   },

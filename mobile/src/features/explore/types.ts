@@ -15,6 +15,9 @@ export type Trip = {
   /** Metres, at the trip's highest point. */
   maxAltitudeM: number;
   difficulty: Difficulty;
+  description: string;
+  /** e.g. 'Mar-May, Sep-Nov' or 'Year-Round'. */
+  season: string;
   /** A photo bundled with require(). */
   image: ImageRequireSource;
 };

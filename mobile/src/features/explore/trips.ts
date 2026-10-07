@@ -12,6 +12,9 @@ export const TRIPS: readonly Trip[] = [
     days: 12,
     maxAltitudeM: 5545,
     difficulty: 'challenging',
+    description:
+      'Trek through the Khumbu region, passing Sherpa villages, monasteries, glaciers, and high Himalayan landscapes on the way to Everest Base Camp.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/ebc-trek.jpg'),
   },
   {
@@ -22,6 +25,9 @@ export const TRIPS: readonly Trip[] = [
     days: 13,
     maxAltitudeM: 5106,
     difficulty: 'challenging',
+    description:
+      "Circle the world's eighth-highest mountain through the Budhi Gandaki Valley, upper Nubri settlements, and high alpine terrain before crossing the 5,106 m Larkya La Pass.",
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/manaslu-circuit.jpg'),
   },
   {
@@ -32,6 +38,9 @@ export const TRIPS: readonly Trip[] = [
     days: 7,
     maxAltitudeM: 4773,
     difficulty: 'moderate',
+    description:
+      'Follow the Langtang Khola from forested valleys and Tamang villages into the alpine landscape of Kyanjin Gompa, with a climb to Kyanjin Ri at 4,773 m.',
+    season: 'Mar-May, Oct-Nov',
     image: require('../../../assets/images/trips/langtang-valley.jpg'),
   },
   {
@@ -42,6 +51,9 @@ export const TRIPS: readonly Trip[] = [
     days: 7,
     maxAltitudeM: 4130,
     difficulty: 'moderate',
+    description:
+      'Trek through the Annapurna Sanctuary, passing Gurung villages, bamboo and rhododendron forests, the Modi Khola valley, and alpine terrain on the way to Annapurna Base Camp.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/abc-trek.jpg'),
   },
   {
@@ -52,6 +64,9 @@ export const TRIPS: readonly Trip[] = [
     days: 11,
     maxAltitudeM: 5357,
     difficulty: 'challenging',
+    description:
+      'Trek through the Gokyo Valley to a series of high-altitude glacial lakes, alongside the Ngozumpa Glacier, and climb Gokyo Ri at 5,357 m for expansive Himalayan views.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/gokyo-valley-trek.webp'),
   },
   {
@@ -62,6 +77,9 @@ export const TRIPS: readonly Trip[] = [
     days: 5,
     maxAltitudeM: 3210,
     difficulty: 'moderate',
+    description:
+      'Trek through the lower Annapurna region, passing Gurung and Magar villages, rhododendron forests, and terraced fields on the way to Poon Hill.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/ghorepani-poon-hill-trek.webp'),
   },
   {
@@ -72,6 +90,9 @@ export const TRIPS: readonly Trip[] = [
     days: 5,
     maxAltitudeM: 4500,
     difficulty: 'moderate',
+    description:
+      'Trek along high ridges and through rhododendron forests in the Annapurna region, leading to the base of Mardi Himal directly below Machhapuchhre.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/mardi-himal-trek.webp'),
   },
   {
@@ -82,6 +103,9 @@ export const TRIPS: readonly Trip[] = [
     days: 8,
     maxAltitudeM: 3660,
     difficulty: 'moderate',
+    description:
+      'Journey into the remote Lower Dolpo region to the turquoise waters of Lake Phoksundo, ancient Bon monasteries, and dramatic alpine landscapes.',
+    season: 'March-May, Sep-Nov',
     image: require('../../../assets/images/trips/shey-phoksundo.webp'),
   },
   {
@@ -92,6 +116,9 @@ export const TRIPS: readonly Trip[] = [
     days: 11,
     maxAltitudeM: 4919,
     difficulty: 'challenging',
+    description:
+      'Follow the Marsyangdi Valley into the high Manang region, then branch toward Tilicho Lake through dry alpine terrain, traditional mountain villages, and exposed trails. Reach Tilicho Lake at 4,919 m.',
+    season: 'Mar-May, Sep-Nov',
     image: require('../../../assets/images/trips/tilicho-lake-trek.webp'),
   },
   {
@@ -102,6 +129,9 @@ export const TRIPS: readonly Trip[] = [
     days: 1,
     maxAltitudeM: 2175,
     difficulty: 'easy',
+    description:
+      'Hike from Nagarkot through traditional villages, terraced farmland and pine forest to Changunarayan, a historic temple complex and UNESCO World Heritage monument zone.',
+    season: 'Oct-Apr',
     image: require('../../../assets/images/trips/nagarkot-changunarayan.jpg'),
   },
   {
@@ -112,6 +142,9 @@ export const TRIPS: readonly Trip[] = [
     days: 1,
     maxAltitudeM: 1750,
     difficulty: 'moderate',
+    description:
+      'Hike from the historic hill town of Dhulikhel through terraced farmland, villages and forest to Namobuddha, a major Buddhist pilgrimage site.',
+    season: 'Oct-Apr',
     image: require('../../../assets/images/trips/dhulikhel-namobuddha.jpg'),
   },
   {
@@ -122,6 +155,9 @@ export const TRIPS: readonly Trip[] = [
     days: 1,
     maxAltitudeM: 2765,
     difficulty: 'moderate',
+    description:
+      'A full-day forest hike from Godawari to Phulchoki, the highest hill on the Kathmandu Valley rim, passing through dense forest, rhododendron and oak woodland before reaching the summit.',
+    season: 'Mar-May, Oct-Nov',
     image: require('../../../assets/images/trips/godawari-phulchoki.jpg'),
   },
   {
@@ -132,6 +168,9 @@ export const TRIPS: readonly Trip[] = [
     days: 3,
     maxAltitudeM: 150,
     difficulty: 'easy',
+    description:
+      'Explore Lumbini, the birthplace of Siddhartha Gautama Buddha, through the Sacred Garden, Maya Devi Temple, ancient archaeological remains, international monasteries, and pilgrimage sites connected to Buddhist heritage.',
+    season: 'Year-Round',
     image: require('../../../assets/images/trips/lumbini-tour.jpg'),
   },
   {
@@ -142,6 +181,9 @@ export const TRIPS: readonly Trip[] = [
     days: 3,
     maxAltitudeM: 1400,
     difficulty: 'easy',
+    description:
+      'Explore the historic cities of Kathmandu, Patan, and Bhaktapur, moving through palace squares, temples, courtyards, traditional streets, and living cultural neighbourhoods across the Kathmandu Valley.',
+    season: 'Year-Round',
     image: require('../../../assets/images/trips/kathmandu-valley-heritage-tour.jpg'),
   },
   {
@@ -152,6 +194,9 @@ export const TRIPS: readonly Trip[] = [
     days: 2,
     maxAltitudeM: 1030,
     difficulty: 'easy',
+    description:
+      'Explore the historic hill town of Bandipur, walking through its preserved Newar streets, traditional houses, temples, viewpoints, and surrounding hills.',
+    season: 'Year-Round',
     image: require('../../../assets/images/trips/bandipur-hill-town.jpg'),
   },
 ];

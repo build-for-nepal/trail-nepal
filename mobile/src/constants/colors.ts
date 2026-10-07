@@ -20,7 +20,8 @@ export const filterBarColor = {
 
 // The facts-row icons, and the photo placeholder underneath the image.
 export const trekCardColor = {
-  icon: '#55685F',
+  icon: '#0C1B16',
+  placeholder: '#55685F',
 } as const;
 
 // @gorhom/bottom-sheet styles its animated views through props, not className.
