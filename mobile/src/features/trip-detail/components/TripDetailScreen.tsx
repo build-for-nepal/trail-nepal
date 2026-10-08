@@ -21,6 +21,7 @@ import {
 import { BackButton } from './BackButton';
 import { DetailHero } from './DetailHero';
 import { ExpectSection } from './ExpectSection';
+import { ItinerarySection } from './ItinerarySection';
 import { OverviewSection } from './OverviewSection';
 import { TripNotFound } from './TripNotFound';
 
@@ -71,6 +72,7 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             overview={detail.overview}
             facts={tripFactRows(detail)}
           />
+          <ItinerarySection detail={detail} />
           <ExpectSection expectations={detail.expectations} />
         </View>
       </ScrollView>

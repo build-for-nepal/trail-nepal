@@ -30,11 +30,22 @@ export type TrekTripFacts = {
   permits: string;
 };
 
-/** One itinerary day, with only the fields the trip facts are worked out from. */
-export type TrekDay = {
-  title: string;
-  /** e.g. '3-4 hours', '8-10 hrs drive' or '35-min flight'. */
+export type TrekDayStats = {
+  elevation?: string;
   duration?: string;
+  distance?: string;
+  note?: string;
+};
+
+export type TrekDay = {
+  day?: string;
+  title: string;
+  /** e.g. '3-4 hours', '8-10 hrs drive' or '35-min flight'. Used by dailyWalkingHours(). */
+  duration?: string;
+  description?: string;
+  stats?: TrekDayStats;
+  price?: string;
+  isDestination?: boolean;
 };
 
 export type TrekDetail = DetailBase & {
@@ -53,9 +64,20 @@ export type HikeTripFacts = {
   elevationChange: string;
 };
 
+export type HikeRouteSection = {
+  order: string;
+  title: string;
+  distanceMark?: string;
+  timeMark?: string;
+  role?: 'start' | 'turnaround' | 'finish';
+  description?: string;
+  terrain?: string;
+};
+
 export type HikeDetail = DetailBase & {
   type: 'hike';
   tripFacts: HikeTripFacts;
+  route: HikeRouteSection[];
 };
 
 /** A single-destination tour has `destination` and `keyAreas`; a city-hopping one has `cities`. */
@@ -69,9 +91,18 @@ export type CulturalTripFacts = {
   terrain: string;
 };
 
+export type CulturalDay = {
+  day: string;
+  title: string;
+  description: string;
+  transport?: string;
+  highlights: string[];
+};
+
 export type CulturalTourDetail = DetailBase & {
   type: 'cultural';
   tripFacts: CulturalTripFacts;
+  itinerary: CulturalDay[];
 };
 
 export type TripDetail = TrekDetail | HikeDetail | CulturalTourDetail;
