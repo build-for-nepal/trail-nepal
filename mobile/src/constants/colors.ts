@@ -24,6 +24,12 @@ export const trekCardColor = {
   placeholder: '#55685F',
 } as const;
 
+// The detail screen's stat, fact and back-button icons, and the photo placeholder.
+export const tripDetailColor = {
+  icon: '#0C1B16',
+  placeholder: '#55685F',
+} as const;
+
 // @gorhom/bottom-sheet styles its animated views through props, not className.
 export const bottomSheetColor = {
   surface: '#FFFFFF',
