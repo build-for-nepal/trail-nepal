@@ -4,6 +4,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { Gallery } from '@/components/details/Gallery';
 import GearCheckList from '@/components/details/GearCheckList';
+import TrekTrivia from '@/components/details/TrekTrivia';
 import TreksExpect from '@/components/details/TreksExpect';
 import TreksSeason from '@/components/details/TreksSeason';
 import Footer from '@/components/layout/footer/Footer';
@@ -94,6 +95,7 @@ const HikeDetailsContent = ({ hikeId }: Props) => {
           loadThresholds={HIKE_LOAD_THRESHOLDS}
         />
         <Gallery images={hike.gallery} />
+        <TrekTrivia trekId={hikeId} triviaNameOverride={hike.name} />
       </div>
 
       <Footer />
