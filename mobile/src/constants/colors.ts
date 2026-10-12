@@ -43,3 +43,13 @@ export const sliderColor = {
   track: '#E4E0D8',
   thumb: '#0C1B16',
 } as const;
+
+export const seasonColor = {
+  containerBg: '#EBF0F8',
+  cardBg: '#FFFFFF',
+  ringColor: '#376BB6',
+  ringOffset: '#EEF2F8',
+  currentBadgeBorder: 'rgba(55, 107, 182, 0.25)',
+  currentBadgeText: '#376BB6',
+  currentDot: '#376BB6',
+} as const;

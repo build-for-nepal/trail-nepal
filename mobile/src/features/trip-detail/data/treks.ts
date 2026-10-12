@@ -23,6 +23,63 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Everest Base Camp trek follows the classic route through the Khumbu region of Nepal, beginning with a flight to Lukla and continuing through Sherpa settlements, Buddhist monasteries, forests, glacial valleys, and high-altitude terrain. The trail passes through Namche Bazaar, Tengboche, Dingboche, Lobuche, and Gorakshep before reaching Everest Base Camp at 5,364 m.\n\nAs the trail climbs deeper into the Himalayas, the landscape gradually changes from green valleys and rhododendron forests to open alpine terrain, rocky moraines, and snow-covered peaks. Two acclimatization days in Namche Bazaar and Dingboche allow for gradual adjustment to the increasing elevation. The journey reaches its highest point at Kala Patthar, 5,545 m, before descending through Pheriche and Namche Bazaar and returning to Lukla for the flight back to Kathmandu.',
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition:
+          'Very Cold / Heavy Snow Above 4,000m / Experienced Trekkers Only',
+      },
+      {
+        month: 'Feb',
+        condition: 'Freezing Temperatures / Quiet Trails / Icy at Night',
+      },
+      {
+        month: 'Mar',
+        condition:
+          'Spring Begins / Rhododendrons in Bloom / Warming Temperatures',
+      },
+      {
+        month: 'Apr',
+        condition:
+          'Stable Weather / Long Daylight / Peak Spring Season / Excellent Visibility',
+      },
+      {
+        month: 'May',
+        condition: 'Warm & Clear / Pre-Monsoon Views / Expedition Season',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Monsoon Builds / Views Blocked / Trails Slippery / Not Recommended',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Heavy Rain / Landslide Risk / Avoid',
+      },
+      {
+        month: 'Aug',
+        condition: 'Peak Monsoon / Wet & Muddy Trails / High Risk / Avoid',
+      },
+      {
+        month: 'Sep',
+        condition: 'Late-Monsoon / Fresh Air / Some Cloud Lingering / Quieter',
+      },
+      {
+        month: 'Oct',
+        condition:
+          'Crystal Clear Skies / Best Mountain Views / Peak Season / Most Popular Month',
+      },
+      {
+        month: 'Nov',
+        condition:
+          'Excellent Visibility / Cold at Night / Fewer Trekkers than October',
+      },
+      {
+        month: 'Dec',
+        condition:
+          'Very Cold Above 4,000m / Clear Skies / Almost Empty Trail / Winter Chill',
+      },
+    ],
     expectations: [
       {
         title: 'Iconic Mountain Panoramas',
@@ -195,6 +252,29 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       "The Manaslu Circuit is a challenging Himalayan trek that circles Manaslu, the world's eighth-highest mountain at 8,163 m. The route follows the Budhi Gandaki Valley from Machha Khola through forests, waterfalls, suspension bridges, and traditional mountain villages. As the elevation rises, the landscape changes from subtropical valleys to pine and rhododendron forests and eventually open alpine terrain. The upper valley also reflects strong Gurung and Tibetan Buddhist traditions, with monasteries, mani walls, chortens, and prayer flags becoming more prominent. The route passes through Namrung, Lho, Samagaon, and Samdo before reaching Dharamsala and the high-altitude crossing of Larkya La. At approximately 5,106 m, the pass is the highest point of the trek and its main physical challenge.\n\nFrom Larkya La, the route descends to Bimthang, then continues through greener landscapes to Tilije and Dharapani before the road journey to Besisahar and Kathmandu.",
+    seasonalPlanning: [
+      { month: 'Jan', condition: 'Closed / Heavy Snow on Larkya La' },
+      { month: 'Feb', condition: 'Closed / Extreme Cold / Pass Blocked' },
+      {
+        month: 'Mar',
+        condition: 'Good / Spring Blooms / Moderate Temperatures',
+      },
+      { month: 'Apr', condition: 'Peak Season / Clear Skies / Stable Weather' },
+      {
+        month: 'May',
+        condition: 'Warm / Rhododendron Forests / Clear Mornings',
+      },
+      { month: 'Jun', condition: 'Beginning of Monsoon / Cloudy / Leeches' },
+      { month: 'Jul', condition: 'Danger / Heavy Rain / Landslide Risk' },
+      { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
+      {
+        month: 'Sep',
+        condition: 'Late-Monsoon / Crisp Air / Fresh Landscapes',
+      },
+      { month: 'Oct', condition: 'Perfect / Best Visibility / Most Popular' },
+      { month: 'Nov', condition: 'Excellent / Cool & Stable / Golden Peaks' },
+      { month: 'Dec', condition: 'Closing / Winter Chill / High Pass Snow' },
+    ],
     expectations: [
       {
         title: 'Changing Landscapes',
@@ -369,6 +449,20 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Langtang Valley Trek follows the Langtang Khola through a changing mountain landscape, beginning at Syabrubesi and gradually climbing from forested valleys and Tamang settlements into open alpine terrain. The route passes through Lama Hotel, Langtang Village, and Kyanjin Gompa, with dense forests giving way to wider mountain landscapes as the elevation increases. Much of the trekking route lies within Langtang National Park, a protected area known for its forests, alpine vegetation, mountain scenery, and Tamang cultural heritage.\n\nAt Kyanjin Gompa, the valley opens into a high-mountain landscape surrounded by ridgelines, glaciers, and Himalayan peaks. A day hike to Kyanjin Ri at 4,773 m brings this 7-day itinerary to its highest point. On a clear day, views extend across the upper Langtang Valley and surrounding mountains. From Kyanjin Gompa, the route retraces the valley through Langtang Village and Lama Hotel before descending to Syabrubesi.',
+    seasonalPlanning: [
+      { month: 'Jan', condition: 'Extremely Cold / Heavy Snow on Passes' },
+      { month: 'Feb', condition: 'Freezing Temperatures / Quiet Trails' },
+      { month: 'Mar', condition: 'Spring Bloom / Vibrant Rhododendrons' },
+      { month: 'Apr', condition: 'Perfect Climbing Weather / Peak Season' },
+      { month: 'May', condition: 'Warm Temperatures / Pre-Monsoon Views' },
+      { month: 'Jun', condition: 'Beginning of Monsoon / Cloudy Skies' },
+      { month: 'Jul', condition: 'Heavy Rain / Lush Greenery / Leeches' },
+      { month: 'Aug', condition: 'Peak Monsoon / Wet & Muddy Trails' },
+      { month: 'Sep', condition: 'Late-Monsoon / Crisp & Fresh Air' },
+      { month: 'Oct', condition: 'Crystal Clear Skies / Most Popular Month' },
+      { month: 'Nov', condition: 'Cool & Stable / Excellent Visibility' },
+      { month: 'Dec', condition: 'Winter Chill / Crystal Clear Blue Skies' },
+    ],
     expectations: [
       {
         title: 'Forest to Alpine Landscapes',
@@ -503,6 +597,56 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Annapurna Base Camp trek follows the Modi Khola valley into the Annapurna Sanctuary, beginning with a drive from Pokhara toward the lower trailhead near Jhinu Danda. From there, the route climbs through Chhomrong and Sinuwa before entering a narrower section of the valley surrounded by bamboo, oak, and rhododendron forest. The trail continues through Dovan and Deurali toward Machhapuchhre Base Camp, where the landscape becomes increasingly open and alpine. As the route gains elevation, the forest gradually gives way to rocky slopes, glacial terrain, and the high mountain environment of the Annapurna Sanctuary.\n\nThe trail reaches Annapurna Base Camp at 4,130 m, surrounded by peaks including Annapurna I, Annapurna South, Hiunchuli, and Machhapuchhre. After reaching the highest point of the trek, the route retraces its path toward the lower valleys before descending to Jhinu Danda and returning to Pokhara.',
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Deep Winter / Heavy Snow / Very Cold at ABC',
+      },
+      {
+        month: 'Feb',
+        condition: 'Late Winter / Cold but Clear / Avalanche Risk High',
+      },
+      {
+        month: 'Mar',
+        condition: 'Excellent / Spring Begins / Rhododendrons Blooming',
+      },
+      {
+        month: 'Apr',
+        condition: 'Peak Season / Warm / Vibrant Forests / Clear Views',
+      },
+      {
+        month: 'May',
+        condition: 'Very Warm / Pre-Monsoon Haze / Beautiful Blooms',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Starts / Wet / Obscured Views / Leeches',
+      },
+      {
+        month: 'Jul',
+        condition: 'Peak Monsoon / Muddy Trails / Flight Delays',
+      },
+      {
+        month: 'Aug',
+        condition: 'Heavy Rain / Lush Valleys but Poor Mountain Views',
+      },
+      {
+        month: 'Sep',
+        condition: 'Late-Monsoon / Washing Away Dust / Crystal Clear',
+      },
+      {
+        month: 'Oct',
+        condition: 'Perfect / Ideal Weather / Most Popular Time',
+      },
+      {
+        month: 'Nov',
+        condition: 'Excellent / Cooler Temperatures / Stunning Visibility',
+      },
+      {
+        month: 'Dec',
+        condition: 'Start of Winter / Cold Nights / Quiet Trails',
+      },
+    ],
     expectations: [
       {
         title: 'The Annapurna Sanctuary',
@@ -620,6 +764,57 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       "The Gokyo Valley Trek takes you from Kathmandu into the Khumbu through Lukla, Namche Bazaar and the Dudh Koshi valley before turning toward the Gokyo Valley. As you climb higher, forest gives way to alpine terrain, glacial landscapes and the turquoise Gokyo Lakes.\n\nGokyo village sits beside Dudh Pokhari, the third and largest of the main Gokyo Lakes. From here, the trail climbs to Gokyo Ri, a high viewpoint at approximately 5,357 m. On a clear day, you can look across the Gokyo Lakes and surrounding glaciers toward some of the world's highest peaks. Nepal Tourism Board specifically identifies Gokyo Ri as a viewpoint for the surrounding peaks and lakes.\n\nThe Gokyo Lakes also have religious significance for Hindu and Buddhist communities and form part of the Gokyo and associated lakes Ramsar site.",
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Heavy Snow Above 4,000m / Trail to Gokyo Ri May Be Closed',
+      },
+      {
+        month: 'Feb',
+        condition: 'Cold & Icy / Experienced High-Altitude Trekkers Only',
+      },
+      {
+        month: 'Mar',
+        condition: 'Spring Begins / Rhododendrons Below Namche in Bloom',
+      },
+      {
+        month: 'Apr',
+        condition: 'Stable Weather / Long Daylight / Peak Spring Season',
+      },
+      {
+        month: 'May',
+        condition:
+          'Warm & Clear / Pre-Monsoon Views / Expedition Season on Cho Oyu',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Monsoon Builds / Views Blocked / Trail Below Namche Slippery',
+      },
+      {
+        month: 'Jul',
+        condition:
+          'Full Monsoon / Not Recommended / Landslide Risk Below 3,000m',
+      },
+      { month: 'Aug', condition: 'Peak Monsoon / High Risk / Avoid' },
+      {
+        month: 'Sep',
+        condition: 'Late-Monsoon / Fresh Air / Some Cloud Lingering / Quieter',
+      },
+      {
+        month: 'Oct',
+        condition: 'Crystal Clarity / Best Gokyo Ri Views / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition:
+          'Excellent Visibility / Cold at Night / Fewer Trekkers than October',
+      },
+      {
+        month: 'Dec',
+        condition: 'Very Cold Above 4,000m / Clear Skies / Almost Empty Trail',
+      },
+    ],
     expectations: [
       {
         title: 'Four 8,000m Peaks from One Summit',
@@ -678,6 +873,52 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Ghorepani Poon Hill trek follows the classic trail through the lower foothills of the Annapurna region, beginning with a drive from Pokhara toward the trailhead at Birethanti or Nayapul. From there, the route ascends through terraced farmland, traditional Magar settlements, and dense oak and rhododendron forests toward Ulleri and Ghorepani. The trail steadily climbs through the Modi and Bhurungdi Khola valleys, where the landscape transitions from cultivated lower hills to rich temperate forest.\n\nAs the route reaches Ghorepani, the surrounding forest gives way to panoramic views of the Annapurna and Dhaulagiri mountain ranges. An early morning ascent leads to the summit of Poon Hill at 3,210 m, providing panoramic mountain views before the route descends through Tadapani and the historic Gurung village of Ghandruk. After traversing dense forests and scenic terraced hillsides, the trek descends back toward Birethanti before returning to Pokhara.',
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition:
+          'Cold at Ghorepani / Possible Snow / Manageable with Good Gear',
+      },
+      { month: 'Feb', condition: 'Cold & Quiet / No Rhododendron Bloom Yet' },
+      {
+        month: 'Mar',
+        condition: 'Rhododendron Season Begins / Stunning Forest Colour',
+      },
+      {
+        month: 'Apr',
+        condition: 'Peak Bloom / Best Forest Colour / Busy but Worth It',
+      },
+      {
+        month: 'May',
+        condition: 'Warm & Clear / Pre-Monsoon / Late Bloom at Altitude',
+      },
+      { month: 'Jun', condition: 'Monsoon Begins / Slippery Trails / Leeches' },
+      {
+        month: 'Jul',
+        condition: 'Heavy Rain / Views Blocked / Not Recommended',
+      },
+      {
+        month: 'Aug',
+        condition: 'Peak Monsoon / Wet & Muddy / Not Recommended',
+      },
+      {
+        month: 'Sep',
+        condition: 'Late-Monsoon Green / Quieter / Some Residual Cloud',
+      },
+      {
+        month: 'Oct',
+        condition: 'Sharpest Visibility / Most Reliable Sunrise / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Crystal Clear Skies / Cool & Stable / Excellent Views',
+      },
+      {
+        month: 'Dec',
+        condition:
+          'Cold & Quiet / Light Snow at Ghorepani / Beautiful & Uncrowded',
+      },
+    ],
     expectations: [
       {
         title: 'The Poon Hill Panorama',
@@ -768,6 +1009,45 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Mardi Himal trek follows a ridge trail through the eastern reaches of the Annapurna region, starting with a drive from Pokhara to the trailhead at Kande or Simrung. From the trailhead, the route ascends through forests of oak, maple, and rhododendron toward Australian Camp and Pothana before continuing along the forested ridgelines to Forest Camp. The trail steadily gains elevation while moving away from the busier main routes of the region.\n\nAs the route continues beyond Low Camp and Badal Danda, the tree line drops away to reveal open ridge walking with views of Annapurna South, Hiunchuli, and Machhapuchhre. The trail reaches High Camp before making the final early morning ascent along the narrow ridge to Mardi Himal Base Camp at 4,500 m. After taking in close views of the surrounding peaks and glaciers, the route descends back through Middle Camp and Sidhing before driving back to Pokhara.',
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Snowbound at High Camp / Experienced Trekkers Only',
+      },
+      {
+        month: 'Feb',
+        condition: 'Cold & Icy Above 3,500m / Very Quiet Trails',
+      },
+      {
+        month: 'Mar',
+        condition: 'Rhododendrons in Bloom / Best Forest Colour',
+      },
+      {
+        month: 'Apr',
+        condition: 'Stable Mornings / Peak Season / Ideal Conditions',
+      },
+      { month: 'May', condition: 'Warm & Clear / Pre-Monsoon Views' },
+      { month: 'Jun', condition: 'Monsoon Begins / Slippery Trails / Leeches' },
+      {
+        month: 'Jul',
+        condition: 'Heavy Rain / Views Blocked / Not Recommended',
+      },
+      { month: 'Aug', condition: 'Peak Monsoon / Dangerous Trail Conditions' },
+      { month: 'Sep', condition: 'Late-Monsoon Green / Quieter / Some Cloud' },
+      {
+        month: 'Oct',
+        condition: 'Crystal Clear Skies / Sharpest Mountain Views',
+      },
+      {
+        month: 'Nov',
+        condition: 'Cool & Stable / Excellent Visibility / Fewer Crowds',
+      },
+      {
+        month: 'Dec',
+        condition:
+          'Cold but Clear / Very Few Trekkers / Light Snow at High Camp',
+      },
+    ],
     expectations: [
       {
         title: 'Iconic Machapuchare Views',
@@ -859,6 +1139,60 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       "The Shey Phoksundo Trek leads into the remote wilderness of Lower Dolpo, beginning with a mountain flight from Nepalgunj to Juphal. From Juphal, the route descends toward the Thuli Bheri River before turning into the Suligad Valley and entering Shey-Phoksundo National Park. The trail follows the river through pine, cedar, and bamboo forests, crossing suspension bridges and passing through dramatic gorges and small mountain settlements as it climbs toward Chhepka and Jharana.\n\nBeyond Jharana, the landscape becomes more rugged as the route enters the Phoksundo Valley. The trail reaches Ringmo, a traditional settlement beside Phoksundo Lake, where the deep-blue waters lie at approximately 3,611 m beneath steep cliffs and mountain slopes. A day around Ringmo allows time to explore the lake and experience the area's distinctive Bon cultural heritage, including Thashung Gompa, a historic monastery associated with the Bon tradition and said to be around 900 years old. After exploring the lake and surrounding village, the route retraces the valley through the forests and river gorges toward Juphal.",
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Heavy snow / Closed teahouses / Freezing at Lake Phoksundo',
+      },
+      {
+        month: 'Feb',
+        condition: 'Winter cold / Snowbound trails / Very quiet',
+      },
+      {
+        month: 'Mar',
+        condition: 'Late winter / Cold trails / Trekkable with gear',
+      },
+      {
+        month: 'Apr',
+        condition: 'Winter easing / Clear skies / Shoulder season',
+      },
+      {
+        month: 'May',
+        condition:
+          'Pleasant temps / Wildflowers along the Suligad / Clear lake views',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Pleasant temps / Wildflowers along the Suligad / Clear lake views',
+      },
+      {
+        month: 'Jul',
+        condition:
+          'Rain-shadow monsoon / Lush & green / Possible flight delays',
+      },
+      {
+        month: 'Aug',
+        condition: 'Rain-shadow monsoon / Possible flight delays / Plan buffer',
+      },
+      {
+        month: 'Sep',
+        condition: 'Crystal clear skies / Vibrant foliage / Stable weather',
+      },
+      {
+        month: 'Oct',
+        condition: 'Crystal clear skies / Sharper lake views / Stable weather',
+      },
+      {
+        month: 'Nov',
+        condition:
+          'Cool & stable / Good visibility / Teahouses closing around Ringmo',
+      },
+      {
+        month: 'Dec',
+        condition: 'Heavy snow / Closed teahouses / Freezing at Lake Phoksundo',
+      },
+    ],
     expectations: [
       {
         title: 'Turquoise Phoksundo Lake',
@@ -922,6 +1256,60 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     },
     overview:
       'The Tilicho Lake Trek follows the Marsyangdi Valley from Kathmandu toward the high Manang region, passing through Besisahar, Chame, and Upper Pisang before reaching Manang. From here, the route leaves the main Annapurna Circuit corridor and heads toward Khangsar and Shree Kharka, where the landscape becomes drier and more exposed. Traditional stone-built villages, Buddhist cultural features, pine forests, and increasingly open mountain terrain mark the transition into the high Himalaya.\n\nAfter an acclimatization day in Manang, the route climbs above 4,000 m to Tilicho Base Camp before the final ascent to Tilicho Lake at 4,919 m. The lake excursion involves steep, rocky and exposed terrain, so an early start and careful pacing are important. The journey then retraces the approach through Shree Kharka and Manang before descending along the Marsyangdi Valley toward Kathmandu. This standalone route does not cross Thorong La; itineraries that continue over Thorong La are a different Annapurna Circuit-with-Tilicho variation.',
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Very cold / Possible snow or ice around the Tilicho route',
+      },
+      {
+        month: 'Feb',
+        condition: 'Very cold / Snow or ice around the Tilicho route',
+      },
+      {
+        month: 'Mar',
+        condition:
+          'Warming conditions / Snow may remain on high Tilicho sections',
+      },
+      {
+        month: 'Apr',
+        condition: 'Warming conditions / Generally favourable trekking weather',
+      },
+      {
+        month: 'May',
+        condition: 'Spring / Generally favourable trekking weather',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Monsoon / Rain, cloud, tricky road & trail conditions on approach',
+      },
+      {
+        month: 'Jul',
+        condition: 'Monsoon / Rain, cloud, difficult road & trail conditions',
+      },
+      {
+        month: 'Aug',
+        condition:
+          'Monsoon / Manang drier but access can be affected by weather',
+      },
+      {
+        month: 'Sep',
+        condition: 'Post-monsoon / Clearer skies and good mountain visibility',
+      },
+      {
+        month: 'Oct',
+        condition: 'Post-monsoon / Favourable for high-altitude sections',
+      },
+      {
+        month: 'Nov',
+        condition: 'Post-monsoon / Clear skies and good visibility',
+      },
+      {
+        month: 'Dec',
+        condition:
+          'Winter / Very cold, possible snow or ice around the Tilicho route',
+      },
+    ],
     expectations: [
       {
         title: 'Tilicho Lake at 4,919 m',

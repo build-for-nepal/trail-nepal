@@ -2,6 +2,21 @@ import type { TrekDay } from './types';
 
 const NONE = '—';
 
+export const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+] as const;
+
 const MONTHS: Record<string, string> = {
   January: 'Jan',
   February: 'Feb',
@@ -101,4 +116,77 @@ export function acclimatizationDays(itinerary: TrekDay[]): string {
   const count = itinerary.filter((day) => /acclimatiz/i.test(day.title)).length;
   if (count === 0) return NONE;
   return count === 1 ? '1\u00A0day' : `${count}\u00A0days`;
+}
+
+export type SeasonStatus = 'peak' | 'danger' | 'caution';
+
+export function getSeasonStatus(condition: string): SeasonStatus {
+  const n = condition.toLowerCase();
+  if (
+    n.includes('heavy rain') ||
+    n.includes('peak monsoon') ||
+    n.includes('extremely cold') ||
+    n.includes('heavy snow')
+  )
+    return 'danger';
+  if (
+    n.includes('monsoon') ||
+    n.includes('freezing') ||
+    n.includes('winter') ||
+    n.includes('chill') ||
+    n.includes('cloudy') ||
+    n.includes('muddy')
+  )
+    return 'caution';
+  return 'peak';
+}
+
+export const SEASON_BADGE: Record<
+  SeasonStatus,
+  { label: string; bg: string; text: string }
+> = {
+  peak: { label: 'Optimal', bg: '#ecfdf5', text: '#059669' },
+  danger: { label: 'Danger', bg: '#fff1f2', text: '#f43f5e' },
+  caution: { label: 'Caution', bg: '#fffbeb', text: '#d97706' },
+};
+
+export const SEASON_ICON_COLOR: Record<SeasonStatus, string> = {
+  peak: '#059669',
+  danger: '#f43f5e',
+  caution: '#f59e0b',
+};
+
+export const SEASON_TEXT_COLOR: Record<SeasonStatus, string> = {
+  peak: '#059669',
+  danger: '#f43f5e',
+  caution: '#f59e0b',
+};
+
+const trafficByStatus: Record<SeasonStatus, string> = {
+  peak: 'High',
+  danger: 'Very low',
+  caution: 'Moderate',
+};
+
+export function buildSeasonOverview(
+  monthName: string,
+  label: string,
+  detail: string,
+  status: SeasonStatus,
+): string {
+  const traffic = trafficByStatus[status].toLowerCase();
+  const framing: Record<SeasonStatus, string> = {
+    peak: `${monthName} is one of the prime windows for this trek.`,
+    caution: `${monthName} is a transitional month that rewards flexible planning.`,
+    danger: `${monthName} is a demanding time to be on the trail.`,
+  };
+  const closing: Record<SeasonStatus, string> = {
+    peak: `Skies are typically stable and visibility is good, and trail traffic tends to be ${traffic}.`,
+    caution: `Weather can shift quickly and conditions vary from day to day, with ${traffic} trail traffic.`,
+    danger: `Expect tough going and frequently obscured mountain views, with ${traffic} trail traffic.`,
+  };
+  const conditions = detail
+    ? `Conditions are shaped by ${label.trim().toLowerCase()}, bringing ${detail.trim().toLowerCase()}.`
+    : `Conditions are shaped by ${label.trim().toLowerCase()}.`;
+  return [framing[status], conditions, closing[status]].join(' ');
 }

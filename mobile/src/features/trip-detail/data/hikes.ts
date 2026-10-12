@@ -72,6 +72,50 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         terrain: 'Stone paths · paved sections · temple approach',
       },
     ],
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Cold Mornings / Clear Skies / Crisp Ridge Views',
+      },
+      {
+        month: 'Feb',
+        condition: 'Cool & Clear / Good Visibility / Pleasant Walking',
+      },
+      {
+        month: 'Mar',
+        condition: 'Warming Up / Spring Blooms / Occasional Haze',
+      },
+      { month: 'Apr', condition: 'Warm / Longer Days / Afternoon Haze Builds' },
+      {
+        month: 'May',
+        condition: 'Hot & Hazy / Pre-Monsoon Humidity / Early Starts Advised',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Muddy Paths / Views Often Clouded',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Slippery Trails / Leeches Possible',
+      },
+      {
+        month: 'Aug',
+        condition: 'Peak Monsoon / Wet & Green / Limited Mountain Views',
+      },
+      {
+        month: 'Sep',
+        condition: 'Late Monsoon / Fresh Air / Clouds Beginning to Clear',
+      },
+      {
+        month: 'Oct',
+        condition: 'Crystal Clear Skies / Best Mountain Views / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Excellent Visibility / Cool & Dry / Ideal Hiking',
+      },
+      { month: 'Dec', condition: 'Cold Mornings / Clear Skies / Quiet Trails' },
+    ],
     expectations: [
       {
         title: 'Valley & Himalayan Views',
@@ -163,6 +207,50 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
           'The final section climbs gradually toward Namobuddha, where the trail reaches the sacred hilltop pilgrimage site. The complex includes the Namobuddha stupa and Thrangu Tashi Yangtse Monastery.',
         terrain: 'Forest trail · stone paths · monastery approach',
       },
+    ],
+    seasonalPlanning: [
+      {
+        month: 'Jan',
+        condition: 'Cold Mornings / Clear Skies / Crisp Ridge Views',
+      },
+      {
+        month: 'Feb',
+        condition: 'Cool & Clear / Good Visibility / Pleasant Walking',
+      },
+      {
+        month: 'Mar',
+        condition: 'Warming Up / Spring Greenery / Occasional Haze',
+      },
+      { month: 'Apr', condition: 'Warm / Longer Days / Afternoon Haze Builds' },
+      {
+        month: 'May',
+        condition: 'Hot & Hazy / Pre-Monsoon Humidity / Early Starts Advised',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Muddy Paths / Views Often Clouded',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Slippery Trails / Leeches Possible',
+      },
+      {
+        month: 'Aug',
+        condition: 'Peak Monsoon / Wet & Green / Limited Mountain Views',
+      },
+      {
+        month: 'Sep',
+        condition: 'Late Monsoon / Fresh Air / Clouds Beginning to Clear',
+      },
+      {
+        month: 'Oct',
+        condition: 'Crystal Clear Skies / Best Mountain Views / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Excellent Visibility / Cool & Dry / Ideal Hiking',
+      },
+      { month: 'Dec', condition: 'Cold Mornings / Clear Skies / Quiet Trails' },
     ],
     expectations: [
       {
@@ -263,6 +351,50 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The final section reaches Phulchoki Summit, the highest point on the Kathmandu Valley rim. The summit area includes Phulchoki Mai Temple and prayer flags, with wider views possible when visibility is clear. The return follows the same general trail back to Godawari.',
         terrain: 'Summit trail · stone paths · exposed sections',
+      },
+    ],
+    seasonalPlanning: [
+      { month: 'Jan', condition: 'Cold & Crisp / Clear Skies / Quiet Forest' },
+      {
+        month: 'Feb',
+        condition: 'Cool & Clear / Good Visibility / Early Rhododendron Buds',
+      },
+      {
+        month: 'Mar',
+        condition: 'Rhododendron Season Begins / Greener Forest / Prime Hiking',
+      },
+      {
+        month: 'Apr',
+        condition: 'Peak Rhododendron Bloom / Lush Forest / Best for Nature',
+      },
+      {
+        month: 'May',
+        condition: 'Warm & Green / Late Blooms / Building Humidity',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Muddy Forest Trail / Reduced Visibility',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Slippery Steps / Leeches Likely',
+      },
+      { month: 'Aug', condition: 'Peak Monsoon / Wet & Lush / Limited Views' },
+      {
+        month: 'Sep',
+        condition: 'Late Monsoon / Fresh Growth / Clouds Clearing',
+      },
+      {
+        month: 'Oct',
+        condition: 'Clear Autumn Skies / Best Valley Views / Peak Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Excellent Visibility / Cool & Dry / Ideal Summit Views',
+      },
+      {
+        month: 'Dec',
+        condition: 'Cold Mornings / Clear Skies / Crisp Summit Air',
       },
     ],
     expectations: [

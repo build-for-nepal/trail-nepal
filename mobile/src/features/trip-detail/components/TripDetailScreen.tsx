@@ -6,6 +6,11 @@ import type {
   NativeScrollEvent,
   NativeSyntheticEvent,
 } from 'react-native';
+import {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TRIPS } from '@/features/explore';
@@ -19,10 +24,12 @@ import {
   tripFactRows,
 } from '../facts';
 import { BackButton } from './BackButton';
+import { BAR_HEIGHT, CompactHeader } from './CompactHeader';
 import { DetailHero } from './DetailHero';
 import { ExpectSection } from './ExpectSection';
 import { ItinerarySection } from './ItinerarySection';
 import { OverviewSection } from './OverviewSection';
+import { SeasonSection } from './SeasonSection';
 import { TripNotFound } from './TripNotFound';
 
 type TripDetailScreenProps = {
@@ -34,6 +41,37 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
   const insets = useSafeAreaInsets();
   const [photoHeight, setPhotoHeight] = useState(0);
   const [overPhoto, setOverPhoto] = useState(true);
+  const scrollY = useSharedValue(0);
+
+  const compactStyle = useAnimatedStyle(() => {
+    const threshold = photoHeight - insets.top - BAR_HEIGHT;
+    return {
+      opacity: photoHeight
+        ? interpolate(
+            scrollY.value,
+            [threshold - 20, threshold],
+            [0, 1],
+            'clamp',
+          )
+        : 0,
+      pointerEvents:
+        photoHeight && scrollY.value >= threshold ? 'auto' : 'none',
+    };
+  });
+
+  const fabStyle = useAnimatedStyle(() => {
+    const threshold = photoHeight - insets.top - BAR_HEIGHT;
+    return {
+      opacity: photoHeight
+        ? interpolate(
+            scrollY.value,
+            [threshold - 20, threshold],
+            [1, 0],
+            'clamp',
+          )
+        : 1,
+    };
+  });
 
   const trip = TRIPS.find((t) => t.id === id && t.type === type);
   const detail = id ? getTripDetail(type, id) : undefined;
@@ -43,7 +81,9 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
     setPhotoHeight(event.nativeEvent.layout.height);
   };
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setOverPhoto(event.nativeEvent.contentOffset.y < photoHeight - insets.top);
+    const y = event.nativeEvent.contentOffset.y;
+    scrollY.set(y);
+    setOverPhoto(y < photoHeight - insets.top);
   };
 
   return (
@@ -73,6 +113,11 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             facts={tripFactRows(detail)}
           />
           <ItinerarySection detail={detail} />
+          <SeasonSection
+            name={detail.name.split(' (')[0]}
+            bestSeasons={detail.meta.bestSeasons}
+            planning={detail.seasonalPlanning}
+          />
           <ExpectSection expectations={detail.expectations} />
         </View>
       </ScrollView>
@@ -85,7 +130,11 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
         />
       ) : null}
 
-      <BackButton top={insets.top + 8} />
+      <CompactHeader
+        title={detail.name.split(' (')[0]}
+        animatedStyle={compactStyle}
+      />
+      <BackButton top={insets.top + 8} animatedStyle={fabStyle} />
     </View>
   );
 }

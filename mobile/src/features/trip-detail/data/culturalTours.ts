@@ -63,6 +63,61 @@ export const CULTURAL_TOUR_DETAILS: Readonly<
         highlights: ['Tilaurakot', 'Kudan', 'Archaeological sites'],
       },
     ],
+    seasonalPlanning: [
+      // Same shape as the trek and hike month tables: three-letter month, and a
+      // condition of short ` / `-separated fragments. The calendar shows only the
+      // first fragment on the month tile, so it carries the headline.
+      //
+      // Order matters and must start at January: TreksSeasonCalendar maps array
+      // position onto the calendar month, so an October-first list would label
+      // October's entry "January" in the detail panel and put the "Current Month"
+      // badge on the wrong tile.
+      {
+        month: 'Jan',
+        condition: 'Mild & Dry / Clear Skies / Best Walking Weather',
+      },
+      {
+        month: 'Feb',
+        condition: 'Mild & Dry / Crisp Mornings / Comfortable Sightseeing',
+      },
+      {
+        month: 'Mar',
+        condition: 'Warm Days / Hot by Midday / Early Starts Advised',
+      },
+      {
+        month: 'Apr',
+        condition: 'Hot & Dry / Strong Midday Sun / Early Starts Advised',
+      },
+      {
+        month: 'May',
+        condition: 'Hot & Humid / Strong Midday Sun / Pre-Monsoon Build-Up',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Frequent Rain / Humid Conditions',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Frequent Downpours / Wet Grounds',
+      },
+      { month: 'Aug', condition: 'Full Monsoon / Humid & Wet / Muddy Paths' },
+      {
+        month: 'Sep',
+        condition: 'Monsoon Eases / Fresh Green Surroundings / Occasional Rain',
+      },
+      {
+        month: 'Oct',
+        condition: 'Dry & Clear / Prime Sightseeing / Festival Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Dry & Comfortable / Clear Skies / Peak Visitor Season',
+      },
+      {
+        month: 'Dec',
+        condition: 'Dry & Mild / Morning Fog / Comfortable Afternoons',
+      },
+    ],
     expectations: [
       {
         title: 'Sacred & Archaeological Sites',
@@ -147,6 +202,55 @@ export const CULTURAL_TOUR_DETAILS: Readonly<
         ],
       },
     ],
+    seasonalPlanning: [
+      // January-first, three-letter months, short ` / `-separated fragments — see
+      // the note on the Lumbini table above for why the order is load-bearing.
+      {
+        month: 'Jan',
+        condition: 'Dry & Mild / Clear Mountain Views / Easy Sightseeing',
+      },
+      {
+        month: 'Feb',
+        condition: 'Dry & Mild / Crisp Mornings / Comfortable Walking',
+      },
+      {
+        month: 'Mar',
+        condition: 'Dry & Warming / Clear Skies / Spring Colour in Courtyards',
+      },
+      {
+        month: 'Apr',
+        condition: 'Warm & Dry / Long Daylight / Festival Season',
+      },
+      {
+        month: 'May',
+        condition: 'Warm & Humid / Pre-Monsoon Showers / Hazier Views',
+      },
+      { month: 'Jun', condition: 'Monsoon Begins / Humid / Afternoon Rain' },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Frequent Rain / Wet Streets Slow the Pace',
+      },
+      {
+        month: 'Aug',
+        condition: 'Full Monsoon / Cloud Cover / Sites Still Accessible',
+      },
+      {
+        month: 'Sep',
+        condition: 'Monsoon Eases / Clearing Skies / Festival Season Begins',
+      },
+      {
+        month: 'Oct',
+        condition: 'Dry & Clear / Best Mountain Views / Peak Visitor Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Dry & Settled / Clear Skies / Ideal Walking Weather',
+      },
+      {
+        month: 'Dec',
+        condition: 'Dry & Crisp / Clear Afternoons / Quieter Courtyards',
+      },
+    ],
     expectations: [
       {
         title: 'Three Historic Cities',
@@ -221,6 +325,58 @@ export const CULTURAL_TOUR_DETAILS: Readonly<
           'Local villages',
           'Bandipur Bazaar',
         ],
+      },
+    ],
+    seasonalPlanning: [
+      // January-first, three-letter months, short ` / `-separated fragments — see
+      // the note on the Lumbini table above for why the order is load-bearing.
+      {
+        month: 'Jan',
+        condition: 'Clear Skies / Crisp Hill Air / Sharp Mountain Views',
+      },
+      {
+        month: 'Feb',
+        condition: 'Clear Skies / Comfortable Walking / Quiet Bazaar',
+      },
+      {
+        month: 'Mar',
+        condition: 'Warming Days / Spring Vegetation / Clear Ridge Views',
+      },
+      {
+        month: 'Apr',
+        condition: 'Warm & Clear / Spring Colour on the Hills / Long Daylight',
+      },
+      {
+        month: 'May',
+        condition: 'Warm Days / Pre-Monsoon Haze / Afternoon Cloud',
+      },
+      {
+        month: 'Jun',
+        condition: 'Monsoon Begins / Frequent Rain / Slippery Stone Paths',
+      },
+      {
+        month: 'Jul',
+        condition: 'Full Monsoon / Cloud Cover / Mountain Views Unreliable',
+      },
+      {
+        month: 'Aug',
+        condition: 'Full Monsoon / Wet & Humid / Slippery Paths to Siddha Gufa',
+      },
+      {
+        month: 'Sep',
+        condition: 'Monsoon Eases / Lush Green Hills / Clearing Views',
+      },
+      {
+        month: 'Oct',
+        condition: 'Clear Skies / Best Mountain Panoramas / Prime Season',
+      },
+      {
+        month: 'Nov',
+        condition: 'Clear & Dry / Excellent Visibility / Comfortable Walking',
+      },
+      {
+        month: 'Dec',
+        condition: 'Clear & Dry / Fresh Mornings / Bright Afternoons',
       },
     ],
     expectations: [

@@ -1,3 +1,8 @@
+export type SeasonMonth = {
+  month: string;
+  condition: string;
+};
+
 /** The header stats, as the web writes them. */
 export type DetailMeta = {
   duration: string;
@@ -17,6 +22,8 @@ type DetailBase = {
   name: string;
   region: string;
   meta: DetailMeta;
+  /** 12 entries, Jan–Dec, copied from the web's seasonalPlanning. */
+  seasonalPlanning: SeasonMonth[];
   /** Paragraphs separated by a blank line. */
   overview: string;
   expectations: Expectation[];
