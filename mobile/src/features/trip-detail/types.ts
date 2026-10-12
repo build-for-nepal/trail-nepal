@@ -1,6 +1,13 @@
+import type { ImageRequireSource } from 'react-native';
+
 export type SeasonMonth = {
   month: string;
   condition: string;
+};
+
+export type GalleryImage = {
+  source: ImageRequireSource;
+  alt: string;
 };
 
 /** The header stats, as the web writes them. */

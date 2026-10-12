@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TRIPS } from '@/features/explore';
 import type { TripType } from '@/features/explore';
 
-import { getHeroImage, getTripDetail } from '../data';
+import { getGalleryImages, getHeroImage, getTripDetail } from '../data';
 import {
   headerStats,
   overviewDescription,
@@ -27,6 +27,7 @@ import { BackButton } from './BackButton';
 import { BAR_HEIGHT, CompactHeader } from './CompactHeader';
 import { DetailHero } from './DetailHero';
 import { ExpectSection } from './ExpectSection';
+import { GallerySection } from './GallerySection';
 import { ItinerarySection } from './ItinerarySection';
 import { OverviewSection } from './OverviewSection';
 import { SeasonSection } from './SeasonSection';
@@ -119,6 +120,7 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             planning={detail.seasonalPlanning}
           />
           <ExpectSection expectations={detail.expectations} />
+          <GallerySection images={getGalleryImages(trip.id) ?? []} />
         </View>
       </ScrollView>
 

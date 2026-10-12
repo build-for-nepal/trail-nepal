@@ -22,8 +22,10 @@ export function CompactHeader({ title, animatedStyle }: CompactHeaderProps) {
   return (
     <Animated.View
       pointerEvents="box-none"
-      className="absolute left-0 right-0 top-0"
-      style={animatedStyle}
+      style={[
+        { position: 'absolute', left: 0, right: 0, top: 0 },
+        animatedStyle,
+      ]}
     >
       <View
         className="flex-row items-center border-b border-border bg-surface px-[6px]"

@@ -20,8 +20,7 @@ export function BackButton({ top, animatedStyle }: BackButtonProps) {
   return (
     <Animated.View
       pointerEvents="box-none"
-      className="absolute left-[18px]"
-      style={[{ top }, animatedStyle]}
+      style={[{ position: 'absolute', left: 18, top }, animatedStyle]}
     >
       <Pressable
         accessibilityRole="button"
