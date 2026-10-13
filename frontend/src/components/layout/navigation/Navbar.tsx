@@ -6,12 +6,30 @@ import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
 import { usePathname, useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
+import { ChevronDown, LogOut } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu';
+import { useAuthStore } from '@/store/authStore';
 
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const clearUser = useAuthStore((state) => state.clearUser);
+
+  const handleSignOut = () => {
+    clearUser();
+    void signOut({ callbackUrl: '/' });
+  };
 
   // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
   // a full-screen hero the navbar sits transparently over).
@@ -91,13 +109,68 @@ export function Navbar() {
           />
           {/* Divider */}
           <div className=" h-[38px] w-px bg-white/40" />
-          <Button
-            onClick={() => router.push('/login/')}
-            className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
-          >
-            {' '}
-            Log In
-          </Button>
+          {user ? (
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Account menu"
+                  className="group flex cursor-pointer items-center gap-1.5"
+                >
+                  <span
+                    className={cn(
+                      'relative size-10 shrink-0 overflow-hidden rounded-full ring-2 transition-colors',
+                      isSolid ? 'ring-gray-200' : 'ring-white/60',
+                    )}
+                  >
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        alt={user.name ?? 'Profile'}
+                        fill
+                        sizes="40px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="flex size-full items-center justify-center bg-[#8cc63f] font-poppins text-sm font-semibold text-white">
+                        {user.name?.charAt(0).toUpperCase() ?? '?'}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn(
+                      'size-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180',
+                      isSolid ? 'text-gray-800' : 'text-white',
+                    )}
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 font-poppins">
+                {user.name && (
+                  <DropdownMenuLabel className="truncate text-[12px] font-semibold uppercase tracking-[0.15em] text-[#62675D]">
+                    {user.name}
+                  </DropdownMenuLabel>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onSelect={handleSignOut}
+                  className="text-[#EF4444] focus:bg-[#FEF2F2] focus:text-[#EF4444]"
+                >
+                  <LogOut className="size-4" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              onClick={() => router.push('/login/')}
+              className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
+            >
+              {' '}
+              Log In
+            </Button>
+          )}
           <MobileMenu scrolled={isSolid} />
         </div>
       </div>
