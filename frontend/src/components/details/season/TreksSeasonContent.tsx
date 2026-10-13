@@ -8,13 +8,17 @@ import {
   getDefaultLocationId,
   getTrekWeatherLocations,
 } from '@/lib/weather/trekWeatherLocations';
-import type { TrekTimelineDay } from '@/types/trek';
+import type { SeasonStatus, TrekTimelineDay } from '@/types/trek';
 
 import TreksSeasonCalendar from './TreksSeasonCalendar';
 import WeatherForecastCard from './WeatherForecastCard';
 
 type Props = {
-  seasonalPlanning: { month: string; condition: string }[];
+  seasonalPlanning: {
+    month: string;
+    condition: string;
+    status?: SeasonStatus;
+  }[];
   name: string;
   bestSeasons?: string;
   region: string;

@@ -331,9 +331,50 @@ export const CULTURAL_TOURS: Trek[] = [
   },
 ];
 
-// Shared discovery set: multi-day treks + single-day hikes + cultural tours.
-// Explore, search, and the homepage should iterate TRAILS to surface all
-// content types.
-export const TRAILS: Trek[] = [...TREKS, ...HIKES, ...CULTURAL_TOURS];
+export const NATURE_TOURS: Trek[] = [
+  // `description` must match NATURE_TOUR_DETAILS[id].summary exactly.
+  {
+    id: 'chitwan-national-park',
+    title: 'Chitwan National Park',
+    region: 'Chitwan, Terai',
+    description:
+      "Explore Nepal's lowland wilderness through jungle safaris, canoe rides, nature walks, and birdwatching, with opportunities to encounter one-horned rhinoceros, crocodiles, and a wide variety of birds and other wildlife.",
+    difficulty: 'Easy',
+    duration: '3 Days',
+    altitude: '186m',
+    season: 'Oct-Mar',
+    imageUrl: '/images/chitwan-national-park/chitwan-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'chitwan national park',
+      'chitwan',
+      'sauraha',
+      'jungle safari',
+      'wildlife safari',
+      'one-horned rhinoceros',
+      'rhino',
+      'royal bengal tiger',
+      'birdwatching',
+      'canoe ride',
+      'rapti river',
+      'elephant breeding centre',
+      'tharu culture',
+      'terai',
+      'wildlife',
+      'nature tour',
+    ],
+    type: 'nature',
+  },
+];
+
+// Shared discovery set: multi-day treks + single-day hikes + cultural tours +
+// nature tours. Explore, search, and the homepage should iterate TRAILS to
+// surface all content types.
+export const TRAILS: Trek[] = [
+  ...TREKS,
+  ...HIKES,
+  ...CULTURAL_TOURS,
+  ...NATURE_TOURS,
+];
 
 export const POPULAR_TREKS = TRAILS.filter((trek) => trek.isPopular);

@@ -1,5 +1,5 @@
 export const FILTER_OPTIONS = {
-  types: ['All', 'Trek', 'Day Hike', 'Cultural Tour'],
+  types: ['All', 'Trek', 'Day Hike', 'Cultural Tour', 'Nature & Wildlife'],
   regions: [
     'All',
     'Khumbu Valley',

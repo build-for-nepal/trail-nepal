@@ -19,7 +19,11 @@ import type { SeasonStatus } from '@/types/trek';
 import type { WeatherDaily } from '@/types/weather';
 
 type Props = {
-  seasonalPlanning: { month: string; condition: string }[];
+  seasonalPlanning: {
+    month: string;
+    condition: string;
+    status?: SeasonStatus;
+  }[];
   /** Trail name, used in the "Peak Season to trek {name}" note. */
   name: string;
   /** Best-seasons string for the note line; omit to hide it. */
@@ -171,7 +175,7 @@ const TreksSeasonCalendar = ({
       abbr: item.month.toUpperCase(),
       label,
       detail: detail ?? '',
-      status: getStatus(item.condition),
+      status: item.status ?? getStatus(item.condition),
       icon: getIcon(item.condition),
     };
   });
