@@ -258,7 +258,7 @@ export function SignUpPage() {
                       key={rule.key}
                       className={cn(
                         'flex items-center gap-1.5 font-poppins text-[11px] leading-tight transition-colors',
-                        rule.met ? 'text-[#91C000]' : 'text-[#9AA1AC]',
+                        rule.met ? 'text-[#88B112]' : 'text-[#9AA1AC]',
                       )}
                     >
                       {rule.met ? (
