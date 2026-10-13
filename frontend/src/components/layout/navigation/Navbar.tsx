@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from 'src/lib/utils';
+import { Button } from 'src/components/ui/button';
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
   // a full-screen hero the navbar sits transparently over).
@@ -35,11 +37,23 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // The auth pages are full-screen, self-contained layouts.
+  const isAuthPage =
+    pathname === '/login/' || pathname === '/login' ||
+    pathname === '/signup/' || pathname === '/signup';
+  if (isAuthPage) return null;
+
+  // The forgot-password page has a light, full-screen layout with no hero, so
+  // it always uses the solid white navbar rather than the transparent variant.
+  const isFlowPage =
+    pathname === '/forgot-password/' || pathname === '/forgot-password';
+  const isSolid = scrolled || isFlowPage;
+
   return (
     <header
       className={cn(
         `z-50 w-full absolute top-0 backdrop-blur-md transition-colors duration-300`,
-        scrolled ? 'bg-white shadow-md' : 'bg-black/40',
+        isSolid ? 'bg-white shadow-md' : 'bg-black/40',
         isFixed && 'fixed',
       )}
     >
@@ -58,14 +72,23 @@ export function Navbar() {
           />
         </Link>
 
-        <NavLinks className="hidden lg:flex" scrolled={scrolled} />
+        <NavLinks className="hidden lg:flex" scrolled={isSolid} />
 
         <div className="flex items-center gap-4">
           <SearchBar
             className="hidden lg:flex w-76"
-            variant={scrolled ? 'dark' : 'light'}
+            variant={isSolid ? 'dark' : 'light'}
           />
-          <MobileMenu scrolled={scrolled} />
+          {/* Divider */}
+          <div className=" h-[38px] w-px bg-white/40" />
+          <Button
+            onClick={() => router.push('/login/')}
+            className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
+          >
+            {' '}
+            Log In
+          </Button>
+          <MobileMenu scrolled={isSolid} />
         </div>
       </div>
     </header>
