@@ -19,7 +19,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         start: 'Kathmandu',
         destination: 'Chitwan',
         tourType: 'Multi-day · Wildlife & Nature',
-        transport: 'Road transport · safari vehicle · canoe',
+        transport: 'Road transport',
         terrain: 'Forest trails · grassland · riverbanks · paved roads',
       },
     },
@@ -288,7 +288,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
       "Explore Nepal's western lowland wilderness through jungle safaris, nature walks, river experiences, and birdwatching, with opportunities to encounter Royal Bengal tigers, one-horned rhinoceros, wild elephants, swamp deer, and other wildlife.",
     region: 'Bardia, Terai',
     meta: {
-      duration: '4 Days · 3 Nights',
+      duration: '4 Days',
       difficulty: 'Easy',
       // Not in the PDF; DEM elevation at the park pin (Open-Meteo).
       maxElevation: '~160m',
@@ -298,7 +298,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         start: 'Kathmandu',
         destination: 'Bardiya National Park',
         tourType: 'Multi-day · Wildlife & Nature',
-        transport: 'Flight · road transport · safari vehicle',
+        transport: 'Flight · road transport',
         terrain: 'Forest trails · grassland · riverbanks · paved roads',
       },
     },
@@ -583,7 +583,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
       "Explore eastern Nepal through rolling tea gardens, forested hills, sacred lakes, scenic viewpoints, and local communities, with time to experience Ilam's tea culture and landscapes.",
     region: 'Ilam, Eastern Nepal',
     meta: {
-      duration: '5 Days · 4 Nights',
+      duration: '5 Days',
       difficulty: 'Easy',
       // Mai Pokhari (PDF), the route's high point.
       maxElevation: '2,121m',
@@ -593,7 +593,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         start: 'Kathmandu',
         destination: 'Ilam',
         tourType: 'Multi-day · Nature & Culture',
-        transport: 'Road transport · walking',
+        transport: 'Road transport',
         terrain: 'Tea gardens · forest trails · hill roads · gentle slopes',
       },
     },
