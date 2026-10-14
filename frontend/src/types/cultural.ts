@@ -1,4 +1,4 @@
-import type { GearChecklist, TrekImage } from '@/types/trek';
+import type { GearChecklist, SeasonStatus, TrekImage } from '@/types/trek';
 
 export interface CulturalSite {
   order: number;
@@ -88,8 +88,13 @@ export interface CulturalTourDetail {
   itinerary: CulturalTourDay[]; // day-by-day plan with transport + highlights
   entryFees?: CulturalEntryFees;
   expectations: { title: string; description: string }[];
-  seasonalPlanning: { month: string; condition: string }[];
+  /** `status` overrides the calendar's keyword guess for that month. */
+  seasonalPlanning: {
+    month: string;
+    condition: string;
+    status?: SeasonStatus;
+  }[];
   beforeYouGo: { title: string; description: string }[];
   gallery: TrekImage[];
-  gearChecklist: GearChecklist;
+  gearChecklist?: GearChecklist;
 }
