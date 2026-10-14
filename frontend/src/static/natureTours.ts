@@ -602,16 +602,6 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
     sites: [
       {
         order: 1,
-        name: 'Ilam Bazaar',
-        // OSM node/2424953267 (place=town)
-        coordinates: [26.9103896, 87.9281937],
-        description:
-          "The district headquarters and the main base for exploring Ilam's tea gardens, forests, viewpoints, and surrounding attractions.",
-        tooltip: 'The main base for exploring Ilam.',
-        dayId: 'day-01',
-      },
-      {
-        order: 2,
         name: 'Kanyam Tea Estate',
         // OSM way/482975094 (Kanyam Tea Estate)
         coordinates: [26.8677963, 88.0787199],
@@ -622,7 +612,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         dayId: 'day-02',
       },
       {
-        order: 3,
+        order: 2,
         name: 'Fikkal',
         // OSM node/5193532022 (place=village)
         coordinates: [26.8952118, 88.0661527],
@@ -632,7 +622,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         dayId: 'day-02',
       },
       {
-        order: 4,
+        order: 3,
         name: 'Mai Pokhari',
         // OSM node/4457983089 (tourism=attraction)
         coordinates: [27.0066304, 87.9296273],
@@ -643,7 +633,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         dayId: 'day-03',
       },
       {
-        order: 5,
+        order: 4,
         name: 'Shree Antu',
         // OSM node/4892317924 (place=village, "Shri Antu")
         coordinates: [26.8809868, 88.1307377],
@@ -653,7 +643,7 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
         dayId: 'day-04',
       },
       {
-        order: 6,
+        order: 5,
         name: 'Antu Danda',
         // OSM node/8421778518 (tourism=viewpoint, "Antu Hill")
         coordinates: [26.8729293, 88.1403969],
@@ -674,7 +664,6 @@ export const NATURE_TOUR_DETAILS: Record<string, CulturalTourDetail> = {
           'Travel from Kathmandu to Ilam by road. This is a long travel day as the route crosses from the Kathmandu Valley toward the eastern hills.\n\nThe journey gradually changes from urban and valley landscapes to hill roads, cultivated slopes, forests, and tea-growing areas as you approach Ilam.',
         transport: 'Road transport · walking',
         highlights: ['Road Journey'],
-        coordinates: [26.9103896, 87.9281937],
       },
       {
         day: 'Day 02',
