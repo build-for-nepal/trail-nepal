@@ -13,12 +13,13 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
-  // a full-screen hero the navbar sits transparently over).
+  // Disable fixed navbar on dynamic detail pages (they have a full-screen
+  // hero the navbar sits transparently over).
   const isDetailPage =
     pathname.startsWith('/treks/') ||
     pathname.startsWith('/hikes/') ||
-    pathname.startsWith('/cultural-tours/');
+    pathname.startsWith('/cultural-tours/') ||
+    pathname.startsWith('/nature-wildlife/');
 
   const isFixed = !isDetailPage;
 
