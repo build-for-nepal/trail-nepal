@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { Gallery } from '@/components/details/Gallery';
+import TrekTrivia from '@/components/details/TrekTrivia';
 import TreksExpect from '@/components/details/TreksExpect';
 import TreksSeason from '@/components/details/TreksSeason';
 import Footer from '@/components/layout/footer/Footer';
@@ -113,6 +114,7 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
           name={tour.name}
         />
         <Gallery images={tour.gallery} />
+        <TrekTrivia trekId={tourId} triviaNameOverride={tour.name} />
       </div>
 
       <Footer />
