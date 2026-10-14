@@ -24,7 +24,7 @@ type Props = {
     condition: string;
     status?: SeasonStatus;
   }[];
-  /** Trail name, used in the "Peak Season to trek {name}" note. */
+  /** Trail name, used in the "Peak Season to visit {name}" note. */
   name: string;
   /** Best-seasons string for the note line; omit to hide it. */
   bestSeasons?: string;
@@ -62,15 +62,15 @@ const buildOverview = (
   const traffic = trafficByStatus[status].toLowerCase();
 
   const framing: Record<SeasonStatus, string> = {
-    peak: `${monthName} is one of the prime windows for this trek.`,
+    peak: `${monthName} is one of the best times to go.`,
     caution: `${monthName} is a transitional month that rewards flexible planning.`,
-    danger: `${monthName} is a demanding time to be on the trail.`,
+    danger: `${monthName} is a demanding time to travel.`,
   };
 
   const closing: Record<SeasonStatus, string> = {
-    peak: `Skies are typically stable and visibility is good, and trail traffic tends to be ${traffic}.`,
-    caution: `Weather can shift quickly and conditions vary from day to day, with ${traffic} trail traffic.`,
-    danger: `Expect tough going and frequently obscured mountain views, with ${traffic} trail traffic.`,
+    peak: `Skies are typically stable and visibility is good, and visitor numbers tend to be ${traffic}.`,
+    caution: `Weather can shift quickly and conditions vary from day to day, with ${traffic} visitor numbers.`,
+    danger: `Expect tough conditions and frequently obscured views, with ${traffic} visitor numbers.`,
   };
 
   const conditions = detail
@@ -201,12 +201,11 @@ const TreksSeasonCalendar = ({
           Monthly Window
         </h3>
         <p className="font-poppins  leading-relaxed text-gray-600">
-          Timing is everything in the Himalayas. The window for a safe ascent is
-          narrow and dictated by the monsoon and winter winds.
+          Conditions vary through the year with the seasons.
         </p>
         {bestSeasons ? (
           <p className="font-poppins font-medium italic text-gray-700">
-            Note: Peak Season to trek {name} is {bestSeasons}
+            Note: Peak Season to visit {name} is {bestSeasons}
           </p>
         ) : null}
       </div>
@@ -306,7 +305,7 @@ const TreksSeasonCalendar = ({
                   <p className="font-poppins text-2xl font-bold text-gray-900">
                     {trafficByStatus[selected.status]}
                   </p>
-                  <p className="font-poppins text-gray-500">Trail traffic</p>
+                  <p className="font-poppins text-gray-500">Visitor numbers</p>
                 </div>
               </div>
             </>
