@@ -25,6 +25,20 @@ export type Expectation = {
   description: string;
 };
 
+export type GearItem = {
+  name: string;
+  /** The weight of one, so a row weighs grams × quantity. */
+  grams: number;
+  /** Only items with a quantity get a stepper. */
+  quantity?: number;
+};
+
+/** The web's `essentials` and `optional`; the web shows `optional` as "Good to have". */
+export type GearChecklist = {
+  essential: GearItem[];
+  goodToHave: GearItem[];
+};
+
 type DetailBase = {
   name: string;
   region: string;
@@ -66,6 +80,7 @@ export type TrekDetail = DetailBase & {
   type: 'trek';
   tripFacts: TrekTripFacts;
   itinerary: TrekDay[];
+  gear: GearChecklist;
 };
 
 export type HikeTripFacts = {
@@ -92,6 +107,7 @@ export type HikeDetail = DetailBase & {
   type: 'hike';
   tripFacts: HikeTripFacts;
   route: HikeRouteSection[];
+  gear: GearChecklist;
 };
 
 /** A single-destination tour has `destination` and `keyAreas`; a city-hopping one has `cities`. */

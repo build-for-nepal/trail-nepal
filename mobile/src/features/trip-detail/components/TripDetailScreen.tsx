@@ -30,6 +30,7 @@ import { ExpectSection } from './ExpectSection';
 import { GallerySection } from './GallerySection';
 import { ItinerarySection } from './ItinerarySection';
 import { OverviewSection } from './OverviewSection';
+import { PackingSection } from './PackingSection';
 import { SeasonSection } from './SeasonSection';
 import { TripNotFound } from './TripNotFound';
 
@@ -120,6 +121,14 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             planning={detail.seasonalPlanning}
           />
           <ExpectSection expectations={detail.expectations} />
+          {/* Where the web puts its gear checklist. Cultural tours have none. */}
+          {detail.type !== 'cultural' ? (
+            <PackingSection
+              type={detail.type}
+              id={trip.id}
+              gear={detail.gear}
+            />
+          ) : null}
           <GallerySection images={getGalleryImages(trip.id) ?? []} />
         </View>
       </ScrollView>

@@ -30,6 +30,11 @@ export const tripDetailColor = {
   placeholder: '#55685F',
 } as const;
 
+// The gear checklist's tick, drawn on a bg-primary box.
+export const packingColor = {
+  check: '#FFFFFF',
+} as const;
+
 // @gorhom/bottom-sheet styles its animated views through props, not className.
 export const bottomSheetColor = {
   surface: '#FFFFFF',

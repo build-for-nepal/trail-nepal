@@ -33,6 +33,14 @@ module.exports = {
           moderate: '#4D7C0F',
           challenging: '#B45309',
         },
+        // Pack-weight bands on the gear checklist, all AA on white. Light keeps the web's
+        // blue; the web's green and amber (#22c55e, #f59e0b) fail AA, so darker shades.
+        load: {
+          light: '#376BB6',
+          optimal: '#047857',
+          heavy: '#B45309',
+          over: '#DC2626',
+        },
       },
       // One family per weight: don't add font-bold or font-medium on top.
       fontFamily: {
