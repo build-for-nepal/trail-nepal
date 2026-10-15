@@ -43,6 +43,9 @@ export function Navbar() {
     pathname === '/signup/' || pathname === '/signup';
   if (isAuthPage) return null;
 
+  // The admin panel is a self-contained back-office UI with no public navbar.
+  if (pathname.startsWith('/admin-panel')) return null;
+
   // The forgot-password page has a light, full-screen layout with no hero, so
   // it always uses the solid white navbar rather than the transparent variant.
   const isFlowPage =
