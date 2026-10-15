@@ -39,15 +39,22 @@ export function Navbar() {
 
   // The auth pages are full-screen, self-contained layouts.
   const isAuthPage =
-    pathname === '/login/' || pathname === '/login' ||
-    pathname === '/signup/' || pathname === '/signup';
+    pathname === '/login/' ||
+    pathname === '/login' ||
+    pathname === '/signup/' ||
+    pathname === '/signup';
   if (isAuthPage) return null;
 
-  // The forgot-password page has a light, full-screen layout with no hero, so
-  // it always uses the solid white navbar rather than the transparent variant.
-  const isFlowPage =
-    pathname === '/forgot-password/' || pathname === '/forgot-password';
-  const isSolid = scrolled || isFlowPage;
+  // Light pages have no full-height hero to sit over, so they always use the
+  // solid white navbar rather than the transparent-over-hero variant.
+  const isLightPage =
+    pathname === '/forgot-password/' ||
+    pathname === '/forgot-password' ||
+    pathname === '/plan-my-trip/' ||
+    pathname === '/plan-my-trip' ||
+    pathname === '/planmytrip/' ||
+    pathname === '/planmytrip';
+  const isSolid = scrolled || isLightPage;
 
   return (
     <header
