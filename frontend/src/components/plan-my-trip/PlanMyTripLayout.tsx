@@ -1,12 +1,13 @@
 ﻿'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 
 import PlanMyTripForm, {
   DEFAULT_PREFERENCES,
   type TripPreferences,
 } from './PlanMyTripForm';
+import PlanMyTripLoading from './PlanMyTripLoading';
 import PlanMyTripWelcome from './PlanMyTripWelcome';
 import {
   ALTERNATIVES,
@@ -29,6 +30,7 @@ const PlanMyTripLayout = () => {
   const [preferences, setPreferences] =
     useState<TripPreferences>(DEFAULT_PREFERENCES);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
 
   // TESTING ONLY: number of strongest-match cards to show
@@ -45,12 +47,29 @@ const PlanMyTripLayout = () => {
   const handleClear = () => {
     setPreferences(DEFAULT_PREFERENCES);
     setSubmitted(false);
+    setLoading(false);
     setTouched(false);
   };
 
   const handleSubmit = () => {
-    setSubmitted(true);
+    setLoading(true);
   };
+
+  // Show the trail loader briefly, then reveal the matches.
+  useEffect(() => {
+    if (!loading) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1900);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [loading]);
 
   /*
    * DEMO DATA:
@@ -118,8 +137,10 @@ const PlanMyTripLayout = () => {
             />
           </aside>
 
-          {/* Right: welcome screen or matching results */}
-          {submitted ? (
+          {/* Right: welcome screen, trail loader, or matching results */}
+          {loading ? (
+            <PlanMyTripLoading />
+          ) : submitted ? (
             <section className="min-w-0">
               <header className="mb-5">
                 <h1 className="font-serif text-2xl font-bold text-[#252820]">

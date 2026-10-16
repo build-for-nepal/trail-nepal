@@ -358,3 +358,56 @@
     background-position: 200% center;
   }
 }
+
+/* Plan My Trip — trail loading animation */
+.pmt-loader-trail {
+  animation: pmtTrailMarch 1.2s linear infinite;
+}
+
+.pmt-loader-hiker {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pmtHikerWalk 0.9s ease-in-out infinite;
+}
+
+.pmt-loader-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pmtLoaderPulse 1.6s ease-out infinite;
+}
+
+@keyframes pmtTrailMarch {
+  to {
+    stroke-dashoffset: -15;
+  }
+}
+
+@keyframes pmtHikerWalk {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pmtLoaderPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.35;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pmt-loader-trail,
+  .pmt-loader-hiker,
+  .pmt-loader-pulse {
+    animation: none;
+  }
+}

@@ -79,11 +79,14 @@ export function Navbar() {
           />
         </Link>
 
-        <NavLinks className="hidden lg:flex" scrolled={isSolid} />
+        <NavLinks
+          className="hidden pr-14 lg:flex lg:gap-6 xl:gap-10"
+          scrolled={isSolid}
+        />
 
         <div className="flex items-center gap-4">
           <SearchBar
-            className="hidden lg:flex w-76"
+            className="hidden w-64 lg:flex xl:w-76"
             variant={isSolid ? 'dark' : 'light'}
           />
           {/* Divider */}
