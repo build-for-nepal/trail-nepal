@@ -7,6 +7,7 @@ import {
   Footprints,
   Landmark,
   Leaf,
+  Loader2,
   Minus,
   Mountain,
   Plus,
@@ -17,47 +18,18 @@ import {
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import {
+  DIFFICULTIES,
+  MAX_DAYS,
+  MIN_DAYS,
+  MONTHS,
+  type TripExperience,
+  type TripFieldErrors,
+  type TripMonth,
+  type TripPreferences,
+} from '@/lib/tripPreferences';
 
-export type TripExperience =
-  | 'trekking'
-  | 'hiking'
-  | 'culture'
-  | 'mountains'
-  | 'quiet'
-  | 'mix';
-
-export type TripDifficulty = 'Easy' | 'Moderate' | 'Challenging';
-
-export interface TripPreferences {
-  month: string;
-  days: number;
-  experience: TripExperience | null;
-  difficulty: TripDifficulty | null;
-}
-
-export const DEFAULT_PREFERENCES: TripPreferences = {
-  month: 'October',
-  days: 3,
-  experience: null,
-  difficulty: null,
-};
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const MONTH_HINTS: Record<string, string> = {
+const MONTH_HINTS: Record<TripMonth, string> = {
   January: 'January brings clear skies and quiet trails across Nepal',
   February: 'February offers crisp mountain views with fewer trekkers',
   March: 'March marks the start of spring trekking season',
@@ -71,9 +43,6 @@ const MONTH_HINTS: Record<string, string> = {
   November: 'November stays clear with comfortable trekking weather',
   December: 'December is cold but clear in the lower regions',
 };
-
-const MIN_DAYS = 1;
-const MAX_DAYS = 30;
 
 type ExperienceOption = {
   key: TripExperience;
@@ -90,15 +59,27 @@ const EXPERIENCES: ExperienceOption[] = [
   { key: 'mix', label: 'Mix of all', icon: Sparkles },
 ];
 
-const DIFFICULTIES: TripDifficulty[] = ['Easy', 'Moderate', 'Challenging'];
-
 type Props = {
   value: TripPreferences;
   onChange: (patch: Partial<TripPreferences>) => void;
   onClear: () => void;
   onSubmit: () => void;
-  canSubmit: boolean;
+  errors: TripFieldErrors;
+  submitting: boolean;
 };
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p
+      id={id}
+      role="alert"
+      className="font-poppins text-[12px] font-medium text-red-600"
+    >
+      {message}
+    </p>
+  );
+}
 
 function StepHeading({
   step,
@@ -131,10 +112,17 @@ const PlanMyTripForm = ({
   onChange,
   onClear,
   onSubmit,
-  canSubmit,
+  errors,
+  submitting,
 }: Props) => {
   const clampDays = (days: number) =>
     Math.min(MAX_DAYS, Math.max(MIN_DAYS, days));
+  const currentDays = value.days ?? 0;
+
+  const handleDaysInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = event.target.value;
+    onChange({ days: raw === '' ? null : Number(raw) });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -144,6 +132,8 @@ const PlanMyTripForm = ({
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
+      aria-busy={submitting}
       className="w-full rounded-2xl bg-white px-6 py-10"
     >
       <h2 className="font-fraunces text-2xl font-semibold text-[#272922]">
@@ -224,31 +214,49 @@ const PlanMyTripForm = ({
           helper="Enter your total days"
         />
 
-        <div className="flex h-10 w-[200px] items-center overflow-hidden rounded-xl border border-[#DDE3EC] bg-white">
+        <div
+          className={cn(
+            'flex h-10 w-[200px] items-center overflow-hidden rounded-xl border bg-white',
+            errors.days ? 'border-red-500' : 'border-[#DDE3EC]',
+          )}
+        >
           <button
             type="button"
             aria-label="Decrease days"
-            onClick={() => onChange({ days: clampDays(value.days - 1) })}
-            disabled={value.days <= MIN_DAYS}
+            onClick={() => onChange({ days: clampDays(currentDays - 1) })}
+            disabled={currentDays <= MIN_DAYS}
             className="flex h-full flex-1 items-center justify-center text-[#606359] transition-colors hover:text-[#272922] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Minus className="size-4" strokeWidth={2.2} />
           </button>
           <span className="h-5 w-px shrink-0 bg-[#E3EAF4]" />
-          <span className="flex h-full min-w-[70px] items-center justify-center font-poppins text-sm font-medium text-[#272922]">
-            {value.days} {value.days === 1 ? 'day' : 'days'}
-          </span>
+          <label className="flex h-full min-w-[70px] items-center justify-center gap-1 font-poppins text-sm font-medium text-[#272922]">
+            <input
+              type="number"
+              inputMode="numeric"
+              min={MIN_DAYS}
+              max={MAX_DAYS}
+              value={value.days ?? ''}
+              onChange={handleDaysInput}
+              aria-label="Number of days"
+              aria-invalid={Boolean(errors.days)}
+              aria-describedby={errors.days ? 'pmt-days-error' : undefined}
+              className="w-8 bg-transparent text-right outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            />
+            {value.days === 1 ? 'day' : 'days'}
+          </label>
           <span className="h-5 w-px shrink-0 bg-[#E3EAF4]" />
           <button
             type="button"
             aria-label="Increase days"
-            onClick={() => onChange({ days: clampDays(value.days + 1) })}
-            disabled={value.days >= MAX_DAYS}
+            onClick={() => onChange({ days: clampDays(currentDays + 1) })}
+            disabled={currentDays >= MAX_DAYS}
             className="flex h-full flex-1 items-center justify-center text-[#606359] transition-colors hover:text-[#272922] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Plus className="size-4" strokeWidth={2.2} />
           </button>
         </div>
+        <FieldError id="pmt-days-error" message={errors.days} />
       </div>
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />
@@ -261,7 +269,14 @@ const PlanMyTripForm = ({
           helper="Choose the one that sounds like your kind of trip."
         />
 
-        <div className="grid grid-cols-3 gap-2">
+        <div
+          role="group"
+          aria-label="Experience type"
+          aria-describedby={
+            errors.experience ? 'pmt-experience-error' : undefined
+          }
+          className="grid grid-cols-2 gap-2 sm:grid-cols-3"
+        >
           {EXPERIENCES.map(({ key, label, icon: Icon }) => {
             const isSelected = value.experience === key;
             return (
@@ -298,6 +313,7 @@ const PlanMyTripForm = ({
             );
           })}
         </div>
+        <FieldError id="pmt-experience-error" message={errors.experience} />
       </div>
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />
@@ -310,7 +326,14 @@ const PlanMyTripForm = ({
           helper="Choose the level that feels comfortable for you."
         />
 
-        <div className="grid grid-cols-3 gap-2">
+        <div
+          role="group"
+          aria-label="Difficulty"
+          aria-describedby={
+            errors.difficulty ? 'pmt-difficulty-error' : undefined
+          }
+          className="grid grid-cols-3 gap-2"
+        >
           {DIFFICULTIES.map((level) => {
             const isSelected = value.difficulty === level;
             return (
@@ -331,6 +354,7 @@ const PlanMyTripForm = ({
             );
           })}
         </div>
+        <FieldError id="pmt-difficulty-error" message={errors.difficulty} />
       </div>
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />
@@ -341,17 +365,27 @@ const PlanMyTripForm = ({
           type="button"
           variant="ghost"
           onClick={onClear}
+          disabled={submitting}
           className="h-11 rounded-xl px-4 font-poppins text-sm font-medium text-[#606359] hover:bg-transparent hover:text-[#272922]"
         >
           Clear
         </Button>
         <Button
           type="submit"
-          disabled={!canSubmit}
-          className="h-11 w-[200px] rounded-xl bg-brand-primary font-poppins text-sm font-semibold text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-[#DDE3EC] disabled:text-[#9aa3b2] disabled:opacity-100"
+          disabled={submitting}
+          className="h-11 w-full max-w-[200px] flex-1 rounded-xl bg-brand-primary font-poppins text-sm font-semibold text-white hover:bg-brand-primary-dark disabled:cursor-not-allowed disabled:bg-[#DDE3EC] disabled:text-[#9aa3b2] disabled:opacity-100"
         >
-          Find My Trip
-          <ArrowRight className="size-4" />
+          {submitting ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Finding…
+            </>
+          ) : (
+            <>
+              Find My Trip
+              <ArrowRight className="size-4" />
+            </>
+          )}
         </Button>
       </div>
     </form>

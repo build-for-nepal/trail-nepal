@@ -2,8 +2,8 @@ import { isCultural, isHike } from '@/lib/trail';
 import type { Trek } from '@/types/trek';
 
 /**
- * DEMO DATA: the trip options the planner matches against.
- * Replace with the real result set once the matching service is wired up.
+ * DEMO DATA: used only by the development fallback in recommendations.ts
+ * when NEXT_PUBLIC_API_URL is unset.
  */
 export const TRIP_OPTIONS: Trek[] = [
   {
@@ -67,31 +67,8 @@ export const TRIP_OPTIONS: Trek[] = [
   },
 ];
 
-/** Options shown below the strongest match. */
-export const ALTERNATIVES = TRIP_OPTIONS.slice(1);
-
-export interface TripMatch {
-  key: string;
-  trek: Trek;
-}
-
-export function getDurationDays(trek: Trek): number {
-  return Number(trek.duration.match(/\d+/)?.[0] ?? 1);
-}
-
 export function getCategory(trek: Trek): string {
   if (isCultural(trek)) return 'Cultural';
   if (isHike(trek)) return 'Hiking';
   return 'Trekking';
-}
-
-/**
- * TESTING ONLY: builds N strongest matches by cycling through TRIP_OPTIONS.
- * Keys are unique so repeated treks don't collide. Remove with the test control.
- */
-export function buildTestMatches(count: number): TripMatch[] {
-  return Array.from({ length: count }, (_, index) => {
-    const trek = TRIP_OPTIONS[index % TRIP_OPTIONS.length];
-    return { key: `${trek.id}-${index}`, trek };
-  });
 }
