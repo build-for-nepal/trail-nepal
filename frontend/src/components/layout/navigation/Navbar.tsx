@@ -31,12 +31,13 @@ export function Navbar() {
     void signOut({ callbackUrl: '/' });
   };
 
-  // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
-  // a full-screen hero the navbar sits transparently over).
+  // Disable fixed navbar on dynamic detail pages (they have a full-screen
+  // hero the navbar sits transparently over).
   const isDetailPage =
     pathname.startsWith('/treks/') ||
     pathname.startsWith('/hikes/') ||
-    pathname.startsWith('/cultural-tours/');
+    pathname.startsWith('/cultural-tours/') ||
+    pathname.startsWith('/nature-wildlife/');
 
   const isFixed = !isDetailPage;
 
@@ -62,6 +63,9 @@ export function Navbar() {
     pathname === '/signup/' ||
     pathname === '/signup';
   if (isAuthPage) return null;
+
+  // The admin panel is a self-contained back-office UI with no public navbar.
+  if (pathname.startsWith('/admin-panel')) return null;
 
   // Light pages have no full-height hero to sit over, so they always use the
   // solid white navbar rather than the transparent-over-hero variant.

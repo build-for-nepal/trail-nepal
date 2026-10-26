@@ -26,6 +26,12 @@ export const CULTURAL_TOUR_OG_IMAGES: Record<string, string> = {
   'bandipur-hill-town': 'og-bandipur-hill-town.jpg',
 };
 
+export const NATURE_TOUR_OG_IMAGES: Record<string, string> = {
+  'chitwan-national-park': 'og-chitwan-national-park.jpg',
+  'bardia-national-park': 'og-bardia-national-park.jpg',
+  ilam: 'og-ilam.jpg',
+};
+
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
 
 export const DEFAULT_SEO_DATA = {

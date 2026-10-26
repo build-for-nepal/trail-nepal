@@ -160,13 +160,13 @@ export function SearchBarInner({
 
         <input
           type="search"
-          placeholder="Search treks & hikes"
+          placeholder="Search treks, hikes & tours"
           value={inputValue}
           onChange={handleChange}
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
           role="combobox"
-          aria-label="Search treks and hikes"
+          aria-label="Search treks, hikes and tours"
           aria-autocomplete="list"
           aria-expanded={showDropdown}
           aria-haspopup="listbox"

@@ -8,13 +8,17 @@ import {
   getDefaultLocationId,
   getTrekWeatherLocations,
 } from '@/lib/weather/trekWeatherLocations';
-import type { TrekTimelineDay } from '@/types/trek';
+import type { SeasonStatus, TrekTimelineDay } from '@/types/trek';
 
 import TreksSeasonCalendar from './TreksSeasonCalendar';
 import WeatherForecastCard from './WeatherForecastCard';
 
 type Props = {
-  seasonalPlanning: { month: string; condition: string }[];
+  seasonalPlanning: {
+    month: string;
+    condition: string;
+    status?: SeasonStatus;
+  }[];
   name: string;
   bestSeasons?: string;
   region: string;
@@ -77,7 +81,7 @@ const TreksSeasonContent = ({
       <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 sm:px-10 lg:gap-12 lg:px-20">
         <SectionHeader
           title="When Should I go?"
-          description="Climbing windows for Trek regions."
+          description="Month-by-month conditions to help you plan your trip."
         />
 
         <div className="grid grid-cols-1 items-stretch gap-8 xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">

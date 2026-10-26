@@ -331,9 +331,116 @@ export const CULTURAL_TOURS: Trek[] = [
   },
 ];
 
-// Shared discovery set: multi-day treks + single-day hikes + cultural tours.
-// Explore, search, and the homepage should iterate TRAILS to surface all
-// content types.
-export const TRAILS: Trek[] = [...TREKS, ...HIKES, ...CULTURAL_TOURS];
+export const NATURE_TOURS: Trek[] = [
+  // `description` must match NATURE_TOUR_DETAILS[id].summary exactly.
+  {
+    id: 'chitwan-national-park',
+    title: 'Chitwan National Park',
+    region: 'Chitwan, Terai',
+    description:
+      "Explore Nepal's lowland wilderness through jungle safaris, canoe rides, nature walks, and birdwatching, with opportunities to encounter one-horned rhinoceros, crocodiles, and a wide variety of birds and other wildlife.",
+    difficulty: 'Easy',
+    duration: '3 Days',
+    altitude: '186m',
+    season: 'Oct-Mar',
+    imageUrl: '/images/chitwan-national-park/chitwan-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'chitwan national park',
+      'chitwan',
+      'sauraha',
+      'jungle safari',
+      'wildlife safari',
+      'one-horned rhinoceros',
+      'rhino',
+      'royal bengal tiger',
+      'birdwatching',
+      'canoe ride',
+      'rapti river',
+      'elephant breeding centre',
+      'tharu culture',
+      'terai',
+      'wildlife',
+      'nature tour',
+    ],
+    type: 'nature',
+  },
+  {
+    id: 'bardia-national-park',
+    title: 'Bardia National Park',
+    region: 'Bardia, Terai',
+    description:
+      "Explore Nepal's western lowland wilderness through jungle safaris, nature walks, river experiences, and birdwatching, with opportunities to encounter Royal Bengal tigers, one-horned rhinoceros, wild elephants, swamp deer, and other wildlife.",
+    difficulty: 'Easy',
+    duration: '4 Days',
+    altitude: '160m',
+    season: 'Oct-Mar',
+    imageUrl: '/images/bardia-national-park/bardia-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'bardia national park',
+      'bardiya national park',
+      'bardia',
+      'bardiya',
+      'thakurdwara',
+      'nepalgunj',
+      'jungle safari',
+      'wildlife safari',
+      'royal bengal tiger',
+      'one-horned rhinoceros',
+      'wild elephants',
+      'swamp deer',
+      'birdwatching',
+      'karnali river',
+      'gharial conservation',
+      'tharu culture',
+      'terai',
+      'wildlife',
+      'nature tour',
+    ],
+    type: 'nature',
+  },
+  {
+    id: 'ilam',
+    title: 'Ilam',
+    region: 'Ilam, Eastern Nepal',
+    description:
+      "Explore eastern Nepal through rolling tea gardens, forested hills, sacred lakes, scenic viewpoints, and local communities, with time to experience Ilam's tea culture and landscapes.",
+    difficulty: 'Easy',
+    duration: '5 Days',
+    altitude: '2,121m',
+    season: 'Oct-Dec, Feb-Apr',
+    imageUrl: '/images/ilam/ilam-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'ilam',
+      'eastern nepal',
+      'tea gardens',
+      'kanyam',
+      'fikkal',
+      'mai pokhari',
+      'shree antu',
+      'antu danda',
+      'sunrise viewpoint',
+      'tea culture',
+      'forest walk',
+      'nature and culture',
+      'hill station nepal',
+      'local communities',
+      'nature tour',
+    ],
+    type: 'nature',
+  },
+];
+
+// Shared discovery set: multi-day treks + single-day hikes + cultural tours +
+// nature tours. Explore, search, and the homepage should iterate TRAILS to
+// surface all content types.
+export const TRAILS: Trek[] = [
+  ...TREKS,
+  ...HIKES,
+  ...CULTURAL_TOURS,
+  ...NATURE_TOURS,
+];
 
 export const POPULAR_TREKS = TRAILS.filter((trek) => trek.isPopular);
