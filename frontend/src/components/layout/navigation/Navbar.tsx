@@ -7,7 +7,7 @@ import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
 import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { ChevronDown, LogOut } from 'lucide-react';
+import { Bookmark, ChevronDown, LogOut, Settings } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
 import {
@@ -71,7 +71,9 @@ export function Navbar() {
     pathname === '/plan-my-trip/' ||
     pathname === '/plan-my-trip' ||
     pathname === '/planmytrip/' ||
-    pathname === '/planmytrip';
+    pathname === '/planmytrip' ||
+    pathname === '/shared-trip/' ||
+    pathname === '/shared-trip';
   const isSolid = scrolled || isLightPage;
 
   return (
@@ -129,6 +131,7 @@ export function Navbar() {
                         alt={user.name ?? 'Profile'}
                         fill
                         sizes="40px"
+                        referrerPolicy="no-referrer"
                         className="object-cover"
                       />
                     ) : (
@@ -152,6 +155,15 @@ export function Navbar() {
                     {user.name}
                   </DropdownMenuLabel>
                 )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => router.push('/saved-trips/')}>
+                  <Bookmark className="size-4" />
+                  Saved Trips
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.push('/settings/')}>
+                  <Settings className="size-4" />
+                  Settings
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onSelect={handleSignOut}

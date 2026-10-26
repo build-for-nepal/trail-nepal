@@ -237,7 +237,10 @@ const PlanMyTripLayout = () => {
                           itinerary.
                         </p>
 
-                        <TripActions />
+                        <TripActions
+                          trailIds={strongest.trails.map((trek) => trek.id)}
+                          totalDays={strongest.totalDays}
+                        />
                       </div>
                     </section>
 
@@ -267,7 +270,10 @@ const PlanMyTripLayout = () => {
                             </div>
 
                             <div className="mt-4">
-                              <TripActions />
+                              <TripActions
+                                trailIds={option.trails.map((trek) => trek.id)}
+                                totalDays={option.totalDays}
+                              />
                             </div>
                           </section>
                         ))}
