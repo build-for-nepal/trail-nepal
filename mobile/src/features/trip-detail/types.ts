@@ -136,3 +136,32 @@ export type CulturalTourDetail = DetailBase & {
 };
 
 export type TripDetail = TrekDetail | HikeDetail | CulturalTourDetail;
+
+/** A place the 10-day forecast can be shown for. */
+export type ForecastLocation = {
+  label: string;
+  /** [lat, lng], the web's order. */
+  coordinates: [number, number];
+  /** The place's own height. Without it, Open-Meteo uses its terrain model's. */
+  elevationM?: number;
+  /** The one shown first: a trek's highest stop, a hike's high point, a tour's main town. */
+  isDefault?: true;
+};
+
+export type ForecastDay = {
+  /** 'YYYY-MM-DD', Nepal time. */
+  date: string;
+  /** A WMO weather code. */
+  weatherCode: number;
+  maxC: number;
+  minC: number;
+  precipMm: number;
+};
+
+export type Forecast = {
+  /** When the response arrived, in ms since the epoch. */
+  fetchedAt: number;
+  current: { tempC: number; weatherCode: number };
+  /** Today first. */
+  days: ForecastDay[];
+};

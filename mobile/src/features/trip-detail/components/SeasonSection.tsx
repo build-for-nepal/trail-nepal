@@ -22,16 +22,29 @@ import {
   SEASON_TEXT_COLOR,
   buildSeasonOverview,
   getSeasonStatus,
+  trafficByStatus,
   type SeasonStatus,
 } from '../format';
-import type { SeasonMonth } from '../types';
+import { loadForecast, useForecast } from '../hooks/useForecast';
+import { useNow } from '../hooks/useNow';
+import type { ForecastDay, ForecastLocation, SeasonMonth } from '../types';
+import {
+  daysFromToday,
+  defaultLocationIndex,
+  nepalMonthIndex,
+} from '../weather';
+import { ForecastCard } from './ForecastCard';
 import { SectionHeader } from './SectionHeader';
 
 type SeasonSectionProps = {
   name: string;
   bestSeasons?: string;
   planning: SeasonMonth[];
+  /** Where the 10-day forecast can be for. Without any, there is no forecast. */
+  forecastLocations?: readonly ForecastLocation[];
 };
+
+const NO_LOCATIONS: readonly ForecastLocation[] = [];
 
 function getWeatherIcon(condition: string): LucideIcon {
   const n = condition.toLowerCase();
@@ -89,9 +102,31 @@ export function SeasonSection({
   name,
   bestSeasons,
   planning,
+  forecastLocations = NO_LOCATIONS,
 }: SeasonSectionProps) {
-  const currentMonth = useMemo(() => new Date().getMonth(), []);
+  const now = useNow();
+  // Nepal's month, from the same clock as the forecast's "Today", so the two always agree,
+  // and it moves on at Nepal's midnight while the screen is open.
+  const currentMonth = nepalMonthIndex(now);
   const [selectedIndex, setSelectedIndex] = useState(currentMonth);
+
+  const [locationIndex, setLocationIndex] = useState(() =>
+    defaultLocationIndex(forecastLocations),
+  );
+  const location: ForecastLocation | undefined =
+    forecastLocations[locationIndex];
+  const { forecast, loading, failed, refresh } = useForecast(location, now);
+  const days = forecast ? daysFromToday(forecast.days, now) : [];
+  // Undefined too once every day it covers is over, so nothing past is shown as today.
+  const shown = forecast && days.length > 0 ? { ...forecast, days } : undefined;
+
+  // The new place's request starts here, before it renders, so the card announces this
+  // request's result and never shows the place's last error first.
+  const selectLocation = (index: number) => {
+    const result = loadForecast(forecastLocations[index]);
+    setLocationIndex(index);
+    return result;
+  };
 
   const months: MonthData[] = useMemo(
     () =>
@@ -170,10 +205,96 @@ export function SeasonSection({
               selected.status,
             )}
           </Text>
+
+          {location && shown ? (
+            selected.index === currentMonth ? (
+              <TodayForecast
+                place={location.label}
+                today={shown.days[0]}
+                visitors={trafficByStatus[selected.status]}
+              />
+            ) : (
+              <Text className="mt-[10px] font-poppins text-[12px] leading-[16px] text-muted">
+                Select {MONTH_NAMES[currentMonth]} to see today’s forecast.
+              </Text>
+            )
+          ) : null}
         </View>
       </View>
 
       <Legend />
+
+      {location ? (
+        <ForecastCard
+          locations={forecastLocations}
+          selectedIndex={locationIndex}
+          onSelect={selectLocation}
+          forecast={shown}
+          loading={loading}
+          failed={failed}
+          now={now}
+          onRefresh={refresh}
+        />
+      ) : null}
+    </View>
+  );
+}
+
+/** The web's "Today's Forecast", under the current month. */
+function TodayForecast({
+  place,
+  today,
+  visitors,
+}: {
+  place: string;
+  today: ForecastDay;
+  visitors: string;
+}) {
+  const rain = Math.round(today.precipMm);
+
+  return (
+    <View className="mt-[14px] gap-[8px]">
+      <Text className="font-poppins-semibold text-[13px] leading-[18px] text-ink">
+        Today’s forecast · {place}
+      </Text>
+      <View className="flex-row flex-wrap gap-x-[24px] gap-y-[10px]">
+        <TodayStat
+          value={`${today.maxC}° / ${today.minC}°C`}
+          label="Day / Night"
+          spoken={`Day ${today.maxC}, night ${today.minC} degrees`}
+        />
+        <TodayStat
+          value={`${rain}\u00A0mm`}
+          label="Rainfall"
+          spoken={`Rainfall ${rain} millimetres`}
+        />
+        <TodayStat
+          value={visitors}
+          label="Visitor numbers"
+          spoken={`Visitor numbers ${visitors.toLowerCase()}`}
+        />
+      </View>
+    </View>
+  );
+}
+
+function TodayStat({
+  value,
+  label,
+  spoken,
+}: {
+  value: string;
+  label: string;
+  spoken: string;
+}) {
+  return (
+    <View accessible accessibilityLabel={spoken}>
+      <Text className="font-poppins-semibold text-[18px] leading-[24px] text-ink">
+        {value}
+      </Text>
+      <Text className="font-poppins text-[12px] leading-[16px] text-muted">
+        {label}
+      </Text>
     </View>
   );
 }

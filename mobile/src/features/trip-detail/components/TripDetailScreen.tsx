@@ -16,7 +16,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TRIPS } from '@/features/explore';
 import type { TripType } from '@/features/explore';
 
-import { getGalleryImages, getHeroImage, getTripDetail } from '../data';
+import {
+  getForecastLocations,
+  getGalleryImages,
+  getHeroImage,
+  getTripDetail,
+} from '../data';
 import {
   headerStats,
   overviewDescription,
@@ -119,6 +124,7 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             name={detail.name.split(' (')[0]}
             bestSeasons={detail.meta.bestSeasons}
             planning={detail.seasonalPlanning}
+            forecastLocations={getForecastLocations(trip.id)}
           />
           <ExpectSection expectations={detail.expectations} />
           {/* Where the web puts its gear checklist. Cultural tours have none. */}

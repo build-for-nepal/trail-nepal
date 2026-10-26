@@ -162,7 +162,7 @@ export const SEASON_TEXT_COLOR: Record<SeasonStatus, string> = {
   caution: '#f59e0b',
 };
 
-const trafficByStatus: Record<SeasonStatus, string> = {
+export const trafficByStatus: Record<SeasonStatus, string> = {
   peak: 'High',
   danger: 'Very low',
   caution: 'Moderate',

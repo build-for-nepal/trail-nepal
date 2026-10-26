@@ -5,6 +5,7 @@ import { CULTURAL_TOUR_DETAILS } from './culturalTours';
 import { HIKE_DETAILS } from './hikes';
 import { TREK_DETAILS } from './treks';
 
+export { getForecastLocations } from './forecastLocations';
 export { getGalleryImages } from './galleryImages';
 export { getHeroImage } from './heroImages';
 

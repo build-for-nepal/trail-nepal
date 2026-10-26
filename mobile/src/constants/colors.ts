@@ -58,3 +58,18 @@ export const seasonColor = {
   currentBadgeText: '#376BB6',
   currentDot: '#376BB6',
 } as const;
+
+// White on the web's forecast blue (--color-forecast-card), 5.3:1. Secondary text is 90%
+// white, 4.66:1; 85% is 4.36:1 and the web's 55-70% lower still, all short of AA's 4.5:1.
+// Controls darken the blue, so white on them is 6.8:1, where a white tint gave 4.0:1.
+export const forecastColor = {
+  card: '#376BB6',
+  text: '#FFFFFF',
+  muted: 'rgba(255, 255, 255, 0.9)',
+  divider: 'rgba(255, 255, 255, 0.18)',
+  control: 'rgba(0, 0, 0, 0.15)',
+  controlBorder: 'rgba(255, 255, 255, 0.45)',
+  placeholder: 'rgba(255, 255, 255, 0.16)',
+  fresh: '#6EE7B7',
+  stale: '#FCD34D',
+} as const;
