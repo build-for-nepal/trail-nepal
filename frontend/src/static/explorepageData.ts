@@ -1,5 +1,5 @@
 export const FILTER_OPTIONS = {
-  types: ['All', 'Trek', 'Day Hike', 'Cultural Tour'],
+  types: ['All', 'Trek', 'Day Hike', 'Cultural Tour', 'Nature & Wildlife'],
   regions: [
     'All',
     'Khumbu Valley',
@@ -9,6 +9,9 @@ export const FILTER_OPTIONS = {
     'Kathmandu Valley',
     'Kavrepalanchok',
     'Lalitpur',
+    'Chitwan, Terai',
+    'Bardia, Terai',
+    'Ilam, Eastern Nepal',
   ],
   durations: ['0-3 days', '3-5 days', '5-10 days', '10-15 days', '15+ days'],
   difficulties: ['All', 'Easy', 'Moderate', 'Challenging'],

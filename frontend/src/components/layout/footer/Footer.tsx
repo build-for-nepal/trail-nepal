@@ -99,10 +99,10 @@ const Footer = ({ isMainDisplay = false }: Props) => {
               </div>
             </div>
 
-            {/* Collaboration with */}
+            {/* Initiative By */}
             <div className="flex flex-col items-center gap-2">
               <p className="font-poppins text-[11px] uppercase tracking-wider text-white/90 ">
-                Collaboration with
+                Initiative By
               </p>
               <div className="flex items-center justify-center rounded-md bg-white px-3 py-2">
                 <Link href="https://techgaun.com" target="_blank">

@@ -1,8 +1,12 @@
 import TreksSeasonContent from '@/components/details/season/TreksSeasonContent';
-import type { TrekTimelineDay } from '@/types/trek';
+import type { SeasonStatus, TrekTimelineDay } from '@/types/trek';
 
 type Props = {
-  seasonalPlanning: { month: string; condition: string }[];
+  seasonalPlanning: {
+    month: string;
+    condition: string;
+    status?: SeasonStatus;
+  }[];
   region: string;
   /** Waypoints (trek days / hike sections) used to derive weather locations. */
   waypoints: TrekTimelineDay[];

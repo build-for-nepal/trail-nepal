@@ -24,6 +24,7 @@ export default function TrekCard({
   href,
   isHike,
   isCultural,
+  isNature,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
@@ -56,7 +57,7 @@ export default function TrekCard({
         <div className="flex flex-col gap-0.5">
           <h3
             className={`font-fraunces text-[18px] font-bold tracking-tight text-text-primary ${
-              isHike || isCultural
+              isHike || isCultural || isNature
                 ? // Titles here wrap freely and their height is deliberately
                   // NOT reserved or capped (client review: "don't limit the
                   // height of the title"), so a card with a two-line title is
@@ -87,11 +88,11 @@ export default function TrekCard({
             with it, so the CTA stays flush with the bottom either way. */}
         <div className="mt-auto grid grid-cols-3 items-center pt-1 text-[10px] font-medium text-text-primary">
           <span className="flex items-center gap-1.5 whitespace-nowrap">
-            <Clock className="size-4" strokeWidth={2.2} />
+            <Clock className="size-4 shrink-0" strokeWidth={2.2} />
             {duration}
           </span>
           <span className="flex items-center gap-1.5 whitespace-nowrap">
-            <Mountain className="size-4" strokeWidth={2.2} />
+            <Mountain className="size-4 shrink-0" strokeWidth={2.2} />
             {altitude}
           </span>
           <span className="@container flex items-center gap-1.5">
