@@ -7,7 +7,7 @@ import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
 import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { ChevronDown, LogOut } from 'lucide-react';
+import { Bookmark, ChevronDown, LogOut, Settings } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
 import {
@@ -31,12 +31,13 @@ export function Navbar() {
     void signOut({ callbackUrl: '/' });
   };
 
-  // Disable fixed navbar on dynamic trek/hike/cultural detail pages (they have
-  // a full-screen hero the navbar sits transparently over).
+  // Disable fixed navbar on dynamic detail pages (they have a full-screen
+  // hero the navbar sits transparently over).
   const isDetailPage =
     pathname.startsWith('/treks/') ||
     pathname.startsWith('/hikes/') ||
-    pathname.startsWith('/cultural-tours/');
+    pathname.startsWith('/cultural-tours/') ||
+    pathname.startsWith('/nature-wildlife/');
 
   const isFixed = !isDetailPage;
 
@@ -63,6 +64,9 @@ export function Navbar() {
     pathname === '/signup';
   if (isAuthPage) return null;
 
+  // The admin panel is a self-contained back-office UI with no public navbar.
+  if (pathname.startsWith('/admin-panel')) return null;
+
   // Light pages have no full-height hero to sit over, so they always use the
   // solid white navbar rather than the transparent-over-hero variant.
   const isLightPage =
@@ -71,7 +75,9 @@ export function Navbar() {
     pathname === '/plan-my-trip/' ||
     pathname === '/plan-my-trip' ||
     pathname === '/planmytrip/' ||
-    pathname === '/planmytrip';
+    pathname === '/planmytrip' ||
+    pathname === '/shared-trip/' ||
+    pathname === '/shared-trip';
   const isSolid = scrolled || isLightPage;
 
   return (
@@ -129,6 +135,7 @@ export function Navbar() {
                         alt={user.name ?? 'Profile'}
                         fill
                         sizes="40px"
+                        referrerPolicy="no-referrer"
                         className="object-cover"
                       />
                     ) : (
@@ -152,6 +159,15 @@ export function Navbar() {
                     {user.name}
                   </DropdownMenuLabel>
                 )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => router.push('/saved-trips/')}>
+                  <Bookmark className="size-4" />
+                  Saved Trips
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.push('/settings/')}>
+                  <Settings className="size-4" />
+                  Settings
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onSelect={handleSignOut}

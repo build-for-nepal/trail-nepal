@@ -1,5 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { LoginToSaveModal } from '@/components/common/LoginToSaveModal';
+import { ShareTripModal } from '@/components/common/ShareTripModal';
+import { buildShareUrl, tripKey } from '@/lib/sharedTrip';
+import { useAuthStore } from '@/store/authStore';
+import { useSavedTripsStore } from '@/store/savedTripsStore';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -267,53 +275,107 @@ export function AlternativeCard({ trek }: { trek: Trek }) {
 }
 
 /**
- * Shared save and share actions.
+ * Shared save and share actions for one suggested trip.
+ * Only signed-in travellers can save, and only a saved trip can be shared.
  */
-export function TripActions() {
-  const handleShare = async () => {
-    const url = window.location.href;
+export function TripActions({
+  trailIds,
+  totalDays,
+}: {
+  trailIds: string[];
+  totalDays: number;
+}) {
+  const user = useAuthStore((state) => state.user);
+  const id = tripKey(trailIds, totalDays);
+  const saved = useSavedTripsStore((state) =>
+    state.trips.some((trip) => trip.id === id),
+  );
+  const saveTrip = useSavedTripsStore((state) => state.saveTrip);
+  const removeTrip = useSavedTripsStore((state) => state.removeTrip);
 
-    if (typeof navigator.share === 'function') {
-      try {
-        await navigator.share({
-          title: 'My Trails Nepal trip recommendations',
-          url,
-        });
-      } catch (error) {
-        // Ignore cancellation by the user.
-        if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Unable to share trip:', error);
-        }
-      }
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [notice, setNotice] = useState<{
+    message: string;
+    tone: 'success' | 'error';
+  } | null>(null);
 
+  useEffect(() => {
+    if (!notice) return;
+    const timer = setTimeout(() => setNotice(null), 3500);
+    return () => clearTimeout(timer);
+  }, [notice]);
+
+  const handleSave = () => {
+    if (!user) {
+      setLoginOpen(true);
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(url);
-    } catch (error) {
-      console.error('Unable to copy trip link:', error);
+    if (saved) {
+      removeTrip(id);
+      setNotice({ message: 'Trip removed from saved trips.', tone: 'success' });
+    } else {
+      saveTrip({ id, trailIds, totalDays });
+      setNotice({ message: 'Trip saved.', tone: 'success' });
     }
+  };
+
+  const handleShare = () => {
+    if (!user) {
+      setLoginOpen(true);
+      return;
+    }
+
+    if (!saved) {
+      setNotice({
+        message: 'Save this trip first, then you can share it.',
+        tone: 'error',
+      });
+      return;
+    }
+
+    setShareUrl(buildShareUrl(window.location.origin, trailIds, totalDays));
+    setShareOpen(true);
   };
 
   return (
     <div className="flex flex-wrap justify-end gap-3">
       <button
         type="button"
-        className="inline-flex items-center gap-2 rounded-full border border-[#82B300] px-4 py-2 text-sm text-[#719900] transition hover:bg-[#F3F8E8]"
+        onClick={handleSave}
+        aria-pressed={saved}
+        className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#82B300] px-4 py-2 text-sm text-[#719900] transition hover:bg-[#F3F8E8]"
       >
-        <Heart size={17} />
-        Save Trip
+        <Heart size={17} className={saved ? 'fill-[#82B300]' : undefined} />
+        {saved ? 'Saved' : 'Save Trip'}
       </button>
 
       <button
         type="button"
         onClick={handleShare}
-        className="inline-flex items-center gap-2 rounded-full border border-[#82B300] px-4 py-2 text-sm text-[#719900] transition hover:bg-[#F3F8E8]"
+        className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#82B300] px-4 py-2 text-sm text-[#719900] transition hover:bg-[#F3F8E8]"
       >
         <Share2 size={17} />
         Share
       </button>
+
+      <p
+        role={notice?.tone === 'error' ? 'alert' : 'status'}
+        className={`w-full text-right text-xs ${
+          notice?.tone === 'error' ? 'text-[#EF4444]' : 'text-[#719900]'
+        }`}
+      >
+        {notice?.message}
+      </p>
+
+      <LoginToSaveModal open={loginOpen} onOpenChange={setLoginOpen} />
+      <ShareTripModal
+        open={shareOpen}
+        onOpenChange={setShareOpen}
+        url={shareUrl}
+      />
     </div>
   );
 }

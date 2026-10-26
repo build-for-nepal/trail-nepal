@@ -1311,4 +1311,179 @@ export const TRIVIA_QUESTIONS_BY_TREK: Record<string, TriviaQuestion[]> = {
         'Mineral content gives Shey Phoksundo its vivid turquoise-blue color.',
     },
   ],
+  'dhulikhel-namobuddha': [
+    {
+      question:
+        'The Dhulikhel-Namobuddha hike combines nature walking with visiting what kind of site?',
+      answers: [
+        'A pilgrimage/monastery site',
+        'A beach resort',
+        'A ski slope',
+        'An international airport',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'The trail ends at Namobuddha, a hilltop pilgrimage and monastery site.',
+    },
+    {
+      question: 'Namobuddha is a significant site in which religion?',
+      answers: ['Hinduism', 'Buddhism', 'Islam', 'Christianity'],
+      correctAnswer: 1,
+      explanation:
+        'Namobuddha commemorates a Buddhist Jataka tale and is an important Buddhist pilgrimage site.',
+    },
+  ],
+  'nagarkot-changunarayan': [
+    {
+      question: 'Nagarkot is popular chiefly for viewing what at sunrise?',
+      answers: [
+        'Ocean waves',
+        'Himalayan mountain panoramas',
+        'Waterfalls',
+        'City skylines',
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Nagarkot's ridge-top position gives sweeping sunrise views across the Himalayan range.",
+    },
+    {
+      question: 'Changunarayan, the endpoint of this hike, is recognized as a:',
+      answers: [
+        'UNESCO World Heritage Site',
+        'Modern shopping complex',
+        'Military installation',
+        'Ski resort',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Changunarayan Temple is part of the Kathmandu Valley UNESCO World Heritage listing.',
+    },
+  ],
+  'godawari-phulchoki': [
+    {
+      question:
+        'Ridge hikes around the rim of Kathmandu Valley typically offer views of:',
+      answers: [
+        'The valley and distant Himalayas',
+        'The open ocean',
+        'Desert dunes',
+        'Rice paddies exclusively',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Forested ridgelines encircling the valley give hikers views over Kathmandu and the mountains beyond.',
+    },
+    {
+      question:
+        'Which is a well-known Kathmandu Valley rim hiking destination combining forest and viewpoint?',
+      answers: [
+        'Shivapuri/Champadevi',
+        'Everest Base Camp',
+        'Tilicho Lake',
+        'Manaslu Circuit',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Shivapuri and Champadevi are classic short rim hikes accessible directly from the valley.',
+    },
+  ],
+  'kathmandu-valley-heritage-tour': [
+    {
+      question:
+        'Kathmandu Durbar Square suffered significant damage in which event?',
+      answers: [
+        'The 2015 earthquake',
+        'A major flood',
+        'A large fire',
+        'A landslide',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'The 2015 Gorkha earthquake damaged or destroyed several structures in the square.',
+    },
+    {
+      question:
+        'Patan (Lalitpur) is especially renowned for its heritage in which craft?',
+      answers: [
+        'Metalwork and wood carving',
+        'Glassblowing',
+        'Papermaking only',
+        'Textile weaving only',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Patan has a centuries-old reputation for fine metal statues and intricate wood carving.',
+    },
+    {
+      question:
+        'Bhaktapur is especially famous for a local yogurt dish called:',
+      answers: ['Juju Dhau (King Curd)', 'Momo', 'Sel Roti', 'Dal Bhat'],
+      correctAnswer: 0,
+      explanation:
+        "Juju Dhau, or 'King Curd,' is a rich, clay-pot-set yogurt that originated in Bhaktapur.",
+    },
+    {
+      question:
+        "Bhaktapur's Durbar Square is a well-preserved example of which architectural style?",
+      answers: [
+        'Newari medieval architecture',
+        'Modern glass towers',
+        'Mughal domes',
+        'Colonial British style',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Bhaktapur retains some of the best-preserved Newari pagoda and palace architecture in Nepal.',
+    },
+  ],
+  'lumbini-tour': [
+    {
+      question:
+        'Lumbini is marked by an ancient stone pillar erected by which emperor?',
+      answers: ['Ashoka', 'Akbar', 'Chandragupta', 'Kanishka'],
+      correctAnswer: 0,
+      explanation:
+        "Emperor Ashoka erected a pillar at Lumbini in the 3rd century BCE marking Buddha's birthplace.",
+    },
+    {
+      question: 'Lumbini is located in which part of Nepal?',
+      answers: [
+        'The southern Terai plains',
+        'The high Himalaya',
+        'The eastern hills',
+        'The far-western mountains',
+      ],
+      correctAnswer: 0,
+      explanation:
+        "Lumbini sits in the low-lying Terai region near Nepal's southern border.",
+    },
+  ],
+  'bandipur-hill-town': [
+    {
+      question:
+        'Bandipur preserves the architecture and culture of which historic trading community?',
+      answers: [
+        'Newar merchants',
+        'Sherpa traders',
+        'Tharu farmers',
+        'Rai warriors',
+      ],
+      correctAnswer: 0,
+      explanation:
+        'Bandipur grew as a Newar trading town and retains its distinctive brick-and-timber streets.',
+    },
+    {
+      question:
+        "Bandipur's ridge-top setting offers views of which mountain ranges?",
+      answers: [
+        'Annapurna and Manaslu',
+        'Everest only',
+        'Kanchenjunga only',
+        'Karakoram',
+      ],
+      correctAnswer: 0,
+      explanation:
+        "From Bandipur's ridge, both the Annapurna and Manaslu ranges are visible on a clear day.",
+    },
+  ],
 };
