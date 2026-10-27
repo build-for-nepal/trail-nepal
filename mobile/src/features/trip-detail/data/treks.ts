@@ -111,6 +111,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The journey begins with a mountain flight to Tenzing-Hillary Airport in Lukla. Depending on the season and current flight operations, flights may depart from Kathmandu or Ramechhap. The flight from Kathmandu takes around 30–35 minutes, while the Ramechhap–Lukla sector is shorter. On clear days, the flight offers changing views of the Himalayan foothills, valleys, and mountain landscape. Flight schedules and operations can vary depending on weather and airport conditions.\n\nAfter landing in Lukla, the trail descends gradually through surrounding Sherpa settlements, passing Chheplung and Ghat before joining the Dudh Koshi valley. Pine and rhododendron forests, stone-built villages, mani walls, and the first suspension bridges introduce the landscapes of the Khumbu. The trail continues alongside the river to Phakding at approximately 2,610 m, where the first night is spent in a local tea house.',
         stats: { elevation: '2,610m', duration: '3-4 hours', distance: '8km' },
         price: 'NPR 2,500 (Accommodation: 1,000, Meals: 1,500)',
+        coordinates: [27.737, 86.712],
       },
       {
         day: '02',
@@ -120,6 +121,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'From Phakding, the route follows the Dudh Koshi River north, crossing suspension bridges and passing small Sherpa settlements toward Monjo. Just beyond Monjo, the trail enters Sagarmatha National Park at Jorsale, where your park entry permit is checked at the checkpoint.\n\nBeyond Jorsale, the trail follows the river through forest before the main climb toward Namche Bazaar begins. The Dudh Koshi is crossed again on a suspension bridge, followed by a series of uphill sections through pine and rhododendron forest. Along the climb, a clear break in the trees can offer the first distant glimpse of Mount Everest. As you gain elevation, the valley gradually opens toward the mountains before reaching Namche Bazaar at approximately 3,440 m, a major Sherpa trading centre and an important acclimatization stop on the route.',
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
+        coordinates: [27.805068, 86.7105936],
       },
       {
         day: '03',
@@ -134,6 +136,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Acclimatization Day',
         },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [27.805068, 86.7105936],
       },
       {
         day: '04',
@@ -143,6 +146,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Namche along the mountainside, with open views across the Khumbu and Himalayan peaks rising beyond the valley. The route follows a relatively gentle section toward Kyangjuma before descending through forest toward Phunki Tenga, where the Dudh Koshi is crossed and the main climb toward Tengboche begins.\n\nFrom Phunki Tenga, you follow a steady uphill trail through rhododendron and conifer forests. As the trees thin near the ridge, Ama Dablam and the surrounding Himalayan peaks come into view before you reach Tengboche at approximately 3,860 m. The village is home to Tengboche Monastery, a leading Buddhist centre in the Khumbu region, set against a backdrop of Himalayan peaks.',
         stats: { elevation: '3,860m', duration: '5-6 hours', distance: '10km' },
         price: 'NPR 3,350 (Accommodation: 1,000, Meals: 2,350)',
+        coordinates: [27.8352264, 86.7641614],
       },
       {
         day: '05',
@@ -152,6 +156,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Tengboche and descends through birch, conifer, and rhododendron forests, passing stone-built villages and mani walls carved with Buddhist prayers. The route continues toward Pangboche, with views of Ama Dablam and the surrounding mountains along the valley. As you move higher, the forest gradually thins and the landscape becomes more open, dry, and alpine.\n\nAfter crossing the Imja Khola, the trail continues through Pangboche and Shomare, following the Imja Valley toward Dingboche. The vegetation becomes increasingly sparse as the elevation rises, while the surrounding peaks become more prominent across the valley. The day ends in Dingboche at approximately 4,410 m, an important stop before the route moves into the higher reaches of the Khumbu.',
         stats: { elevation: '4,410m', duration: '5-6 hours', distance: '11km' },
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
+        coordinates: [27.8873288, 86.8259632],
       },
       {
         day: '06',
@@ -166,6 +171,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Acclimatization Day',
         },
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
+        coordinates: [27.8873288, 86.8259632],
       },
       {
         day: '07',
@@ -175,6 +181,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Dingboche and climbs steadily through a wide, glacier-carved valley toward Thukla. As you gain elevation, the landscape becomes increasingly barren, with low vegetation giving way to rocky slopes and the surrounding peaks appearing closer across the valley.\n\nBeyond Thukla, you face a steeper climb toward the Thukla Pass, ascending the terminal moraine of the Khumbu Glacier. Along the ridge, a collection of memorials commemorates climbers and mountaineers who lost their lives in the Everest region. From here, the trail becomes gentler as you continue across the high valley toward Lobuche at approximately 4,940 m, one of the last settlements before Gorakshep.',
         stats: { elevation: '4,940m', duration: '5-6 hours', distance: '8km' },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [27.9477818, 86.8105368],
       },
       {
         day: '08',
@@ -190,6 +197,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         },
         price: 'NPR 5,500 (Accommodation: 1,000, Meals: 4,500)',
         isDestination: true,
+        coordinates: [28.0029111, 86.855732],
       },
       {
         day: '09',
@@ -204,6 +212,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Kala Patthar is the highest point of the trek. Sleeping elevation Pheriche 4,371m.',
         },
         price: 'NPR 4,500 (Accommodation: 1,000, Meals: 3,500)',
+        coordinates: [27.893, 86.818],
       },
       {
         day: '10',
@@ -213,6 +222,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail continues its long descent from Pheriche through the Khumbu Valley, retracing the route toward Tengboche. As you lose elevation, the landscape gradually changes from the sparse alpine terrain around Pheriche to greener surroundings and forested sections.\n\nFrom Tengboche, the trail descends toward the Dudh Koshi before climbing again toward the mountainside route leading to Namche. The return through familiar forests and villages offers a noticeable contrast to the high-altitude landscape of the previous days. The trail eventually reaches Namche Bazaar at approximately 3,440 m, where the lower elevation brings more oxygen and a more lively mountain atmosphere.',
         stats: { elevation: '3,440m', duration: '6-7 hours', distance: '14km' },
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
+        coordinates: [27.806, 86.714],
       },
       {
         day: '11',
@@ -222,6 +232,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail retraces the route from Namche Bazaar toward Lukla, descending through the Dudh Koshi valley and passing familiar settlements along the way. You follow the trail through Monjo and Phakding, crossing suspension bridges and moving through increasingly green forest as the elevation decreases.\n\nBeyond Phakding, the route continues toward Lukla with a mixture of gradual descents and short uphill sections. The final approach climbs gently back toward Lukla at approximately 2,860 m, where the trekking portion of the journey comes to an end and you spend the final night in the Khumbu.',
         stats: { elevation: '2,860m', duration: '7-8 hours', distance: '18km' },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [27.686, 86.73],
       },
       {
         day: '12',
@@ -230,6 +241,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         description:
           'The final morning begins with a return flight from Tenzing-Hillary Airport in Lukla. Depending on the season and current flight operations, the flight may arrive in Kathmandu or connect through the operational departure arrangements in use at the time. The short mountain flight offers another perspective of the hills and valleys that surrounded the trek, with changing views depending on weather and visibility.\n\nAfter landing in Kathmandu, the 12-day Everest Base Camp journey comes to an end, bringing the route from the high valleys of the Khumbu back to the capital.',
         stats: { duration: '35-min flight' },
+        coordinates: [27.7172, 85.324],
       },
     ],
     gear: {
@@ -352,6 +364,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '160km',
         },
         price: 'NPR 4,200 (Transport: 2,500, Accommodation: 700, Meals: 1,000)',
+        coordinates: [28.22931, 84.87377],
       },
       {
         day: '02',
@@ -365,6 +378,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '20-22km',
         },
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
+        coordinates: [28.35141, 84.89586],
       },
       {
         day: '03',
@@ -374,6 +388,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'From Jagat, the trail follows the Budhi Gandaki River through forests, cultivated hillsides, stone stairways, and suspension bridges. As you move deeper into the valley, the terrain becomes steeper and more rugged.\n\nThe route passes through Philim, one of the larger settlements along the lower Manaslu trail, before continuing toward Deng. With the gradual gain in elevation, the landscape and villages begin to take on the distinct character of the upper Budhi Gandaki valley, with Tibetan-influenced architecture and Buddhist cultural features becoming more visible.',
         stats: { elevation: '1,804m', duration: '5-7 hrs', distance: '19km' },
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
+        coordinates: [28.47907, 84.86704],
       },
       {
         day: '04',
@@ -383,6 +398,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The route climbs steadily through increasingly mountainous terrain as you leave the lower Budhi Gandaki valley behind. The trail passes through Rana and Bihi, with oak and rhododendron forests covering sections of the hillside.\n\nAs you approach the upper Nubri valley, the landscape and culture begin to change. Namrung, at approximately 2,630 m, marks an important transition into the higher Manaslu landscape, with more open views toward the surrounding peaks and increasing signs of Tibetan Buddhist culture.',
         stats: { elevation: '2,630m', duration: '5-7 hrs', distance: '18km' },
         price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
+        coordinates: [28.54506, 84.76788],
       },
       {
         day: '05',
@@ -392,6 +408,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'Leaving Namrung behind, the trail climbs gradually into a higher and more open landscape. Forests and traditional villages line the route toward Lho, where the valley begins to open beneath the towering peaks of the Manaslu range.\n\nAt Lho, you can explore the traditional village and Ribung Gompa, an important Buddhist monastery above the settlement. The shorter walking day also gives your body more time to adjust before continuing toward Samagaon.',
         stats: { elevation: '3,180m', duration: '4-5 hrs' },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [28.57405, 84.70199],
       },
       {
         day: '06',
@@ -401,6 +418,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail continues through the upper Nubri valley, passing Shyala, where the surrounding mountains become increasingly prominent. The forest gradually gives way to more open alpine terrain as you approach Samagaon.\n\nThe walk is relatively short compared with some earlier days, but the elevation gain is significant. At approximately 3,530 m, Samagaon becomes your base for acclimatization before the route climbs toward Samdo and the Larkya La.',
         stats: { elevation: '3,530m', duration: '3-5 hrs', distance: '15km' },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [28.58467, 84.64404],
       },
       {
         day: '07',
@@ -414,6 +432,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Acclimatization Day',
         },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [28.58467, 84.64404],
       },
       {
         day: '08',
@@ -423,6 +442,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Samagaon and enters the high, open landscape of the upper Budhi Gandaki valley. The walking is shorter today, but the elevation continues to increase as you approach Samdo. The route crosses open terrain with broad views of the surrounding mountains and follows the valley toward this remote settlement near the Tibetan border.\n\nAt approximately 3,860 m, Samdo is an important stopping point before the final approach to Dharamsala and Larkya La. Take the afternoon to rest and prepare for another high-altitude day.',
         stats: { elevation: '3,860m', duration: '3-4 hrs', distance: '9km' },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
+        coordinates: [28.65087, 84.63414],
       },
       {
         day: '09',
@@ -432,6 +452,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'As you climb toward Dharamsala, the landscape changes noticeably, with sparse vegetation and increasingly rugged mountain terrain. The trail crosses increasingly barren alpine terrain as vegetation becomes sparse and the mountains feel closer.\n\nDharamsala sits at approximately 4,460 m and is the final overnight stop before the Larkya La crossing. Because tomorrow is the trek’s most demanding day, arrive early, eat well, hydrate, and give yourself plenty of time to rest.',
         stats: { elevation: '4,460m', duration: '3-4 hrs', distance: '7km' },
         price: 'NPR 2,500 (Accommodation: 1,000, Meals: 2,500)',
+        coordinates: [28.65892, 84.58443],
       },
       {
         day: '10',
@@ -442,6 +463,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         stats: { elevation: '5,106m', duration: '8-10 hrs' },
         price: 'NPR 4,000 (Accommodation: 1,000, Meals: 3,000)',
         isDestination: true,
+        coordinates: [28.63384, 84.47129],
       },
       {
         day: '11',
@@ -451,6 +473,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'After crossing Larkya La, the trail descends into a noticeably greener landscape. The barren alpine terrain gradually gives way to rhododendron and pine forests as you lose elevation.\n\nThe route continues through Kharche and toward the lower Marsyangdi valley, with vegetation becoming denser as the altitude drops. By the time you reach Tilije, the landscape has changed considerably from the high mountain terrain around the pass.',
         stats: { elevation: '2,300m', duration: '5-7 hrs', distance: '20km' },
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
+        coordinates: [28.54519, 84.38119],
       },
       {
         day: '12',
@@ -460,6 +483,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The final walking section follows the valley from Tilije through Thonje toward Dharapani, where the Manaslu Circuit connects with the Annapurna trekking corridor. The route continues through increasingly settled and warmer terrain as the altitude drops.\n\nFrom Dharapani, the journey continues by road toward Besisahar. Travel time depends on road conditions, traffic, weather, and the vehicle available, making this a combined walking and road-transfer day rather than a continuous trekking stage.',
         stats: { elevation: '760m', duration: '4-5 hrs + drive' },
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
+        coordinates: [28.23132, 84.37614],
       },
       {
         day: '13',
@@ -469,6 +493,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The final day is a road journey from Besisahar to Kathmandu. The route follows the Marsyangdi valley before continuing through the Middle Hills toward the capital. The journey can take much of the day depending on road conditions, traffic, and stops, so keep your schedule flexible.\n\nBy the time you reach Kathmandu, you will have completed the full Manaslu Circuit from the Budhi Gandaki valley to the Larkya La and back through the Marsyangdi side of the circuit.',
         stats: { elevation: '1,400m', duration: '6-8 hrs drive' },
         price: 'NPR 3,500 (Transport: 2,500, Meals: 1,000)',
+        coordinates: [27.7172, 85.324],
       },
     ],
     gear: {
@@ -581,6 +606,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           duration: 'Full-day overland journey',
         },
         price: 'NPR 1,500 (Accommodation: 500, Meals: 1,000)',
+        coordinates: [28.1657291, 85.3418267],
       },
       {
         day: '02',
@@ -594,6 +620,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '11-12km',
         },
         price: 'NPR 1,700 (Accommodation: 500, Meals: 1,200)',
+        coordinates: [28.1612117, 85.4296495],
       },
       {
         day: '03',
@@ -607,6 +634,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '10-11km',
         },
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
+        coordinates: [28.2157142, 85.5030007],
       },
       {
         day: '04',
@@ -620,6 +648,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '6-7km',
         },
         price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
+        coordinates: [28.2124247, 85.5672161],
       },
       {
         day: '05',
@@ -634,6 +663,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         },
         price: 'NPR 2,200 (Accommodation: 700, Meals: 1,500)',
         isDestination: true,
+        coordinates: [28.2124247, 85.5672161],
       },
       {
         day: '06',
@@ -647,6 +677,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '14-15km',
         },
         price: 'NPR 1,900 (Accommodation: 700, Meals: 1,200)',
+        coordinates: [28.1612117, 85.4296495],
       },
       {
         day: '07',
@@ -659,6 +690,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '11-12km',
         },
         price: 'NPR 1,000 (Meals: 1,000)',
+        coordinates: [28.1657291, 85.3418267],
       },
     ],
     gear: {
@@ -804,6 +836,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The journey begins with a drive from Pokhara toward the roadhead near Jhinu Danda. From the trailhead, the route crosses the Modi Khola and climbs through forest toward Chhomrong. The first section includes a substantial series of stone steps, making this one of the more physically demanding climbs of the lower route. The trail continues upward through forest and scattered settlements before reaching Chhomrong at approximately 2,170 m.\n\nSet on a steep hillside above the Modi Khola valley, Chhomrong is one of the major Gurung settlements on the route and serves as the gateway toward the Annapurna Sanctuary.',
         stats: { elevation: '2,170m', duration: '3 hrs', distance: '5km' },
         price: 'NPR 4,300 (Transport: 2,000, Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.4200417, 83.8176077],
       },
       {
         day: '02',
@@ -813,6 +846,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail descends from Chhomrong on a long series of stone steps toward the Chhomrong Khola before crossing the river and climbing again toward Sinuwa. From Sinuwa, the route enters the forested Modi Khola valley, passing through Bamboo before continuing toward Dovan. The vegetation becomes increasingly dense and humid along this section, with bamboo, oak, and rhododendron forest covering much of the trail.\n\nThe valley gradually narrows as the route continues toward Dovan at approximately 2,600 m, where the surrounding terrain begins to feel more enclosed and mountainous.',
         stats: { elevation: '2,600m', duration: '5-6 hrs', distance: '9-12km' },
         price: 'NPR 2,100 (Accommodation: 600, Meals: 1,500)',
+        coordinates: [28.4697078, 83.8694284],
       },
       {
         day: '03',
@@ -822,6 +856,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail continues uphill from Dovan through the narrowing Modi Khola valley. Sections of dense bamboo and rhododendron forest give way to steeper and rockier terrain as the route passes Himalaya and continues toward the Hinku Cave area. The landscape becomes more open as the trail approaches Deurali at approximately 3,200 m, marking the transition toward the higher alpine environment of the Annapurna Sanctuary.\n\nThis is a relatively short trekking day compared with the longer lower-valley sections, but the increasing elevation makes a steady pace important.',
         stats: { elevation: '3,200m', duration: '3-4 hrs', distance: '6km' },
         price: 'NPR 2,200 (Accommodation: 600, Meals: 1,600)',
+        coordinates: [28.4933, 83.893],
       },
       {
         day: '04',
@@ -831,6 +866,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'Above Deurali, the forest gradually thins as the route enters more exposed alpine terrain. The valley opens toward the upper Modi Khola, with rocky slopes and glacial features replacing much of the vegetation found at lower elevations. The trail continues toward the entrance of the Annapurna Sanctuary.\n\nThe route reaches Machhapuchhre Base Camp at approximately 3,700 m, positioned beneath the distinctive fluted face of Machhapuchhre (Fishtail). From here, the surrounding peaks become increasingly prominent and the landscape takes on a distinctly high-altitude character.',
         stats: { elevation: '3,700m', duration: '3-4 hrs', distance: '5km' },
         price: 'NPR 2,400 (Accommodation: 800, Meals: 1,600)',
+        coordinates: [28.5132035, 83.9060408],
       },
       {
         day: '05',
@@ -841,6 +877,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         stats: { elevation: '4,130m', duration: '2-3 hrs', distance: '3-4km' },
         price: 'NPR 3,500 (Accommodation: 1,000, Meals: 2,500)',
         isDestination: true,
+        coordinates: [28.5308115, 83.8777275],
       },
       {
         day: '06',
@@ -854,6 +891,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '13-16km',
         },
         price: 'NPR 2,600 (Accommodation: 800, Meals: 1,800)',
+        coordinates: [28.457, 83.8569],
       },
       {
         day: '07',
@@ -867,6 +905,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '10-11km',
         },
         price: 'NPR 3,000 (Transport: 2,000, Meals: 1,000)',
+        coordinates: [28.4096, 83.8241],
       },
     ],
     gear: {
@@ -1007,19 +1046,102 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
     ],
     itinerary: [
       {
+        day: '01',
         title: 'Kathmandu to Lukla to Phakding',
         duration: 'Flight + 3-4 hours trek',
+        stats: {
+          elevation: '2,610m',
+          duration: 'Flight + 3-4 hours trek',
+          distance: '8km',
+        },
+        coordinates: [27.73926, 86.71228],
       },
-      { title: 'Phakding to Namche Bazaar', duration: '6-7 hours' },
-      { title: 'Acclimatization Day: Namche Bazaar', duration: '3-4 hours' },
-      { title: 'Namche Bazaar to Dole', duration: '5-6 hours' },
-      { title: 'Dole to Machhermo', duration: '3-4 hours' },
-      { title: 'Machhermo to Gokyo', duration: '4-5 hours' },
-      { title: 'Gokyo Ri · Fourth & Fifth Lakes', duration: '5-6 hours' },
-      { title: 'Gokyo to Dole', duration: '5-6 hours' },
-      { title: 'Dole to Namche Bazaar', duration: '6-7 hours' },
-      { title: 'Namche Bazaar to Lukla', duration: '7-8 hours' },
-      { title: 'Lukla to Kathmandu', duration: '35-min flight + transfer' },
+      {
+        day: '02',
+        title: 'Phakding to Namche Bazaar',
+        duration: '6-7 hours',
+        stats: { elevation: '3,440m', duration: '6-7 hours', distance: '11km' },
+        coordinates: [27.80231, 86.71119],
+      },
+      {
+        day: '03',
+        title: 'Acclimatization Day: Namche Bazaar',
+        duration: '3-4 hours',
+        stats: {
+          elevation: '3,440m',
+          duration: '3-4 hours',
+          distance: '6km',
+          note: 'Acclimatization Day',
+        },
+        coordinates: [27.80231, 86.71119],
+      },
+      {
+        day: '04',
+        title: 'Namche Bazaar to Dole',
+        duration: '5-6 hours',
+        stats: { elevation: '4,038m', duration: '5-6 hours', distance: '10km' },
+        coordinates: [27.86848, 86.74148],
+      },
+      {
+        day: '05',
+        title: 'Dole to Machhermo',
+        duration: '3-4 hours',
+        stats: {
+          elevation: '4,470m',
+          duration: '3-4 hours',
+          distance: '7km',
+          note: 'Short day by design, critical acclimatization gain',
+        },
+        coordinates: [27.90763, 86.7215],
+      },
+      {
+        day: '06',
+        title: 'Machhermo to Gokyo',
+        duration: '4-5 hours',
+        stats: { elevation: '4,750m', duration: '4-5 hours', distance: '7km' },
+        coordinates: [27.95409, 86.69459],
+      },
+      {
+        day: '07',
+        title: 'Gokyo Ri · Fourth & Fifth Lakes',
+        duration: '5-6 hours',
+        stats: {
+          elevation: '5,357m',
+          duration: '5-6 hours',
+          distance: '10km',
+          note: 'Gokyo Ri is the highest point of the trek. Start early and keep your pace controlled.',
+        },
+        isDestination: true,
+        coordinates: [27.95409, 86.69459],
+      },
+      {
+        day: '08',
+        title: 'Gokyo to Dole',
+        duration: '5-6 hours',
+        stats: { elevation: '4,038m', duration: '5-6 hours', distance: '11km' },
+        coordinates: [27.86848, 86.74148],
+      },
+      {
+        day: '09',
+        title: 'Dole to Namche Bazaar',
+        duration: '6-7 hours',
+        stats: { elevation: '3,440m', duration: '6-7 hours', distance: '12km' },
+        coordinates: [27.80231, 86.71119],
+      },
+      {
+        day: '10',
+        title: 'Namche Bazaar to Lukla',
+        duration: '7-8 hours',
+        stats: { elevation: '2,860m', duration: '7-8 hours', distance: '18km' },
+        coordinates: [27.6868, 86.7314],
+      },
+      {
+        day: '11',
+        title: 'Lukla to Kathmandu',
+        duration: '35-min flight + transfer',
+        stats: { elevation: '1,400m', duration: '35-min flight + transfer' },
+        coordinates: [27.7172, 85.324],
+      },
     ],
     gear: {
       essential: [
@@ -1160,6 +1282,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'A morning drive from Pokhara takes you toward Nayapul and Birethanti, where the trekking route follows the Bhurungdi Khola through terraced farmland and small settlements. From Tikhedhunga, the trail becomes steeper as you climb a long series of stone steps toward Ulleri. The sustained ascent gains significant elevation, with occasional openings offering views toward Annapurna South and Hiunchuli on clear days.\n\nThe day ends in Ulleri at approximately 1,960 m, a traditional Magar settlement and common overnight stop on the Poon Hill route.',
         stats: { elevation: '1,960m', duration: '4-5 hrs', distance: '10km' },
         price: 'NPR 3,500 (Transport: 1,500, Accommodation: 500, Meals: 1,500)',
+        coordinates: [28.3766, 83.7164],
       },
       {
         day: '02',
@@ -1169,6 +1292,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Ulleri and enters a dense forest of oak, magnolia, and rhododendron. The route continues on a steady incline, passing small teahouses and streams around Banthanti and Nangethanti as you move deeper into the forest. The forest canopy becomes thicker and the air cooler with elevation.\n\nThe final section climbs through the upper woodland before emerging at Ghorepani, approximately 2,860 m, where openings along the ridge can offer views toward Dhaulagiri and the Annapurna range.',
         stats: { elevation: '2,860m', duration: '5-6 hrs', distance: '8km' },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
+        coordinates: [28.4006, 83.6997],
       },
       {
         day: '03',
@@ -1179,6 +1303,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         stats: { elevation: '3,210m', duration: '6-7 hrs', distance: '12km' },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
         isDestination: true,
+        coordinates: [28.39652, 83.76527],
       },
       {
         day: '04',
@@ -1188,6 +1313,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'From Tadapani, the route descends through rhododendron and oak forest. The trail gradually loses elevation as the woodland gives way to more open slopes, terraces, and scattered settlements.\n\nThe route eventually reaches Ghandruk at approximately 1,940 m, a traditional Gurung village in Kaski. Stone-paved lanes, traditional houses, and the Gurung Museum provide a cultural contrast to the forest sections of the previous days, while clear openings can offer views toward Annapurna South, Hiunchuli, and Machhapuchhre.',
         stats: { elevation: '1,940m', duration: '3-4 hrs', distance: '7km' },
         price: 'NPR 2,500 (Accommodation: 800, Meals: 1,700)',
+        coordinates: [28.37686, 83.80779],
       },
       {
         day: '05',
@@ -1197,6 +1323,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The final day descends from Ghandruk through terraced fields and small stone hamlets toward the Modi Khola valley. The trail follows stone stairways down the hillside, passing local farms and rural homesteads along the way. After reaching the valley floor, the route follows the river toward Birethanti, where the trekking section concludes.\n\nFrom Birethanti, a short drive returns you to Pokhara, completing the five-day Ghorepani–Poon Hill circuit.',
         stats: { elevation: '1,940m', duration: '4-5 hrs', distance: '10km' },
         price: 'NPR 2,000 (Transport: 1,000, Meals: 1,000)',
+        coordinates: [28.2826, 83.7484],
       },
     ],
     gear: {
@@ -1331,6 +1458,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The journey begins with a drive from Pokhara toward the trailhead at Kande. From Kande, the trail starts with an uphill climb through stone paths and terraced fields toward Australian Camp, opening to initial views across the Pokhara valley and Annapurna range. The route continues along a gentle forested trail through Pothana, where park permits are checked.\n\nBeyond Pothana, the trail leaves the main trekking route and enters a quieter, denser section of forest, winding gradually upward through oak and rhododendron trees until reaching Forest Camp (Kokar) at approximately 2,550 m.',
         stats: { elevation: '2,550m', duration: '5-6 hrs', distance: '11km' },
         price: 'NPR 2,700 (Accommodation: 600, Meals: 1,600, Transport: 500)',
+        coordinates: [28.3593, 83.8449],
       },
       {
         day: '02',
@@ -1340,6 +1468,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The trail leaves Forest Camp and continues its steady climb through dense moss-covered forest. As the elevation increases, the vegetation begins to shift, with rhododendron and birch trees dominating the higher forest section toward Low Camp.\n\nBeyond Low Camp, the trail emerges above the tree line onto an open ridgeline. The landscape changes rapidly from dense woodland to sub-alpine ridge walking, offering unobstructed views of Machhapuchhre and Annapurna South. The day ends at Badal Danda at approximately 3,210 m, set high on the ridge above the clouds.',
         stats: { elevation: '3,210m', duration: '4-5 hrs', distance: '8km' },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
+        coordinates: [28.415, 83.8545],
       },
       {
         day: '03',
@@ -1349,6 +1478,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The route leaves Badal Danda and follows the narrow grassy ridge toward High Camp. Walking along the exposed spine of the ridge, clear openings on either side offer sweeping views of the Modi Khola valley to the west and the Mardi Khola valley to the east. As you gain elevation, the terrain becomes rockier and more alpine, with low shrubs replacing the alpine grasses.\n\nThe short walking day allows time for acclimatization and rest upon reaching High Camp at approximately 3,580 m, preparing for the early morning ascent to the base camp.',
         stats: { elevation: '3,580m', duration: '3-4 hrs', distance: '4.5km' },
         price: 'NPR 2,800 (Accommodation: 800, Meals: 2,000)',
+        coordinates: [28.4329, 83.8668],
       },
       {
         day: '04',
@@ -1359,6 +1489,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         stats: { elevation: '4,500m', duration: '7-8 hrs', distance: '12km' },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
         isDestination: true,
+        coordinates: [28.46, 83.895],
       },
       {
         day: '05',
@@ -1368,6 +1499,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The final day leaves the high ridge trail and takes a steep descent through dense rhododendron and oak forest toward the valley floor. The trail drops rapidly through shaded woodland before emerging into the terraced fields and traditional hamlets surrounding Sidhing village.\n\nUpon reaching Sidhing at approximately 1,700 m, the trekking portion concludes. From Sidhing, a local jeep drive follows the river valley back toward Lumre and connects to the main highway returning to Pokhara.',
         stats: { elevation: '2,970m', duration: '4-5 hrs', distance: '9km' },
         price: 'NPR 2,000 (Meals: 1,000, Transport: 1,000)',
+        coordinates: [28.3848, 83.8747],
       },
     ],
     gear: {
@@ -1515,20 +1647,90 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
       },
     ],
     itinerary: [
-      { title: 'Kathmandu → Nepalgunj → Juphal → Dunai', duration: '3-4 hrs' },
-      { title: 'Dunai → Suligad → Chhepka', duration: '5-6 hrs' },
-      { title: 'Chhepka → Rechi → Jharana Hotel', duration: '5-6 hrs' },
       {
+        day: '01',
+        title: 'Kathmandu → Nepalgunj → Juphal → Dunai',
+        duration: '3-4 hrs',
+        stats: {
+          elevation: '2,140 m · Dunai',
+          duration: '3-4 hrs',
+          distance: '10 km',
+        },
+        coordinates: [28.9799, 82.81999],
+      },
+      {
+        day: '02',
+        title: 'Dunai → Suligad → Chhepka',
+        duration: '5-6 hrs',
+        stats: {
+          elevation: '2,670 m · Chhepka',
+          duration: '5-6 hrs',
+          distance: '14 km',
+        },
+        coordinates: [29.00037, 82.91257],
+      },
+      {
+        day: '03',
+        title: 'Chhepka → Rechi → Jharana Hotel',
+        duration: '5-6 hrs',
+        stats: {
+          elevation: '3,110 m · Jharana',
+          duration: '5-6 hrs',
+          distance: '12 km',
+        },
+        coordinates: [29.07787, 82.88615],
+      },
+      {
+        day: '04',
         title: 'Jharana Hotel → Ringmo Village / Phoksundo Lake',
         duration: '4-5 hrs',
+        stats: {
+          elevation: '3,660 m · Ringmo Village',
+          duration: '4-5 hrs',
+          distance: '9 km',
+        },
+        isDestination: true,
+        coordinates: [29.14148, 82.91075],
       },
       {
+        day: '05',
         title: 'Exploration Day at Phoksundo Lake & Thashung Gompa',
         duration: '3-4 hrs (exploration)',
+        stats: {
+          elevation: '3,660 m · Ringmo Village',
+          duration: '3-4 hrs (exploration)',
+          distance: '6 km',
+        },
+        coordinates: [29.14148, 82.91075],
       },
-      { title: 'Ringmo Village → Chhepka', duration: '6-7 hrs' },
-      { title: 'Chhepka → Suligad → Juphal', duration: '5-6 hrs' },
-      { title: 'Juphal → Nepalgunj → Kathmandu' },
+      {
+        day: '06',
+        title: 'Ringmo Village → Chhepka',
+        duration: '6-7 hrs',
+        stats: {
+          elevation: '2,670 m · Chhepka',
+          duration: '6-7 hrs',
+          distance: '18 km',
+        },
+        coordinates: [29.00037, 82.91257],
+      },
+      {
+        day: '07',
+        title: 'Chhepka → Suligad → Juphal',
+        duration: '5-6 hrs',
+        stats: {
+          elevation: '2,475 m · Juphal',
+          duration: '5-6 hrs',
+          distance: '16 km',
+        },
+        coordinates: [28.985337, 82.819138],
+      },
+      {
+        day: '08',
+        title: 'Juphal → Nepalgunj → Kathmandu',
+        stats: { elevation: '1,400 m' },
+        coordinates: [27.717245, 85.323961],
+      },
     ],
     gear: {
       essential: [
@@ -1681,6 +1883,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '175 km',
         },
         price: 'NPR 3,700 (Accommodation: 600, Meals: 1,600, Transport: 1,500)',
+        coordinates: [28.2342, 84.3773],
       },
       {
         day: '02',
@@ -1694,6 +1897,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '65 km',
         },
         price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.55048, 84.24236],
       },
       {
         day: '03',
@@ -1707,6 +1911,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '14 km',
         },
         price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.63394, 84.11001],
       },
       {
         day: '04',
@@ -1720,6 +1925,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '17 km',
         },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
+        coordinates: [28.66668, 84.01975],
       },
       {
         day: '05',
@@ -1734,6 +1940,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Acclimatization day · optional hike',
         },
         price: 'NPR 2,600 (Accommodation: 800, Meals: 1,800)',
+        coordinates: [28.66668, 84.01975],
       },
       {
         day: '06',
@@ -1747,6 +1954,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '10 km',
         },
         price: 'NPR 2,800 (Accommodation: 1,000, Meals: 1,800)',
+        coordinates: [28.6684, 83.97698],
       },
       {
         day: '07',
@@ -1761,6 +1969,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Exposed slopes · scree · landslide-prone sections',
         },
         price: 'NPR 2,800 (Accommodation: 1,000, Meals: 1,800)',
+        coordinates: [28.67842, 83.95835],
       },
       {
         day: '08',
@@ -1776,6 +1985,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
         },
         price: 'NPR 3,000 (Accommodation: 1,000, Meals: 2,000)',
         isDestination: true,
+        coordinates: [28.68471, 83.86579],
       },
       {
         day: '09',
@@ -1790,6 +2000,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Shree Kharka · Khangsar · Manang',
         },
         price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.66668, 84.01975],
       },
       {
         day: '10',
@@ -1804,6 +2015,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           note: 'Manang · Ngawal · Ghyaru',
         },
         price: 'NPR 2,300 (Accommodation: 800, Meals: 1,500)',
+        coordinates: [28.63394, 84.11001],
       },
       {
         day: '11',
@@ -1817,6 +2029,7 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           distance: '14 km',
         },
         price: 'NPR 3,000 (Meals: 1,000, Transport: 2,000)',
+        coordinates: [28.55048, 84.24236],
       },
     ],
     gear: {

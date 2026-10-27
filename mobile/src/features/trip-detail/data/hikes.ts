@@ -33,6 +33,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The hike begins around the Nagarkot View Tower area. The trail follows the ridge before gradually descending into the surrounding countryside. The opening stretch is relatively open, with views across the Kathmandu Valley and, on clear days, toward the Himalayan ranges.',
         terrain: 'Ridge path · open hillside · farmland',
+        coordinates: [27.71579, 85.51927],
       },
       {
         order: '02',
@@ -42,6 +43,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'Leaving the open hills of Nagarkot, the trail descends through cultivated hillsides and village paths. Terraced farmland becomes more prominent as you approach Tusal, giving this section a distinctly rural feel.',
         terrain: 'Farmland · village paths · hillside trail',
+        coordinates: [27.71105, 85.49841],
       },
       {
         order: '03',
@@ -51,6 +53,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The trail reaches Telkot, a more settled section of the route and a natural place to pause. Beyond the settlement the surroundings gradually become quieter, shifting between farmland, smaller rural communities and woodland.',
         terrain: 'Village paths · farmland · mixed trail',
+        coordinates: [27.71195, 85.47421],
       },
       {
         order: '04',
@@ -60,6 +63,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'Beyond Telkot, the trail becomes quieter and more shaded. Forest paths weave between smaller rural areas as you get closer to Changunarayan. Natural surfaces can become uneven and slippery after rain.',
         terrain: 'Forest trail · natural paths · uneven surfaces',
+        coordinates: [27.71168, 85.4497],
       },
       {
         order: '05',
@@ -70,6 +74,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The final stretch includes a short uphill approach to Changunarayan. The trail ends at the historic temple complex and surrounding Newari settlement, bringing the hike from open hilltop landscapes to a cultural finish.',
         terrain: 'Stone paths · paved sections · temple approach',
+        coordinates: [27.71625, 85.42798],
       },
     ],
     seasonalPlanning: [
@@ -189,6 +194,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The hike begins around Dhulikhel, where the historic town and surrounding ridge provide an introduction to the cultural landscape of the route. Leaving the town, the trail heads toward Kali Temple, with the early section combining village paths, hillside terrain and views across the surrounding hills.',
         terrain: 'Village paths · hillside trail · farmland',
+        coordinates: [27.61877, 85.55279],
       },
       {
         order: '02',
@@ -198,6 +204,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           "The trail climbs toward Kali Temple, one of the notable landmarks on the route. The approach includes a long flight of steps from Dhulikhel before continuing toward the ridge. From the temple area, the route begins to transition from the town's surroundings into quieter rural landscapes.",
         terrain: 'Steps · hillside path · forest edge',
+        coordinates: [27.61071, 85.56722],
       },
       {
         order: '03',
@@ -207,6 +214,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'From Kali Temple, the trail descends briefly toward Kavre Bhanjyang before continuing along the ridge. After crossing the main road, the route moves back onto quieter trails through farmland, villages and forest.',
         terrain: 'Village paths · farmland · road crossing · forest trail',
+        coordinates: [27.59909, 85.57674],
       },
       {
         order: '04',
@@ -216,6 +224,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'Beyond Kavre Bhanjyang, the route continues through farmland and rural settlements, with quieter trail sections becoming more prominent as you move toward Namobuddha. The landscape gradually shifts between cultivated hillsides, village paths and forest.',
         terrain: 'Farmland · village paths · forest trail · natural surfaces',
+        coordinates: [27.58392, 85.58944],
       },
       {
         order: '05',
@@ -226,6 +235,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The final section climbs gradually toward Namobuddha, where the trail reaches the sacred hilltop pilgrimage site. The complex includes the Namobuddha stupa and Thrangu Tashi Yangtse Monastery.',
         terrain: 'Forest trail · stone paths · monastery approach',
+        coordinates: [27.57292, 85.58585],
       },
     ],
     seasonalPlanning: [
@@ -345,6 +355,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The hike begins at Godawari on the southeastern edge of the Kathmandu Valley. After leaving the more developed area around the Botanical Garden, the trail gradually enters the forest and begins the long ascent toward Phulchoki.',
         terrain: 'Paved path · forest edge · gradual uphill',
+        coordinates: [27.59391, 85.38212],
       },
       {
         order: '02',
@@ -354,6 +365,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The trail moves deeper into the forest, alternating between natural paths and stone steps. The surroundings become quieter as the route gains elevation, with dense woodland providing shade for much of the climb.',
         terrain: 'Forest paths · stone steps · shaded trail',
+        coordinates: [27.58683, 85.38109],
       },
       {
         order: '03',
@@ -363,6 +375,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'Naudhara is a notable religious landmark and resting point along the route. From here, the trail continues uphill through increasingly cooler and denser forest. Rhododendron begins to become more prominent as the elevation increases.',
         terrain: 'Forest trail · stone steps · gradual to moderate ascent',
+        coordinates: [27.58017, 85.38994],
       },
       {
         order: '04',
@@ -372,6 +385,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The trail reaches Latta Bhanjyang, a higher section where the climb becomes more demanding. The forest changes with elevation, and the route continues through broadleaf and rhododendron woodland toward the upper slopes.',
         terrain: 'Steeper forest trail · stone steps · woodland',
+        coordinates: [27.57784, 85.39802],
       },
       {
         order: '05',
@@ -381,6 +395,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'Prayer flags mark this higher section of the route before the final approach to the summit. The forest begins to open in places, and the changing landscape signals that the summit is getting closer.',
         terrain: 'Upper forest · natural paths · uphill trail',
+        coordinates: [27.57348, 85.39889],
       },
       {
         order: '06',
@@ -391,6 +406,7 @@ export const HIKE_DETAILS: Readonly<Record<string, HikeDetail>> = {
         description:
           'The final section reaches Phulchoki Summit, the highest point on the Kathmandu Valley rim. The summit area includes Phulchoki Mai Temple and prayer flags, with wider views possible when visibility is clear. The return follows the same general trail back to Godawari.',
         terrain: 'Summit trail · stone paths · exposed sections',
+        coordinates: [27.57128, 85.40657],
       },
     ],
     seasonalPlanning: [

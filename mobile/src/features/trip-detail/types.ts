@@ -74,6 +74,8 @@ export type TrekDay = {
   stats?: TrekDayStats;
   price?: string;
   isDestination?: boolean;
+  /** [lat, lng], the web's order: where the day's map pin goes. */
+  coordinates?: [number, number];
 };
 
 export type TrekDetail = DetailBase & {
@@ -101,6 +103,8 @@ export type HikeRouteSection = {
   role?: 'start' | 'turnaround' | 'finish';
   description?: string;
   terrain?: string;
+  /** [lat, lng], the web's order: where the section's map pin goes. */
+  coordinates?: [number, number];
 };
 
 export type HikeDetail = DetailBase & {
@@ -122,17 +126,36 @@ export type CulturalTripFacts = {
 };
 
 export type CulturalDay = {
+  /** e.g. 'day-01'. Sites point at their day with it. */
+  id: string;
   day: string;
   title: string;
   description: string;
   transport?: string;
   highlights: string[];
+  /** The day's pin colour on the map. */
+  color: string;
+};
+
+/** A place the tour visits, pinned on the map in its day's colour. */
+export type CulturalSite = {
+  order: number;
+  name: string;
+  /** [lat, lng], the web's order. */
+  coordinates: [number, number];
+  /** One short line for the site's map card. */
+  tooltip: string;
+  /** The `id` of the itinerary day that covers it. */
+  dayId: string;
 };
 
 export type CulturalTourDetail = DetailBase & {
   type: 'cultural';
   tripFacts: CulturalTripFacts;
   itinerary: CulturalDay[];
+  sites: CulturalSite[];
+  /** The map's opening zoom, where fitting every site would zoom in too far. */
+  mapOverviewZoom?: number;
 };
 
 export type TripDetail = TrekDetail | HikeDetail | CulturalTourDetail;
