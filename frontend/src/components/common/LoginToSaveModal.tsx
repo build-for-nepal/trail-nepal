@@ -15,6 +15,8 @@ import {
 type LoginToSaveModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Runs when the visitor chooses to log in, before they leave for the login page. */
+  onLogIn?: () => void;
 };
 
 /**
@@ -24,6 +26,7 @@ type LoginToSaveModalProps = {
 export function LoginToSaveModal({
   open,
   onOpenChange,
+  onLogIn,
 }: LoginToSaveModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -59,7 +62,13 @@ export function LoginToSaveModal({
           asChild
           className="mt-6 h-auto w-full max-w-[160px] cursor-pointer rounded-full bg-[#8cc63f] px-4 py-4.5 font-poppins font-semibold text-white shadow-lg transition-transform hover:-translate-y-1 hover:bg-[#7ab034] [a]:hover:bg-[#7ab034] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
-          <Link href="/login/" onClick={() => onOpenChange(false)}>
+          <Link
+            href="/login/"
+            onClick={() => {
+              onLogIn?.();
+              onOpenChange(false);
+            }}
+          >
             Log In
           </Link>
         </Button>

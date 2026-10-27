@@ -2,12 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { LoginToSaveModal } from '@/components/common/LoginToSaveModal';
+import SaveButton from '@/components/common/SaveButton';
 import { ShareTripModal } from '@/components/common/ShareTripModal';
 import { buildShareUrl, tripKey } from '@/lib/sharedTrip';
+import { stashPendingSave } from '@/lib/pendingSave';
+import { removeTripWithFeedback, saveTripWithFeedback } from '@/lib/trips';
 import { useAuthStore } from '@/store/authStore';
-import { useSavedTripsStore } from '@/store/savedTripsStore';
+import { useIsTripSaved } from '@/store/savedTripsStore';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -63,69 +66,75 @@ function TripMetadata({
 }
 
 /**
- * Save button UI.
- * Connect this to authentication and saved-trip state later.
- */
-function SaveButton({ title }: { title: string }) {
-  return (
-    <button
-      type="button"
-      aria-label={`Save ${title}`}
-      title="Save trip"
-      className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#82B300] text-[#82B300] transition hover:bg-[#F3F8E8]"
-    >
-      <Heart size={16} />
-    </button>
-  );
-}
-
-/**
  * Horizontal row card used for 2 strongest matches, or 4 and more.
  * Image left, details in the middle, arrow on the right.
  */
-export function MatchRow({ trek }: { trek: Trek }) {
+export function MatchRow({
+  trek,
+  imageOverlay,
+  categoryAside,
+}: {
+  trek: Trek;
+  /** Control pinned to the image's top-right corner (e.g. a save heart). Kept
+   *  outside the link so a button is never nested inside an anchor. */
+  imageOverlay?: ReactNode;
+  /** Short text at the right end of the category line (e.g. when it was saved). */
+  categoryAside?: ReactNode;
+}) {
   return (
-    <Link
-      href={trailHref(trek)}
-      className="group flex min-w-0 items-stretch overflow-hidden rounded-2xl border border-gray-200/80 bg-white transition hover:border-[#82B300] hover:shadow-sm"
-    >
-      <div className="relative w-[104px] shrink-0 overflow-hidden sm:w-[150px]">
-        <Image
-          src={trek.imageUrl}
-          alt={trek.title}
-          fill
-          sizes="(min-width: 640px) 150px, 104px"
-          className="object-cover transition duration-300 group-hover:scale-105"
-        />
-      </div>
-
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 px-4 py-4 sm:px-5">
-        <p className="text-[11px] text-[#75962A] sm:text-xs">
-          {getCategory(trek)}
-        </p>
-
-        <h3 className="line-clamp-2 font-serif text-[15px] font-bold leading-tight text-[#292C24] sm:text-lg">
-          {trek.title}
-        </h3>
-
-        <p className="truncate text-[11px] font-medium text-[#34392B] sm:text-xs">
-          {trek.region}
-        </p>
-
-        <div className="mt-1 flex flex-wrap items-center gap-x-2 text-[10px] text-gray-500 sm:text-[11px]">
-          <span>{trek.duration}</span>
-          <span aria-hidden="true">•</span>
-          <span>{trek.altitude}</span>
-          <span aria-hidden="true">•</span>
-          <span>{trek.season}</span>
+    <div className="relative min-w-0">
+      <Link
+        href={trailHref(trek)}
+        className="group flex min-w-0 items-stretch overflow-hidden rounded-2xl border border-gray-200/80 bg-white transition hover:border-[#82B300] hover:shadow-sm"
+      >
+        <div className="relative w-[104px] shrink-0 overflow-hidden sm:w-[150px]">
+          <Image
+            src={trek.imageUrl}
+            alt={trek.title}
+            fill
+            sizes="(min-width: 640px) 150px, 104px"
+            className="object-cover transition duration-300 group-hover:scale-105"
+          />
         </div>
-      </div>
 
-      <ArrowUpRight
-        size={20}
-        className="mr-4 shrink-0 self-center text-[#719900] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:mr-6"
-      />
-    </Link>
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 px-4 py-4 sm:px-5">
+          <p className="text-[11px] text-[#75962A] sm:text-xs">
+            {getCategory(trek)}
+          </p>
+
+          <h3 className="line-clamp-2 font-fraunces text-[15px] font-bold leading-tight text-[#292C24] sm:text-lg">
+            {trek.title}
+          </h3>
+
+          <p className="truncate text-[11px] font-medium text-[#34392B] sm:text-xs">
+            {trek.region}
+          </p>
+
+          <div className="mt-1 flex flex-wrap items-center gap-x-2 text-[10px] text-gray-500 sm:text-[11px]">
+            <span>{trek.duration}</span>
+            <span aria-hidden="true">•</span>
+            <span>{trek.altitude}</span>
+            <span aria-hidden="true">•</span>
+            <span>{trek.season}</span>
+          </div>
+        </div>
+
+        <ArrowUpRight
+          size={20}
+          className="mr-4 shrink-0 self-center text-[#719900] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:mr-6"
+        />
+      </Link>
+      {categoryAside && (
+        <span className="pointer-events-none absolute right-4 top-4 text-[10px] leading-4 text-[#2D2F27]/70 sm:right-6 sm:text-[11px]">
+          {categoryAside}
+        </span>
+      )}
+      {imageOverlay && (
+        <div className="absolute left-[calc(104px-2.5rem)] top-2 sm:left-[calc(150px-2.5rem)]">
+          {imageOverlay}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -156,7 +165,7 @@ export function MatchCard({ trek }: { trek: Trek }) {
 
       <div className="flex flex-1 flex-col p-3">
         <Link href={href} className="hover:text-[#719900]">
-          <h3 className="line-clamp-2 font-serif text-[15px] font-bold text-[#292C24]">
+          <h3 className="line-clamp-2 font-fraunces text-[15px] font-bold text-[#292C24]">
             {trek.title}
           </h3>
         </Link>
@@ -177,7 +186,13 @@ export function MatchCard({ trek }: { trek: Trek }) {
             See More
           </Link>
 
-          <SaveButton title={trek.title} />
+          <SaveButton
+            title={trek.title}
+            trailId={trek.id}
+            duration={trek.duration}
+            iconSize={16}
+            className="size-8"
+          />
         </div>
       </div>
     </article>
@@ -211,7 +226,7 @@ export function SingleMatchCard({ trek }: { trek: Trek }) {
 
       <div className="flex min-w-0 flex-col justify-center p-4 sm:p-5">
         <Link href={href} className="hover:text-[#719900]">
-          <h3 className="font-serif text-lg font-bold text-[#292C24]">
+          <h3 className="font-fraunces text-lg font-bold text-[#292C24]">
             {trek.title}
           </h3>
         </Link>
@@ -256,7 +271,7 @@ export function AlternativeCard({ trek }: { trek: Trek }) {
       <div className="min-w-0 self-center">
         <p className="text-[10px] text-[#75962A]">{getCategory(trek)}</p>
 
-        <h3 className="mt-1 line-clamp-2 font-serif text-sm font-bold leading-tight text-[#292C24]">
+        <h3 className="mt-1 line-clamp-2 font-fraunces text-sm font-bold leading-tight text-[#292C24]">
           {trek.title}
         </h3>
 
@@ -281,32 +296,24 @@ export function AlternativeCard({ trek }: { trek: Trek }) {
 export function TripActions({
   trailIds,
   totalDays,
+  month,
+  onBeforeLogin,
 }: {
   trailIds: string[];
   totalDays: number;
+  month?: string;
+  /** Called before the visitor leaves to log in, so the page can keep its plan. */
+  onBeforeLogin?: () => void;
 }) {
   const user = useAuthStore((state) => state.user);
   const id = tripKey(trailIds, totalDays);
-  const saved = useSavedTripsStore((state) =>
-    state.trips.some((trip) => trip.id === id),
-  );
-  const saveTrip = useSavedTripsStore((state) => state.saveTrip);
-  const removeTrip = useSavedTripsStore((state) => state.removeTrip);
+  const saved = useIsTripSaved(id);
 
   const [loginOpen, setLoginOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const trip = { id, trailIds, totalDays, month };
   const [shareOpen, setShareOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
-  const [notice, setNotice] = useState<{
-    message: string;
-    tone: 'success' | 'error';
-  } | null>(null);
-
-  useEffect(() => {
-    if (!notice) return;
-    const timer = setTimeout(() => setNotice(null), 3500);
-    return () => clearTimeout(timer);
-  }, [notice]);
-
   const handleSave = () => {
     if (!user) {
       setLoginOpen(true);
@@ -314,28 +321,14 @@ export function TripActions({
     }
 
     if (saved) {
-      removeTrip(id);
-      setNotice({ message: 'Trip removed from saved trips.', tone: 'success' });
+      removeTripWithFeedback(id);
     } else {
-      saveTrip({ id, trailIds, totalDays });
-      setNotice({ message: 'Trip saved.', tone: 'success' });
+      void saveTripWithFeedback(trip, setSaving);
     }
   };
 
+  // Sharing needs neither a login nor a saved trip: the link carries the trip.
   const handleShare = () => {
-    if (!user) {
-      setLoginOpen(true);
-      return;
-    }
-
-    if (!saved) {
-      setNotice({
-        message: 'Save this trip first, then you can share it.',
-        tone: 'error',
-      });
-      return;
-    }
-
     setShareUrl(buildShareUrl(window.location.origin, trailIds, totalDays));
     setShareOpen(true);
   };
@@ -346,10 +339,15 @@ export function TripActions({
         type="button"
         onClick={handleSave}
         aria-pressed={saved}
+        disabled={saving}
+        aria-busy={saving}
         className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#82B300] px-4 py-2 text-sm text-[#719900] transition hover:bg-[#F3F8E8]"
       >
-        <Heart size={17} className={saved ? 'fill-[#82B300]' : undefined} />
-        {saved ? 'Saved' : 'Save Trip'}
+        <Heart
+          size={17}
+          className={saved ? 'fill-[#F0605D] text-[#F0605D]' : undefined}
+        />
+        {saving ? 'Saving…' : saved ? 'Saved' : 'Save Trip'}
       </button>
 
       <button
@@ -361,16 +359,14 @@ export function TripActions({
         Share
       </button>
 
-      <p
-        role={notice?.tone === 'error' ? 'alert' : 'status'}
-        className={`w-full text-right text-xs ${
-          notice?.tone === 'error' ? 'text-[#EF4444]' : 'text-[#719900]'
-        }`}
-      >
-        {notice?.message}
-      </p>
-
-      <LoginToSaveModal open={loginOpen} onOpenChange={setLoginOpen} />
+      <LoginToSaveModal
+        open={loginOpen}
+        onOpenChange={setLoginOpen}
+        onLogIn={() => {
+          stashPendingSave(trip);
+          onBeforeLogin?.();
+        }}
+      />
       <ShareTripModal
         open={shareOpen}
         onOpenChange={setShareOpen}

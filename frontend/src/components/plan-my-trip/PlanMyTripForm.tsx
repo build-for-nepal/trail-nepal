@@ -216,7 +216,7 @@ const PlanMyTripForm = ({
 
         <div
           className={cn(
-            'flex h-10 w-[200px] items-center overflow-hidden rounded-xl border bg-white',
+            'flex h-10 w-[220px] items-center overflow-hidden rounded-xl border bg-white',
             errors.days ? 'border-red-500' : 'border-[#DDE3EC]',
           )}
         >
@@ -230,7 +230,7 @@ const PlanMyTripForm = ({
             <Minus className="size-4" strokeWidth={2.2} />
           </button>
           <span className="h-5 w-px shrink-0 bg-[#E3EAF4]" />
-          <label className="flex h-full min-w-[70px] items-center justify-center gap-1 font-poppins text-sm font-medium text-[#272922]">
+          <label className="flex h-full min-w-[96px] items-center justify-center gap-1.5 px-4 font-poppins text-sm font-medium text-[#272922]">
             <input
               type="number"
               inputMode="numeric"
@@ -241,7 +241,8 @@ const PlanMyTripForm = ({
               aria-label="Number of days"
               aria-invalid={Boolean(errors.days)}
               aria-describedby={errors.days ? 'pmt-days-error' : undefined}
-              className="w-8 bg-transparent text-right outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              style={{ width: `${String(value.days ?? '').length || 1}ch` }}
+              className="bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
             {value.days === 1 ? 'day' : 'days'}
           </label>

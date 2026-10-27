@@ -9,6 +9,7 @@ import { ExploreTrekCardProps } from '@/types/trek';
 
 const TrekCard = ({
   imageUrl,
+  id,
   title,
   description,
   difficulty,
@@ -86,7 +87,7 @@ const TrekCard = ({
           <div className="flex flex-1 items-center justify-center py-3 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl transition-colors">
             See More
           </div>
-          <SaveButton title={title} />
+          <SaveButton title={title} trailId={id} duration={duration} />
         </div>
       </div>
     </Link>

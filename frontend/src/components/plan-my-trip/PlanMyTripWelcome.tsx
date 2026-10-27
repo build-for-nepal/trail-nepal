@@ -1,6 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Leaf, Landmark, PersonStanding, type LucideIcon } from 'lucide-react';
+import {
+  Leaf,
+  Landmark,
+  PersonStanding,
+  type LucideIcon,
+  Sparkle,
+} from 'lucide-react';
 import mascotMap from '@/assets/trivia/mascot_map.png';
 
 type Feature = {
@@ -9,7 +15,7 @@ type Feature = {
 };
 
 const FEATURES: Feature[] = [
-  { icon: PersonStanding, lines: ['Personalized', 'recommendations'] },
+  { icon: Sparkle, lines: ['Personalized', 'recommendations'] },
   { icon: Landmark, lines: ['Trekking, hikes', '& cultural experiences'] },
   { icon: Leaf, lines: ['Combines existing', 'experiences'] },
 ];

@@ -14,6 +14,7 @@ const DIFFICULTY_TEXT_COLORS: Record<string, string> = {
 
 export default function TrekCard({
   imageUrl,
+  id,
   title,
   description,
   difficulty,
@@ -123,7 +124,7 @@ export default function TrekCard({
           <div className="flex flex-1 items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
             See More
           </div>
-          <SaveButton title={title} />
+          <SaveButton title={title} trailId={id} duration={duration} />
         </div>
       </div>
     </Link>

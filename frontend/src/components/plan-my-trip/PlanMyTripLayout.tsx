@@ -25,8 +25,16 @@ import {
   type TripFieldErrors,
   type TripPreferences,
 } from '@/lib/tripPreferences';
+import { stashPlan, takePlan } from '@/lib/pendingSave';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
+
+/** The in-progress plan, kept across a detour to the login page. */
+interface PlanSnapshot {
+  preferences: TripPreferences;
+  options: TripOption[];
+  month?: string;
+}
 
 const PlanMyTripError = ({
   message,
@@ -41,7 +49,7 @@ const PlanMyTripError = ({
   >
     <TriangleAlert size={28} className="mx-auto text-red-500" />
 
-    <h2 className="mt-3 font-serif text-xl font-bold text-gray-900">
+    <h2 className="mt-3 font-fraunces text-xl font-bold text-gray-900">
       We couldn&apos;t find your trip.
     </h2>
 
@@ -63,6 +71,8 @@ const PlanMyTripLayout = () => {
   const [errors, setErrors] = useState<TripFieldErrors>({});
   const [status, setStatus] = useState<Status>('idle');
   const [options, setOptions] = useState<TripOption[]>([]);
+  // Month the shown results were searched for (the form may change afterwards).
+  const [searchedMonth, setSearchedMonth] = useState<string>();
   const [errorMessage, setErrorMessage] = useState('');
   const abortRef = useRef<AbortController | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -109,6 +119,25 @@ const PlanMyTripLayout = () => {
     setStatus('idle');
   };
 
+  const stashCurrentPlan = useCallback(
+    () => stashPlan({ preferences, options, month: searchedMonth }),
+    [preferences, options, searchedMonth],
+  );
+
+  // Coming back from login: put the form and results back as they were.
+  // Deferred (and not cancelled) so Strict Mode's double effect, which has
+  // already consumed the snapshot, still applies it.
+  useEffect(() => {
+    const plan = takePlan<PlanSnapshot>();
+    if (!plan || !Array.isArray(plan.options) || !plan.preferences) return;
+    setTimeout(() => {
+      setPreferences(plan.preferences);
+      setOptions(plan.options);
+      setSearchedMonth(plan.month);
+      setStatus(plan.options.length > 0 ? 'success' : 'idle');
+    }, 0);
+  }, []);
+
   const handleSubmit = useCallback(async () => {
     const result = validatePreferences(preferences);
     if (!result.success) {
@@ -133,6 +162,7 @@ const PlanMyTripLayout = () => {
         controller.signal,
       );
       setOptions(next);
+      setSearchedMonth(preferences.month);
       setStatus('success');
     } catch (error) {
       if (controller.signal.aborted) return;
@@ -187,7 +217,7 @@ const PlanMyTripLayout = () => {
             ) : status === 'success' ? (
               <section className="min-w-0">
                 <header className="mb-5">
-                  <h1 className="font-serif text-2xl font-bold text-[#252820]">
+                  <h1 className="font-fraunces text-2xl font-bold text-[#252820]">
                     Your trip, matched to you.
                   </h1>
 
@@ -207,7 +237,7 @@ const PlanMyTripLayout = () => {
                           Your strongest match
                         </h2>
 
-                        <span className="rounded-lg bg-[#EBF0F8] px-3 py-1.5 font-serif text-sm font-bold text-[#30352C]">
+                        <span className="rounded-lg bg-[#EBF0F8] px-3 py-1.5 font-fraunces text-sm font-bold text-[#30352C]">
                           {strongest.totalDays}{' '}
                           {strongest.totalDays === 1 ? 'Day' : 'Days'}
                         </span>
@@ -240,6 +270,8 @@ const PlanMyTripLayout = () => {
                         <TripActions
                           trailIds={strongest.trails.map((trek) => trek.id)}
                           totalDays={strongest.totalDays}
+                          month={searchedMonth}
+                          onBeforeLogin={stashCurrentPlan}
                         />
                       </div>
                     </section>
@@ -257,7 +289,7 @@ const PlanMyTripLayout = () => {
                                 Option {index + 2}
                               </h2>
 
-                              <span className="rounded-lg bg-[#EBF0F8] px-3 py-1.5 font-serif text-sm font-bold text-[#30352C]">
+                              <span className="rounded-lg bg-[#EBF0F8] px-3 py-1.5 font-fraunces text-sm font-bold text-[#30352C]">
                                 {option.totalDays}{' '}
                                 {option.totalDays === 1 ? 'Day' : 'Days'}
                               </span>
@@ -273,6 +305,8 @@ const PlanMyTripLayout = () => {
                               <TripActions
                                 trailIds={option.trails.map((trek) => trek.id)}
                                 totalDays={option.totalDays}
+                                month={searchedMonth}
+                                onBeforeLogin={stashCurrentPlan}
                               />
                             </div>
                           </section>
@@ -284,7 +318,7 @@ const PlanMyTripLayout = () => {
                   <section className="rounded-2xl bg-white p-8 text-center">
                     <Sparkles size={28} className="mx-auto text-[#719900]" />
 
-                    <h2 className="mt-3 font-serif text-xl font-bold text-gray-900">
+                    <h2 className="mt-3 font-fraunces text-xl font-bold text-gray-900">
                       Let&apos;s try a different combination.
                     </h2>
 

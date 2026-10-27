@@ -77,7 +77,9 @@ export function Navbar() {
     pathname === '/planmytrip/' ||
     pathname === '/planmytrip' ||
     pathname === '/shared-trip/' ||
-    pathname === '/shared-trip';
+    pathname === '/shared-trip' ||
+    pathname === '/saved-trips/' ||
+    pathname === '/saved-trips';
   const isSolid = scrolled || isLightPage;
 
   return (
