@@ -119,7 +119,7 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             overview={detail.overview}
             facts={tripFactRows(detail)}
           />
-          <ItinerarySection detail={detail} />
+          <ItinerarySection detail={detail} id={trip.id} />
           <SeasonSection
             name={detail.name.split(' (')[0]}
             bestSeasons={detail.meta.bestSeasons}

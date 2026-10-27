@@ -1,9 +1,12 @@
+import { Link } from 'expo-router';
+import type { Href } from 'expo-router';
 import {
   AlertTriangle,
   Banknote,
   Clock,
   Compass,
   Map,
+  MapPin,
   Mountain,
   Route,
 } from 'lucide-react-native';
@@ -11,9 +14,12 @@ import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { tripDetailColor } from '@/constants/colors';
+import { cn } from '@/lib/utils';
 
 import { paragraphs } from '../format';
+import { mapHref } from '../href';
 import { shadows } from '../styles';
+import { tripMapData } from '../tripMap';
 import type {
   CulturalDay,
   CulturalTourDetail,
@@ -25,14 +31,18 @@ import type {
 } from '../types';
 import type { AccordionEntry } from '@/components/ui/accordion';
 import { ItineraryAccordion } from '@/components/ui/accordion';
+import { MapPreviewCard } from './MapPreviewCard';
 import { SectionHeader } from './SectionHeader';
 
 const ICON_SIZE = 15;
 const ICON_COLOR = tripDetailColor.icon;
 
+/** Where an expanded entry links to the full map, opened on it. */
+type MapLink = { href: Href; label: string };
+
 // ── Trek expanded body ──────────────────────────────────────────────────────
 
-function TrekDayBody({ day }: { day: TrekDay }) {
+function TrekDayBody({ day, map }: { day: TrekDay; map?: MapLink }) {
   const desc = day.description ? paragraphs(day.description) : [];
   const { stats, price } = day;
 
@@ -72,13 +82,21 @@ function TrekDayBody({ day }: { day: TrekDay }) {
           </Text>
         </View>
       ) : null}
+
+      {map ? <ShowOnMap {...map} /> : null}
     </View>
   );
 }
 
 // ── Hike expanded body ──────────────────────────────────────────────────────
 
-function HikeSectionBody({ section }: { section: HikeRouteSection }) {
+function HikeSectionBody({
+  section,
+  map,
+}: {
+  section: HikeRouteSection;
+  map?: MapLink;
+}) {
   const desc = section.description ? paragraphs(section.description) : [];
 
   return (
@@ -112,13 +130,15 @@ function HikeSectionBody({ section }: { section: HikeRouteSection }) {
           ) : null}
         </View>
       ) : null}
+
+      {map ? <ShowOnMap {...map} /> : null}
     </View>
   );
 }
 
 // ── Cultural expanded body ──────────────────────────────────────────────────
 
-function CulturalDayBody({ day }: { day: CulturalDay }) {
+function CulturalDayBody({ day, map }: { day: CulturalDay; map?: MapLink }) {
   const desc = paragraphs(day.description);
 
   return (
@@ -146,7 +166,38 @@ function CulturalDayBody({ day }: { day: CulturalDay }) {
           Highlights: {day.highlights.join(' · ')}
         </Text>
       ) : null}
+
+      {map ? <ShowOnMap {...map} /> : null}
     </View>
+  );
+}
+
+// ── Shared map link ─────────────────────────────────────────────────────────
+
+function ShowOnMap({ href, label }: MapLink) {
+  return (
+    <Link href={href} asChild>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Show ${label} on the map`}
+        hitSlop={8}
+        className="self-start"
+      >
+        {({ pressed }) => (
+          <View
+            className={cn(
+              'flex-row items-center gap-[6px] rounded-full border border-border px-[12px] py-[7px]',
+              pressed ? 'bg-field' : 'bg-surface',
+            )}
+          >
+            <MapPin size={ICON_SIZE} strokeWidth={2} color={ICON_COLOR} />
+            <Text className="font-poppins-medium text-[12px] leading-[16px] text-ink">
+              Show on map
+            </Text>
+          </View>
+        )}
+      </Pressable>
+    </Link>
   );
 }
 
@@ -179,24 +230,46 @@ function StatPill({
 
 // ── Entry builders ──────────────────────────────────────────────────────────
 
-function trekEntries(detail: TrekDetail): AccordionEntry[] {
-  return detail.itinerary.map((day) => ({
+/** The full map opened on an entry, for an entry the map can show. */
+type MapLinkFor = (index: number, label: string) => MapLink | undefined;
+
+function trekEntries(
+  detail: TrekDetail,
+  mapLink: MapLinkFor,
+): AccordionEntry[] {
+  return detail.itinerary.map((day, i) => ({
     header: day.day ? `Day ${day.day} : ${day.title}` : day.title,
-    body: <TrekDayBody day={day} />,
+    body: (
+      <TrekDayBody
+        day={day}
+        map={mapLink(i, day.day ? `Day ${day.day}` : day.title)}
+      />
+    ),
   }));
 }
 
-function hikeEntries(detail: HikeDetail): AccordionEntry[] {
-  return detail.route.map((section) => ({
+function hikeEntries(
+  detail: HikeDetail,
+  mapLink: MapLinkFor,
+): AccordionEntry[] {
+  return detail.route.map((section, i) => ({
     header: `${section.order} · ${section.title}`,
-    body: <HikeSectionBody section={section} />,
+    body: (
+      <HikeSectionBody
+        section={section}
+        map={mapLink(i, `section ${section.order}`)}
+      />
+    ),
   }));
 }
 
-function culturalEntries(detail: CulturalTourDetail): AccordionEntry[] {
-  return detail.itinerary.map((day) => ({
+function culturalEntries(
+  detail: CulturalTourDetail,
+  mapLink: MapLinkFor,
+): AccordionEntry[] {
+  return detail.itinerary.map((day, i) => ({
     header: `${day.day} : ${day.title}`,
-    body: <CulturalDayBody day={day} />,
+    body: <CulturalDayBody day={day} map={mapLink(i, day.day)} />,
   }));
 }
 
@@ -221,19 +294,26 @@ function sectionDescription(detail: TripDetail) {
 
 type ItinerarySectionProps = {
   detail: TripDetail;
+  id: string;
 };
 
-export function ItinerarySection({ detail }: ItinerarySectionProps) {
+export function ItinerarySection({ detail, id }: ItinerarySectionProps) {
+  const mapData = tripMapData(detail, id);
+  const mapLink: MapLinkFor = (index, label) =>
+    mapData?.days[index]
+      ? { href: mapHref(detail.type, id, index), label }
+      : undefined;
+
   let entries: AccordionEntry[];
   switch (detail.type) {
     case 'trek':
-      entries = trekEntries(detail);
+      entries = trekEntries(detail, mapLink);
       break;
     case 'hike':
-      entries = hikeEntries(detail);
+      entries = hikeEntries(detail, mapLink);
       break;
     case 'cultural':
-      entries = culturalEntries(detail);
+      entries = culturalEntries(detail, mapLink);
       break;
   }
 
@@ -264,6 +344,9 @@ export function ItinerarySection({ detail }: ItinerarySectionProps) {
           </Text>
         </Pressable>
       </View>
+      {mapData ? (
+        <MapPreviewCard data={mapData} href={mapHref(detail.type, id)} />
+      ) : null}
       <View style={shadows.card}>
         <ItineraryAccordion
           items={entries}
