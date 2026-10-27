@@ -73,3 +73,9 @@ export const forecastColor = {
   fresh: '#6EE7B7',
   stale: '#FCD34D',
 } as const;
+
+// The map screen's round control buttons: ink icons on white, white on the pressed-in one.
+export const mapControlColor = {
+  icon: '#0C1B16',
+  iconOnActive: '#FFFFFF',
+} as const;

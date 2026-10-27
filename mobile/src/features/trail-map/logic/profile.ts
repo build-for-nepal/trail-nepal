@@ -1,4 +1,5 @@
-import type { ElevationPoint } from '../types';
+import type { ElevationPoint, LngLat } from '../types';
+import { metersBetween } from './markers';
 
 export type ElevationStats = {
   km: number;
@@ -37,4 +38,21 @@ export function elevationStats(
     ascentM: Math.round(ascent),
     descentM: Math.round(descent),
   };
+}
+
+/** The position in the series closest to a point, e.g. where a day's stop falls on the chart. */
+export function nearestPointIndex(
+  points: ElevationPoint[],
+  lngLat: LngLat,
+): number | null {
+  let best: number | null = null;
+  let bestM = Infinity;
+  for (let i = 0; i < points.length; i++) {
+    const m = metersBetween([points[i].lng, points[i].lat], lngLat);
+    if (m < bestM) {
+      bestM = m;
+      best = i;
+    }
+  }
+  return best;
 }

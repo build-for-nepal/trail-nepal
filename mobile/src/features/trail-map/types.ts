@@ -77,6 +77,9 @@ export type TrailMapData = {
  */
 export type DayFocus = { index: number; nonce: number };
 
+/** How much of the map's top and bottom other views cover, in points. */
+export type MapInsets = { top: number; bottom: number };
+
 export type AccessMode = 'flight' | 'jeep' | 'bus';
 
 /** How a trek reaches its trailhead, drawn as an arc (flight) or a curve (road). */
