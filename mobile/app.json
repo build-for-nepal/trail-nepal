@@ -7,12 +7,17 @@
     "scheme": "trailsnepal",
     "userInterfaceStyle": "light",
     "android": {
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.trailsnepal"
     },
     "web": {
       "output": "static"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      "expo-splash-screen",
+      "@maplibre/maplibre-react-native"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
