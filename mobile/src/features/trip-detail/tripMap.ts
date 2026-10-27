@@ -3,8 +3,14 @@ import {
   MAX_ZOOM,
   PIN_ORANGE,
 } from '@/features/trail-map/constants';
-import { getRoute } from '@/features/trail-map/data/routes';
 import {
+  FLAG_AT_START,
+  getAccessRoute,
+} from '@/features/trail-map/data/accessRoutes';
+import { getRoute } from '@/features/trail-map/data/routes';
+import { accessLegs } from '@/features/trail-map/logic/arcs';
+import {
+  flagPosition,
   pinFor,
   pinGroups,
   toLngLat,
@@ -66,6 +72,7 @@ function trailMapData(
     days: group.stops,
   });
   const keyOf = (group: PinGroup) => `stop-${group.stops[0]}`;
+  const access = getAccessRoute(id);
 
   return {
     kind: 'trail',
@@ -74,6 +81,8 @@ function trailMapData(
     // As on the web, the trail alone: a first day in Kathmandu would zoom the view far out.
     overview: route.line,
     maxZoom: MAX_ZOOM,
+    flag: flagPosition(stops, route.line, FLAG_AT_START.has(id)) ?? undefined,
+    access: access ? accessLegs(access) : undefined,
     days: stops.map((stop, index) => {
       if (!stop.coordinates) return null;
       const point = toLngLat(stop.coordinates);

@@ -5,14 +5,19 @@ import {
   TRAIL_GREEN,
 } from './constants';
 import type { LayerKey } from './constants';
-import type { LngLat } from './types';
+import type { AccessLeg, LngLat } from './types';
 
 /**
  * The map's style: the chosen base layer under the route, drawn as on the web (a white
- * casing under a green line). A whole style rather than separate source components, the
- * way the web builds its map. A tour has no route, so its route source stays empty.
+ * casing under a green line), with the journey to the trailhead as dashed white arcs
+ * beneath it. A whole style rather than separate source components, the way the web builds
+ * its map. A tour has no route, so its route source stays empty.
  */
-export function mapStyle(layer: LayerKey, line: LngLat[]) {
+export function mapStyle(
+  layer: LayerKey,
+  line: LngLat[],
+  access: AccessLeg[] = [],
+) {
   const base = LAYERS[layer];
   return {
     version: 8 as const,
@@ -23,6 +28,17 @@ export function mapStyle(layer: LayerKey, line: LngLat[]) {
         tileSize: 256,
         maxzoom: TILE_MAX_ZOOM,
         attribution: base.attribution,
+      },
+      access: {
+        type: 'geojson' as const,
+        data: {
+          type: 'FeatureCollection' as const,
+          features: access.map((leg) => ({
+            type: 'Feature' as const,
+            properties: {},
+            geometry: { type: 'LineString' as const, coordinates: leg.path },
+          })),
+        },
       },
       route: {
         type: 'geojson' as const,
@@ -48,6 +64,18 @@ export function mapStyle(layer: LayerKey, line: LngLat[]) {
     },
     layers: [
       { id: 'base', type: 'raster' as const, source: 'base' },
+      {
+        id: 'access',
+        type: 'line' as const,
+        source: 'access',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 2,
+          'line-opacity': 0.7,
+          'line-dasharray': [3, 4],
+        },
+        layout: { 'line-cap': 'round' as const, 'line-join': 'round' as const },
+      },
       {
         id: 'route-casing',
         type: 'line' as const,

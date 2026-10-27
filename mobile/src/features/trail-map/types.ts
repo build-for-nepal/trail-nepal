@@ -65,6 +65,10 @@ export type TrailMapData = {
   maxZoom: number;
   /** In itinerary order. Null for an entry with no place on the map. */
   days: (MapDay | null)[];
+  /** Where the destination flag stands. A tour has none. */
+  flag?: LngLat;
+  /** The journey to the trailhead, drawn as dashed arcs with a plane or vehicle on each. */
+  access?: AccessLeg[];
 };
 
 /**
@@ -83,4 +87,15 @@ export type AccessRoute = {
   to: { name: string; coordinates: [number, number] };
   /** The second leg of a two-leg journey. */
   continuation?: AccessRoute;
+};
+
+/** One stretch of the journey to the trailhead, ready to draw. */
+export type AccessLeg = {
+  mode: AccessMode;
+  /** [lng, lat] along the arc or curve. */
+  path: LngLat[];
+  /** Where the plane or vehicle icon goes: the middle of the path. */
+  middle: LngLat;
+  /** Which way the icon faces, in compass degrees. */
+  bearing: number;
 };

@@ -1,4 +1,4 @@
-import type { AccessMode, AccessRoute, LngLat } from '../types';
+import type { AccessLeg, AccessRoute, LngLat } from '../types';
 
 // The web's shapes, from frontend/src/hooks/useMapFeatures.ts (useAccessRoute). Points come
 // in as trip data's [lat, lng] and go out as [lng, lat].
@@ -64,15 +64,6 @@ export function bearing(from: [number, number], to: [number, number]): number {
     Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
   return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
 }
-
-export type AccessLeg = {
-  mode: AccessMode;
-  path: LngLat[];
-  /** Where the plane or vehicle icon goes: the middle of the path. */
-  middle: LngLat;
-  /** Which way the icon faces. */
-  bearing: number;
-};
 
 /** The journey to the trailhead, one leg per stretch, as the web draws it. */
 export function accessLegs(route: AccessRoute): AccessLeg[] {

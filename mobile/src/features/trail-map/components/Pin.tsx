@@ -5,7 +5,9 @@ import type { MapPin } from '../types';
 
 // The web's pins, from frontend/src/hooks/useMapFeatures.ts and CulturalMapClient.tsx. The
 // selected one is drawn larger, as the web's pulse draws it for a moment. Larger by size,
-// not by a scale transform: the map clips a marker to its laid-out box.
+// not by a scale transform: the map draws a photo of the view's laid-out box (see
+// MapImages). The web's drop shadows are left out: a photo is taken on a plain canvas, which
+// can't draw the blur a box shadow needs.
 
 /** The web's site pin: a 28 × 38 teardrop with its tip 2 px above the bottom. */
 const SITE_PIN_PATH =
@@ -22,7 +24,6 @@ export function DayPin({ pin, selected }: { pin: MapPin; selected: boolean }) {
         minWidth: size,
         borderWidth: 2.5,
         backgroundColor: pin.color,
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.32)',
       }}
     >
       <Text
