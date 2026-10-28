@@ -4,6 +4,43 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Shared motion: one duration and easing so every animation feels related.
+   `backwards` fill lets a delay hold the first frame without pinning the end
+   state, so later transitions on the same element still apply. */
+@theme {
+  --animate-rise: rise 250ms ease-out backwards;
+  --animate-fade: fade 250ms ease-out backwards;
+  --animate-shake: shake 250ms ease-out;
+  --animate-pop: pop 250ms ease-out;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes shake {
+    20%,
+    60% {
+      transform: translateX(-4px);
+    }
+    40%,
+    80% {
+      transform: translateX(4px);
+    }
+  }
+  @keyframes pop {
+    50% {
+      transform: scale(1.3);
+    }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -364,6 +401,14 @@
   animation: pmtTrailMarch 1.2s linear infinite;
 }
 
+.pmt-loader-walker {
+  offset-path: path(
+    'M14 84 C 54 84, 56 42, 96 42 S 140 84, 180 84 S 216 46, 238 58'
+  );
+  offset-rotate: 0deg;
+  animation: pmtWalkTrail 5s ease-in-out infinite;
+}
+
 .pmt-loader-hiker {
   transform-box: fill-box;
   transform-origin: center;
@@ -379,6 +424,15 @@
 @keyframes pmtTrailMarch {
   to {
     stroke-dashoffset: -15;
+  }
+}
+
+@keyframes pmtWalkTrail {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
   }
 }
 
@@ -406,6 +460,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .pmt-loader-trail,
+  .pmt-loader-walker,
   .pmt-loader-hiker,
   .pmt-loader-pulse {
     animation: none;

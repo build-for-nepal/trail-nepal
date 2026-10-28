@@ -7,6 +7,7 @@ import { tripKey } from '@/lib/sharedTrip';
 import { MAX_DAYS, MIN_DAYS } from '@/lib/tripPreferences';
 import { useIsTripSaved } from '@/store/savedTripsStore';
 import { useAuthStore } from '@/store/authStore';
+import { useHeartPop } from '@/hooks/useHeartPop';
 import { stashPendingSave } from '@/lib/pendingSave';
 import { removeTripWithFeedback, saveTripWithFeedback } from '@/lib/trips';
 import { LoginToSaveModal } from './LoginToSaveModal';
@@ -44,6 +45,7 @@ const SaveButton = ({
   const saved = useIsTripSaved(id);
   const [loginPromptOpen, setLoginPromptOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const { popping, anchorRef, pop, onAnimationEnd } = useHeartPop();
   const trip = { id, trailIds: [trailId], totalDays };
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +59,11 @@ const SaveButton = ({
     }
 
     if (saved) removeTripWithFeedback(id);
-    else void saveTripWithFeedback(trip, setSaving);
+    else {
+      void saveTripWithFeedback(trip, setSaving).then((stored) => {
+        if (stored) pop();
+      });
+    }
   };
 
   return (
@@ -67,6 +73,7 @@ const SaveButton = ({
         aria-label={`${saved ? 'Unsave' : 'Save'} ${title}`}
         aria-pressed={saved}
         title={saved ? 'Remove from saved trips' : 'Save trip'}
+        ref={anchorRef}
         onClick={handleClick}
         disabled={saving}
         aria-busy={saving}
@@ -78,7 +85,11 @@ const SaveButton = ({
       >
         <Heart
           size={iconSize}
-          className={saved ? SAVED_HEART_CLASS : undefined}
+          onAnimationEnd={onAnimationEnd}
+          className={cn(
+            saved && SAVED_HEART_CLASS,
+            saved && popping && 'animate-pop motion-reduce:animate-none',
+          )}
         />
       </button>
       {/* React events bubble out of portals — keep modal clicks from

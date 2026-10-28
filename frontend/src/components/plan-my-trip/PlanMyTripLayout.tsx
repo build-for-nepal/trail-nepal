@@ -69,6 +69,8 @@ const PlanMyTripLayout = () => {
   const [preferences, setPreferences] =
     useState<TripPreferences>(DEFAULT_PREFERENCES);
   const [errors, setErrors] = useState<TripFieldErrors>({});
+  // Counts failed submits so the form can shake again on each one.
+  const [invalidAttempts, setInvalidAttempts] = useState(0);
   const [status, setStatus] = useState<Status>('idle');
   const [options, setOptions] = useState<TripOption[]>([]);
   // Month the shown results were searched for (the form may change afterwards).
@@ -143,6 +145,7 @@ const PlanMyTripLayout = () => {
     if (!result.success) {
       scrollToErrorRef.current = true;
       setErrors(result.errors);
+      setInvalidAttempts((attempts) => attempts + 1);
       return;
     }
 
@@ -200,6 +203,7 @@ const PlanMyTripLayout = () => {
               onClear={handleClear}
               onSubmit={handleSubmit}
               errors={errors}
+              invalidAttempts={invalidAttempts}
               submitting={status === 'loading'}
             />
           </aside>
@@ -215,7 +219,7 @@ const PlanMyTripLayout = () => {
             ) : status === 'error' ? (
               <PlanMyTripError message={errorMessage} onRetry={handleSubmit} />
             ) : status === 'success' ? (
-              <section className="min-w-0">
+              <section className="min-w-0 animate-rise motion-reduce:animate-fade">
                 <header className="mb-5">
                   <h1 className="font-fraunces text-2xl font-bold text-[#252820]">
                     Your trip, matched to you.
