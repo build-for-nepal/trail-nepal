@@ -65,6 +65,8 @@ type Props = {
   onClear: () => void;
   onSubmit: () => void;
   errors: TripFieldErrors;
+  /** Bumped on every failed submit so invalid fields shake again. */
+  invalidAttempts: number;
   submitting: boolean;
 };
 
@@ -74,7 +76,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
     <p
       id={id}
       role="alert"
-      className="font-poppins text-[12px] font-medium text-red-600"
+      className="animate-fade font-poppins text-[12px] font-medium text-red-600"
     >
       {message}
     </p>
@@ -113,6 +115,7 @@ const PlanMyTripForm = ({
   onClear,
   onSubmit,
   errors,
+  invalidAttempts,
   submitting,
 }: Props) => {
   const clampDays = (days: number) =>
@@ -215,9 +218,12 @@ const PlanMyTripForm = ({
         />
 
         <div
+          key={errors.days ? invalidAttempts : 'valid'}
           className={cn(
-            'flex h-10 w-[220px] items-center overflow-hidden rounded-xl border bg-white',
-            errors.days ? 'border-red-500' : 'border-[#DDE3EC]',
+            'flex h-10 w-[220px] items-center overflow-hidden rounded-xl border bg-white transition-colors',
+            errors.days
+              ? 'animate-shake border-red-500 motion-reduce:animate-none'
+              : 'border-[#DDE3EC]',
           )}
         >
           <button
@@ -272,11 +278,15 @@ const PlanMyTripForm = ({
 
         <div
           role="group"
+          key={errors.experience ? invalidAttempts : 'valid'}
           aria-label="Experience type"
           aria-describedby={
             errors.experience ? 'pmt-experience-error' : undefined
           }
-          className="grid grid-cols-2 gap-2 sm:grid-cols-3"
+          className={cn(
+            'grid grid-cols-2 gap-2 sm:grid-cols-3',
+            errors.experience && 'animate-shake motion-reduce:animate-none',
+          )}
         >
           {EXPERIENCES.map(({ key, label, icon: Icon }) => {
             const isSelected = value.experience === key;
@@ -329,11 +339,15 @@ const PlanMyTripForm = ({
 
         <div
           role="group"
+          key={errors.difficulty ? invalidAttempts : 'valid'}
           aria-label="Difficulty"
           aria-describedby={
             errors.difficulty ? 'pmt-difficulty-error' : undefined
           }
-          className="grid grid-cols-3 gap-2"
+          className={cn(
+            'grid grid-cols-3 gap-2',
+            errors.difficulty && 'animate-shake motion-reduce:animate-none',
+          )}
         >
           {DIFFICULTIES.map((level) => {
             const isSelected = value.difficulty === level;

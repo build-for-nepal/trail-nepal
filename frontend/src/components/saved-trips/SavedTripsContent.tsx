@@ -150,13 +150,57 @@ const SavedTripsLoading = () => (
   </div>
 );
 
+/** How long a removed card takes to fade and close up before it is deleted. */
+const REMOVE_MS = 250;
+const MAX_STAGGER_STEPS = 6;
+const STAGGER_MS = 60;
+
+/**
+ * One row in the list. Cards rise in one after another on load; a removed
+ * card fades and collapses so the ones below glide up into its place.
+ * The card's spacing lives inside the collapsing box so it closes with it.
+ */
+function TripListItem({
+  index,
+  removing,
+  children,
+}: {
+  index: number;
+  removing: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        'grid transition-[grid-template-rows,opacity] duration-250 ease-out motion-reduce:transition-opacity',
+        removing
+          ? 'grid-rows-[0fr] opacity-0 motion-reduce:grid-rows-[1fr]'
+          : 'grid-rows-[1fr] opacity-100',
+      )}
+    >
+      <div className="-mx-2 min-h-0 overflow-hidden px-2">
+        <div
+          className="animate-rise pb-5 motion-reduce:animate-fade"
+          style={{
+            animationDelay: `${Math.min(index, MAX_STAGGER_STEPS) * STAGGER_MS}ms`,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** A bulk group of destinations, e.g. saved together from Plan My Trip. */
 function CollectionCard({
   trip,
   onShare,
+  onRemove,
 }: {
   trip: ResolvedTrip;
   onShare: (trip: ResolvedTrip) => void;
+  onRemove: (id: string) => void;
 }) {
   return (
     <article className="rounded-2xl bg-white p-4 shadow-sm">
@@ -190,7 +234,7 @@ function CollectionCard({
         <div className="flex shrink-0 items-center gap-2 max-sm:justify-end">
           <button
             type="button"
-            onClick={() => removeTripWithFeedback(trip.id)}
+            onClick={() => onRemove(trip.id)}
             aria-label="Remove from saved trips"
             title="Remove from saved trips"
             className={cn(HEART_BUTTON_CLASS, 'size-10')}
@@ -212,7 +256,13 @@ function CollectionCard({
 }
 
 /** A single saved destination. */
-function SingleCard({ trip }: { trip: ResolvedTrip }) {
+function SingleCard({
+  trip,
+  onRemove,
+}: {
+  trip: ResolvedTrip;
+  onRemove: (id: string) => void;
+}) {
   const trek = trip.treks[0];
 
   return (
@@ -222,7 +272,7 @@ function SingleCard({ trip }: { trip: ResolvedTrip }) {
       imageOverlay={
         <button
           type="button"
-          onClick={() => removeTripWithFeedback(trip.id)}
+          onClick={() => onRemove(trip.id)}
           aria-label={`Remove ${trek.title} from saved trips`}
           title="Remove from saved trips"
           className={cn(HEART_BUTTON_CLASS, 'size-8')}
@@ -239,6 +289,10 @@ const SavedTripsContent = ({ pins }: { pins: TrailPins }) => {
   const trips = useMyTrips();
   const [shareUrl, setShareUrl] = useState('');
   const [shareOpen, setShareOpen] = useState(false);
+  // Trips mid-animation: deleted from the store once their exit finishes.
+  const [removingIds, setRemovingIds] = useState<ReadonlySet<string>>(
+    new Set(),
+  );
 
   // Newest first; drop ids that no longer match a known trail.
   const resolved = useMemo<ResolvedTrip[]>(
@@ -283,6 +337,20 @@ const SavedTripsContent = ({ pins }: { pins: TrailPins }) => {
     setShareOpen(true);
   };
 
+  const handleRemove = (id: string) => {
+    if (removingIds.has(id)) return;
+    setRemovingIds(new Set(removingIds).add(id));
+
+    setTimeout(() => {
+      removeTripWithFeedback(id);
+      setRemovingIds((current) => {
+        const next = new Set(current);
+        next.delete(id);
+        return next;
+      });
+    }, REMOVE_MS);
+  };
+
   if (!hydrated) return <SavedTripsLoading />;
   if (resolved.length === 0) return <SavedTripsEmpty />;
 
@@ -299,14 +367,24 @@ const SavedTripsContent = ({ pins }: { pins: TrailPins }) => {
       </header>
 
       <div className="grid items-start gap-8 lg:grid-cols-[46fr_51fr]">
-        <div className="flex min-w-0 flex-col gap-5">
-          {resolved.map((trip) =>
-            trip.treks.length > 1 ? (
-              <CollectionCard key={trip.id} trip={trip} onShare={handleShare} />
-            ) : (
-              <SingleCard key={trip.id} trip={trip} />
-            ),
-          )}
+        <div className="flex min-w-0 flex-col">
+          {resolved.map((trip, index) => (
+            <TripListItem
+              key={trip.id}
+              index={index}
+              removing={removingIds.has(trip.id)}
+            >
+              {trip.treks.length > 1 ? (
+                <CollectionCard
+                  trip={trip}
+                  onShare={handleShare}
+                  onRemove={handleRemove}
+                />
+              ) : (
+                <SingleCard trip={trip} onRemove={handleRemove} />
+              )}
+            </TripListItem>
+          ))}
         </div>
 
         <div className="h-[360px] overflow-hidden rounded-2xl shadow-sm sm:h-[460px] lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:min-h-[480px]">
