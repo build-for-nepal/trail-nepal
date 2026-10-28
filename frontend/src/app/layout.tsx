@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins, Fraunces } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
+import { Providers } from './providers';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
 import { headers } from 'next/headers';
 
@@ -70,8 +71,10 @@ export default function RootLayout({
       className={`${poppins.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

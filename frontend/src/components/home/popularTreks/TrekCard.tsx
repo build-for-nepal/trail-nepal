@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Pill from '@/components/common/Pill';
+import SaveButton from '@/components/common/SaveButton';
 import { DIFFICULTY_COLORS } from '@/static/constants';
 import { Clock, Mountain, CalendarDays } from 'lucide-react';
 import { ExploreTrekCardProps } from '@/types/trek';
@@ -8,6 +9,7 @@ import { ExploreTrekCardProps } from '@/types/trek';
 
 const TrekCard = ({
   imageUrl,
+  id,
   title,
   description,
   difficulty,
@@ -35,12 +37,12 @@ const TrekCard = ({
         />
         {/* Desktop only — fades out on hover */}
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent bg-[length:100%_40%] bg-bottom bg-no-repeat lg:transition-opacity lg:duration-500 lg:group-hover:opacity-0" />
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute right-4 top-4 z-10">
           <Pill text={difficulty} color={difficultyColor} />
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 px-4 py-4 lg:absolute lg:bottom-0 lg:left-0 lg:w-full lg:px-5 lg:pb-5 lg:z-10">
+      <div className="flex flex-col gap-2 p-[18px] lg:absolute lg:bottom-0 lg:left-0 lg:z-10 lg:w-full">
         <h3 className="font-fraunces font-bold text-black text-lg sm:text-xl line-clamp-1">
           {title}
         </h3>
@@ -81,8 +83,11 @@ const TrekCard = ({
           ~ {price}
         </span> */}
 
-        <div className="block w-full py-3 mt-1 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl text-center transition-colors">
-          See More
+        <div className="mt-1 flex items-stretch gap-2">
+          <div className="flex flex-1 items-center justify-center py-3 bg-[#8DC63F] hover:bg-[#7ab033] text-white text-[14px] font-bold font-poppins rounded-xl transition-colors">
+            See More
+          </div>
+          <SaveButton title={title} trailId={id} duration={duration} />
         </div>
       </div>
     </Link>

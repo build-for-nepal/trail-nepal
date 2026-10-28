@@ -1,8 +1,10 @@
 'use client';
 
+import { getPendingReturnTo } from '@/lib/pendingSave';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { signIn } from 'next-auth/react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AuthShell } from './AuthShell';
@@ -116,6 +118,9 @@ export function LoginPage() {
 
       <button
         type="button"
+        onClick={() =>
+          signIn('google', { callbackUrl: getPendingReturnTo() ?? '/' })
+        }
         className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
       >
         <GoogleIcon />

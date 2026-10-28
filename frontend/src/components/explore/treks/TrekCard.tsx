@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Mountain, CalendarDays } from 'lucide-react';
+import SaveButton from '@/components/common/SaveButton';
 import { ExploreTrekCardProps } from '@/types/trek';
 
 const DIFFICULTY_TEXT_COLORS: Record<string, string> = {
@@ -13,6 +14,7 @@ const DIFFICULTY_TEXT_COLORS: Record<string, string> = {
 
 export default function TrekCard({
   imageUrl,
+  id,
   title,
   description,
   difficulty,
@@ -118,8 +120,11 @@ export default function TrekCard({
 
         {/* CTA — sits immediately under the metrics, and lands flush at the
             bottom because the metrics row above it carries `mt-auto`. */}
-        <div className="flex w-full items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
-          See More
+        <div className="flex items-stretch gap-2">
+          <div className="flex flex-1 items-center justify-center rounded-card bg-brand-primary py-3.5 text-[12px] font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]">
+            See More
+          </div>
+          <SaveButton title={title} trailId={id} duration={duration} />
         </div>
       </div>
     </Link>

@@ -8,6 +8,7 @@ import GrassBg from './grassbg.svg';
 import HimalMascot from './himal_mascot.svg';
 import Mascot from './mascot.svg';
 import MountainTree from './mountaintree.svg';
+import AiSparkle from './ai_sparkle.svg';
 
 export {
   Airplane,
@@ -20,4 +21,5 @@ export {
   HimalMascot,
   Mascot,
   MountainTree,
+  AiSparkle,
 };
