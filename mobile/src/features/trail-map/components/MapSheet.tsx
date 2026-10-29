@@ -32,6 +32,14 @@ export type SheetEntry = {
   available: boolean;
 };
 
+/** A tour's site as its card shows it, under its day's label in the day's colour. */
+export type SheetSite = {
+  name: string;
+  line: string;
+  dayLabel: string;
+  color: string;
+};
+
 const FACT_ICONS: Record<SheetFactKind, typeof Clock> = {
   elevation: Mountain,
   distance: Route,
@@ -65,6 +73,8 @@ type MapSheetProps = {
   /** The selected entry's position, highlighted and shown in the card. */
   selected: number | null;
   onSelect: (index: number) => void;
+  /** A tapped site, shown in the card in place of the selected entry. */
+  site: SheetSite | null;
   /** The route's numbers, for a trek or hike. */
   stats: ElevationStats | null;
   profile: ElevationPoint[] | null;
@@ -85,6 +95,7 @@ export function MapSheet({
   entries,
   selected,
   onSelect,
+  site,
   stats,
   profile,
   profileMarker,
@@ -181,7 +192,35 @@ export function MapSheet({
 
         {stats ? <StatsRow stats={stats} /> : null}
 
-        {entry ? (
+        {site ? (
+          // The web's site popup: the name over its one line, here with the day it belongs to.
+          <View
+            className="mx-[16px] border-t border-border pt-[12px]"
+            style={{ height: CARD }}
+          >
+            <View className="flex-row items-center gap-[6px]">
+              <View
+                className="h-[8px] w-[8px] rounded-full"
+                style={{ backgroundColor: site.color }}
+              />
+              <Text className="font-poppins-medium text-[11px] leading-[16px] text-muted">
+                {site.dayLabel}
+              </Text>
+            </View>
+            <Text
+              numberOfLines={1}
+              className="mt-[2px] font-poppins-semibold text-[15px] leading-[22px] text-ink"
+            >
+              {site.name}
+            </Text>
+            <Text
+              numberOfLines={2}
+              className="mt-[4px] font-poppins text-[12px] leading-[17px] text-muted"
+            >
+              {site.line}
+            </Text>
+          </View>
+        ) : entry ? (
           <View
             className="mx-[16px] border-t border-border pt-[12px]"
             style={{ height: CARD }}

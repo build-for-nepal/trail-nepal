@@ -39,6 +39,8 @@ export type MapPin = {
   description: string;
   /** The itinerary entries it marks, by position. */
   days: number[];
+  /** For a tour's site: what its card says when the pin is tapped. */
+  site?: { name: string; line: string };
 };
 
 /** One itinerary entry on the map. */

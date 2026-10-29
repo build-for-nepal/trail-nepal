@@ -109,6 +109,7 @@ function tourMapData(detail: CulturalTourDetail): TrailMapData | undefined {
       color: day.color,
       description: `${site.name}, ${day.day}`,
       days: [index],
+      site: { name: site.name, line: site.tooltip },
     });
   }
   if (pins.length === 0) return undefined;

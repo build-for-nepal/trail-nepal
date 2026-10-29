@@ -11,6 +11,7 @@ import type {
   SheetEntry,
   SheetFact,
   SheetFactKind,
+  SheetSite,
 } from '@/features/trail-map/components/MapSheet';
 import {
   MapTopBar,
@@ -100,6 +101,21 @@ function sheetEntries(detail: TripDetail, data: TrailMapData): SheetEntry[] {
   }
 }
 
+/** The card for a tapped site: its name and line, under its day's label and colour. */
+function sheetSite(
+  data: TrailMapData,
+  entries: SheetEntry[],
+  key: string,
+): SheetSite | null {
+  const pin = data.pins.find((candidate) => candidate.key === key);
+  if (!pin?.site) return null;
+  return {
+    ...pin.site,
+    dayLabel: entries[pin.days[0]]?.label ?? '',
+    color: pin.color,
+  };
+}
+
 /**
  * A trip's full-screen map: the trail with a pin per day or section, or a tour's sites, under
  * a floating top bar and over a sheet with the itinerary, the route's numbers and its
@@ -120,6 +136,8 @@ export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
   const [layer, setLayer] = useState<LayerKey>('satellite');
   const [sheetIndex, setSheetIndex] = useState(0);
   const [scrub, setScrub] = useState<ElevationPoint | null>(null);
+  // The key of a tapped site's pin: its card replaces the day's until a chip is tapped.
+  const [siteKey, setSiteKey] = useState<string | null>(null);
   const map = useRef<TrailMapRef>(null);
   const snapPoints = useMemo(
     () => sheetSnapPoints(profile !== null, insets.bottom),
@@ -129,6 +147,7 @@ export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
   if (!detail || !data) return <TripNotFound />;
 
   const entries = sheetEntries(detail, data);
+  const site = siteKey ? sheetSite(data, entries, siteKey) : null;
   const stats = profile ? elevationStats(profile) : null;
   const focusedPoint = focus ? data.days[focus.index]?.points[0] : undefined;
   const profileMarker =
@@ -151,7 +170,11 @@ export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
           bottom: snapPoints[sheetIndex] ?? snapPoints[0],
         }}
         marker={scrub ? [scrub.lng, scrub.lat] : null}
-        onPinPress={select}
+        highlight={site ? siteKey : null}
+        onPinPress={(index, key) => {
+          setSiteKey(key);
+          select(index);
+        }}
       />
       <MapTopBar
         layer={layer}
@@ -162,7 +185,11 @@ export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
       <MapSheet
         entries={entries}
         selected={focus?.index ?? null}
-        onSelect={select}
+        onSelect={(index) => {
+          setSiteKey(null);
+          select(index);
+        }}
+        site={site}
         stats={stats}
         profile={profile}
         profileMarker={profileMarker}

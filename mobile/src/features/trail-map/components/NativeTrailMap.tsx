@@ -52,8 +52,10 @@ export type TrailMapProps = {
   insets?: MapInsets;
   /** A point on the trail to mark, e.g. the one under a finger on the elevation chart. */
   marker?: LngLat | null;
-  /** Called with the first itinerary entry at the pressed pin. */
-  onPinPress?: (index: number) => void;
+  /** The one pin drawn selected, instead of the shown entry's pins: a tapped site. */
+  highlight?: string | null;
+  /** Called with the first itinerary entry at the pressed pin, and the pin's key. */
+  onPinPress?: (index: number, key: string) => void;
   ref?: Ref<TrailMapRef>;
 };
 
@@ -112,6 +114,7 @@ function SizedMap({
   layer = 'satellite',
   insets = NO_INSETS,
   marker,
+  highlight,
   onPinPress,
   ref,
   size,
@@ -173,12 +176,18 @@ function SizedMap({
   const shown = focus ? data.days[focus.index] : null;
   // An entry that no pin marks has a pin of its own while it is shown.
   const pins = shown?.pin ? [...data.pins, shown.pin] : data.pins;
-  const selected = new Set(shown?.pin ? [shown.pin.key] : shown?.pins);
+  const selected = highlight
+    ? new Set([highlight])
+    : new Set(shown?.pin ? [shown.pin.key] : shown?.pins);
   const sites = data.kind === 'sites';
 
   const pressPin = (event: NativeSyntheticEvent<PressEventWithFeatures>) => {
-    const day = event.nativeEvent.features[0]?.properties?.day;
-    if (typeof day === 'number') onPinPress?.(day);
+    const properties = event.nativeEvent.features[0]?.properties;
+    const day = properties?.day;
+    const key = properties?.key;
+    if (typeof day === 'number' && typeof key === 'string') {
+      onPinPress?.(day, key);
+    }
   };
 
   return (
