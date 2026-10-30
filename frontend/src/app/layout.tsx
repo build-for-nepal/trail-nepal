@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   keywords: DEFAULT_SEO_DATA.META_KEYWORDS,
   verification: {
-    google: '2CRtBaAPlBpzwc-oRYkOD6GMgeoClBnxB0gKCo1BCPQ',
+    google: '9W6kMoVwPj6efsYbvoh993QmwQRtLKU0XIQeiYRB-0M',
   },
   openGraph: {
     title: 'Trails Nepal',
