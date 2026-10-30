@@ -3,7 +3,6 @@ import { Poppins, Fraunces } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
-import { headers } from 'next/headers';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -35,6 +34,9 @@ export const metadata: Metadata = {
     apple: [{ url: 'icons/logo.png' }],
   },
   keywords: DEFAULT_SEO_DATA.META_KEYWORDS,
+  verification: {
+    google: '2CRtBaAPlBpzwc-oRYkOD6GMgeoClBnxB0gKCo1BCPQ',
+  },
   openGraph: {
     title: 'Trails Nepal',
     description: 'Discover and plan treks in Nepal',
