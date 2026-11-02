@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
@@ -12,18 +12,24 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
 
     steps:
-      - name: Checkout
+      - name: Checkout main branch
         uses: actions/checkout@v6
+        with:
+          ref: main
+          path: main-source
+
+      - name: Checkout dev branch
+        uses: actions/checkout@v6
+        with:
+          ref: dev
+          path: dev-source
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -33,25 +39,50 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: |
+            main-source/frontend/package-lock.json
+            dev-source/frontend/package-lock.json
 
-      - name: Install dependencies
+      # Build production
+      - name: Install main dependencies
+        working-directory: main-source/frontend
         run: npm ci
 
-      - name: Build (static export)
+      - name: Build production
+        working-directory: main-source/frontend
+        env:
+          NEXT_PUBLIC_BASE_PATH: ''
         run: npm run build
 
+      # Build staging
+      - name: Install dev dependencies
+        working-directory: dev-source/frontend
+        run: npm ci
+
+      - name: Build staging
+        working-directory: dev-source/frontend
+        env:
+          NEXT_PUBLIC_BASE_PATH: '/staging'
+        run: npm run build
+
+      # Combine both builds
+      - name: Copy staging output into production output
+        run: |
+          mkdir -p main-source/frontend/out/staging
+          cp -a dev-source/frontend/out/. main-source/frontend/out/staging/
+
       - name: Add CNAME for custom domain
-        run: echo "trails.buildfornepal.org" > out/CNAME
+        run: echo "trails.buildfornepal.org" > main-source/frontend/out/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/out
+          path: main-source/frontend/out
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
