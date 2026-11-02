@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Check, ChevronLeft, RotateCcw, X } from 'lucide-react-native';
+import { Check, RotateCcw, X } from 'lucide-react-native';
 import { useEffect, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 import type { TriviaQuestion } from '../data/questions';
 import { useTriviaGame } from '../hooks/useTriviaGame';
 import { ANSWER_LETTERS, resultMessage, ROUND_SIZE } from '../round';
+import { TriviaBackButton } from './TriviaBackButton';
 import { TriviaButton } from './TriviaButton';
 import { SCENE_FOOT, TriviaScene } from './TriviaScene';
 
@@ -90,7 +91,7 @@ export function TriviaGameScreen({
         }}
       >
         <View className="px-[18px]">
-          <BackButton onPress={onBack} />
+          <TriviaBackButton onPress={onBack} />
         </View>
 
         {game.screen === 'question' && question ? (
@@ -365,27 +366,6 @@ function AnswerOption({
           <Text className="flex-1 font-poppins-medium text-[14px] leading-[20px] text-ink">
             {answer}
           </Text>
-        </View>
-      )}
-    </Pressable>
-  );
-}
-
-function BackButton({ onPress }: { onPress: () => void }) {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel="Back"
-      onPress={onPress}
-      hitSlop={8}
-      className="self-start"
-    >
-      {({ pressed }) => (
-        <View
-          className="h-[40px] w-[40px] items-center justify-center rounded-full bg-surface"
-          style={[styles.lift, { transform: [{ scale: pressed ? 0.92 : 1 }] }]}
-        >
-          <ChevronLeft size={22} strokeWidth={2} color={triviaColor.icon} />
         </View>
       )}
     </Pressable>

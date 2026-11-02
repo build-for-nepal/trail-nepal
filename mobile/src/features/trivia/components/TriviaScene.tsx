@@ -23,13 +23,15 @@ export const SCENE_FOOT = FIGURE_BOTTOM + (FIGURE_WIDTH * 456) / 501;
 type TriviaSceneProps = {
   /** The flag at the far end of the hills, there once a game has started. */
   flag?: boolean;
+  /** Himal on the hills. The hub, as the web's home-page trivia, has the sky alone. */
+  himal?: boolean;
 };
 
 /**
  * The sky behind the trivia: two clouds, the hills along the bottom, and Himal, with the
  * flag during a game. It fills its parent and takes no touches.
  */
-export function TriviaScene({ flag = false }: TriviaSceneProps) {
+export function TriviaScene({ flag = false, himal = true }: TriviaSceneProps) {
   const [width, setWidth] = useState(0);
   const onLayout = (event: LayoutChangeEvent) => {
     setWidth(event.nativeEvent.layout.width);
@@ -65,10 +67,12 @@ export function TriviaScene({ flag = false }: TriviaSceneProps) {
               style={{ position: 'absolute', bottom: FIGURE_BOTTOM, right: 16 }}
             />
           ) : null}
-          <HimalMascot
-            width={FIGURE_WIDTH}
-            style={{ position: 'absolute', bottom: FIGURE_BOTTOM, left: 20 }}
-          />
+          {himal ? (
+            <HimalMascot
+              width={FIGURE_WIDTH}
+              style={{ position: 'absolute', bottom: FIGURE_BOTTOM, left: 20 }}
+            />
+          ) : null}
         </>
       ) : null}
     </View>

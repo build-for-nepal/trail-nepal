@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TRIPS } from '@/features/explore';
 import type { TripType } from '@/features/explore';
-import { TriviaIntroCard, triviaName } from '@/features/trivia';
+import { TriviaIntroCard, triviaHref, triviaName } from '@/features/trivia';
 
 import {
   getForecastLocations,
@@ -29,7 +29,6 @@ import {
   overviewTitle,
   tripFactRows,
 } from '../facts';
-import { triviaHref } from '../href';
 import { BackButton } from './BackButton';
 import { BAR_HEIGHT, CompactHeader } from './CompactHeader';
 import { DetailHero } from './DetailHero';

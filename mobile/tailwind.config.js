@@ -47,6 +47,8 @@ module.exports = {
         // since white on the web's #88B112 is 2.5:1.
         trivia: {
           sky: '#BDE4FA',
+          // The hub's paler sky, as the web's home-page trivia.
+          'hub-sky': '#C2E6FE',
           right: '#88B112',
           'right-tile': '#9BC331',
           'right-tint': '#F3F7E7',
