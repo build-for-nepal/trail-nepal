@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins, Fraunces } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
@@ -20,6 +21,9 @@ const fraunces = Fraunces({
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://trails.buildfornepal.org';
+
+// Google Analytics 4. Public by design: it ships in every page's HTML.
+const GA_MEASUREMENT_ID = 'G-WZ039JBK00';
 
 export const metadata: Metadata = {
   title: 'Trails Nepal',
@@ -74,6 +78,21 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
+        {/* Production builds only, so local `next dev` visits are not counted. */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
