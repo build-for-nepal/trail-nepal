@@ -1488,7 +1488,6 @@ export const TREK_DETAILS: Readonly<Record<string, TrekDetail>> = {
           'The day begins before dawn with a steep climb along the narrow, rocky ridgeline toward Mardi Himal Upper Viewpoint and Base Camp. As the morning light hits the surrounding sanctuary, the trail passes rocky outcrops before reaching Mardi Himal Base Camp at 4,500 m, sitting directly beneath the towering face of Machhapuchhre.\n\nAfter spending time at the base camp taking in views of Annapurna I, Annapurna South, and Hiunchuli, the route retraces its path down the ridge back to High Camp for breakfast. The trail then continues descending along the familiar ridge to spend the night at Badal Danda or Low Camp at approximately 2,970 m.',
         stats: { elevation: '4,500m', duration: '7-8 hrs', distance: '12km' },
         price: 'NPR 2,500 (Accommodation: 700, Meals: 1,800)',
-        isDestination: true,
         coordinates: [28.46, 83.895],
       },
       {

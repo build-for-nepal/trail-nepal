@@ -16,7 +16,12 @@ import {
   toLngLat,
 } from '@/features/trail-map/logic/markers';
 import type { PinGroup } from '@/features/trail-map/logic/markers';
-import type { MapPin, MapStop, TrailMapData } from '@/features/trail-map/types';
+import type {
+  MapPin,
+  MapStop,
+  PinCard,
+  TrailMapData,
+} from '@/features/trail-map/types';
 
 import type {
   CulturalTourDetail,
@@ -55,6 +60,37 @@ function pinDescription(
   return `${group.stops.length > 1 ? 'Days' : 'Day'} ${group.label}, ${titles}`;
 }
 
+/**
+ * A day's or section's popup card, as the web's buildPopupHTML writes it: a trek day has its
+ * elevation, distance and time, a hike section its distance and time marks.
+ */
+function entryCard(detail: TrekDetail | HikeDetail, index: number): PinCard {
+  if (detail.type === 'hike') {
+    const section = detail.route[index];
+    return {
+      day: index,
+      tab: section.order,
+      title: section.title,
+      stats: [
+        { label: 'Distance', value: section.distanceMark ?? 'N/A' },
+        { label: 'Est. Time', value: section.timeMark ?? 'N/A' },
+      ],
+    };
+  }
+  const day = detail.itinerary[index];
+  return {
+    day: index,
+    tab: `Day ${day.day ?? ''}`,
+    eyebrow: `Day ${day.day ?? ''}`,
+    title: day.title,
+    stats: [
+      { label: 'Elevation', value: day.stats?.elevation ?? 'N/A' },
+      { label: 'Distance', value: day.stats?.distance ?? 'N/A' },
+      { label: 'Est. Time', value: day.stats?.duration ?? 'N/A', wide: true },
+    ],
+  };
+}
+
 function trailMapData(
   detail: TrekDetail | HikeDetail,
   id: string,
@@ -63,34 +99,31 @@ function trailMapData(
   if (!route || route.line.length < 2) return undefined;
   const stops = mapStops(detail);
   const groups = pinGroups(stops, route.line);
-  const toPin = (group: PinGroup, key: string): MapPin => ({
-    key,
+  const keyOf = (group: PinGroup) => `stop-${group.stops[0]}`;
+  const pins: MapPin[] = groups.map((group) => ({
+    key: keyOf(group),
     lngLat: group.lngLat,
     label: group.label,
     color: PIN_ORANGE,
     description: pinDescription(detail, stops, group),
     days: group.stops,
-  });
-  const keyOf = (group: PinGroup) => `stop-${group.stops[0]}`;
+    cards: group.stops.map((index) => entryCard(detail, index)),
+  }));
   const access = getAccessRoute(id);
 
   return {
     kind: 'trail',
     line: route.line,
-    pins: groups.map((group) => toPin(group, keyOf(group))),
+    pins,
     // As on the web, the trail alone: a first day in Kathmandu would zoom the view far out.
     overview: route.line,
     maxZoom: MAX_ZOOM,
     flag: flagPosition(stops, route.line, FLAG_AT_START.has(id)) ?? undefined,
     access: access ? accessLegs(access) : undefined,
     days: stops.map((stop, index) => {
-      if (!stop.coordinates) return null;
-      const point = toLngLat(stop.coordinates);
-      const group = pinFor(groups, index, point);
-      if (group) return { points: [point], pins: [keyOf(group)] };
-      // The web pins a trail only up to its destination, so most of the way back has no pin.
-      const own = { lngLat: point, label: stop.label, stops: [index] };
-      return { points: [point], pins: [], pin: toPin(own, `day-${index}`) };
+      const group = pinFor(groups, index);
+      if (!stop.coordinates || !group) return null;
+      return { points: [toLngLat(stop.coordinates)], pins: [keyOf(group)] };
     }),
   };
 }
@@ -109,7 +142,10 @@ function tourMapData(detail: CulturalTourDetail): TrailMapData | undefined {
       color: day.color,
       description: `${site.name}, ${day.day}`,
       days: [index],
-      site: { name: site.name, line: site.tooltip },
+      // As the web's buildSitePopupHTML: the site's name over its short line.
+      cards: [
+        { day: index, tab: site.name, title: site.name, line: site.tooltip },
+      ],
     });
   }
   if (pins.length === 0) return undefined;

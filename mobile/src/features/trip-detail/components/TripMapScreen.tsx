@@ -5,13 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { TripType } from '@/features/explore';
 import {
   MapSheet,
+  SHEET_OPEN_INDEX,
   sheetSnapPoints,
-} from '@/features/trail-map/components/MapSheet';
-import type {
-  SheetEntry,
-  SheetFact,
-  SheetFactKind,
-  SheetSite,
 } from '@/features/trail-map/components/MapSheet';
 import {
   MapTopBar,
@@ -19,6 +14,7 @@ import {
 } from '@/features/trail-map/components/MapTopBar';
 import { TrailMap } from '@/features/trail-map/components/TrailMap';
 import type { TrailMapRef } from '@/features/trail-map/components/TrailMap';
+import { DEFAULT_LAYER } from '@/features/trail-map/constants';
 import type { LayerKey } from '@/features/trail-map/constants';
 import { getRoute } from '@/features/trail-map/data/routes';
 import {
@@ -54,108 +50,80 @@ function openingFocus(
   return data.days[index] ? { index, nonce: 0 } : null;
 }
 
-/** The facts with a value, in order. */
-function facts(pairs: [SheetFactKind, string | undefined][]): SheetFact[] {
-  return pairs.flatMap(([kind, text]) => (text ? [{ kind, text }] : []));
-}
-
-/** The itinerary as the sheet shows it: a trek's days, a hike's sections or a tour's days. */
-function sheetEntries(detail: TripDetail, data: TrailMapData): SheetEntry[] {
-  const available = (index: number) => data.days[index] != null;
+/** What the chart's mark says for an entry: 'Day 04', 'Section 02'. */
+function entryLabel(detail: TripDetail, index: number): string | undefined {
   switch (detail.type) {
-    case 'trek':
-      return detail.itinerary.map((day, index) => ({
-        label: day.day ? `Day ${day.day}` : day.title,
-        title: day.title,
-        facts: facts([
-          ['elevation', day.stats?.elevation],
-          ['distance', day.stats?.distance],
-          ['time', day.stats?.duration ?? day.duration],
-        ]),
-        available: available(index),
-      }));
-    case 'hike':
-      return detail.route.map((section, index) => ({
-        label: `Section ${section.order}`,
-        title: section.title,
-        facts: facts([
-          ['distance', section.distanceMark],
-          ['time', section.timeMark],
-          ['terrain', section.terrain],
-        ]),
-        available: available(index),
-      }));
+    case 'trek': {
+      const day = detail.itinerary[index]?.day;
+      return day ? `Day ${day}` : undefined;
+    }
+    case 'hike': {
+      const section = detail.route[index];
+      return section ? `Section ${section.order}` : undefined;
+    }
     case 'cultural':
-      return detail.itinerary.map((day, index) => ({
-        label: day.day,
-        title: day.title,
-        facts: facts([
-          ['transport', day.transport],
-          [
-            'highlights',
-            day.highlights.length ? day.highlights.join(' · ') : undefined,
-          ],
-        ]),
-        available: available(index),
-      }));
+      return detail.itinerary[index]?.day;
   }
-}
-
-/** The card for a tapped site: its name and line, under its day's label and colour. */
-function sheetSite(
-  data: TrailMapData,
-  entries: SheetEntry[],
-  key: string,
-): SheetSite | null {
-  const pin = data.pins.find((candidate) => candidate.key === key);
-  if (!pin?.site) return null;
-  return {
-    ...pin.site,
-    dayLabel: entries[pin.days[0]]?.label ?? '',
-    color: pin.color,
-  };
 }
 
 /**
  * A trip's full-screen map: the trail with a pin per day or section, or a tour's sites, under
- * a floating top bar and over a sheet with the itinerary, the route's numbers and its
- * elevation chart. Pins, chips and chart select the same entry.
+ * floating controls. A tapped pin shows its popup on the map. A trek or hike has a sheet with
+ * the route's numbers and its elevation chart.
  */
 export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
   const insets = useSafeAreaInsets();
   const goBack = useGoBack();
   const detail = id ? getTripDetail(type, id) : undefined;
-  const data = detail && id ? tripMapData(detail, id) : undefined;
-  // A tour has no route, so no profile: the sheet shows its days alone.
-  const profile =
-    detail && id && detail.type !== 'cultural'
-      ? (getRoute(id)?.profile ?? null)
-      : null;
+  // Built once: a scrub along the chart re-renders the screen many times a second.
+  const data = useMemo(
+    () => (detail && id ? tripMapData(detail, id) : undefined),
+    [detail, id],
+  );
+  // A tour has no route, so no profile and no sheet.
+  const profile = useMemo(
+    () =>
+      detail && id && detail.type !== 'cultural'
+        ? (getRoute(id)?.profile ?? null)
+        : null,
+    [detail, id],
+  );
+  const stats = useMemo(
+    () => (profile ? elevationStats(profile) : null),
+    [profile],
+  );
 
   const [focus, setFocus] = useState(() => openingFocus(data, day));
-  const [layer, setLayer] = useState<LayerKey>('satellite');
-  const [sheetIndex, setSheetIndex] = useState(0);
+  const [layer, setLayer] = useState<LayerKey>(DEFAULT_LAYER);
+  const [sheetIndex, setSheetIndex] = useState(SHEET_OPEN_INDEX);
   const [scrub, setScrub] = useState<ElevationPoint | null>(null);
-  // The key of a tapped site's pin: its card replaces the day's until a chip is tapped.
-  const [siteKey, setSiteKey] = useState<string | null>(null);
+  // Whether the chart marks the shown entry: until a finger next goes on the chart.
+  const [chartMarked, setChartMarked] = useState(true);
   const map = useRef<TrailMapRef>(null);
   const snapPoints = useMemo(
-    () => sheetSnapPoints(profile !== null, insets.bottom),
-    [profile, insets.bottom],
+    () => sheetSnapPoints(insets.bottom),
+    [insets.bottom],
   );
 
   if (!detail || !data) return <TripNotFound />;
 
-  const entries = sheetEntries(detail, data);
-  const site = siteKey ? sheetSite(data, entries, siteKey) : null;
-  const stats = profile ? elevationStats(profile) : null;
   const focusedPoint = focus ? data.days[focus.index]?.points[0] : undefined;
   const profileMarker =
-    profile && focusedPoint ? nearestPointIndex(profile, focusedPoint) : null;
+    profile && focusedPoint && chartMarked
+      ? nearestPointIndex(profile, focusedPoint)
+      : null;
+  const sheet = profile && stats ? { profile, stats } : null;
 
-  // A new nonce every time, so re-selecting the shown entry still moves the map to it.
-  const select = (index: number) =>
-    setFocus((current) => ({ index, nonce: (current?.nonce ?? 0) + 1 }));
+  // A new nonce every time, so tapping the shown entry's pin again still pulses it. The pin
+  // is in view already, so the map stays put.
+  const select = (index: number) => {
+    setFocus((current) => ({
+      index,
+      nonce: (current?.nonce ?? 0) + 1,
+      fromMap: true,
+    }));
+    setChartMarked(true);
+  };
 
   return (
     <View className="flex-1 bg-sand">
@@ -167,35 +135,35 @@ export function TripMapScreen({ type, id, day }: TripMapScreenProps) {
         // The top bar and the sheet cover the map; a shown entry is framed between them.
         insets={{
           top: insets.top + TOP_BAR_HEIGHT,
-          bottom: snapPoints[sheetIndex] ?? snapPoints[0],
+          bottom: sheet
+            ? (snapPoints[sheetIndex] ?? snapPoints[0])
+            : insets.bottom,
         }}
         marker={scrub ? [scrub.lng, scrub.lat] : null}
-        highlight={site ? siteKey : null}
-        onPinPress={(index, key) => {
-          setSiteKey(key);
-          select(index);
-        }}
+        onPinPress={select}
       />
+      {sheet ? (
+        <MapSheet
+          stats={sheet.stats}
+          profile={sheet.profile}
+          profileMarker={profileMarker}
+          markerLabel={
+            focus && chartMarked ? entryLabel(detail, focus.index) : undefined
+          }
+          snapPoints={snapPoints}
+          onIndexChange={setSheetIndex}
+          onScrub={(point) => {
+            setScrub(point);
+            if (point) setChartMarked(false);
+          }}
+        />
+      ) : null}
+      {/* Last, so an open layer menu sits over everything and a tap anywhere closes it. */}
       <MapTopBar
         layer={layer}
         onLayerChange={setLayer}
         onResetNorth={() => map.current?.resetNorth()}
         onBack={goBack}
-      />
-      <MapSheet
-        entries={entries}
-        selected={focus?.index ?? null}
-        onSelect={(index) => {
-          setSiteKey(null);
-          select(index);
-        }}
-        site={site}
-        stats={stats}
-        profile={profile}
-        profileMarker={profileMarker}
-        snapPoints={snapPoints}
-        onIndexChange={setSheetIndex}
-        onScrub={setScrub}
       />
     </View>
   );

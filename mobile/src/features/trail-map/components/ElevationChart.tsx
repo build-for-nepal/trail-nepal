@@ -123,9 +123,12 @@ export function ElevationChart({
     setHover(index);
     onScrub(points[index]);
   };
+  // A sideways drag scrubs. An up-or-down one is left to the sheet the chart sits in, which
+  // it moves; the touch still shows the point under it until then.
   const pan = Gesture.Pan()
     .runOnJS(true)
-    .minDistance(1)
+    .activeOffsetX([-6, 6])
+    .failOffsetY([-10, 10])
     .shouldCancelWhenOutside(false)
     .onBegin((event) => scrubAt(event.x))
     .onUpdate((event) => scrubAt(event.x))

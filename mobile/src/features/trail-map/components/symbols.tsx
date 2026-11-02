@@ -1,4 +1,7 @@
-import type { SymbolLayerSpecification } from '@maplibre/maplibre-react-native';
+import type {
+  CircleLayerSpecification,
+  SymbolLayerSpecification,
+} from '@maplibre/maplibre-react-native';
 
 import type { LngLat, MapPin, TrailMapData } from '../types';
 import type { ImageSpec } from './MapImages';
@@ -24,12 +27,6 @@ export function pinImage(
   return selected ? `${base}-selected` : base;
 }
 
-/** Every pin a map might show: its own, and those drawn for entries no pin marks. */
-function allPins(data: TrailMapData): MapPin[] {
-  const own = data.days.flatMap((day) => (day?.pin ? [day.pin] : []));
-  return [...data.pins, ...own];
-}
-
 const iconFor = (mode: 'flight' | 'jeep' | 'bus') =>
   mode === 'flight' ? 'plane' : 'vehicle';
 
@@ -37,7 +34,7 @@ const iconFor = (mode: 'flight' | 'jeep' | 'bus') =>
 export function imageSpecs(data: TrailMapData): ImageSpec[] {
   const sites = data.kind === 'sites';
   const specs = new Map<string, ImageSpec>();
-  for (const pin of allPins(data)) {
+  for (const pin of data.pins) {
     for (const selected of [false, true]) {
       const name = pinImage(pin, sites, selected);
       if (specs.has(name)) continue;
@@ -84,22 +81,22 @@ function point(
   };
 }
 
-/** The pins as features. `day` is the itinerary entry a press selects. */
+/** The pins as features. `day` is the itinerary entry a press selects; `color` is the pin's. */
 export function pinFeatures(
   data: TrailMapData,
-  pins: MapPin[],
   selected: ReadonlySet<string>,
 ): Points {
   const sites = data.kind === 'sites';
   return {
     type: 'FeatureCollection',
-    features: pins.map((pin) => {
+    features: data.pins.map((pin) => {
       const isSelected = selected.has(pin.key);
       return point(pin.lngLat, {
         key: pin.key,
         day: pin.days[0],
         icon: pinImage(pin, sites, isSelected),
         selected: isSelected ? 1 : 0,
+        color: pin.color,
       });
     }),
   };
@@ -142,7 +139,7 @@ export const DECOR_ICONS_LAYOUT: SymbolLayerSpecification['layout'] = {
   'icon-rotation-alignment': 'map',
 };
 
-/** The flag, its pole's foot on the point. */
+/** The flag, its pole standing 10 px above the point, as on the web. */
 export const DECOR_FLAG_LAYOUT: SymbolLayerSpecification['layout'] = {
   ...SYMBOLS,
   'icon-image': 'flag',
@@ -150,13 +147,27 @@ export const DECOR_FLAG_LAYOUT: SymbolLayerSpecification['layout'] = {
   'icon-offset': FLAG_OFFSET,
 };
 
-/** A site pin's tip marks the spot; a day pin is centred on it. */
+/**
+ * A site pin's picture is anchored at its bottom, 2 px under its tip, as the web anchors
+ * it; a day pin is centred on its point. Later pins draw over earlier ones, as the web's
+ * markers do, and a pulsing pin over them all.
+ */
 export function pinsLayout(sites: boolean): SymbolLayerSpecification['layout'] {
   return {
     ...SYMBOLS,
     'icon-image': ['get', 'icon'],
     'icon-anchor': sites ? 'bottom' : 'center',
-    // Higher keys draw later, so the selected pin lands on top of its neighbours.
     'symbol-sort-key': ['get', 'selected'],
   };
 }
+
+/**
+ * A preview's pins: a dot in the pin's colour on each pin's point. A preview is too small
+ * for the full pins, which would cover its route.
+ */
+export const PREVIEW_PIN_PAINT: CircleLayerSpecification['paint'] = {
+  'circle-radius': 5,
+  'circle-color': ['get', 'color'],
+  'circle-stroke-color': '#ffffff',
+  'circle-stroke-width': 2,
+};

@@ -18,14 +18,27 @@ const FLAG_WIDTH = 44;
 const FLAG_HEIGHT = 40;
 /** Where the pole stands in the flag's drawing. */
 const POLE_X = 14;
+/**
+ * How far above the point the pole's foot is. The web stands the flag on top of an empty
+ * 10 px marker anchored at its bottom.
+ */
+const POLE_LIFT = 10;
+
+/** How far the flag rises above its point: its drawing, on the lift. */
+export const FLAG_RISE = FLAG_HEIGHT + POLE_LIFT;
 
 /**
- * The marker offset that puts the pole's foot on the marked point: with a bottom anchor the
- * point is under the drawing's middle, and the pole is left of that.
+ * The marker offset that puts the pole where the web puts it: with a bottom anchor the
+ * point is under the drawing's middle, and the pole is left of that and lifted.
  */
-export const FLAG_OFFSET: [number, number] = [FLAG_WIDTH / 2 - POLE_X, 0];
+export const FLAG_OFFSET: [number, number] = [
+  FLAG_WIDTH / 2 - POLE_X,
+  -POLE_LIFT,
+];
 
-/** The red flag at the trail's end. The web's drop shadow is left out. */
+const FLAG_BODY = 'M 14 2 L 43 12 L 14 24 Z';
+
+/** The red flag at the trail's end. Its wave is left out: the map draws a still picture. */
 export function DestinationFlag() {
   return (
     <Svg
@@ -48,7 +61,19 @@ export function DestinationFlag() {
         strokeWidth={2}
         strokeLinecap="round"
       />
-      <Path d="M 14 2 L 43 12 L 14 24 Z" fill="url(#flag-fill)" />
+      {/* The web's `feDropShadow` under the flag, as a faint offset copy. */}
+      <G translate="0, 1.5">
+        <Path
+          d={FLAG_BODY}
+          fill="#000000"
+          fillOpacity={0.12}
+          stroke="#000000"
+          strokeOpacity={0.08}
+          strokeWidth={2.5}
+          strokeLinejoin="round"
+        />
+      </G>
+      <Path d={FLAG_BODY} fill="url(#flag-fill)" />
       <Path d="M 14 2 L 43 12 L 30 10 Z" fill="rgba(255, 255, 255, 0.25)" />
     </Svg>
   );

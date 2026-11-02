@@ -10,7 +10,7 @@ import {
   Mountain,
   Route,
 } from 'lucide-react-native';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { tripDetailColor } from '@/constants/colors';
@@ -298,7 +298,9 @@ type ItinerarySectionProps = {
 };
 
 export function ItinerarySection({ detail, id }: ItinerarySectionProps) {
-  const mapData = tripMapData(detail, id);
+  // Kept across renders, as opening a day re-renders this: a new one would send the
+  // preview's pins and pictures to the map again.
+  const mapData = useMemo(() => tripMapData(detail, id), [detail, id]);
   const mapLink: MapLinkFor = (index, label) =>
     mapData?.days[index]
       ? { href: mapHref(detail.type, id, index), label }

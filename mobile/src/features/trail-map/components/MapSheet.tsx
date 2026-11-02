@@ -1,85 +1,37 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import {
-  Bus,
-  Clock,
-  Compass,
-  Mountain,
-  Route,
-  Star,
-} from 'lucide-react-native';
-import { useEffect, useRef } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { bottomSheetColor, tripDetailColor } from '@/constants/colors';
+import { bottomSheetColor } from '@/constants/colors';
 import { cn } from '@/lib/utils';
 
 import type { ElevationStats } from '../logic/profile';
 import type { ElevationPoint } from '../types';
 import { CHART_HEIGHT, ElevationChart } from './ElevationChart';
 
-export type SheetFactKind =
-  'elevation' | 'distance' | 'time' | 'terrain' | 'transport' | 'highlights';
-export type SheetFact = { kind: SheetFactKind; text: string };
-
-/** One itinerary entry as the sheet shows it: a chip, and a card while it is selected. */
-export type SheetEntry = {
-  /** Short, for the chip: 'Day 04', 'Section 02'. */
-  label: string;
-  title: string;
-  facts: SheetFact[];
-  /** False for an entry with no place on the map; its chip is greyed out. */
-  available: boolean;
-};
-
-/** A tour's site as its card shows it, under its day's label in the day's colour. */
-export type SheetSite = {
-  name: string;
-  line: string;
-  dayLabel: string;
-  color: string;
-};
-
-const FACT_ICONS: Record<SheetFactKind, typeof Clock> = {
-  elevation: Mountain,
-  distance: Route,
-  time: Clock,
-  terrain: Compass,
-  transport: Bus,
-  highlights: Star,
-};
-
 // The rows' heights, so the sheet's two sizes are known before it lays out: the map frames
 // its views in the space above the sheet, and can't wait for a layout pass to know it.
 /** 8 above the grab bar, then the bar's 4. */
 const HANDLE = 12;
-const CHIPS = 12 + 36 + 10;
-const STATS = 46 + 12;
-/** A rule, two title lines and a row of facts. */
-const CARD = 12 + 44 + 8 + 20 + 14;
+const STATS = 14 + 46 + 12;
 const CHART = CHART_HEIGHT + 8;
 
-/** The sheet's collapsed and expanded heights. A tour has no route, so no stats or chart. */
-export function sheetSnapPoints(
-  hasProfile: boolean,
-  bottomInset: number,
-): [number, number] {
-  const collapsed = HANDLE + CHIPS + (hasProfile ? STATS : 0) + bottomInset;
-  return [collapsed, collapsed + CARD + (hasProfile ? CHART : 0)];
+/** The sheet's collapsed and expanded heights: the route's numbers, then its chart too. */
+export function sheetSnapPoints(bottomInset: number): [number, number] {
+  const collapsed = HANDLE + STATS + bottomInset;
+  return [collapsed, collapsed + CHART];
 }
 
+/** The sheet opens pulled up, with the chart showing. */
+export const SHEET_OPEN_INDEX = 1;
+
 type MapSheetProps = {
-  entries: SheetEntry[];
-  /** The selected entry's position, highlighted and shown in the card. */
-  selected: number | null;
-  onSelect: (index: number) => void;
-  /** A tapped site, shown in the card in place of the selected entry. */
-  site: SheetSite | null;
-  /** The route's numbers, for a trek or hike. */
-  stats: ElevationStats | null;
-  profile: ElevationPoint[] | null;
-  /** The selected entry's position in `profile`, marked on the chart. */
+  stats: ElevationStats;
+  profile: ElevationPoint[];
+  /** The shown entry's position in `profile`, marked on the chart. */
   profileMarker: number | null;
+  /** What the mark says, e.g. 'Day 04'. */
+  markerLabel?: string;
   /** From sheetSnapPoints(), so the screen knows them too. */
   snapPoints: [number, number];
   /** 0 collapsed, 1 expanded. */
@@ -88,44 +40,29 @@ type MapSheetProps = {
 };
 
 /**
- * The panel under the map: a row of chips for the itinerary and the route's numbers, and
- * when pulled up, the selected entry's card and the elevation chart.
+ * The panel under a trek's or hike's map: the route's numbers, and its elevation chart. It
+ * drags from anywhere: up and down moves it, sideways on the chart scrubs the route.
  */
 export function MapSheet({
-  entries,
-  selected,
-  onSelect,
-  site,
   stats,
   profile,
   profileMarker,
+  markerLabel,
   snapPoints,
   onIndexChange,
   onScrub,
 }: MapSheetProps) {
   const insets = useSafeAreaInsets();
-  const chips = useRef<ScrollView>(null);
-  const chipX = useRef<number[]>([]);
-
-  // The selected chip scrolls into view, so a pin tapped on the map shows up in the row.
-  useEffect(() => {
-    if (selected === null) return;
-    const x = chipX.current[selected];
-    if (x !== undefined) {
-      chips.current?.scrollTo({ x: Math.max(0, x - 16), animated: true });
-    }
-  }, [selected]);
-
-  const entry = selected === null ? null : entries[selected];
 
   return (
     <BottomSheet
-      index={0}
+      index={SHEET_OPEN_INDEX}
       snapPoints={snapPoints}
       enableDynamicSizing={false}
-      // The chips scroll sideways and the chart takes drags; only the grab bar moves the sheet.
-      enableContentPanningGesture={false}
       enableOverDrag={false}
+      // Only an up-or-down drag moves the sheet, so a sideways one reaches the chart.
+      activeOffsetY={[-6, 6]}
+      failOffsetX={[-10, 10]}
       onChange={(index) => onIndexChange(index)}
       // The same look as the app's modal sheets (components/ui/bottom-sheet).
       backgroundStyle={{
@@ -141,141 +78,15 @@ export function MapSheet({
       }}
     >
       <BottomSheetView style={{ paddingBottom: insets.bottom }}>
-        <ScrollView
-          ref={chips}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            gap: 8,
-            paddingHorizontal: 16,
-            paddingTop: 12,
-            paddingBottom: 10,
-          }}
-        >
-          {entries.map((item, index) => {
-            const isSelected = index === selected;
-            return (
-              <Pressable
-                key={index}
-                disabled={!item.available}
-                accessibilityRole="button"
-                accessibilityLabel={`${item.label}, ${item.title}`}
-                accessibilityState={{
-                  selected: isSelected,
-                  disabled: !item.available,
-                }}
-                onPress={() => onSelect(index)}
-                onLayout={(event) => {
-                  chipX.current[index] = event.nativeEvent.layout.x;
-                }}
-                className={cn(
-                  'h-[36px] justify-center rounded-[8px] border px-[14px]',
-                  isSelected
-                    ? 'border-primary bg-primary'
-                    : 'border-border bg-surface',
-                  !item.available && 'opacity-40',
-                )}
-              >
-                <Text
-                  numberOfLines={1}
-                  className={cn(
-                    'font-poppins-semibold text-[13px] leading-[18px]',
-                    isSelected ? 'text-surface' : 'text-ink',
-                  )}
-                >
-                  {item.label}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-
-        {stats ? <StatsRow stats={stats} /> : null}
-
-        {site ? (
-          // The web's site popup: the name over its one line, here with the day it belongs to.
-          <View
-            className="mx-[16px] border-t border-border pt-[12px]"
-            style={{ height: CARD }}
-          >
-            <View className="flex-row items-center gap-[6px]">
-              <View
-                className="h-[8px] w-[8px] rounded-full"
-                style={{ backgroundColor: site.color }}
-              />
-              <Text className="font-poppins-medium text-[11px] leading-[16px] text-muted">
-                {site.dayLabel}
-              </Text>
-            </View>
-            <Text
-              numberOfLines={1}
-              className="mt-[2px] font-poppins-semibold text-[15px] leading-[22px] text-ink"
-            >
-              {site.name}
-            </Text>
-            <Text
-              numberOfLines={2}
-              className="mt-[4px] font-poppins text-[12px] leading-[17px] text-muted"
-            >
-              {site.line}
-            </Text>
-          </View>
-        ) : entry ? (
-          <View
-            className="mx-[16px] border-t border-border pt-[12px]"
-            style={{ height: CARD }}
-          >
-            <Text
-              numberOfLines={2}
-              className="font-poppins-semibold text-[15px] leading-[22px] text-ink"
-            >
-              {entry.label} · {entry.title}
-            </Text>
-            <View className="mt-[8px] flex-row flex-wrap gap-x-[14px] gap-y-[4px]">
-              {entry.facts.map((fact) => {
-                const Icon = FACT_ICONS[fact.kind];
-                return (
-                  <View
-                    key={fact.kind}
-                    className="max-w-full flex-row items-center gap-[5px]"
-                  >
-                    <Icon
-                      size={14}
-                      strokeWidth={2}
-                      color={tripDetailColor.icon}
-                    />
-                    <Text
-                      numberOfLines={1}
-                      className="shrink font-poppins-medium text-[11px] leading-[16px] text-ink"
-                    >
-                      {fact.text}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-          </View>
-        ) : (
-          <View
-            className="mx-[16px] justify-center border-t border-border"
-            style={{ height: CARD }}
-          >
-            <Text className="font-poppins text-[13px] leading-[18px] text-muted">
-              Tap a day or a pin to see it here.
-            </Text>
-          </View>
-        )}
-
-        {profile ? (
-          <View className="px-[10px] pb-[8px]">
-            <ElevationChart
-              points={profile}
-              marker={profileMarker}
-              markerLabel={entry?.label}
-              onScrub={onScrub}
-            />
-          </View>
-        ) : null}
+        <StatsRow stats={stats} />
+        <View className="px-[10px] pb-[8px]">
+          <ElevationChart
+            points={profile}
+            marker={profileMarker}
+            markerLabel={markerLabel}
+            onScrub={onScrub}
+          />
+        </View>
       </BottomSheetView>
     </BottomSheet>
   );
@@ -286,7 +97,7 @@ const metres = (m: number) => `${Math.round(m).toLocaleString('en-US')} m`;
 /** The web's elevation panel numbers: distance, highest point, and total ascent and descent. */
 function StatsRow({ stats }: { stats: ElevationStats }) {
   return (
-    <View className="mx-[16px] mb-[12px] h-[46px] flex-row items-center rounded-[10px] bg-field px-[4px]">
+    <View className="mx-[16px] mb-[12px] mt-[14px] h-[46px] flex-row items-center rounded-[10px] bg-field px-[4px]">
       <Stat label="Distance" value={`${stats.km.toFixed(1)} km`} />
       <Rule />
       <Stat label="Max elev" value={metres(stats.maxM)} />

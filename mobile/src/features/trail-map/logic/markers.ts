@@ -44,9 +44,10 @@ export type PinGroup = {
 };
 
 /**
- * The pins to draw, one per spot. Out-and-back and one-way trails pin their outbound days,
- * up to and including the destination: the way back passes the same places. A loop's way
- * back is a different path, so it pins every stop on the trail instead.
+ * The pins to draw, one per spot, as the web draws them. Out-and-back and one-way trails
+ * pin their outbound days, up to and including the destination: the way back passes the
+ * same places, and the drive home sits far off the trail, so those days have no pin. A
+ * loop's way back is a different path, so it pins every stop on the trail instead.
  */
 export function pinGroups(stops: MapStop[], line: LngLat[]): PinGroup[] {
   const loop = isLoop(line);
@@ -93,19 +94,9 @@ export function pinGroups(stops: MapStop[], line: LngLat[]): PinGroup[] {
   });
 }
 
-/**
- * The pin that marks a stop: its own, or for a stop without one, like a day on the way
- * back, the pin at the same spot. Undefined when no pin is there.
- */
-export function pinFor(
-  groups: PinGroup[],
-  stop: number,
-  point: LngLat,
-): PinGroup | undefined {
-  return (
-    groups.find((group) => group.stops.includes(stop)) ??
-    groups.find((group) => metersBetween(group.lngLat, point) < SAME_SPOT_M)
-  );
+/** The pin that marks a stop. Undefined for a stop the map doesn't pin. */
+export function pinFor(groups: PinGroup[], stop: number): PinGroup | undefined {
+  return groups.find((group) => group.stops.includes(stop));
 }
 
 /**

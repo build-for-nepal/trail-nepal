@@ -1,5 +1,6 @@
 import {
   LAYERS,
+  LAYER_KEYS,
   ROUTE_ATTRIBUTION,
   TILE_MAX_ZOOM,
   TRAIL_GREEN,
@@ -7,28 +8,46 @@ import {
 import type { LayerKey } from './constants';
 import type { AccessLeg, LngLat } from './types';
 
+/** The source, and its one layer, that draws a base layer's tiles. */
+export const baseSourceId = (key: LayerKey) => `base-${key}`;
+
 /**
- * The map's style: the chosen base layer under the route, drawn as on the web (a white
- * casing under a green line), with the journey to the trailhead as dashed white arcs
- * beneath it. A whole style rather than separate source components, the way the web builds
- * its map. A tour has no route, so its route source stays empty.
+ * The map's style: every base layer, `layer` the one showing, under the route, drawn as on
+ * the web (a white casing under a green line), with the journey to the trailhead as dashed
+ * white arcs beneath it. A whole style rather than separate source components, the way the
+ * web builds its map. A tour has no route, so its route source stays empty.
+ *
+ * A changed style reloads the whole map, pins and all, so it doesn't change with the
+ * layer: the map shows another base layer by visibility (see NativeTrailMap). A hidden
+ * layer loads no tiles. As a JSON string, which the map takes as is.
  */
 export function mapStyle(
   layer: LayerKey,
   line: LngLat[],
   access: AccessLeg[] = [],
-) {
-  const base = LAYERS[layer];
-  return {
-    version: 8 as const,
-    sources: {
-      base: {
+): string {
+  const baseSources = Object.fromEntries(
+    LAYER_KEYS.map((key) => [
+      baseSourceId(key),
+      {
         type: 'raster' as const,
-        tiles: base.tiles,
+        tiles: LAYERS[key].tiles,
         tileSize: 256,
         maxzoom: TILE_MAX_ZOOM,
-        attribution: base.attribution,
+        attribution: LAYERS[key].attribution,
       },
+    ]),
+  );
+  const baseLayers = LAYER_KEYS.map((key) => ({
+    id: baseSourceId(key),
+    type: 'raster' as const,
+    source: baseSourceId(key),
+    layout: { visibility: key === layer ? 'visible' : 'none' },
+  }));
+  return JSON.stringify({
+    version: 8 as const,
+    sources: {
+      ...baseSources,
       access: {
         type: 'geojson' as const,
         data: {
@@ -63,7 +82,7 @@ export function mapStyle(
       },
     },
     layers: [
-      { id: 'base', type: 'raster' as const, source: 'base' },
+      ...baseLayers,
       {
         id: 'access',
         type: 'line' as const,
@@ -95,5 +114,5 @@ export function mapStyle(
         layout: { 'line-cap': 'round' as const, 'line-join': 'round' as const },
       },
     ],
-  };
+  });
 }

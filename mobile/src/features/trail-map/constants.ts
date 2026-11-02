@@ -32,6 +32,11 @@ export const LAYERS: Readonly<
   },
 };
 
+export const LAYER_KEYS = Object.keys(LAYERS) as LayerKey[];
+
+/** What a map opens on: shaded relief with trails and villages, readable at a glance. */
+export const DEFAULT_LAYER: LayerKey = 'terrain';
+
 /** Esri's imagery has no tiles past zoom 17 in Nepal, so the map stretches zoom 17 beyond it. */
 export const TILE_MAX_ZOOM = 17;
 export const MIN_ZOOM = 6;
