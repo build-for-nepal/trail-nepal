@@ -1,8 +1,8 @@
 import type { TripType } from '@/features/explore';
 import { TriviaGameScreen, triviaName, tripQuestions } from '@/features/trivia';
+import { useGoBack } from '@/hooks/useGoBack';
 
 import { getTripDetail } from '../data';
-import { useGoBack } from '../hooks/useGoBack';
 import { TripNotFound } from './TripNotFound';
 
 type TripTriviaScreenProps = {

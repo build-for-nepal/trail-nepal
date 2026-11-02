@@ -2,8 +2,7 @@ import { Mountain } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
 import { tripDetailColor } from '@/constants/colors';
-
-import { useGoBack } from '../hooks/useGoBack';
+import { useGoBack } from '@/hooks/useGoBack';
 
 export function TripNotFound() {
   const goBack = useGoBack();

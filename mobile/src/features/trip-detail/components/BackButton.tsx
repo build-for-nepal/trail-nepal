@@ -4,8 +4,8 @@ import type { ViewStyle } from 'react-native';
 import Animated, { type AnimatedStyle } from 'react-native-reanimated';
 
 import { tripDetailColor } from '@/constants/colors';
+import { useGoBack } from '@/hooks/useGoBack';
 
-import { useGoBack } from '../hooks/useGoBack';
 import { shadows } from '../styles';
 
 type BackButtonProps = {

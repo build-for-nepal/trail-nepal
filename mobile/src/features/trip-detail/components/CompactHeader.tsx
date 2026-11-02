@@ -5,8 +5,7 @@ import Animated, { type AnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { tripDetailColor } from '@/constants/colors';
-
-import { useGoBack } from '../hooks/useGoBack';
+import { useGoBack } from '@/hooks/useGoBack';
 
 type CompactHeaderProps = {
   title: string;

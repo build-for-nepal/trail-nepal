@@ -26,9 +26,9 @@ import type {
   ElevationPoint,
   TrailMapData,
 } from '@/features/trail-map/types';
+import { useGoBack } from '@/hooks/useGoBack';
 
 import { getTripDetail } from '../data';
-import { useGoBack } from '../hooks/useGoBack';
 import { tripMapData } from '../tripMap';
 import type { TripDetail } from '../types';
 import { TripNotFound } from './TripNotFound';
