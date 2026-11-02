@@ -78,3 +78,14 @@ export const forecastColor = {
 export const mapControlColor = {
   icon: '#0C1B16',
 } as const;
+
+// The trivia game's icons, and the wash behind its explanation. The tick is ink on the
+// right-answer tile (bg-trivia-right-tile), 8.7:1, where the web's white is 2.1:1; the
+// cross stays white on the red, 3.6:1. The web blurs the game behind the explanation, and
+// React Native can't blur a view, so a light wash stands in.
+export const triviaColor = {
+  icon: '#0C1B16',
+  tick: '#0C1B16',
+  cross: '#FFFFFF',
+  scrim: 'rgba(255, 255, 255, 0.45)',
+} as const;

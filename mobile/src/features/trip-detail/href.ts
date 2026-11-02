@@ -14,6 +14,18 @@ export function packingHref(type: PackableType, id: string): Href {
   }
 }
 
+/** The trip's trivia game, e.g. /treks/ebc-trek/trivia. */
+export function triviaHref(type: TripType, id: string): Href {
+  switch (type) {
+    case 'trek':
+      return { pathname: '/treks/[id]/trivia', params: { id } };
+    case 'hike':
+      return { pathname: '/hikes/[id]/trivia', params: { id } };
+    case 'cultural':
+      return { pathname: '/cultural-tours/[id]/trivia', params: { id } };
+  }
+}
+
 /**
  * The trip's full-screen map, e.g. /treks/ebc-trek/map. With `day`, a position in the
  * itinerary, it opens on that entry: /treks/ebc-trek/map?day=3 opens on the fourth.

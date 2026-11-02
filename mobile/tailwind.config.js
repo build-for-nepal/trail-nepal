@@ -41,6 +41,24 @@ module.exports = {
           heavy: '#B45309',
           over: '#DC2626',
         },
+        // The trivia game's sky and answer states. Fills and borders are the web's; its
+        // green and red text on the sky (#5F7C0D 3.6:1, #EB542D 2.7:1) fail AA, so text
+        // takes the -text shades, 4.6:1 and 4.9:1. Buttons are bg-brand with ink text,
+        // since white on the web's #88B112 is 2.5:1.
+        trivia: {
+          sky: '#BDE4FA',
+          right: '#88B112',
+          'right-tile': '#9BC331',
+          'right-tint': '#F3F7E7',
+          'right-text': '#4A6B00',
+          wrong: '#EB542D',
+          'wrong-tint': '#FFF0ED',
+          'wrong-text': '#A8361A',
+          // "OOPS" and the explanation's copy, 5.9:1 on the sky; muted is 4.4:1 there.
+          slate: '#40545A',
+          // Questions not reached yet, on the progress bar.
+          pending: '#9CA3AF',
+        },
       },
       // One family per weight: don't add font-bold or font-medium on top.
       fontFamily: {

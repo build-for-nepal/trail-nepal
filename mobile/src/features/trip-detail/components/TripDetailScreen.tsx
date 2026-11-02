@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TRIPS } from '@/features/explore';
 import type { TripType } from '@/features/explore';
+import { TriviaIntroCard, triviaName } from '@/features/trivia';
 
 import {
   getForecastLocations,
@@ -28,6 +29,7 @@ import {
   overviewTitle,
   tripFactRows,
 } from '../facts';
+import { triviaHref } from '../href';
 import { BackButton } from './BackButton';
 import { BAR_HEIGHT, CompactHeader } from './CompactHeader';
 import { DetailHero } from './DetailHero';
@@ -136,6 +138,11 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             />
           ) : null}
           <GallerySection images={getGalleryImages(trip.id) ?? []} />
+          {/* Last, as on the web, for every kind of trip. */}
+          <TriviaIntroCard
+            name={triviaName(detail.name, trip.id)}
+            href={triviaHref(type, trip.id)}
+          />
         </View>
       </ScrollView>
 
