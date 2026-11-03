@@ -3,7 +3,7 @@ import Footer from '@/components/layout/footer/Footer';
 
 export default function PlanMyTripPage() {
   return (
-    <main className="w-full flex flex-col bg-gray-100">
+    <main className="flex w-full flex-col overflow-x-clip bg-[#EBF0F8]">
       <PlanMyTripContent />
       <Footer />
     </main>
