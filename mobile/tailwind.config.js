@@ -61,6 +61,50 @@ module.exports = {
           // Questions not reached yet, on the progress bar.
           pending: '#9CA3AF',
         },
+        // Altitude & Safety, from the web's altitudeSickness components. Where the web's
+        // colour fails AA, a darker shade stands in: mild and moderate icon circles
+        // (#22C55E 2.3:1, #EAB308 1.9:1 under white), the low and moderate risk badges
+        // (#22C55E 2.3:1, #3B82F6 3.7:1 on white) and the grey contact labels (#6B7280,
+        // #9CA3AF), which take muted.
+        altitude: {
+          panel: '#EBF0F8',
+          card: '#3E6DB5',
+          label: '#30628A',
+          body: '#434843',
+          tip: '#4B5563',
+          link: '#376BB6',
+          name: '#2D2F27',
+          detail: '#606359',
+          emergency: '#B11F12',
+          helicopter: '#2E3028',
+          mild: {
+            tint: '#F0FDF4',
+            edge: '#BBF7D0',
+            title: '#14532D',
+            text: '#166534',
+            icon: '#16A34A',
+          },
+          moderate: {
+            tint: '#FEFCE8',
+            edge: '#FEF08A',
+            title: '#713F12',
+            text: '#854D0E',
+            icon: '#A16207',
+          },
+          severe: {
+            tint: '#FEF2F2',
+            edge: '#FECACA',
+            title: '#7F1D1D',
+            text: '#991B1B',
+            icon: '#EF4444',
+          },
+          risk: {
+            low: '#15803D',
+            moderate: '#2563EB',
+            high: '#B12013',
+            extreme: '#B11F12',
+          },
+        },
       },
       // One family per weight: don't add font-bold or font-medium on top.
       fontFamily: {

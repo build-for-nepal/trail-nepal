@@ -29,6 +29,7 @@ import {
   overviewTitle,
   tripFactRows,
 } from '../facts';
+import { AltitudeSection } from './AltitudeSection';
 import { BackButton } from './BackButton';
 import { BAR_HEIGHT, CompactHeader } from './CompactHeader';
 import { DetailHero } from './DetailHero';
@@ -128,6 +129,14 @@ export function TripDetailScreen({ type, id }: TripDetailScreenProps) {
             forecastLocations={getForecastLocations(trip.id)}
           />
           <ExpectSection expectations={detail.expectations} />
+          {/* Treks only, between What to Expect and the gear checklist, as on the web. */}
+          {detail.type === 'trek' ? (
+            <AltitudeSection
+              id={trip.id}
+              name={detail.name.split(' (')[0]}
+              maxElevation={detail.meta.maxElevation}
+            />
+          ) : null}
           {/* Where the web puts its gear checklist. Cultural tours have none. */}
           {detail.type !== 'cultural' ? (
             <PackingSection

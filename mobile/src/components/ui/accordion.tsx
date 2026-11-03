@@ -27,7 +27,7 @@ function RailIcon({ index, count }: { index: number; count: number }) {
   return <View className="h-[10px] w-[10px] rounded-full bg-[#376BB6]" />;
 }
 
-function ChevronAnimated({ open }: { open: boolean }) {
+export function ChevronAnimated({ open }: { open: boolean }) {
   const rotation = useSharedValue(open ? 180 : 0);
 
   useEffect(() => {

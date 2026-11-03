@@ -93,3 +93,18 @@ export const triviaColor = {
   // The web's confetti, in its order.
   confetti: ['#88B112', '#EE5A63', '#376BB6', '#FFCC49'],
 } as const;
+
+// Altitude & Safety's icons and the risk dot, which take colours as props. tailwind.config.js
+// has the same values as the altitude tokens; keep the two in step. The chevron is muted,
+// 5.2:1 on the panel, where the web's gray-400 is 2.2:1.
+export const altitudeColor = {
+  onDark: '#FFFFFF',
+  tip: '#3B82F6',
+  chevron: '#55685F',
+  risk: {
+    low: '#15803D',
+    moderate: '#2563EB',
+    high: '#B12013',
+    extreme: '#B11F12',
+  },
+} as const;

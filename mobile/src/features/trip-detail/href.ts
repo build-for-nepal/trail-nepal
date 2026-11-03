@@ -14,6 +14,11 @@ export function packingHref(type: PackableType, id: string): Href {
   }
 }
 
+/** A trek's Altitude & Safety screen, e.g. /treks/ebc-trek/safety. Treks only, as on the web. */
+export function safetyHref(id: string): Href {
+  return { pathname: '/treks/[id]/safety', params: { id } };
+}
+
 /**
  * The trip's full-screen map, e.g. /treks/ebc-trek/map. With `day`, a position in the
  * itinerary, it opens on that entry: /treks/ebc-trek/map?day=3 opens on the fourth.
