@@ -39,12 +39,7 @@ export function AnimatedFormMessage({ className }: { className?: string }) {
         body ? 'grid-rows-[1fr]' : '-mt-2 grid-rows-[0fr]',
       )}
     >
-      <p
-        className={cn(
-          'overflow-hidden text-sm text-destructive',
-          className,
-        )}
-      >
+      <p className={cn('overflow-hidden text-sm text-destructive', className)}>
         {body}
       </p>
     </div>
@@ -271,56 +266,6 @@ export function SwitchField<T extends FieldValues>({
               className={ACCENT_SWITCH}
             />
           </FormControl>
-        </FormItem>
-      )}
-    />
-  );
-}
-
-export function JsonField<T extends FieldValues>({
-  name,
-  label: labelText,
-  description,
-  placeholder = '{}',
-  rows = 3,
-  mono = false,
-  className,
-}: {
-  name: Path<T>;
-  label: string;
-  description?: string;
-  placeholder?: string;
-  rows?: number;
-  mono?: boolean;
-  className?: string;
-}) {
-  return (
-    <FormField
-      name={name}
-      render={({ field }: FieldRenderProps<T>) => (
-        <FormItem className={className}>
-          <FormLabel>{labelText}</FormLabel>
-          <FormControl>
-            <Textarea
-              rows={rows}
-              placeholder={placeholder}
-              className={cn(
-                'resize-y',
-                mono
-                  ? 'font-mono text-xs leading-relaxed'
-                  : 'font-mono text-xs',
-                FIELD_FOCUS,
-              )}
-              spellCheck={false}
-              {...field}
-            />
-          </FormControl>
-          {description ? (
-            <FormDescription>{description}</FormDescription>
-          ) : (
-            <FormDescription>Raw JSON — leave empty to unset</FormDescription>
-          )}
-          <AnimatedFormMessage />
         </FormItem>
       )}
     />
