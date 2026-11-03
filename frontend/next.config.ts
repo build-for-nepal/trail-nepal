@@ -1,15 +1,15 @@
 import type { NextConfig } from 'next';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  basePath,
   turbopack: {
     rules: {
       '*.svg': {
         condition: {
-          all: [
-            { not: 'foreign' },
-            { path: /^src\/assets\/trivia\/.*\.svg$/ },
-          ],
+          all: [{ not: 'foreign' }, { path: /^src\/assets\/trivia\/.*\.svg$/ }],
         },
         loaders: ['@svgr/webpack'],
         as: '*.js',
