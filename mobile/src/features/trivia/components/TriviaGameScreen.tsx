@@ -10,7 +10,13 @@ import {
   View,
 } from 'react-native';
 import type { LayoutChangeEvent } from 'react-native';
-import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
+import Animated, {
+  Easing,
+  FadeIn,
+  Keyframe,
+  LinearTransition,
+  SlideInDown,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { triviaColor } from '@/constants/colors';
@@ -22,6 +28,26 @@ import { ANSWER_LETTERS, resultMessage, ROUND_SIZE } from '../round';
 import { TriviaBackButton } from './TriviaBackButton';
 import { TriviaButton } from './TriviaButton';
 import { SCENE_FOOT, TriviaScene } from './TriviaScene';
+
+// TrekTrivia.module.css's entrances, all on its cubic-bezier(0.22, 0.75, 0.3, 1). Layout
+// animations skip themselves under Reduce Motion, as the web's do.
+const ENTER_EASE = Easing.bezier(0.22, 0.75, 0.3, 1);
+/** scene-enter: each question rises 12 px into place as it fades in. */
+const SCENE_ENTER = new Keyframe({
+  0: { opacity: 0, transform: [{ translateY: 12 }] },
+  100: { opacity: 1, transform: [{ translateY: 0 }], easing: ENTER_EASE },
+}).duration(480);
+/** feedback-enter: "Correct!" and "OOPS, WRONG ONE" pop in. */
+const FEEDBACK_ENTER = new Keyframe({
+  0: { opacity: 0, transform: [{ translateY: 5 }, { scale: 0.94 }] },
+  100: {
+    opacity: 1,
+    transform: [{ translateY: 0 }, { scale: 1 }],
+    easing: ENTER_EASE,
+  },
+}).duration(360);
+/** The question block's glide to its new centre when the feedback or explanation shows. */
+const RECENTRE = LinearTransition.duration(300).easing(ENTER_EASE);
 
 type TriviaGameScreenProps = {
   /** What the trivia is called, from triviaName(): 'Everest', 'Lumbini'. */
@@ -80,11 +106,13 @@ export function TriviaGameScreen({
   return (
     <View className="flex-1 bg-trivia-sky">
       <StatusBar style="dark" />
-      <TriviaScene flag={game.screen !== 'intro'} />
+      <TriviaScene stage={game.screen === 'result' ? 'result' : 'question'} />
 
       <ScrollView
         ref={scroll}
         contentContainerStyle={{
+          // At least the screen's height, so the content can sit centred in the sky.
+          flexGrow: 1,
           paddingTop: insets.top + 8,
           // Clear of Himal and the hills, or of the explanation while it shows.
           paddingBottom: explaining ? panelHeight + 16 : SCENE_FOOT + 24,
@@ -95,19 +123,26 @@ export function TriviaGameScreen({
         </View>
 
         {game.screen === 'question' && question ? (
-          <QuestionView
-            name={name}
-            question={question}
-            index={game.index}
-            results={game.results}
-            selected={game.selected}
-            wrong={game.isWrong}
-            onChoose={choose}
-          />
+          // A new view per question, so each one rises in as the web's does.
+          <Animated.View
+            key={game.index}
+            entering={SCENE_ENTER}
+            style={{ flex: 1 }}
+          >
+            <QuestionView
+              name={name}
+              question={question}
+              index={game.index}
+              results={game.results}
+              selected={game.selected}
+              wrong={game.isWrong}
+              onChoose={choose}
+            />
+          </Animated.View>
         ) : null}
 
         {game.screen === 'result' ? (
-          <View className="items-center px-[18px] pt-[40px]">
+          <View className="flex-1 items-center justify-center px-[18px] py-[24px]">
             <Text className="text-center font-poppins-semibold text-[13px] leading-[18px] tracking-[2.6px] text-trivia-right-text">
               {name} Trivia complete
             </Text>
@@ -143,7 +178,7 @@ export function TriviaGameScreen({
             ]}
           />
           <Animated.View
-            entering={SlideInDown.duration(460)}
+            entering={SlideInDown.duration(460).easing(ENTER_EASE)}
             style={styles.panelFrame}
           >
             <View
@@ -210,7 +245,7 @@ function QuestionView({
   const answered = selected !== null;
 
   return (
-    <View className="px-[18px] pt-[16px]">
+    <View className="flex-1 px-[18px] pt-[16px]">
       <Text className="font-fraunces text-[24px] leading-[30px] text-trivia-right-text">
         {name} Trivia
       </Text>
@@ -240,49 +275,62 @@ function QuestionView({
         ))}
       </View>
 
-      <View
-        className={cn(
-          'items-center justify-center',
-          wrong ? 'mt-[12px] min-h-[48px]' : 'mt-[28px] min-h-[64px]',
-        )}
-      >
-        {wrong ? (
-          <Text className="text-center font-poppins-semibold text-[24px] leading-[32px] text-trivia-slate">
-            OOPS, <Text className="text-trivia-wrong-text">WRONG ONE</Text>
-          </Text>
-        ) : answered ? (
-          <Text className="text-center font-poppins-semibold text-[20px] leading-[28px] text-trivia-right-text">
-            Correct!
-          </Text>
-        ) : (
-          <Text
-            accessibilityRole="header"
-            className="text-center font-poppins-semibold text-[20px] leading-[28px] text-ink"
+      {/* The question and its answers sit centred in the sky between the progress bar and
+          the hills, and glide to their new place as the feedback or explanation changes it. */}
+      <View className="flex-1 justify-center py-[24px]">
+        <Animated.View layout={RECENTRE}>
+          <View
+            className={cn(
+              'items-center justify-center',
+              wrong ? 'min-h-[48px]' : 'min-h-[64px]',
+            )}
           >
-            {question.question}
-          </Text>
-        )}
-      </View>
+            {wrong ? (
+              <Animated.View entering={FEEDBACK_ENTER}>
+                <Text className="text-center font-poppins-semibold text-[24px] leading-[32px] text-trivia-slate">
+                  OOPS,{' '}
+                  <Text className="text-trivia-wrong-text">WRONG ONE</Text>
+                </Text>
+              </Animated.View>
+            ) : answered ? (
+              <Animated.View entering={FEEDBACK_ENTER}>
+                <Text className="text-center font-poppins-semibold text-[20px] leading-[28px] text-trivia-right-text">
+                  Correct!
+                </Text>
+              </Animated.View>
+            ) : (
+              <Text
+                accessibilityRole="header"
+                className="text-center font-poppins-semibold text-[20px] leading-[28px] text-ink"
+              >
+                {question.question}
+              </Text>
+            )}
+          </View>
 
-      <View className={wrong ? 'mt-[12px] gap-[8px]' : 'mt-[24px] gap-[12px]'}>
-        {question.answers.map((answer, position) => (
-          <AnswerOption
-            key={answer}
-            letter={ANSWER_LETTERS[position]}
-            answer={answer}
-            state={
-              answered && position === question.correctAnswer
-                ? 'right'
-                : selected === position
-                  ? 'wrong'
-                  : 'idle'
-            }
-            chosen={selected === position}
-            disabled={answered}
-            compact={wrong}
-            onPress={() => onChoose(position)}
-          />
-        ))}
+          <View
+            className={wrong ? 'mt-[12px] gap-[8px]' : 'mt-[24px] gap-[12px]'}
+          >
+            {question.answers.map((answer, position) => (
+              <AnswerOption
+                key={answer}
+                letter={ANSWER_LETTERS[position]}
+                answer={answer}
+                state={
+                  answered && position === question.correctAnswer
+                    ? 'right'
+                    : selected === position
+                      ? 'wrong'
+                      : 'idle'
+                }
+                chosen={selected === position}
+                disabled={answered}
+                compact={wrong}
+                onPress={() => onChoose(position)}
+              />
+            ))}
+          </View>
+        </Animated.View>
       </View>
     </View>
   );

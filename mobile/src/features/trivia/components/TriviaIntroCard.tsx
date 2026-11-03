@@ -23,7 +23,7 @@ export function TriviaIntroCard({ name, href }: TriviaIntroCardProps) {
       className="overflow-hidden rounded-[16px] bg-trivia-sky"
       style={styles.card}
     >
-      <TriviaScene />
+      <TriviaScene stage="intro" />
 
       <View
         className="items-center px-[24px] pt-[28px]"

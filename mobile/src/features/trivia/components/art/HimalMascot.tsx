@@ -1,9 +1,23 @@
-import Svg, { Path } from 'react-native-svg';
+import type { ReactNode } from 'react';
+import Animated, { useAnimatedProps } from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
+import Svg, { G, Path } from 'react-native-svg';
+import type { GProps } from 'react-native-svg';
 
 import type { ArtProps } from './types';
 
+const AnimatedG = Animated.createAnimatedComponent(G);
+
+/** Where the web's CSS turns the leaves (.himal-leaf's transform-origin), in the drawing's units. */
+const LEAF_PIVOT = { x: 278, y: 89 };
+
+type HimalMascotProps = ArtProps & {
+  /** The leaves' turn, in degrees. Without it they stay still. */
+  leafAngle?: SharedValue<number>;
+};
+
 /** Himal, the mascot who walks the route. From frontend/src/assets/trivia/himal_mascot.svg, as drawn. */
-export function HimalMascot({ width, ...props }: ArtProps) {
+export function HimalMascot({ width, leafAngle, ...props }: HimalMascotProps) {
   return (
     <Svg
       viewBox="0 0 501 456"
@@ -172,25 +186,31 @@ export function HimalMascot({ width, ...props }: ArtProps) {
         d="M100.353 223.258C103.1 222.921 109.043 222.988 112.03 222.977C112.005 224.505 111.918 225.844 112.224 227.345C107.517 237.907 103.51 247.999 100.415 259.181C99.0142 259.838 93.4564 262.742 92.4035 262.582L91.751 261.893C92.3872 260.658 94.3326 251.331 94.9846 249.107C97.6795 240.173 101.269 231.534 105.697 223.318C103.832 223.344 102.213 223.346 100.353 223.258Z"
         fill="#EF9C0D"
       />
-      {/* A leaf: swayed by the web's CSS. */}
-      <Path
-        d="M275.156 71.6461C258.687 70.4743 243.866 64.6452 232.748 52.0061C224.306 42.4097 218.901 29.2886 219.353 16.386C219.661 7.57436 228.307 8.56861 234.766 9.40671C257.295 12.3304 275.855 27.1021 281.36 49.5246C282.562 47.3423 283.895 44.831 285.289 42.7943C293.114 31.5585 304.597 23.3803 317.78 19.6527C322.923 18.1766 340.648 14.6475 342.431 22.3677C343.909 28.759 339.68 38.8798 336.357 44.2677C328.086 57.9388 314.886 66.7404 299.439 70.3743C292.838 71.9274 289.008 71.9436 282.412 72.0175C281.289 79.6856 280.276 84.1981 278.202 91.7448L271.941 87.2742C273.377 82.1464 274.451 76.9242 275.156 71.6461Z"
-        fill="#021D1A"
-      />
-      {/* A leaf: swayed by the web's CSS. */}
-      <Path
-        d="M226.143 15.6184C226.84 15.5938 227.538 15.5863 228.236 15.5957C240.917 15.7505 254.884 21.1563 263.508 30.4579C273.279 40.9983 276.277 51.2203 276.003 65.0836C275.836 65.0822 275.666 65.078 275.496 65.0711C261.488 64.4219 247.692 58.6844 238.36 48.0815C230.793 39.4839 225.463 27.1795 226.143 15.6184Z"
-        fill="#4D993C"
-      />
+      {/* A leaf: swayed, as the web's CSS sways it. */}
+      <Leaf angle={leafAngle}>
+        <Path
+          d="M275.156 71.6461C258.687 70.4743 243.866 64.6452 232.748 52.0061C224.306 42.4097 218.901 29.2886 219.353 16.386C219.661 7.57436 228.307 8.56861 234.766 9.40671C257.295 12.3304 275.855 27.1021 281.36 49.5246C282.562 47.3423 283.895 44.831 285.289 42.7943C293.114 31.5585 304.597 23.3803 317.78 19.6527C322.923 18.1766 340.648 14.6475 342.431 22.3677C343.909 28.759 339.68 38.8798 336.357 44.2677C328.086 57.9388 314.886 66.7404 299.439 70.3743C292.838 71.9274 289.008 71.9436 282.412 72.0175C281.289 79.6856 280.276 84.1981 278.202 91.7448L271.941 87.2742C273.377 82.1464 274.451 76.9242 275.156 71.6461Z"
+          fill="#021D1A"
+        />
+      </Leaf>
+      {/* A leaf: swayed, as the web's CSS sways it. */}
+      <Leaf angle={leafAngle}>
+        <Path
+          d="M226.143 15.6184C226.84 15.5938 227.538 15.5863 228.236 15.5957C240.917 15.7505 254.884 21.1563 263.508 30.4579C273.279 40.9983 276.277 51.2203 276.003 65.0836C275.836 65.0822 275.666 65.078 275.496 65.0711C261.488 64.4219 247.692 58.6844 238.36 48.0815C230.793 39.4839 225.463 27.1795 226.143 15.6184Z"
+          fill="#4D993C"
+        />
+      </Leaf>
       <Path
         d="M123.592 212.927C147.108 243.371 179.764 267.414 216.583 279.093C215.871 283.274 215.56 287.207 215.349 291.437L212.533 290.467C204.011 287.657 195.67 284.322 187.559 280.486C164.145 269.498 143.134 253.999 125.734 234.878C123.916 232.844 119.568 228.092 118.699 225.811C117.864 223.618 122.364 215.253 123.592 212.927Z"
         fill="#F1632A"
       />
-      {/* A leaf: swayed by the web's CSS. */}
-      <Path
-        d="M329.913 24.3181C331.795 24.1301 334.079 24.4019 335.975 24.6038C335.588 32.5688 331.192 41.0027 326.137 46.9919C316.913 57.9254 304.014 63.9762 289.91 65.2861C287.363 65.5034 285.617 65.5179 283.087 65.4972C284.634 56.9681 288.412 48.9995 294.036 42.4C303.297 31.4156 315.718 25.5378 329.913 24.3181Z"
-        fill="#4D993C"
-      />
+      {/* A leaf: swayed, as the web's CSS sways it. */}
+      <Leaf angle={leafAngle}>
+        <Path
+          d="M329.913 24.3181C331.795 24.1301 334.079 24.4019 335.975 24.6038C335.588 32.5688 331.192 41.0027 326.137 46.9919C316.913 57.9254 304.014 63.9762 289.91 65.2861C287.363 65.5034 285.617 65.5179 283.087 65.4972C284.634 56.9681 288.412 48.9995 294.036 42.4C303.297 31.4156 315.718 25.5378 329.913 24.3181Z"
+          fill="#4D993C"
+        />
+      </Leaf>
       <Path
         d="M367.594 236.283C369.02 237.722 371.612 246.693 372.203 249.053C371.646 250.886 370.57 252.532 369.309 253.967C353.591 271.875 331.135 283.419 309.122 291.303L305.885 292.399C305.91 288.345 305.691 284.167 305.528 280.109C326.94 272.953 355.934 256.379 367.594 236.283Z"
         fill="#F1632A"
@@ -237,4 +257,42 @@ export function HimalMascot({ width, ...props }: ArtProps) {
       />
     </Svg>
   );
+}
+
+/** A leaf, turned about the pivot by `angle`, or left as drawn without one. */
+function Leaf({
+  angle,
+  children,
+}: {
+  angle?: SharedValue<number>;
+  children: ReactNode;
+}) {
+  return angle ? <TurningLeaf angle={angle}>{children}</TurningLeaf> : children;
+}
+
+function TurningLeaf({
+  angle,
+  children,
+}: {
+  angle: SharedValue<number>;
+  children: ReactNode;
+}) {
+  // A rotation about the pivot, as the SVG matrix the native group takes.
+  const turned = useAnimatedProps<GProps & { matrix: number[] }>(() => {
+    const radians = (angle.get() * Math.PI) / 180;
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+    const { x, y } = LEAF_PIVOT;
+    return {
+      matrix: [
+        cos,
+        sin,
+        -sin,
+        cos,
+        x - cos * x + sin * y,
+        y - sin * x - cos * y,
+      ],
+    };
+  });
+  return <AnimatedG animatedProps={turned}>{children}</AnimatedG>;
 }

@@ -24,10 +24,12 @@ export function TriviaHubScreen({ onBack }: { onBack: () => void }) {
   return (
     <View className="flex-1 bg-trivia-hub-sky">
       <StatusBar style="dark" />
-      <TriviaScene himal={false} />
+      <TriviaScene stage="hub" />
 
       <ScrollView
         contentContainerStyle={{
+          // At least the screen's height, so the picks can sit centred in the sky.
+          flexGrow: 1,
           paddingTop: insets.top + 8,
           paddingBottom: SCENE_FOOT + 24,
         }}
@@ -36,7 +38,7 @@ export function TriviaHubScreen({ onBack }: { onBack: () => void }) {
           <TriviaBackButton onPress={onBack} />
         </View>
 
-        <View className="items-center px-[24px] pt-[24px]">
+        <View className="flex-1 items-center justify-center px-[24px] py-[24px]">
           <Text className="font-poppins-semibold text-[14px] leading-[20px] text-trivia-right-text">
             Trail Trivia
           </Text>

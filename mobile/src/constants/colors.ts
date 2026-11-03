@@ -88,4 +88,8 @@ export const triviaColor = {
   tick: '#0C1B16',
   cross: '#FFFFFF',
   scrim: 'rgba(255, 255, 255, 0.45)',
+  // The dashed route Himal walks on the result screen, as the web draws it.
+  route: '#263C2E',
+  // The web's confetti, in its order.
+  confetti: ['#88B112', '#EE5A63', '#376BB6', '#FFCC49'],
 } as const;
