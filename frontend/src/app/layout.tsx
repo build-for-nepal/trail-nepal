@@ -3,6 +3,7 @@ import { Poppins, Fraunces } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Navbar } from '@/components/layout/navigation/Navbar';
+import { Providers } from './providers';
 import { DEFAULT_SEO_DATA } from '@/static/seo';
 
 const poppins = Poppins({

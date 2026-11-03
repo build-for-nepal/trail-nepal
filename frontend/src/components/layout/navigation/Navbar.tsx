@@ -6,12 +6,30 @@ import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
 import { usePathname, useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
+import { Bookmark, ChevronDown, LogOut, Settings } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu';
+import { useAuthStore } from '@/store/authStore';
 
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const clearUser = useAuthStore((state) => state.clearUser);
+
+  const handleSignOut = () => {
+    clearUser();
+    void signOut({ callbackUrl: '/' });
+  };
 
   // Disable fixed navbar on dynamic detail pages (they have a full-screen
   // hero the navbar sits transparently over).
@@ -40,18 +58,29 @@ export function Navbar() {
 
   // The auth pages are full-screen, self-contained layouts.
   const isAuthPage =
-    pathname === '/login/' || pathname === '/login' ||
-    pathname === '/signup/' || pathname === '/signup';
+    pathname === '/login/' ||
+    pathname === '/login' ||
+    pathname === '/signup/' ||
+    pathname === '/signup';
   if (isAuthPage) return null;
 
   // The admin panel is a self-contained back-office UI with no public navbar.
   if (pathname.startsWith('/admin-panel')) return null;
 
-  // The forgot-password page has a light, full-screen layout with no hero, so
-  // it always uses the solid white navbar rather than the transparent variant.
-  const isFlowPage =
-    pathname === '/forgot-password/' || pathname === '/forgot-password';
-  const isSolid = scrolled || isFlowPage;
+  // Light pages have no full-height hero to sit over, so they always use the
+  // solid white navbar rather than the transparent-over-hero variant.
+  const isLightPage =
+    pathname === '/forgot-password/' ||
+    pathname === '/forgot-password' ||
+    pathname === '/plan-my-trip/' ||
+    pathname === '/plan-my-trip' ||
+    pathname === '/planmytrip/' ||
+    pathname === '/planmytrip' ||
+    pathname === '/shared-trip/' ||
+    pathname === '/shared-trip' ||
+    pathname === '/saved-trips/' ||
+    pathname === '/saved-trips';
+  const isSolid = scrolled || isLightPage;
 
   return (
     <header
@@ -76,22 +105,90 @@ export function Navbar() {
           />
         </Link>
 
-        <NavLinks className="hidden lg:flex" scrolled={isSolid} />
+        <NavLinks
+          className="hidden pr-14 lg:flex lg:gap-6 xl:gap-10"
+          scrolled={isSolid}
+        />
 
         <div className="flex items-center gap-4">
           <SearchBar
-            className="hidden lg:flex w-76"
+            className="hidden w-64 lg:flex xl:w-76"
             variant={isSolid ? 'dark' : 'light'}
           />
           {/* Divider */}
           <div className=" h-[38px] w-px bg-white/40" />
-          <Button
-            onClick={() => router.push('/login/')}
-            className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
-          >
-            {' '}
-            Log In
-          </Button>
+          {user ? (
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Account menu"
+                  className="group flex cursor-pointer items-center gap-1.5"
+                >
+                  <span
+                    className={cn(
+                      'relative size-10 shrink-0 overflow-hidden rounded-full ring-2 transition-colors',
+                      isSolid ? 'ring-gray-200' : 'ring-white/60',
+                    )}
+                  >
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        alt={user.name ?? 'Profile'}
+                        fill
+                        sizes="40px"
+                        referrerPolicy="no-referrer"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="flex size-full items-center justify-center bg-[#8cc63f] font-poppins text-sm font-semibold text-white">
+                        {user.name?.charAt(0).toUpperCase() ?? '?'}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn(
+                      'size-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180',
+                      isSolid ? 'text-gray-800' : 'text-white',
+                    )}
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 font-poppins">
+                {user.name && (
+                  <DropdownMenuLabel className="truncate text-[12px] font-semibold uppercase tracking-[0.15em] text-[#62675D]">
+                    {user.name}
+                  </DropdownMenuLabel>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => router.push('/saved-trips/')}>
+                  <Bookmark className="size-4" />
+                  Saved Trips
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.push('/settings/')}>
+                  <Settings className="size-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onSelect={handleSignOut}
+                  className="text-[#EF4444] focus:bg-[#FEF2F2] focus:text-[#EF4444]"
+                >
+                  <LogOut className="size-4" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              onClick={() => router.push('/login/')}
+              className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
+            >
+              {' '}
+              Log In
+            </Button>
+          )}
           <MobileMenu scrolled={isSolid} />
         </div>
       </div>
