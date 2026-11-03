@@ -2,11 +2,13 @@ import type { Request, Response } from 'express';
 import { getExperienceDetail, listExperiences } from './experience.service.js';
 import {
   createExperience,
+  deleteExperience,
   updateExperience,
 } from './experience.write.service.js';
 import { handleResponse } from '../../utils/handleResponse.js';
 import { validatedQuery } from '../../middleware/validate.js';
 import type {
+  DeleteExperienceResponse,
   GetExperienceResponse,
   ListExperiencesResponse,
   WriteExperienceResponse,
@@ -69,4 +71,16 @@ export async function updateExperienceController(
   );
 
   return handleResponse(res, experience, 'Experience updated');
+}
+
+// DELETE /api/experiences/:id - hard delete.
+export async function deleteExperienceController(
+  req: Request,
+  res: Response,
+): Promise<Response<DeleteExperienceResponse>> {
+  const { id } = req.params as GetExperienceParams;
+
+  await deleteExperience(id);
+
+  return handleResponse(res, { id }, 'Experience deleted');
 }
