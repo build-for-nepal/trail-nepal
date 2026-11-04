@@ -5,3 +5,7 @@
 # npm owns this file's formatting; prettier rewriting it is pointless churn
 # and it is the slowest file in the run.
 package-lock.json
+
+# Copies of frontend/public/data, kept byte for byte so a changed route can simply be
+# copied over again.
+src/features/trail-map/data/routes/
