@@ -11,6 +11,8 @@ export type CulturalCard = Trek & { type: 'cultural' };
 
 export type NatureCard = Trek & { type: 'nature' };
 
+export type CraftCard = Trek & { type: 'craft' };
+
 /** True when the trail card describes a single-day hike (absent `type` = trek). */
 export function isHike(card: Trek): card is HikeCard {
   return card.type === 'hike';
@@ -25,10 +27,16 @@ export function isNature(card: Trek): card is NatureCard {
   return card.type === 'nature';
 }
 
+/** True when the trail card describes an arts & crafts workshop. */
+export function isCraft(card: Trek): card is CraftCard {
+  return card.type === 'craft';
+}
+
 /** Detail-route href for a trail card, based on its type (absent = trek). */
 export function trailHref(card: Trek): string {
   if (isHike(card)) return `/hikes/${card.id}`;
   if (isCultural(card)) return `/cultural-tours/${card.id}`;
   if (isNature(card)) return `/nature-wildlife/${card.id}`;
+  if (isCraft(card)) return `/arts-crafts/${card.id}`;
   return `/treks/${card.id}`;
 }

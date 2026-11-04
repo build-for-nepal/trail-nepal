@@ -32,6 +32,10 @@ export const NATURE_TOUR_OG_IMAGES: Record<string, string> = {
   ilam: 'og-ilam.jpg',
 };
 
+// Arts & crafts workshops; their OG graphics are added once made, and until
+// then the page falls back to FALLBACK_OG_IMAGE.
+export const CRAFT_TOUR_OG_IMAGES: Record<string, string> = {};
+
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
 
 export const DEFAULT_SEO_DATA = {

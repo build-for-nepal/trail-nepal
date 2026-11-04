@@ -433,14 +433,48 @@ export const NATURE_TOURS: Trek[] = [
   },
 ];
 
+export const CRAFT_TOURS: Trek[] = [
+  // `description` must match CRAFT_TOUR_DETAILS[id].summary exactly.
+  {
+    id: 'bhaktapur-pottery',
+    title: 'Pottery Making in Bhaktapur',
+    region: 'Bhaktapur, Kathmandu Valley',
+    description:
+      "Discover traditional pottery-making in Bhaktapur's historic Pottery Square. Meet local artisans, learn traditional clay-shaping techniques, and try making your own pottery piece while exploring the city's living Newari craft heritage.",
+    difficulty: 'Easy',
+    duration: '1–2 Hours',
+    altitude: '1400m',
+    season: 'Year-Round',
+    imageUrl: '/images/bhaktapur-pottery/pottery-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'pottery',
+      'pottery making',
+      'pottery workshop',
+      'pottery square',
+      'talako',
+      'bhaktapur',
+      'clay',
+      'pottery wheel',
+      'newari craft',
+      'artisan workshop',
+      'arts and crafts',
+      'hands-on workshop',
+      'kathmandu valley',
+    ],
+    type: 'craft',
+  },
+];
+
 // Shared discovery set: multi-day treks + single-day hikes + cultural tours +
-// nature tours. Explore, search, and the homepage should iterate TRAILS to
-// surface all content types.
+// nature tours + arts & crafts workshops. Explore, search, and the homepage
+// should iterate TRAILS to surface all content types.
 export const TRAILS: Trek[] = [
   ...TREKS,
   ...HIKES,
   ...CULTURAL_TOURS,
   ...NATURE_TOURS,
+  ...CRAFT_TOURS,
 ];
 
 export const POPULAR_TREKS = TRAILS.filter((trek) => trek.isPopular);

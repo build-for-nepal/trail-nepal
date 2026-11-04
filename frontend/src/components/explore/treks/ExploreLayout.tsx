@@ -6,13 +6,14 @@ import FilterSidebar from '../filter/FilterSidebar';
 import TrekCard from './TrekCard';
 import { TRAILS } from '@/static/trek';
 import { TREK_DETAILS } from 'src/static/trekDetails';
-import { isCultural, isHike, isNature, trailHref } from '@/lib/trail';
+import { isCraft, isCultural, isHike, isNature, trailHref } from '@/lib/trail';
 
 // Maps a trail card to the label used by the "Type" filter group.
 const typeLabel = (t: (typeof TRAILS)[number]) => {
   if (isHike(t)) return 'Day Hike';
   if (isCultural(t)) return 'Cultural Tour';
   if (isNature(t)) return 'Nature & Wildlife';
+  if (isCraft(t)) return 'Arts & Crafts';
   return 'Trek';
 };
 
@@ -91,7 +92,10 @@ export default function ExploreLayout() {
                 // Only treks look up the richer summary from the trek detail
                 // model; every other type carries its own.
                 const description =
-                  isHike(trek) || isCultural(trek) || isNature(trek)
+                  isHike(trek) ||
+                  isCultural(trek) ||
+                  isNature(trek) ||
+                  isCraft(trek)
                     ? trek.description
                     : (TREK_DETAILS[trek.id]?.summary ?? trek.description);
 
@@ -104,6 +108,7 @@ export default function ExploreLayout() {
                     isHike={isHike(trek)}
                     isCultural={isCultural(trek)}
                     isNature={isNature(trek)}
+                    isCraft={isCraft(trek)}
                   />
                 );
               })

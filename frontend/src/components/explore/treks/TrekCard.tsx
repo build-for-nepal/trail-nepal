@@ -24,6 +24,7 @@ export default function TrekCard({
   isHike,
   isCultural,
   isNature,
+  isCraft,
 }: ExploreTrekCardProps) {
   const difficultyTextColor =
     DIFFICULTY_TEXT_COLORS[difficulty.toLowerCase()] ?? 'text-brand-primary';
@@ -56,7 +57,7 @@ export default function TrekCard({
         <div className="flex flex-col gap-0.5">
           <h3
             className={`font-fraunces text-[18px] font-bold tracking-tight text-text-primary ${
-              isHike || isCultural || isNature
+              isHike || isCultural || isNature || isCraft
                 ? // Titles here wrap freely and their height is deliberately
                   // NOT reserved or capped (client review: "don't limit the
                   // height of the title"), so a card with a two-line title is
