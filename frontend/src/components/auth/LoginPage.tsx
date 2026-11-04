@@ -1,10 +1,8 @@
 'use client';
 
-import { getPendingReturnTo } from '@/lib/pendingSave';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { signIn } from 'next-auth/react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AuthShell } from './AuthShell';
@@ -39,9 +37,11 @@ function GoogleIcon() {
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setNotice('Sign-in is not available yet.');
   };
 
   return (
@@ -118,14 +118,21 @@ export function LoginPage() {
 
       <button
         type="button"
-        onClick={() =>
-          signIn('google', { callbackUrl: getPendingReturnTo() ?? '/' })
-        }
+        onClick={() => setNotice('Google sign-in is not available yet.')}
         className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
       >
         <GoogleIcon />
         Continue with Google
       </button>
+
+      {notice && (
+        <p
+          role="status"
+          className="mt-4 rounded-lg bg-[#F7F9FC] px-3 py-2 text-center font-poppins text-[12px] text-[#62675D]"
+        >
+          {notice}
+        </p>
+      )}
 
       <p className="mt-6 text-center font-poppins text-sm text-[#62675D]">
         Don&apos;t have an account?{' '}
