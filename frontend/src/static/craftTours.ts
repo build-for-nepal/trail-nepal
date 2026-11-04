@@ -124,8 +124,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     },
     nearby: {
       title: 'Places to Explore Nearby',
-      // Not in the document, which has no intro for this list.
-      intro: 'Sights within walking distance of Pottery Square.',
       places: [
         {
           order: 1,

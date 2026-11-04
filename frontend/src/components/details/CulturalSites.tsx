@@ -1,6 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import {
@@ -247,7 +254,14 @@ const DayItem = ({
   );
 };
 
-const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
+const CulturalSites = ({
+  tour,
+  listFooter,
+}: {
+  tour: CulturalTourDetail;
+  /** Extra content at the end of the itinerary list, e.g. nearby places. */
+  listFooter?: ReactNode;
+}) => {
   const { sites, itinerary } = tour;
 
   // Pin colour per site, inherited from the itinerary day that covers it.
@@ -400,6 +414,10 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                   />
                 </div>
               ))}
+
+              {listFooter && (
+                <div className="cultural-site-item">{listFooter}</div>
+              )}
             </div>
           </div>
 

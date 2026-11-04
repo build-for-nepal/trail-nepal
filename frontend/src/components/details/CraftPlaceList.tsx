@@ -1,18 +1,22 @@
 import { ExternalLink, MapPin } from 'lucide-react';
 
 import SectionHeader from '../common/SectionHeader';
+import { cn } from '@/lib/utils';
 import type { CraftPlaceSection } from '@/types/craft';
 
 const linkClass =
   'flex w-fit items-center gap-1.5 text-xs font-medium text-[#376BB6] hover:underline';
 
-/** Numbered place cards; used for both "nearby" and "alternatives". */
+/** Full-width section of place cards, e.g. "alternatives". */
 const CraftPlaceList = ({
   section,
   id,
+  columns = 2,
 }: {
   section: CraftPlaceSection;
   id: string;
+  /** Cards per row on large screens. */
+  columns?: 2 | 3;
 }) => {
   const { title, intro, places } = section;
 
@@ -21,16 +25,18 @@ const CraftPlaceList = ({
       <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-20 lg:py-20">
         <SectionHeader title={title} description={intro} id={id} />
 
-        <ol className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <ul
+          className={cn(
+            'grid grid-cols-1 gap-5 md:grid-cols-2',
+            columns === 3 && 'lg:grid-cols-3',
+          )}
+        >
           {places.map((place) => (
             <li
               key={place.order}
               className="flex flex-col gap-3 rounded-2xl border border-[#E2E8F0] bg-white p-6"
             >
               <h3 className="font-poppins text-base font-semibold text-gray-900">
-                <span className="text-[#376BB6]">
-                  {String(place.order).padStart(2, '0')} ·
-                </span>{' '}
                 {place.title}
               </h3>
 
@@ -80,7 +86,7 @@ const CraftPlaceList = ({
               )}
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </section>
   );

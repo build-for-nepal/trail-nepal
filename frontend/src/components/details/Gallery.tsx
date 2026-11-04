@@ -94,7 +94,7 @@ export const Gallery = ({ images }: Props) => {
                     href={image.credit.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] truncate rounded-full bg-black/55 px-3 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm hover:text-white"
+                    className="absolute right-3 bottom-2 max-w-[calc(100%-1.5rem)] truncate text-[9px] text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] hover:underline"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
                     {image.credit.text}

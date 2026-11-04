@@ -29,10 +29,14 @@ export interface CraftPlace {
   mapUrl?: string;
 }
 
-export interface CraftPlaceSection {
+/** Nearby places, listed under the itinerary beside the map. */
+export interface CraftNearby {
   title: string;
-  intro: string;
   places: CraftPlace[];
+}
+
+export interface CraftPlaceSection extends CraftNearby {
+  intro: string;
 }
 
 // Arts & crafts workshops share the cultural tour shape, so they reuse the
@@ -40,7 +44,7 @@ export interface CraftPlaceSection {
 // few optional sections of their own.
 export interface CraftTourDetail extends CulturalTourDetail {
   workshopOptions?: CraftWorkshopOptions;
-  nearby?: CraftPlaceSection;
+  nearby?: CraftNearby;
   alternatives?: CraftPlaceSection;
   /** Shown under the season calendar. */
   bookingNote?: string;

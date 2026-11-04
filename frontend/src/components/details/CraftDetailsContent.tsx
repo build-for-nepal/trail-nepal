@@ -14,6 +14,7 @@ import { CRAFT_TOUR_DETAILS } from '@/static/craftTours';
 import CulturalHeader from './CulturalHeader';
 import CulturalHero from './CulturalHero';
 import CulturalSites, { toSiteWaypoints } from './CulturalSites';
+import CraftNearbyList from './CraftNearbyList';
 import CraftPlaceList from './CraftPlaceList';
 import CraftWorkshopOptions from './CraftWorkshopOptions';
 
@@ -54,7 +55,6 @@ const CraftDetailsContent = ({ tourId }: Props) => {
   // only when the section renders (same approach as the cultural Entry Fees).
   const extraNavAfter: Record<string, { label: string; id: string } | null> = {
     overview: tour.workshopOptions ? { label: 'Options', id: 'options' } : null,
-    sites: tour.nearby ? { label: 'Nearby', id: 'nearby' } : null,
     whattoexpect: tour.alternatives
       ? { label: 'Alternatives', id: 'alternatives' }
       : null,
@@ -88,10 +88,13 @@ const CraftDetailsContent = ({ tourId }: Props) => {
         )}
 
         <Suspense fallback={null}>
-          <CulturalSites tour={tour} />
+          <CulturalSites
+            tour={tour}
+            listFooter={
+              tour.nearby ? <CraftNearbyList nearby={tour.nearby} /> : undefined
+            }
+          />
         </Suspense>
-
-        {tour.nearby && <CraftPlaceList section={tour.nearby} id="nearby" />}
 
         <TreksSeason
           seasonalPlanning={tour.seasonalPlanning}
@@ -108,7 +111,11 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           name={tour.name}
         />
         {tour.alternatives && (
-          <CraftPlaceList section={tour.alternatives} id="alternatives" />
+          <CraftPlaceList
+            section={tour.alternatives}
+            id="alternatives"
+            columns={3}
+          />
         )}
         <Gallery images={tour.gallery} />
       </div>
