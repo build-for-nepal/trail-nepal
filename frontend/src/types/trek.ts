@@ -92,6 +92,9 @@ export interface TrekImage {
   alt: string;
   type: 'hero' | 'landscape' | 'portrait';
   order?: number;
+  /** Attribution shown on the gallery tile, for licences that require it
+   *  (e.g. CC BY-SA). `url` is the source file page. */
+  credit?: { text: string; url: string };
 }
 
 export interface GearItem {

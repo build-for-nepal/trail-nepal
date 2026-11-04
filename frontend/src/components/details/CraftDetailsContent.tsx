@@ -14,6 +14,8 @@ import { CRAFT_TOUR_DETAILS } from '@/static/craftTours';
 import CulturalHeader from './CulturalHeader';
 import CulturalHero from './CulturalHero';
 import CulturalSites, { toSiteWaypoints } from './CulturalSites';
+import CraftPlaceList from './CraftPlaceList';
+import CraftWorkshopOptions from './CraftWorkshopOptions';
 
 type Props = {
   tourId: string;
@@ -48,6 +50,20 @@ const CraftDetailsContent = ({ tourId }: Props) => {
     tour.gallery?.[0]?.url ||
     '/images/ABC.jpg';
 
+  // Craft-only sections are optional per workshop, so their anchors are added
+  // only when the section renders (same approach as the cultural Entry Fees).
+  const extraNavAfter: Record<string, { label: string; id: string } | null> = {
+    overview: tour.workshopOptions ? { label: 'Options', id: 'options' } : null,
+    sites: tour.nearby ? { label: 'Nearby', id: 'nearby' } : null,
+    whattoexpect: tour.alternatives
+      ? { label: 'Alternatives', id: 'alternatives' }
+      : null,
+  };
+  const navItems = CULTURAL_NAV_ITEMS.flatMap((item) => {
+    const extra = extraNavAfter[item.id];
+    return extra ? [item, extra] : [item];
+  });
+
   return (
     <div className="w-full flex flex-col bg-(--color-surface-page)">
       <CulturalHeader tour={tour} />
@@ -60,16 +76,22 @@ const CraftDetailsContent = ({ tourId }: Props) => {
               : '-translate-y-full opacity-0 pointer-events-none'
           }`}
         >
-          <SubNav items={CULTURAL_NAV_ITEMS} />
+          <SubNav items={navItems} />
         </div>
 
         <div ref={heroRef}>
           <CulturalHero tour={tour} />
         </div>
 
+        {tour.workshopOptions && (
+          <CraftWorkshopOptions options={tour.workshopOptions} />
+        )}
+
         <Suspense fallback={null}>
           <CulturalSites tour={tour} />
         </Suspense>
+
+        {tour.nearby && <CraftPlaceList section={tour.nearby} id="nearby" />}
 
         <TreksSeason
           seasonalPlanning={tour.seasonalPlanning}
@@ -77,6 +99,7 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           waypoints={toSiteWaypoints(tour.sites)}
           name={tour.name}
           bestSeasons={tour.meta.bestSeasons}
+          note={tour.bookingNote}
         />
         <TreksExpect
           expectations={tour.expectations}
@@ -84,6 +107,9 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           imageSrc={expectImage}
           name={tour.name}
         />
+        {tour.alternatives && (
+          <CraftPlaceList section={tour.alternatives} id="alternatives" />
+        )}
         <Gallery images={tour.gallery} />
       </div>
 

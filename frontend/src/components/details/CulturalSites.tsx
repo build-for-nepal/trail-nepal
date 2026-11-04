@@ -7,6 +7,7 @@ import {
   ChevronDown,
   ChevronsDownUp,
   ChevronsUpDown,
+  ExternalLink,
   Route,
 } from 'lucide-react';
 
@@ -214,6 +215,18 @@ const DayItem = ({
               <Route size={14} strokeWidth={2} className="shrink-0" />
               <span className="cursor-text select-text">{day.transport}</span>
             </div>
+          )}
+
+          {day.link && (
+            <a
+              href={day.link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-fit items-center gap-2 text-xs font-medium text-[#376BB6] hover:underline"
+            >
+              <ExternalLink size={14} strokeWidth={2} className="shrink-0" />
+              {day.link.label}
+            </a>
           )}
 
           {day.highlights.length > 0 && (

@@ -28,6 +28,8 @@ type Props = {
   name: string;
   /** Best-seasons string for the note line; omit to hide it. */
   bestSeasons?: string;
+  /** Extra line under the season note, e.g. a booking caveat. */
+  note?: string;
   today: WeatherDaily | null;
 };
 
@@ -159,6 +161,7 @@ const TreksSeasonCalendar = ({
   seasonalPlanning,
   name,
   bestSeasons,
+  note,
   today,
 }: Props) => {
   const now = new Date();
@@ -206,6 +209,11 @@ const TreksSeasonCalendar = ({
         {bestSeasons ? (
           <p className="font-poppins font-medium italic text-gray-700">
             Note: Peak Season to visit {name} is {bestSeasons}
+          </p>
+        ) : null}
+        {note ? (
+          <p className="font-poppins text-sm leading-relaxed text-gray-600">
+            {note}
           </p>
         ) : null}
       </div>

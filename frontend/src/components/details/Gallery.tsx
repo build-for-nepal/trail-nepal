@@ -89,6 +89,17 @@ export const Gallery = ({ images }: Props) => {
                   sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                {image.credit && (
+                  <a
+                    href={image.credit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] truncate rounded-full bg-black/55 px-3 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm hover:text-white"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {image.credit.text}
+                  </a>
+                )}
               </div>
             );
           })}

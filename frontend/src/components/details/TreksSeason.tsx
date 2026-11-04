@@ -12,6 +12,8 @@ type Props = {
   waypoints: TrekTimelineDay[];
   name: string;
   bestSeasons?: string;
+  /** Extra line under the season note, e.g. a booking caveat. */
+  note?: string;
 };
 
 const TreksSeason = ({
@@ -20,6 +22,7 @@ const TreksSeason = ({
   waypoints,
   name,
   bestSeasons,
+  note,
 }: Props) => {
   if (!seasonalPlanning || seasonalPlanning.length === 0) return null;
 
@@ -28,6 +31,7 @@ const TreksSeason = ({
       seasonalPlanning={seasonalPlanning}
       name={name}
       bestSeasons={bestSeasons}
+      note={note}
       region={region}
       waypoints={waypoints}
     />
