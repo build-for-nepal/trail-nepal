@@ -6,7 +6,6 @@ import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from '@/components/search/SearchBar';
 import { usePathname, useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import { Bookmark, ChevronDown, LogOut, Settings } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
@@ -28,7 +27,7 @@ export function Navbar() {
 
   const handleSignOut = () => {
     clearUser();
-    void signOut({ callbackUrl: '/' });
+    router.push('/');
   };
 
   // Disable fixed navbar on dynamic detail pages (they have a full-screen
