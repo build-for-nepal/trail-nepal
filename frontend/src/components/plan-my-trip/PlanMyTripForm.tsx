@@ -345,7 +345,7 @@ const PlanMyTripForm = ({
             errors.difficulty ? 'pmt-difficulty-error' : undefined
           }
           className={cn(
-            'grid grid-cols-3 gap-2',
+            'grid grid-cols-3 gap-2 lg:grid-cols-1 xl:grid-cols-3',
             errors.difficulty && 'animate-shake motion-reduce:animate-none',
           )}
         >
@@ -358,7 +358,7 @@ const PlanMyTripForm = ({
                 aria-pressed={isSelected}
                 onClick={() => onChange({ difficulty: level })}
                 className={cn(
-                  'h-10 rounded-xl border font-poppins text-[12.5px] transition-colors',
+                  'h-10 min-w-0 rounded-xl border px-1 font-poppins text-[12.5px] transition-colors',
                   isSelected
                     ? 'border-brand-primary bg-brand-primary/10 font-semibold text-brand-primary'
                     : 'border-[#DDE3EC] bg-white font-medium text-[#40453b] hover:border-[#c7d1e0]',

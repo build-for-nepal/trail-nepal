@@ -1,8 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Sparkles, TriangleAlert } from 'lucide-react';
+import { SlidersHorizontal, Sparkles, TriangleAlert } from 'lucide-react';
 
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import PlanMyTripForm from './PlanMyTripForm';
 import PlanMyTripLoading from './PlanMyTripLoading';
 import PlanMyTripWelcome from './PlanMyTripWelcome';
@@ -76,9 +78,11 @@ const PlanMyTripLayout = () => {
   // Month the shown results were searched for (the form may change afterwards).
   const [searchedMonth, setSearchedMonth] = useState<string>();
   const [errorMessage, setErrorMessage] = useState('');
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const abortRef = useRef<AbortController | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const scrollToErrorRef = useRef(false);
 
   useEffect(() => () => abortRef.current?.abort(), []);
@@ -154,6 +158,7 @@ const PlanMyTripLayout = () => {
     abortRef.current = controller;
 
     setErrors({});
+    setFiltersOpen(false);
     setStatus('loading');
 
     // On stacked (mobile) layouts the results sit below the form.
@@ -178,6 +183,22 @@ const PlanMyTripLayout = () => {
     }
   }, [preferences]);
 
+  // On small screens the form moves into a slide-in panel once a search has
+  // been run, so the results get the whole screen.
+  const filtersInPanel = !isDesktop && status !== 'idle';
+
+  const form = (
+    <PlanMyTripForm
+      value={preferences}
+      onChange={handleChange}
+      onClear={handleClear}
+      onSubmit={handleSubmit}
+      errors={errors}
+      invalidAttempts={invalidAttempts}
+      submitting={status === 'loading'}
+    />
+  );
+
   const [strongest, ...otherOptions] = options;
   const matchCount = strongest?.trails.length ?? 0;
 
@@ -192,21 +213,39 @@ const PlanMyTripLayout = () => {
     <div className="min-h-screen w-full bg-[#EBF0F8] pb-20 pt-[88px]">
       <div className="mx-auto w-full max-w-[1600px] px-4 pt-6 md:px-8 lg:px-12">
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(290px,0.43fr)_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)] 2xl:grid-cols-[400px_minmax(0,1fr)]">
-          {/* Left: trip preference form */}
-          <aside
-            ref={formRef}
-            className="plan-scrollbar rounded-2xl bg-white lg:sticky lg:top-24 lg:max-h-[calc(100vh-112px)] lg:overflow-y-auto"
-          >
-            <PlanMyTripForm
-              value={preferences}
-              onChange={handleChange}
-              onClear={handleClear}
-              onSubmit={handleSubmit}
-              errors={errors}
-              invalidAttempts={invalidAttempts}
-              submitting={status === 'loading'}
-            />
-          </aside>
+          {/* Left: trip preference form (a slide-in panel on small screens) */}
+          {filtersInPanel ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(true)}
+                className="sticky top-[96px] z-20 flex w-fit items-center gap-2 rounded-full bg-white px-4 py-2.5 font-poppins text-sm font-medium text-[#272922] shadow-md"
+              >
+                <SlidersHorizontal className="size-4" />
+                Filters
+              </button>
+
+              <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+                <SheetContent
+                  side="left"
+                  aria-describedby={undefined}
+                  className="plan-scrollbar w-[88vw] max-w-[380px] overflow-y-auto rounded-r-2xl border-none p-0"
+                >
+                  <SheetTitle className="sr-only">Plan a new trip</SheetTitle>
+                  <div ref={formRef} className="[&>form]:pt-16">
+                    {form}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </>
+          ) : (
+            <aside
+              ref={formRef}
+              className="plan-scrollbar rounded-2xl bg-white lg:sticky lg:top-24 lg:max-h-[calc(100vh-112px)] lg:overflow-y-auto"
+            >
+              {form}
+            </aside>
+          )}
 
           {/* Right: welcome screen, trail loader, or matching results */}
           <div

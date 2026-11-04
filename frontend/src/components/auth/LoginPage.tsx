@@ -13,6 +13,7 @@ import {
   AUTH_LABEL_CLASS,
   AUTH_PRIMARY_BUTTON_CLASS,
 } from './authStyles';
+import { Navbar } from 'src/components/layout/navigation/Navbar';
 
 function GoogleIcon() {
   return (
@@ -45,101 +46,106 @@ export function LoginPage() {
   };
 
   return (
-    <AuthShell>
-      <h2 className="mt-12 font-fraunces text-3xl font-bold text-[#2D2F27]">
-        Welcome !
-      </h2>
-      <p className="mt-1 font-poppins text-sm text-[#404337]">
-        Log in to manage your listings or access your trek plans.
-      </p>
+    <>
+      <AuthShell>
+        <h2 className="mt-12 font-fraunces text-3xl font-bold text-[#2D2F27]">
+          Welcome !
+        </h2>
+        <p className="mt-1 font-poppins text-sm text-[#404337]">
+          Log in to manage your listings or access your trek plans.
+        </p>
 
-      <form onSubmit={handleSubmit} className="mt-8">
-        <label htmlFor="email" className={AUTH_LABEL_CLASS}>
-          Email Address
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          placeholder="username@email.com"
-          className={cn(AUTH_INPUT_CLASS, 'mt-2')}
-        />
+        <form onSubmit={handleSubmit} className="mt-8">
+          <label htmlFor="email" className={AUTH_LABEL_CLASS}>
+            Email Address
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="username@email.com"
+            className={cn(AUTH_INPUT_CLASS, 'mt-2')}
+          />
 
-        <div className="mt-4">
-          <div className="flex items-center justify-between gap-2">
-            <label htmlFor="password" className={AUTH_LABEL_CLASS}>
-              Password
-            </label>
-            <Link
-              href="/forgot-password/"
-              className="font-poppins text-[12px] text-[#2D2F27] hover:underline"
-            >
-              Forgot password?
-            </Link>
+          <div className="mt-4">
+            <div className="flex items-center justify-between gap-2">
+              <label htmlFor="password" className={AUTH_LABEL_CLASS}>
+                Password
+              </label>
+              <Link
+                href="/forgot-password/"
+                className="font-poppins text-[12px] text-[#2D2F27] hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <div className="relative mt-2">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter your password"
+                className={cn(AUTH_INPUT_CLASS, 'pr-12')}
+              />
+              <button
+                type="button"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => setShowPassword((value) => !value)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
+                className="absolute inset-y-0 right-0 flex items-center px-3.5 text-[#9AA1AC] transition-colors hover:text-[#62675D]"
+              >
+                {showPassword ? (
+                  <EyeOff className="size-5" aria-hidden="true" />
+                ) : (
+                  <Eye className="size-5" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
-          <div className="relative mt-2">
-            <input
-              id="password"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
-              className={cn(AUTH_INPUT_CLASS, 'pr-12')}
-            />
-            <button
-              type="button"
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => setShowPassword((value) => !value)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-              aria-pressed={showPassword}
-              className="absolute inset-y-0 right-0 flex items-center px-3.5 text-[#9AA1AC] transition-colors hover:text-[#62675D]"
-            >
-              {showPassword ? (
-                <EyeOff className="size-5" aria-hidden="true" />
-              ) : (
-                <Eye className="size-5" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+
+          <button
+            type="submit"
+            className={cn(AUTH_PRIMARY_BUTTON_CLASS, 'mt-6')}
+          >
+            Log In
+          </button>
+        </form>
+
+        <div className="my-6 flex items-center gap-4">
+          <span className="h-px flex-1 bg-[#E5E9EF]" />
+          <span className="font-poppins text-[11px] font-medium text-[#9AA1AC]">
+            OR
+          </span>
+          <span className="h-px flex-1 bg-[#E5E9EF]" />
         </div>
 
-        <button type="submit" className={cn(AUTH_PRIMARY_BUTTON_CLASS, 'mt-6')}>
-          Log In
-        </button>
-      </form>
-
-      <div className="my-6 flex items-center gap-4">
-        <span className="h-px flex-1 bg-[#E5E9EF]" />
-        <span className="font-poppins text-[11px] font-medium text-[#9AA1AC]">
-          OR
-        </span>
-        <span className="h-px flex-1 bg-[#E5E9EF]" />
-      </div>
-
-      <button
-        type="button"
-        onClick={() =>
-          signIn('google', { callbackUrl: getPendingReturnTo() ?? '/' })
-        }
-        className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
-      >
-        <GoogleIcon />
-        Continue with Google
-      </button>
-
-      <p className="mt-6 text-center font-poppins text-sm text-[#62675D]">
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/signup/"
-          className="font-semibold text-[#88B112] hover:underline"
+        <button
+          type="button"
+          onClick={() =>
+            signIn('google', { callbackUrl: getPendingReturnTo() ?? '/' })
+          }
+          className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
         >
-          Create one
-        </Link>
-      </p>
+          <GoogleIcon />
+          Continue with Google
+        </button>
 
-      <p className="mt-8 text-center font-poppins text-[10px] font-medium uppercase tracking-[0.2em] text-[#9AA1AC]">
-        © 2026 Trails Nepal. All rights reserved.
-      </p>
-    </AuthShell>
+        <p className="mt-6 text-center font-poppins text-sm text-[#62675D]">
+          Don&apos;t have an account?{' '}
+          <Link
+            href="/signup/"
+            className="font-semibold text-[#88B112] hover:underline"
+          >
+            Create one
+          </Link>
+        </p>
+
+        <p className="mt-8 text-center font-poppins text-[10px] font-medium uppercase tracking-[0.2em] text-[#9AA1AC]">
+          © 2026 Trails Nepal. All rights reserved.
+        </p>
+      </AuthShell>
+    </>
   );
 }

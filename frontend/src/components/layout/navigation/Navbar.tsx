@@ -57,14 +57,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The auth pages are full-screen, self-contained layouts.
-  const isAuthPage =
-    pathname === '/login/' ||
-    pathname === '/login' ||
-    pathname === '/signup/' ||
-    pathname === '/signup';
-  if (isAuthPage) return null;
-
   // The admin panel is a self-contained back-office UI with no public navbar.
   if (pathname.startsWith('/admin-panel')) return null;
 

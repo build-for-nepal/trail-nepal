@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { Navbar } from '@/components/layout/navigation/Navbar';
 
 type AuthShellProps = {
   panelClassName?: string;
