@@ -21,6 +21,26 @@ export function AdminSection({
 }) {
   const [open, setOpen] = React.useState(defaultOpen);
 
+  // Opening the section when its header action fires means an "Add" click is
+  // visible immediately, even if the section was collapsed.
+  const actionWithOpen = React.isValidElement(action)
+    ? React.cloneElement(
+        action as React.ReactElement<{
+          onClick?: React.MouseEventHandler;
+        }>,
+        {
+          onClick: (event: React.MouseEvent) => {
+            (
+              action as React.ReactElement<{
+                onClick?: React.MouseEventHandler;
+              }>
+            ).props.onClick?.(event);
+            setOpen(true);
+          },
+        },
+      )
+    : action;
+
   return (
     <Card className="overflow-hidden">
       <CardHeader className="border-b py-3">
@@ -47,7 +67,7 @@ export function AdminSection({
               )}
             </span>
           </button>
-          {action}
+          {actionWithOpen}
         </div>
       </CardHeader>
       {open && <CardContent className="p-4">{children}</CardContent>}

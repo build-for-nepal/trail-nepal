@@ -21,6 +21,7 @@ export type ExperienceRegionValue =
   | 'MANASLU'
   | 'KATHMANDU_VALLEY'
   | 'POKHARA'
+  | 'LUMBINI'
   | 'Khumbu';
 
 export type AdminDetailRow = {
@@ -29,7 +30,8 @@ export type AdminDetailRow = {
   description: string;
   imageUrl: string;
   content: string;
-  data: string;
+  // Structured value edited with DataField; sent to the backend as-is.
+  data?: unknown;
 };
 
 export type AdminImageRow = {
@@ -37,14 +39,14 @@ export type AdminImageRow = {
   storageKey: string;
   alt: string;
   type: ImageTypeValue;
-  metadata: string;
+  metadata?: unknown;
 };
 
 export type AdminTimelineItem = {
   order: string;
   dayNumber: string;
   title: string;
-  data: string;
+  data?: unknown;
 };
 
 export type AdminRoute = {
@@ -56,13 +58,14 @@ export type AdminRoute = {
   maxElevationM: string;
   ascentM: string;
   descentM: string;
-  routeDifficulty: DifficultyValue;
+  // '' = leave the stored value alone (the API does not return it).
+  routeDifficulty: DifficultyValue | '';
   source: string;
-  geojson: string;
+  // Parsed GeoJSON object, set by the GeoJSON file picker.
+  geojson?: unknown;
 };
 
-// A row from the (not-yet-wired) list API. Enough to render the list and
-// pre-fill the edit form until pagination/integration lands.
+// A row of the admin list, mapped from GET /api/experiences.
 export type AdminListItem = {
   id: string;
   slug: string;
@@ -89,8 +92,7 @@ export type ExperienceTypeConfigMap = Record<TripTypeId, ExperienceTypeConfig>;
 export const EXPERIENCE_TYPES: TripTypeId[] = ['trek', 'hike', 'cultural'];
 
 // Single admin accent theme. Swap these to re-skin the whole admin panel.
-export const ACCENT_BTN =
-  'bg-emerald-600 text-white hover:bg-emerald-700';
+export const ACCENT_BTN = 'bg-emerald-600 text-white hover:bg-emerald-700';
 export const ACCENT_ACTIVE =
   'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700';
 export const ACCENT_OUTLINE =
@@ -110,6 +112,12 @@ export function typeIdFromValue(value: ExperienceTypeValue): TripTypeId {
   if (value === 'HIKE') return 'hike';
   if (value === 'CULTURAL') return 'cultural';
   return 'trek';
+}
+
+export function isTripTypeId(
+  value: string | null | undefined,
+): value is TripTypeId {
+  return value === 'trek' || value === 'hike' || value === 'cultural';
 }
 
 // Soft focus ring used by the field components. Overrides the default grayish
@@ -144,6 +152,7 @@ export const REGION_LABELS: Record<ExperienceRegionValue, string> = {
   MANASLU: 'Manaslu',
   KATHMANDU_VALLEY: 'Kathmandu Valley',
   POKHARA: 'Pokhara',
+  LUMBINI: 'Lumbini',
   Khumbu: 'Khumbu',
 };
 
@@ -178,7 +187,7 @@ export const MONTH_LABELS = [
 
 export const DEFAULT_DIFFICULTY: DifficultyValue = 'MODERATE';
 
-export const DEFAULT_STATUS: ExperienceStatusValue = 'DRAFT';
+export const DEFAULT_STATUS: ExperienceStatusValue = 'PUBLISHED';
 
 export const TYPE_CONFIG: ExperienceTypeConfigMap = {
   trek: {
@@ -220,7 +229,7 @@ export const TYPE_CONFIG: ExperienceTypeConfigMap = {
     id: 'cultural',
     label: 'Cultural',
     typeValue: 'CULTURAL',
-    regions: ['KATHMANDU_VALLEY', 'POKHARA', 'LANGTANG'],
+    regions: ['KATHMANDU_VALLEY', 'POKHARA', 'LUMBINI', 'LANGTANG'],
     defaultRegion: 'KATHMANDU_VALLEY',
     difficultyOptions: ['EASY', 'EASY_MODERATE'],
     interestSuggestions: [
@@ -235,49 +244,12 @@ export const TYPE_CONFIG: ExperienceTypeConfigMap = {
   },
 };
 
-// Placeholder rows for the admin list until the list API is wired
-// (integration ticket with TanStack Query). Delete once live.
-export const DEMO_EXPERIENCES: AdminListItem[] = [
-  {
-    id: 'demo-ebc',
-    slug: 'everest-base-camp',
-    name: 'Everest Base Camp Trek',
-    type: 'TREK',
-    status: 'PUBLISHED',
-    region: 'Khumbu',
-  },
-  {
-    id: 'demo-langtang',
-    slug: 'langtang-valley',
-    name: 'Langtang Valley Trek',
-    type: 'TREK',
-    status: 'DRAFT',
-    region: 'LANGTANG',
-  },
-  {
-    id: 'demo-pam',
-    slug: 'pam-phunam',
-    name: 'Pam Phunam Hike',
-    type: 'HIKE',
-    status: 'PUBLISHED',
-    region: 'POKHARA',
-  },
-  {
-    id: 'demo-heritage',
-    slug: 'kathmandu-heritage',
-    name: 'Kathmandu Heritage Tour',
-    type: 'CULTURAL',
-    status: 'DRAFT',
-    region: 'KATHMANDU_VALLEY',
-  },
-];
-
 // ---------------------------------------------------------------------------
 // Form schema + payload builder
 // ---------------------------------------------------------------------------
 
 // Numeric fields live in the form as strings (input[type=number] values).
-// The schema validates them as strings; buildCreatePayload() coerces.
+// The schema validates them as strings; the payload builders coerce.
 
 const numericString = (meta: {
   integer?: boolean;
@@ -287,7 +259,7 @@ const numericString = (meta: {
 }) => {
   if (meta.required) {
     return z.string().superRefine((v, ctx) => {
-      if (v === '') {
+      if (v.trim() === '') {
         ctx.addIssue({ code: 'custom', message: 'This field is required' });
         return;
       }
@@ -298,7 +270,7 @@ const numericString = (meta: {
   }
   return z
     .string()
-    .refine((v) => v === '' || isValidNumber(v, meta), {
+    .refine((v) => v.trim() === '' || isValidNumber(v, meta), {
       message: mismatchMessage(meta),
     })
     .optional();
@@ -328,21 +300,32 @@ function mismatchMessage(meta: {
   return parts.length ? `Must be a ${parts.join(', ')}` : 'Must be a number';
 }
 
-const jsonString = z
-  .string()
-  .optional()
-  .refine((s) => s === undefined || s === '' || isValidJson(s), {
-    message: 'Must be valid JSON (or leave empty)',
-  });
-
-function isValidJson(raw: string): boolean {
-  try {
-    JSON.parse(raw);
-    return true;
-  } catch {
-    return false;
+// Structured `data` values are edited with DataField, so JSON is never typed.
+// The only thing left to guard is a field with no name.
+function hasBlankFieldName(value: unknown): boolean {
+  if (Array.isArray(value)) return value.some(hasBlankFieldName);
+  if (value && typeof value === 'object') {
+    return Object.entries(value).some(
+      ([key, inner]) => key.trim() === '' || hasBlankFieldName(inner),
+    );
   }
+  return false;
 }
+
+const dataSchema = z
+  .unknown()
+  .refine((value) => !hasBlankFieldName(value), {
+    message: 'Every field needs a name',
+  })
+  .optional();
+
+const DIFFICULTY_VALUES = [
+  'EASY',
+  'EASY_MODERATE',
+  'MODERATE',
+  'MODERATE_CHALLENGING',
+  'CHALLENGING',
+] as const;
 
 export const routeDefault: AdminRoute = {
   startLng: '',
@@ -355,16 +338,16 @@ export const routeDefault: AdminRoute = {
   descentM: '',
   routeDifficulty: 'MODERATE',
   source: '',
-  geojson: '',
+  geojson: undefined,
 };
 
 const detailRowSchema = z.object({
-  key: z.string().min(1).max(100),
+  key: z.string().trim().min(1, 'Key is required').max(100),
   title: z.string().max(300).optional(),
   description: z.string().max(5000).optional(),
   imageUrl: z.string().max(2048).optional(),
   content: z.string().max(200_000).optional(),
-  data: jsonString,
+  data: dataSchema,
 });
 
 const imageRowSchema = z.object({
@@ -372,101 +355,120 @@ const imageRowSchema = z.object({
   storageKey: z.string().max(512).optional(),
   alt: z.string().max(300).optional(),
   type: z.enum(['HERO', 'GALLERY', 'SECTION']),
-  metadata: jsonString,
+  metadata: dataSchema,
 });
 
 const timelineItemSchema = z.object({
-  order: z.string().optional(),
-  dayNumber: z.string().optional(),
+  order: numericString({ integer: true }),
+  dayNumber: numericString({ integer: true, min: 1 }),
   title: z.string().max(300).optional(),
-  data: jsonString,
+  data: dataSchema,
 });
 
 const timelineSchema = z.object({
   title: z.string().max(300).optional(),
   description: z.string().max(5000).optional(),
-  items: z.array(timelineItemSchema),
+  items: z.array(timelineItemSchema).max(400),
 });
 
+// Start and end are required by the API as soon as a route exists.
 const routeSchema = z.object({
-  startLng: numericString({ min: -180, max: 180 }),
-  startLat: numericString({ min: -90, max: 90 }),
-  endLng: numericString({ min: -180, max: 180 }),
-  endLat: numericString({ min: -90, max: 90 }),
+  startLng: numericString({ min: -180, max: 180, required: true }),
+  startLat: numericString({ min: -90, max: 90, required: true }),
+  endLng: numericString({ min: -180, max: 180, required: true }),
+  endLat: numericString({ min: -90, max: 90, required: true }),
   distanceKm: numericString({ min: 0, max: 99_999.99 }),
   maxElevationM: numericString({ integer: true, min: 0 }),
   ascentM: numericString({ integer: true, min: 0 }),
   descentM: numericString({ integer: true, min: 0 }),
-  routeDifficulty: z.enum([
-    'EASY',
-    'EASY_MODERATE',
-    'MODERATE',
-    'MODERATE_CHALLENGING',
-    'CHALLENGING',
-  ]),
+  routeDifficulty: z.union([z.enum(DIFFICULTY_VALUES), z.literal('')]),
   source: z.string().max(200).optional(),
-  geojson: jsonString,
-});
-
-export const adminExperienceSchema = z.object({
-  slug: z
-    .string()
-    .min(1)
-    .max(160)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
-      message: 'Slug must be lowercase words separated by single hyphens',
+  geojson: z
+    .unknown()
+    .optional()
+    .superRefine((value, ctx) => {
+      if (
+        value !== undefined &&
+        !(typeof value === 'object' && value !== null && 'type' in value)
+      ) {
+        ctx.addIssue({ code: 'custom', message: 'Must be a GeoJSON object' });
+      }
     }),
-  name: z.string().min(1).max(200),
-  type: z.enum(['TREK', 'HIKE', 'CULTURAL']),
-  status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),
-  shortDescription: z.string().min(1).max(2000),
-
-  durationDays: numericString({
-    integer: true,
-    min: 1,
-    max: 365,
-    required: true,
-  }),
-  minDays: numericString({ integer: true, min: 1, max: 365 }),
-  maxDays: numericString({ integer: true, min: 1, max: 365 }),
-
-  difficulty: z.enum([
-    'EASY',
-    'EASY_MODERATE',
-    'MODERATE',
-    'MODERATE_CHALLENGING',
-    'CHALLENGING',
-  ]),
-  difficultyScore: numericString({ integer: true, min: 0, max: 10 }),
-  thumbnail: z.string().max(2048).optional(),
-
-  maxElevationM: numericString({ integer: true, min: 0 }),
-  peakSeason: z.array(z.number().int().min(1).max(12)),
-  priceNpr: numericString({ integer: true, min: 0 }),
-
-  region: z.enum([
-    'EVEREST',
-    'ANNAPURNA',
-    'LANGTANG',
-    'MANASLU',
-    'KATHMANDU_VALLEY',
-    'POKHARA',
-    'Khumbu',
-  ]),
-  startPoint: z.string().max(300).optional(),
-
-  interest: z.array(z.string().min(1).max(50)),
-  activity: z.array(z.string().min(1).max(50)),
-
-  isPopular: z.boolean(),
-  ratingAvg: numericString({ min: 0, max: 5 }),
-  isActive: z.boolean(),
-
-  details: z.array(detailRowSchema),
-  images: z.array(imageRowSchema),
-  timeline: timelineSchema,
-  route: routeSchema.nullable(),
 });
+
+export const adminExperienceSchema = z
+  .object({
+    slug: z
+      .string()
+      .min(1, 'Slug is required')
+      .max(160)
+      .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+        message: 'Slug must be lowercase words separated by single hyphens',
+      }),
+    name: z.string().trim().min(1, 'Name is required').max(200),
+    type: z.enum(['TREK', 'HIKE', 'CULTURAL']),
+    status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),
+    shortDescription: z
+      .string()
+      .trim()
+      .min(1, 'Short description is required')
+      .max(2000),
+
+    durationDays: numericString({
+      integer: true,
+      min: 1,
+      max: 365,
+      required: true,
+    }),
+    minDays: numericString({ integer: true, min: 1, max: 365 }),
+    maxDays: numericString({ integer: true, min: 1, max: 365 }),
+
+    difficulty: z.enum(DIFFICULTY_VALUES),
+    difficultyScore: numericString({ integer: true, min: 0, max: 10 }),
+    thumbnail: z.string().max(2048).optional(),
+
+    maxElevationM: numericString({ integer: true, min: 0 }),
+    peakSeason: z.array(z.number().int().min(1).max(12)).max(12),
+    priceNpr: numericString({ integer: true, min: 0 }),
+
+    region: z.enum([
+      'EVEREST',
+      'ANNAPURNA',
+      'LANGTANG',
+      'MANASLU',
+      'KATHMANDU_VALLEY',
+      'POKHARA',
+      'LUMBINI',
+      'Khumbu',
+    ]),
+    startPoint: z.string().max(300).optional(),
+
+    interest: z.array(z.string().min(1).max(50)).max(50),
+    activity: z.array(z.string().min(1).max(50)).max(50),
+
+    isPopular: z.boolean(),
+    isActive: z.boolean(),
+
+    details: z.array(detailRowSchema).max(50),
+    images: z.array(imageRowSchema).max(200),
+    timeline: timelineSchema,
+    route: routeSchema.nullable(),
+  })
+  .superRefine((values, ctx) => {
+    // The API stores one row per key, so a repeated key would overwrite.
+    const seen = new Set<string>();
+    values.details.forEach((row, index) => {
+      const key = row.key.trim();
+      if (key && seen.has(key)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['details', index, 'key'],
+          message: 'Detail keys must be unique',
+        });
+      }
+      seen.add(key);
+    });
+  });
 
 export type AdminFormValues = z.infer<typeof adminExperienceSchema>;
 
@@ -474,7 +476,7 @@ export function buildDefaultValues(
   config: ExperienceTypeConfig,
   initial?: Partial<AdminFormValues>,
 ): AdminFormValues {
-  const base = {
+  const base: AdminFormValues = {
     slug: '',
     name: '',
     type: config.typeValue,
@@ -490,17 +492,16 @@ export function buildDefaultValues(
     thumbnail: '',
 
     maxElevationM: '',
-    peakSeason: [] as number[],
+    peakSeason: [],
     priceNpr: '',
 
     region: config.defaultRegion,
     startPoint: '',
 
-    interest: [] as string[],
-    activity: [] as string[],
+    interest: [],
+    activity: [],
 
     isPopular: false,
-    ratingAvg: '',
     isActive: true,
 
     details: [],
@@ -521,77 +522,157 @@ export function buildDefaultValues(
   };
 }
 
+// ---------------------------------------------------------------------------
+// Payload builders (form values -> POST / PATCH body)
+// ---------------------------------------------------------------------------
+
 function toNumber(value: string | undefined): number | undefined {
-  if (value === '' || value == null) return undefined;
+  if (value == null || value.trim() === '') return undefined;
   const n = Number(value);
   return Number.isFinite(n) ? n : undefined;
 }
 
-function toOptionalJson(value: string): unknown {
-  if (value === '') return undefined;
-  try {
-    return JSON.parse(value);
-  } catch {
-    return undefined;
-  }
+// '' / undefined -> omit on create, null on update (so a cleared input clears
+// the stored value instead of being ignored).
+function blank<T>(value: T | undefined, mode: 'create' | 'update') {
+  return value === undefined ? (mode === 'update' ? null : undefined) : value;
+}
+
+function toText(value: string | undefined): string | undefined {
+  return value == null || value.trim() === '' ? undefined : value.trim();
 }
 
 function toRoutePayload(route: z.infer<typeof routeSchema>) {
-  const coords = (lng?: string, lat?: string): [number, number] | undefined => {
-    const l = toNumber(lng ?? '');
-    const t = toNumber(lat ?? '');
-    return l !== undefined && t !== undefined ? [l, t] : undefined;
-  };
+  const coords = (lng?: string, lat?: string): [number, number] => [
+    Number(lng),
+    Number(lat),
+  ];
   return {
     startCoords: coords(route.startLng, route.startLat),
     endCoords: coords(route.endLng, route.endLat),
-    distanceKm: toNumber(route.distanceKm ?? ''),
-    maxElevationM: toNumber(route.maxElevationM ?? ''),
-    ascentM: toNumber(route.ascentM ?? ''),
-    descentM: toNumber(route.descentM ?? ''),
-    routeDifficulty: route.routeDifficulty || 'MODERATE',
-    source: route.source || undefined,
-    geojson: toOptionalJson(route.geojson ?? ''),
+    distanceKm: toNumber(route.distanceKm),
+    maxElevationM: toNumber(route.maxElevationM),
+    ascentM: toNumber(route.ascentM),
+    descentM: toNumber(route.descentM),
+    routeDifficulty: route.routeDifficulty || undefined,
+    source: toText(route.source),
+    geojson: route.geojson ?? undefined,
+  };
+}
+
+function scalarPayload(
+  values: z.infer<typeof adminExperienceSchema>,
+  mode: 'create' | 'update',
+) {
+  return {
+    slug: values.slug,
+    name: values.name.trim(),
+    type: values.type,
+    status: values.status,
+    shortDescription: values.shortDescription.trim(),
+    durationDays: toNumber(values.durationDays),
+    minDays: blank(toNumber(values.minDays), mode),
+    maxDays: blank(toNumber(values.maxDays), mode),
+    difficulty: values.difficulty,
+    difficultyScore: blank(toNumber(values.difficultyScore), mode),
+    thumbnail: blank(toText(values.thumbnail), mode),
+    maxElevationM: blank(toNumber(values.maxElevationM), mode),
+    peakSeason: Array.from(new Set(values.peakSeason)).sort((a, b) => a - b),
+    priceNpr: blank(toNumber(values.priceNpr), mode),
+    region: values.region,
+    startPoint: blank(toText(values.startPoint), mode),
+    interest: values.interest.map((i) => i.toLowerCase().trim()),
+    activity: values.activity.map((a) => a.toLowerCase().trim()),
+    isPopular: values.isPopular,
+    isActive: values.isActive,
+  };
+}
+
+function detailsPayload(values: z.infer<typeof adminExperienceSchema>) {
+  return values.details.map((d) => ({
+    key: d.key.trim(),
+    title: toText(d.title),
+    description: toText(d.description),
+    imageUrl: toText(d.imageUrl),
+    content: d.content ? d.content : undefined,
+    data: d.data ?? undefined,
+  }));
+}
+
+function imagesPayload(values: z.infer<typeof adminExperienceSchema>) {
+  return values.images
+    .filter((img) => toText(img.url) || toText(img.storageKey))
+    .map((img) => ({
+      url: toText(img.url),
+      storageKey: toText(img.storageKey),
+      alt: toText(img.alt),
+      type: img.type,
+      metadata: img.metadata ?? undefined,
+    }));
+}
+
+function hasTimeline(values: z.infer<typeof adminExperienceSchema>) {
+  const t = values.timeline;
+  return !!(toText(t.title) || toText(t.description) || t.items.length > 0);
+}
+
+function timelinePayload(values: z.infer<typeof adminExperienceSchema>) {
+  const t = values.timeline;
+  return {
+    title: toText(t.title),
+    description: toText(t.description),
+    items: t.items.map((item, index) => ({
+      order: toNumber(item.order) ?? index + 1,
+      dayNumber: toNumber(item.dayNumber),
+      title: toText(item.title),
+      data: item.data ?? undefined,
+    })),
   };
 }
 
 export function buildCreatePayload(values: AdminFormValues) {
   const parsed = adminExperienceSchema.parse(values);
   return {
-    ...parsed,
-    durationDays: toNumber(parsed.durationDays),
-    minDays: toNumber(parsed.minDays),
-    maxDays: toNumber(parsed.maxDays),
-    difficultyScore: toNumber(parsed.difficultyScore),
-    maxElevationM: toNumber(parsed.maxElevationM),
-    priceNpr: toNumber(parsed.priceNpr),
-    ratingAvg: toNumber(parsed.ratingAvg),
-    peakSeason: Array.from(new Set(parsed.peakSeason)).sort((a, b) => a - b),
-    interest: parsed.interest.map((i) => i.toLowerCase().trim()),
-    activity: parsed.activity.map((a) => a.toLowerCase().trim()),
-    details: parsed.details
-      .filter((d) => d.key)
-      .map((d) => ({
-        ...d,
-        data: toOptionalJson(d.data ?? ''),
-      })),
-    images: (parsed.images ?? [])
-      .filter((img) => img.url || img.storageKey)
-      .map((img) => ({
-        ...img,
-        metadata: toOptionalJson(img.metadata ?? ''),
-      })),
-    timeline: {
-      ...parsed.timeline,
-      items: (parsed.timeline?.items ?? [])
-        .filter((item) => item.title || item.dayNumber || item.order)
-        .map((item, index) => ({
-          ...item,
-          order: toNumber(item.order ?? '') ?? index + 1,
-          dayNumber: toNumber(item.dayNumber ?? ''),
-          data: toOptionalJson(item.data ?? ''),
-        })),
-    },
+    ...scalarPayload(parsed, 'create'),
+    details: detailsPayload(parsed),
+    images: imagesPayload(parsed),
+    timeline: hasTimeline(parsed) ? timelinePayload(parsed) : undefined,
     route: parsed.route ? toRoutePayload(parsed.route) : undefined,
   };
+}
+
+function same(a: unknown, b: unknown): boolean {
+  return JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+}
+
+// PATCH body: only what changed, because the API treats an omitted key as
+// "leave it alone". That also protects fields the GET endpoint does not
+// return (image storage key / metadata, route difficulty / source), which
+// would otherwise be wiped by re-sending an incomplete copy.
+// Returns null when nothing changed.
+export function buildUpdatePayload(
+  values: AdminFormValues,
+  baseline: AdminFormValues,
+): Record<string, unknown> | null {
+  const next = adminExperienceSchema.parse(values);
+  const prev = adminExperienceSchema.parse(baseline);
+
+  const nextScalars = scalarPayload(next, 'update') as Record<string, unknown>;
+  const prevScalars = scalarPayload(prev, 'update') as Record<string, unknown>;
+
+  const body: Record<string, unknown> = {};
+  for (const key of Object.keys(nextScalars)) {
+    if (!same(nextScalars[key], prevScalars[key])) body[key] = nextScalars[key];
+  }
+
+  if (!same(next.details, prev.details)) body.details = detailsPayload(next);
+  if (!same(next.images, prev.images)) body.images = imagesPayload(next);
+  if (!same(next.timeline, prev.timeline)) {
+    body.timeline = hasTimeline(next) ? timelinePayload(next) : null;
+  }
+  if (!same(next.route, prev.route)) {
+    body.route = next.route ? toRoutePayload(next.route) : null;
+  }
+
+  return Object.keys(body).length > 0 ? body : null;
 }

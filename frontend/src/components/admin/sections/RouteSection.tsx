@@ -8,15 +8,15 @@ import { Button } from '@/components/ui/button';
 import type { DifficultyValue } from '../admin-helper';
 import type { AdminFormValues } from '../admin-helper';
 
-import {
-  NumberField,
-  SelectField,
-  TextField,
-  JsonField,
-} from '../fields/FormFields';
+import { NumberField, SelectField, TextField } from '../fields/FormFields';
+import { GeoJsonField } from '../fields/GeoJsonField';
 import { AdminSection } from '../AdminSection';
 
-import { ACCENT_OUTLINE, DIFFICULTY_OPTIONS, routeDefault } from '../admin-helper';
+import {
+  ACCENT_OUTLINE,
+  DIFFICULTY_OPTIONS,
+  routeDefault,
+} from '../admin-helper';
 
 export function RouteSection() {
   const { watch, setValue } = useFormContext<AdminFormValues>();
@@ -56,39 +56,40 @@ export function RouteSection() {
         </p>
       ) : (
         <div className="space-y-4">
-          <JsonField<AdminFormValues>
+          <GeoJsonField
             name="route.geojson"
-            label="GeoJSON (paste here)"
-            description="Paste a full GeoJSON object (LineString / FeatureCollection). It is parsed and sent as-is to the backend (@db.JsonB). Optional."
-            placeholder='{ "type": "LineString", "coordinates": [[83.7189, 28.2096], [83.8089, 28.5311]] }'
-            rows={6}
-            mono
+            label="GeoJSON track"
+            description="Upload a .geojson file (LineString / FeatureCollection). Start and end are filled in from it when empty. Optional."
           />
           <div className="grid items-start gap-4 sm:grid-cols-2">
             <p className="text-xs text-muted-foreground sm:col-span-2">
-              Optional summary fields — leave empty if the GeoJSON covers it.
+              Start and end points are required; the other fields are optional.
             </p>
             <NumberField<AdminFormValues>
               name="route.startLng"
               label="Start longitude"
+              required
               placeholder="83.7189"
               step={0.0001}
             />
             <NumberField<AdminFormValues>
               name="route.startLat"
               label="Start latitude"
+              required
               placeholder="28.2096"
               step={0.0001}
             />
             <NumberField<AdminFormValues>
               name="route.endLng"
               label="End longitude"
+              required
               placeholder="83.8089"
               step={0.0001}
             />
             <NumberField<AdminFormValues>
               name="route.endLat"
               label="End latitude"
+              required
               placeholder="28.5311"
               step={0.0001}
             />
