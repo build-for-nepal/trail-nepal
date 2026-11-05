@@ -32,9 +32,14 @@ export const NATURE_TOUR_OG_IMAGES: Record<string, string> = {
   ilam: 'og-ilam.jpg',
 };
 
-// Arts & crafts workshops; their OG graphics are added once made, and until
-// then the page falls back to FALLBACK_OG_IMAGE.
-export const CRAFT_TOUR_OG_IMAGES: Record<string, string> = {};
+// Arts & crafts workshops are keyed by their plain string id (like the hikes
+// and cultural tours); a new workshop without an entry falls back to
+// FALLBACK_OG_IMAGE.
+export const CRAFT_TOUR_OG_IMAGES: Record<string, string> = {
+  'bhaktapur-pottery': 'og-bhaktapur-pottery.jpg',
+  'bhaktapur-woodcarving': 'og-bhaktapur-woodcarving.jpg',
+  'patan-mandala-painting': 'og-patan-mandala-painting.jpg',
+};
 
 export const FALLBACK_OG_IMAGE = 'og-siteimage.png';
 

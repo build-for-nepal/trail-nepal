@@ -30,7 +30,11 @@ export default function ExploreLayout() {
 
     // 1. Region
     if (f.regions.length > 0) {
-      result = result.filter((t) => f.regions.includes(t.region));
+      // A craft trip's region is "Bhaktapur, Kathmandu Valley", so also match a
+      // broader selected region ("Kathmandu Valley") that it sits within.
+      result = result.filter((t) =>
+        f.regions.some((r) => t.region === r || t.region.endsWith(', ' + r)),
+      );
     }
 
     // 2. Difficulty
@@ -41,8 +45,11 @@ export default function ExploreLayout() {
     // 3. Duration
     if (f.durations.length > 0) {
       result = result.filter((t) => {
+        // Craft workshops are measured in hours/minutes, not days — count them
+        // as 0 days so they fall into the "0-3 days" bucket.
+        const isSubDay = /hour|minute|min\b/i.test(t.duration);
         const daysMatch = t.duration.match(/\d+/);
-        const days = daysMatch ? parseInt(daysMatch[0], 10) : 0;
+        const days = isSubDay ? 0 : daysMatch ? parseInt(daysMatch[0], 10) : 0;
 
         return f.durations.some((bucket) => {
           if (bucket === '0-3 days') return days >= 0 && days <= 3;
