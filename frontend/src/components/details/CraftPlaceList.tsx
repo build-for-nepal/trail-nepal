@@ -15,8 +15,8 @@ const CraftPlaceList = ({
 }: {
   section: CraftPlaceSection;
   id: string;
-  /** Cards per row on large screens. */
-  columns?: 2 | 3;
+  /** Cards per row on large screens; 1 keeps them stacked full-width. */
+  columns?: 1 | 2 | 3;
 }) => {
   const { title, intro, places } = section;
 
@@ -27,7 +27,8 @@ const CraftPlaceList = ({
 
         <ul
           className={cn(
-            'grid grid-cols-1 gap-5 md:grid-cols-2',
+            'grid grid-cols-1 gap-5',
+            columns !== 1 && 'md:grid-cols-2',
             columns === 3 && 'lg:grid-cols-3',
           )}
         >

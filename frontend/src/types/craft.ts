@@ -37,6 +37,8 @@ export interface CraftNearby {
 
 export interface CraftPlaceSection extends CraftNearby {
   intro: string;
+  /** Cards per row on large screens; 1 stacks them full-width. Defaults to 3. */
+  columns?: 1 | 2 | 3;
 }
 
 // Arts & crafts workshops share the cultural tour shape, so they reuse the

@@ -549,6 +549,8 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     // removed). They search by name rather than pin a point.
     alternatives: {
       title: 'Alternative Woodcarving Experiences',
+      // Stacked full-width rather than side-by-side cards.
+      columns: 1,
       intro:
         'Visitors interested in exploring woodcarving beyond the main workshop can consider other destinations in the Kathmandu Valley. These locations offer opportunities to discover traditional craftsmanship, although hands-on workshop availability should be confirmed directly.',
       places: [
