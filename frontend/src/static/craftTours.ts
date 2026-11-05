@@ -671,21 +671,18 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     ],
     // The document has no "Before You Go" section.
     beforeYouGo: [],
-    // The document's gallery, resized only (no crop). The two Wikimedia Commons
-    // photos are from the cited file pages; the two Unsplash photos are the
-    // operator's embedded images, credited to their Unsplash authors. The dark
-    // "What to Expect" carving image had no resolvable free-licence source, so
-    // it is left out.
+    // Every image from the document, resized only (no crop) from the operator's
+    // embedded files, in the order they appear in the PDF. The hero is the
+    // document's page-1 image. Credits are shown where the source is verified:
+    // the two Wikimedia Commons file pages and the two Unsplash authors. The
+    // page-1 carving image has no resolvable free-licence source, so it carries
+    // no credit line.
     gallery: [
       {
         id: 'img_01',
         url: '/images/bhaktapur-woodcarving/woodcarving-cover.jpg',
-        alt: 'Rows of intricately carved wooden windows on a traditional building at Bhaktapur Durbar Square',
+        alt: "An artisan's hands carving an intricate figure into a wooden pillar with a mallet and chisel",
         type: 'hero',
-        credit: {
-          text: 'Photo: Alexander Shafir · CC BY-SA 4.0',
-          url: 'https://commons.wikimedia.org/wiki/File:Bhaktapur_Dubar_Square-IMG_3534.jpg',
-        },
       },
       {
         id: 'img_02',
@@ -709,6 +706,16 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       },
       {
         id: 'img_04',
+        url: '/images/bhaktapur-woodcarving/woodcarving-4.jpg',
+        alt: 'Rows of intricately carved wooden windows on a traditional building at Bhaktapur Durbar Square',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Alexander Shafir · CC BY-SA 4.0',
+          url: 'https://commons.wikimedia.org/wiki/File:Bhaktapur_Dubar_Square-IMG_3534.jpg',
+        },
+      },
+      {
+        id: 'img_05',
         url: '/images/bhaktapur-woodcarving/woodcarving-3.jpg',
         alt: 'An artisan in a traditional cap carving a wooden beam with a hand tool',
         type: 'portrait',
@@ -993,30 +1000,51 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     ],
     // The document has no "Before You Go" section.
     beforeYouGo: [],
-    // The document's usable images, resized only (no crop). The hero is the
-    // cited Wikimedia Commons photo; the second is the operator's embedded
-    // Unsplash image. The document's remaining mandala images had no resolvable
-    // free-licence source (one is marked AI-generated), so they are left out.
+    // Every image from the document, resized only (no crop) from the operator's
+    // embedded files, in the order they appear in the PDF. The hero is the
+    // document's page-1 image. Credits are shown where the source is verified:
+    // the Wikimedia Commons file page and the Unsplash author. The page-1
+    // mandala, the sand mandala, and the pencil sketch have no resolvable
+    // free-licence source (one of them is the document's AI-generated image),
+    // so they carry no credit line.
     gallery: [
       {
         id: 'img_01',
         url: '/images/patan-mandala-painting/mandala-cover.jpg',
-        alt: 'An artist painting a detailed mandala with fine brushwork',
+        alt: 'A vividly coloured finished mandala with intricate concentric geometric patterns',
         type: 'hero',
+      },
+      {
+        id: 'img_02',
+        url: '/images/patan-mandala-painting/mandala-1.jpg',
+        alt: 'An artist painting a detailed mandala with fine brushwork',
+        type: 'landscape',
         credit: {
           text: 'Photo: Jean-Pierre Dalbéra · CC BY 2.0',
           url: 'https://commons.wikimedia.org/wiki/File:Apprenti_Peintre_de_Thanka_(Bhaktapur,_N%C3%A9pal)_(8531738177).jpg',
         },
       },
       {
-        id: 'img_02',
-        url: '/images/patan-mandala-painting/mandala-1.jpg',
+        id: 'img_03',
+        url: '/images/patan-mandala-painting/mandala-2.jpg',
         alt: 'A traditional art and crafts shop in the Kathmandu Valley with paintings and handmade items on display',
         type: 'landscape',
         credit: {
           text: 'Photo: Bishan Thapa Magar · Unsplash',
           url: 'https://unsplash.com/photos/a-man-walking-past-a-store-with-a-lot-of-items-on-display-6LxjLHYGkv0',
         },
+      },
+      {
+        id: 'img_04',
+        url: '/images/patan-mandala-painting/mandala-3.jpg',
+        alt: 'A colourful sand mandala laid out in a circular geometric design',
+        type: 'landscape',
+      },
+      {
+        id: 'img_05',
+        url: '/images/patan-mandala-painting/mandala-4.jpg',
+        alt: 'A hand-drawn mandala outline with coloured pencils on paper',
+        type: 'portrait',
       },
     ],
   },
