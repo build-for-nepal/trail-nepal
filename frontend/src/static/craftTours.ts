@@ -373,6 +373,16 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           url: 'https://commons.wikimedia.org/wiki/File:Pottery_rows.jpg',
         },
       },
+      {
+        id: 'img_06',
+        url: '/images/bhaktapur-pottery/pottery-5.jpg',
+        alt: 'A potter shaping a tall clay vessel on a spinning wheel with wet hands',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Kerensa Pickett · Unsplash',
+          url: 'https://unsplash.com/photos/NExZB5LZF7g',
+        },
+      },
     ],
   },
   'bhaktapur-woodcarving': {
@@ -724,6 +734,16 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           url: 'https://unsplash.com/photos/man-in-white-striped-shirt-sitting-on-brown-pallet-holding-gray-power-tool-5icc4eJULUE',
         },
       },
+      {
+        id: 'img_06',
+        url: '/images/bhaktapur-woodcarving/woodcarving-5.jpg',
+        alt: 'Hands carving a decorative pattern into a flat wooden panel with chisels',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Dominik Scythe · Unsplash',
+          url: 'https://unsplash.com/photos/person-using-chisel-while-curving-wood-3cIvvzjE6Lk',
+        },
+      },
     ],
   },
   'patan-mandala-painting': {
@@ -1045,6 +1065,16 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         url: '/images/patan-mandala-painting/mandala-4.jpg',
         alt: 'A hand-drawn mandala outline with coloured pencils on paper',
         type: 'portrait',
+      },
+      {
+        id: 'img_06',
+        url: '/images/patan-mandala-painting/mandala-5.jpg',
+        alt: 'A detailed, symmetrical mandala painting in vivid traditional colours',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Stan Tuladhar · Unsplash',
+          url: 'https://unsplash.com/photos/intricate-colorful-mandala-painted-on-a-ceiling-GA5isaMG-cI',
+        },
       },
     ],
   },
