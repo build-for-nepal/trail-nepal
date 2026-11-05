@@ -51,6 +51,10 @@ const CraftDetailsContent = ({ tourId }: Props) => {
     tour.gallery?.[0]?.url ||
     '/images/ABC.jpg';
 
+  // Nearby places that share a name with a map pin can frame the map on it.
+  const nearby = tour.nearby;
+  const focusableSiteNames = new Set(tour.sites.map((site) => site.name));
+
   // Craft-only sections are optional per workshop, so their anchors are added
   // only when the section renders (same approach as the cultural Entry Fees).
   const extraNavAfter: Record<string, { label: string; id: string } | null> = {
@@ -91,7 +95,15 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           <CulturalSites
             tour={tour}
             listFooter={
-              tour.nearby ? <CraftNearbyList nearby={tour.nearby} /> : undefined
+              nearby
+                ? (api) => (
+                    <CraftNearbyList
+                      nearby={nearby}
+                      onSelect={api.focusSiteByName}
+                      focusableNames={focusableSiteNames}
+                    />
+                  )
+                : undefined
             }
           />
         </Suspense>

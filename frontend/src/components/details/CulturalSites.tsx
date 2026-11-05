@@ -254,13 +254,18 @@ const DayItem = ({
   );
 };
 
+/** Map helpers handed to `listFooter` so, e.g., nearby places can frame the
+ *  map on a site the same way the itinerary and pins do. */
+export type SiteListApi = { focusSiteByName: (name: string) => void };
+
 const CulturalSites = ({
   tour,
   listFooter,
 }: {
   tour: CulturalTourDetail;
-  /** Extra content at the end of the itinerary list, e.g. nearby places. */
-  listFooter?: ReactNode;
+  /** Extra content at the end of the itinerary list, e.g. nearby places.
+   *  Receives map helpers so its items can drive the map. */
+  listFooter?: (api: SiteListApi) => ReactNode;
 }) => {
   const { sites, itinerary } = tour;
 
@@ -333,6 +338,30 @@ const CulturalSites = ({
       focusDay(dayIndex);
     },
     [dayIndexBySite, focusDay],
+  );
+
+  // Site position by name, so list items (e.g. nearby places) can find the pin.
+  const siteIndexByName = useMemo(() => {
+    const map = new Map<string, number>();
+    sites.forEach((site, index) => map.set(site.name, index));
+    return map;
+  }, [sites]);
+
+  // Frame the map on a single site by name: a site that belongs to a day opens
+  // that day like a pin click; a standalone site (e.g. a nearby place) is just
+  // framed on its own marker.
+  const focusSiteByName = useCallback(
+    (name: string) => {
+      const index = siteIndexByName.get(name);
+      if (index === undefined) return;
+      if (dayIndexBySite[index] >= 0) openFromMap(index);
+      else
+        setFocus((prev) => ({
+          indices: [index],
+          nonce: (prev?.nonce ?? 0) + 1,
+        }));
+    },
+    [siteIndexByName, dayIndexBySite, openFromMap],
   );
 
   const suppressScrollRef = useRef(false);
@@ -416,7 +445,9 @@ const CulturalSites = ({
               ))}
 
               {listFooter && (
-                <div className="cultural-site-item">{listFooter}</div>
+                <div className="cultural-site-item">
+                  {listFooter({ focusSiteByName })}
+                </div>
               )}
             </div>
           </div>
