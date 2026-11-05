@@ -375,4 +375,649 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       },
     ],
   },
+  'bhaktapur-woodcarving': {
+    id: 'bhaktapur-woodcarving',
+    name: 'Traditional Woodcarving in Bhaktapur',
+    summary:
+      "Discover the art of traditional Newari woodcarving in Bhaktapur. Meet local artisans, learn basic carving techniques, and create your own design while exploring the intricate woodwork that decorates the city's historic temples, windows, and buildings.",
+    region: 'Bhaktapur, Kathmandu Valley',
+    meta: {
+      duration: '2–3 Hours',
+      difficulty: 'Easy',
+      // Not in the document; same valley elevation as the pottery workshop.
+      maxElevation: '~1400m',
+      bestSeasons: 'Year-Round',
+      startingPoint: 'Nyatapola Crafts, Pottery Square, Bhaktapur',
+      tripFacts: {
+        start: 'Nyatapola Crafts, Pottery Square, Bhaktapur',
+        cities: 'Bhaktapur',
+        tourType: 'Short Experience · Arts & Crafts · Cultural Heritage',
+        transport: 'Walking',
+        terrain: 'Brick-paved streets · Traditional courtyards',
+      },
+    },
+    overview:
+      "Woodcarving is an important part of Bhaktapur's Newari artistic heritage. Intricately carved wooden windows, doors, pillars, and decorative elements adorn the city's traditional buildings, temples, and historic courtyards.\n\nAt Nyatapola Crafts in Pottery Square, visitors can learn directly from local artisans who continue this traditional craft. Beginner workshops introduce participants to hand-carving techniques and simple designs, including flowers, leaves, and the traditional endless knot.\n\nThe experience combines practical learning with an opportunity to appreciate the craftsmanship behind Bhaktapur's distinctive architecture.",
+    // Workshop pin plus the document's "Places to Explore Nearby".
+    // Coordinates are OpenStreetMap values (lat, lng) resolved via Nominatim;
+    // the Bhaktapur sites reuse the pottery tour's verified pins.
+    sites: [
+      {
+        order: 1,
+        name: 'Nyatapola Crafts',
+        // Not in OSM; the provider's published studio location in Pottery Square.
+        coordinates: [27.6700913, 85.4283848],
+        description:
+          "Learn traditional Newari woodcarving at a local workshop in Pottery Square. Work alongside skilled artisans, practise basic chisel techniques, and explore the craft behind Bhaktapur's intricately carved wooden designs.",
+        isHighlight: true,
+        dayId: 'workshop',
+      },
+      {
+        order: 2,
+        name: 'Pottery Square',
+        // OSM node/12287948902 (tourism=attraction, "Pottery Square (Talako Tole)")
+        coordinates: [27.669897, 85.427743],
+        description:
+          "Explore Bhaktapur's traditional pottery centre, where local artisans shape clay and display handmade pottery in open courtyards.",
+      },
+      {
+        order: 3,
+        name: 'Taumadhi Square',
+        // OSM way/85470341 (amenity=place_of_worship), Nyatapola Temple, which
+        // stands in the square; the square itself has no OSM feature.
+        coordinates: [27.6714098, 85.4293725],
+        description:
+          'A historic square featuring the iconic Nyatapola Temple, Bhairavnath Temple, and traditional Newari architecture.',
+      },
+      {
+        order: 4,
+        name: 'Bhaktapur Durbar Square',
+        // OSM way/1192827651 (place=square)
+        coordinates: [27.672078, 85.4281306],
+        description:
+          'Explore the historic royal complex, including ornate temples, palace courtyards, and the famous Golden Gate.',
+      },
+      {
+        order: 5,
+        name: 'Dattatreya Square',
+        // OSM node/11365112169 (amenity=place_of_worship, "Dattatraya Temple")
+        coordinates: [27.6735387, 85.4353586],
+        description:
+          'Discover historic temples, traditional buildings, and intricate examples of Newari woodcarving.',
+      },
+      {
+        order: 6,
+        name: 'Woodcarving Museum',
+        // OSM node/11365112470 (tourism=museum). The Peacock Window is carved
+        // into the same building, the Pujari Math, so it shares this point and
+        // is listed under "nearby" rather than given a duplicate map pin.
+        coordinates: [27.6733941, 85.4355692],
+        description:
+          'Located in the historic Pujari Math at Dattatreya Square, the museum displays traditional wooden sculptures, carved windows, and architectural elements.',
+      },
+    ],
+    // One entry: the document's "Map Points" stop and its "Day Facts".
+    itinerary: [
+      {
+        day: 'Workshop',
+        id: 'workshop',
+        title: 'Nyatapola Crafts — Woodcarving Workshop',
+        color: '#B45309',
+        description:
+          "Learn traditional Newari woodcarving at a local workshop in Pottery Square. Work alongside skilled artisans, practise basic chisel techniques, and explore the craft behind Bhaktapur's intricately carved wooden designs.",
+        transport: 'Road transport + walking',
+        highlights: [
+          'Traditional woodcarving',
+          'Artisan workshop',
+          'Newari craftsmanship',
+        ],
+        coordinates: [27.6700913, 85.4283848],
+        link: {
+          label: 'nyatapolacrafts.com.np',
+          url: 'https://nyatapolacrafts.com.np/index.html',
+        },
+      },
+    ],
+    // The document's "What You'll Learn" column has no field in the table, so
+    // its content is folded into the intro; the table keeps level + duration.
+    workshopOptions: {
+      intro:
+        'Nyatapola Crafts offers workshops for different skill levels. Beginner sessions cover basic hand-carving techniques, the endless knot, and simple flowers and leaves. Longer courses progress to more detailed floral patterns, pillar carvings, traditional Newari designs, and, at apprenticeship level, advanced carving, statues, and wood selection.',
+      rows: [
+        { name: 'Beginner', duration: '1 afternoon or 2–3 days' },
+        { name: 'Intermediate', duration: '3–7 days' },
+        { name: 'Expert / Apprenticeship', duration: '3 months–1 year' },
+      ],
+      additionalCosts: [
+        {
+          title: 'Your carved piece',
+          description:
+            'Ask the workshop provider whether your carved piece can be completed during the session, and whether materials or additional finishing work incur extra costs.',
+        },
+      ],
+    },
+    nearby: {
+      title: 'Places to Explore Nearby',
+      places: [
+        {
+          order: 1,
+          title: 'Pottery Square',
+          description: [
+            "Explore Bhaktapur's traditional pottery centre, where local artisans shape clay and display handmade pottery in open courtyards.",
+          ],
+        },
+        {
+          order: 2,
+          title: 'Taumadhi Square',
+          description: [
+            'A historic square featuring the iconic Nyatapola Temple, Bhairavnath Temple, and traditional Newari architecture.',
+          ],
+        },
+        {
+          order: 3,
+          title: 'Bhaktapur Durbar Square',
+          description: [
+            'Explore the historic royal complex, including ornate temples, palace courtyards, and the famous Golden Gate.',
+          ],
+        },
+        {
+          order: 4,
+          title: 'Dattatreya Square',
+          description: [
+            'Discover historic temples, traditional buildings, and intricate examples of Newari woodcarving.',
+          ],
+        },
+        {
+          order: 5,
+          title: 'Peacock Window',
+          description: [
+            "See an intricately carved wooden window that showcases Bhaktapur's renowned woodcarving tradition.",
+          ],
+        },
+        {
+          order: 6,
+          title: 'Woodcarving Museum',
+          description: [
+            'Located in the historic Pujari Math at Dattatreya Square, the museum displays traditional wooden sculptures, carved windows, and architectural elements.',
+          ],
+        },
+      ],
+    },
+    bookingNote:
+      'Because the experience involves a hands-on workshop, booking ahead is recommended to arrange a suitable session.',
+    // Map links are the document's own Google Maps searches (tracking params
+    // removed). They search by name rather than pin a point.
+    alternatives: {
+      title: 'Alternative Woodcarving Experiences',
+      intro:
+        'Visitors interested in exploring woodcarving beyond the main workshop can consider other destinations in the Kathmandu Valley. These locations offer opportunities to discover traditional craftsmanship, although hands-on workshop availability should be confirmed directly.',
+      places: [
+        {
+          order: 1,
+          title: 'Traditional Woodcarving in Bungamati, Lalitpur',
+          description: [
+            "Bungamati is a traditional Newari settlement known for its rich cultural heritage and traditional craftsmanship. Explore the village's wooden carvings, traditional houses, and local artisan practices to learn more about the region's woodcarving traditions.",
+          ],
+          mapUrl:
+            'https://www.google.com/maps/search/?api=1&query=Bungamati+Woodcarving+Lalitpur+Nepal',
+        },
+        {
+          order: 2,
+          title: 'Traditional Woodcarving in Patan, Lalitpur',
+          description: [
+            "Patan is renowned for its Newari architecture, featuring intricately carved wooden windows, doors, and decorative details. Explore its historic squares, temples, and local craft businesses to discover how woodcarving contributes to the city's architectural heritage.",
+            'For a more hands-on experience, contact local artisans or workshop providers to check whether woodcarving sessions are available.',
+          ],
+          reference: {
+            label: 'Newa Wood Carving Industry',
+            url: 'https://newawoodcarving.com/contact/',
+          },
+          mapUrl:
+            'https://www.google.com/maps/search/?api=1&query=Traditional+Woodcarving+Patan+Lalitpur+Nepal',
+        },
+      ],
+    },
+    expectations: [
+      {
+        title: 'Traditional Craftsmanship',
+        description:
+          "Learn about the woodcarving tradition reflected in Bhaktapur's historic temples, windows, doors, and decorative wooden structures.",
+      },
+      {
+        title: 'Hands-On Learning',
+        description:
+          'Practise basic carving techniques with guidance from an artisan. Beginner sessions focus on simple patterns rather than complex architectural carvings.',
+      },
+      {
+        title: 'Historic Surroundings',
+        description:
+          "Explore Pottery Square and nearby heritage sites to see how traditional woodcarving contributes to Bhaktapur's architectural identity.",
+      },
+      {
+        title: 'Local Artisans',
+        description:
+          'Learn directly from craftspeople who continue traditional Newari woodcarving practices and produce handmade wooden pieces.',
+      },
+      {
+        title: 'Your Carved Piece',
+        description:
+          'Ask the workshop provider whether your carved piece can be completed during the session and whether materials or additional finishing work incur extra costs.',
+      },
+    ],
+    seasonalPlanning: [
+      // January-first. The document gives Year-Round, with October–April the
+      // comfortable window and May–September the warmer/monsoon months where
+      // availability should be confirmed.
+      {
+        month: 'Jan',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'Feb',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'Mar',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'Apr',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'May',
+        condition: 'Warmer & Monsoon Months / Confirm Workshop Availability',
+        status: 'caution',
+      },
+      {
+        month: 'Jun',
+        condition: 'Warmer & Monsoon Months / Confirm Workshop Availability',
+        status: 'caution',
+      },
+      {
+        month: 'Jul',
+        condition: 'Warmer & Monsoon Months / Confirm Workshop Availability',
+        status: 'caution',
+      },
+      {
+        month: 'Aug',
+        condition: 'Warmer & Monsoon Months / Confirm Workshop Availability',
+        status: 'caution',
+      },
+      {
+        month: 'Sep',
+        condition: 'Warmer & Monsoon Months / Confirm Workshop Availability',
+        status: 'caution',
+      },
+      {
+        month: 'Oct',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'Nov',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+      {
+        month: 'Dec',
+        condition: 'Comfortable Conditions / Exploring the Historic Centre',
+        status: 'peak',
+      },
+    ],
+    // The document has no "Before You Go" section.
+    beforeYouGo: [],
+    // The document's gallery, resized only (no crop). The two Wikimedia Commons
+    // photos are from the cited file pages; the two Unsplash photos are the
+    // operator's embedded images, credited to their Unsplash authors. The dark
+    // "What to Expect" carving image had no resolvable free-licence source, so
+    // it is left out.
+    gallery: [
+      {
+        id: 'img_01',
+        url: '/images/bhaktapur-woodcarving/woodcarving-cover.jpg',
+        alt: 'Rows of intricately carved wooden windows on a traditional building at Bhaktapur Durbar Square',
+        type: 'hero',
+        credit: {
+          text: 'Photo: Alexander Shafir · CC BY-SA 4.0',
+          url: 'https://commons.wikimedia.org/wiki/File:Bhaktapur_Dubar_Square-IMG_3534.jpg',
+        },
+      },
+      {
+        id: 'img_02',
+        url: '/images/bhaktapur-woodcarving/woodcarving-1.jpg',
+        alt: 'Carved wooden roof struts and brickwork on a historic Bhaktapur temple',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Bijaya2043 · CC BY-SA 4.0',
+          url: 'https://commons.wikimedia.org/wiki/File:Nepal_Bhaktapur_60.jpg',
+        },
+      },
+      {
+        id: 'img_03',
+        url: '/images/bhaktapur-woodcarving/woodcarving-2.jpg',
+        alt: 'The tiered Nyatapola Temple rising above Bhaktapur under a clear sky',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Martijn Vonk · Unsplash',
+          url: 'https://unsplash.com/photos/a-very-tall-building-with-a-very-tall-tower-on-top-of-it-Qkvi-kfJRj8',
+        },
+      },
+      {
+        id: 'img_04',
+        url: '/images/bhaktapur-woodcarving/woodcarving-3.jpg',
+        alt: 'An artisan in a traditional cap carving a wooden beam with a hand tool',
+        type: 'portrait',
+        credit: {
+          text: 'Photo: Shashank Thapa · Unsplash',
+          url: 'https://unsplash.com/photos/man-in-white-striped-shirt-sitting-on-brown-pallet-holding-gray-power-tool-5icc4eJULUE',
+        },
+      },
+    ],
+  },
+  'patan-mandala-painting': {
+    id: 'patan-mandala-painting',
+    name: 'Mandala Painting Workshop',
+    summary:
+      "Explore the art of mandala painting in a guided creative workshop. Learn to build intricate patterns, work with shapes and colours, and create your own mandala artwork while discovering this art form's cultural and artistic significance.",
+    region: 'Patan, Kathmandu Valley',
+    meta: {
+      duration: '2–3 Hours',
+      difficulty: 'Easy',
+      // Not in the document; Patan sits at roughly the same valley elevation.
+      maxElevation: '~1350m',
+      bestSeasons: 'Year-Round',
+      startingPoint: 'The Precious Arts, Patan',
+      tripFacts: {
+        start: 'The Precious Arts, Patan',
+        cities: 'Patan, Kathmandu Valley',
+        tourType: 'Short Experience · Arts & Crafts · Cultural Heritage',
+        transport: 'Walking',
+        terrain: 'Urban streets and traditional neighbourhoods',
+      },
+    },
+    overview:
+      'Mandala art uses geometric patterns and repeating shapes to create intricate, balanced designs. In this hands-on experience, participants are introduced to basic mandala techniques and guided through creating their own artwork.\n\nThe Precious Arts, located near Patan Durbar Square, offers a variety of art classes and special workshops, including mandala art. Contact the studio to confirm upcoming sessions, materials, and booking arrangements.',
+    // Workshop pin plus the document's "Places to Explore Nearby".
+    // Coordinates are OpenStreetMap values (lat, lng) resolved via Nominatim;
+    // the Patan sites reuse the Kathmandu Valley cultural tour's verified pins.
+    sites: [
+      {
+        order: 1,
+        name: 'The Precious Arts',
+        // Not in OSM; the provider's published studio location near Patan Durbar
+        // Square (Chushika-Hakha Bahal Galli).
+        coordinates: [27.6726296, 85.3266042],
+        description:
+          'Visit The Precious Arts near Patan Durbar Square to enquire about its mandala art workshops. The studio offers various art classes and occasional special workshops. Contact the provider to confirm the schedule and arrange your session.',
+        isHighlight: true,
+        dayId: 'workshop',
+      },
+      {
+        order: 2,
+        name: 'Patan Durbar Square',
+        // OSM relation/4557971 (highway=pedestrian)
+        coordinates: [27.6734454, 85.325035],
+        description:
+          'Explore the historic royal complex, featuring traditional Newari architecture, ornate temples, palace courtyards, and intricately carved wooden details.',
+      },
+      {
+        order: 3,
+        name: 'Krishna Mandir',
+        // OSM way/120443307 (amenity=place_of_worship)
+        coordinates: [27.6736225, 85.3249641],
+        description:
+          'Visit the iconic stone temple at Patan Durbar Square, known for its detailed carvings and distinctive architectural design.',
+      },
+      {
+        order: 4,
+        name: 'Golden Temple (Hiranya Varna Mahavihar)',
+        // OSM relation/4624856 (amenity=place_of_worship)
+        coordinates: [27.6752237, 85.3247105],
+        description:
+          'Discover a historic Buddhist monastery known for its traditional architecture, religious artwork, and intricate decorative details.',
+      },
+      {
+        order: 5,
+        name: 'Patan Museum',
+        // OSM node/1904110313 (tourism=museum)
+        coordinates: [27.6734438, 85.3253354],
+        description:
+          "Explore Nepal's artistic and cultural heritage through collections of traditional sculpture, religious objects, and metalwork.",
+      },
+      {
+        order: 6,
+        name: 'Mahabouddha Temple',
+        // OSM node/564129617 (amenity=place_of_worship, "महाबुद्ध मन्दिर")
+        coordinates: [27.6689984, 85.3271415],
+        description:
+          'Visit the distinctive terracotta temple known for its intricate brickwork and repeated Buddha images.',
+      },
+    ],
+    // One entry: the document's "Map Points" stop and its "Day Facts".
+    itinerary: [
+      {
+        day: 'Workshop',
+        id: 'workshop',
+        title: 'The Precious Arts — Mandala Painting Workshop',
+        color: '#B45309',
+        description:
+          'Visit The Precious Arts near Patan Durbar Square to enquire about its mandala art workshops. The studio offers various art classes and occasional special workshops. Contact the provider to confirm the schedule and arrange your session.',
+        transport: 'Local transport + walking',
+        highlights: [
+          'Mandala painting',
+          'Creative workshop',
+          "Patan's artistic heritage",
+        ],
+        coordinates: [27.6726296, 85.3266042],
+        link: {
+          label: 'thepreciousarts.com.np',
+          url: 'https://thepreciousarts.com.np/',
+        },
+      },
+    ],
+    nearby: {
+      title: 'Places to Explore Nearby',
+      places: [
+        {
+          order: 1,
+          title: 'Patan Durbar Square',
+          description: [
+            'Explore the historic royal complex, featuring traditional Newari architecture, ornate temples, palace courtyards, and intricately carved wooden details.',
+          ],
+        },
+        {
+          order: 2,
+          title: 'Krishna Mandir',
+          description: [
+            'Visit the iconic stone temple at Patan Durbar Square, known for its detailed carvings and distinctive architectural design.',
+          ],
+        },
+        {
+          order: 3,
+          title: 'Golden Temple (Hiranya Varna Mahavihar)',
+          description: [
+            'Discover a historic Buddhist monastery known for its traditional architecture, religious artwork, and intricate decorative details.',
+          ],
+        },
+        {
+          order: 4,
+          title: 'Patan Museum',
+          description: [
+            "Explore Nepal's artistic and cultural heritage through collections of traditional sculpture, religious objects, and metalwork.",
+          ],
+        },
+        {
+          order: 5,
+          title: 'Mahabouddha Temple',
+          description: [
+            'Visit the distinctive terracotta temple known for its intricate brickwork and repeated Buddha images.',
+          ],
+        },
+      ],
+    },
+    bookingNote:
+      'Contact The Precious Arts to confirm the next available session, duration, price, and whether advance reservations are required.',
+    // Map links are the document's own Google Maps searches (tracking params
+    // removed). They search by name rather than pin a point.
+    alternatives: {
+      title: 'Alternative Experiences',
+      intro:
+        'Visitors interested in exploring other traditional painting practices can consider these experiences in the Kathmandu Valley. Workshop details, availability, and pricing should be confirmed with the respective providers.',
+      places: [
+        {
+          order: 1,
+          title: 'Paubha Painting Workshop, Patan',
+          description: [
+            'Discover Paubha, a traditional Newari religious painting practice. Learn about its imagery, symbolism, and painting techniques in a guided session with a local artist.',
+            'The listed experience includes an introduction to Paubha painting and a practical painting session. The provider describes a workshop lasting approximately 2–3 hours, with materials and other inclusions depending on the booking arrangement.',
+          ],
+          reference: {
+            label: 'Paubha Painting Workshop — Royal Mountain Travel',
+            url: 'https://royalmt.com.np/experiences/paubha-painting-workshop/',
+          },
+          mapUrl:
+            'https://www.google.com/maps/search/?api=1&query=Patan+Durbar+Square+Lalitpur+Nepal',
+        },
+        {
+          order: 2,
+          title: 'Thangka Painting Experience, Kathmandu Valley',
+          description: [
+            'Explore traditional Tibetan Buddhist painting through its detailed imagery, symbolic motifs, and carefully developed compositions. Thangka painting offers a different artistic experience, with an emphasis on traditional religious art and painting techniques.',
+            'Visitors interested in a hands-on session should contact local studios to confirm whether introductory workshops are available.',
+          ],
+          reference: {
+            label: 'Himalayan Arts Gallery',
+            url: 'https://himalayanthanka.com/about-us',
+          },
+          mapUrl:
+            'https://www.google.com/maps/search/?api=1&query=Himalayan+Arts+Gallery+Thamel+Kathmandu',
+        },
+      ],
+    },
+    expectations: [
+      {
+        title: 'Creative Art Practice',
+        description:
+          'Explore mandala-inspired patterns through drawing, shapes, repetition, and colour. The session provides an opportunity to develop a personal design while learning basic artistic techniques.',
+      },
+      {
+        title: 'Guided Learning',
+        description:
+          'The Precious Arts offers art classes and special workshops. Ask the studio about the format of its mandala session, the level of guidance provided, and whether it is suitable for first-time participants.',
+      },
+      {
+        title: 'A Beginner-Friendly Experience',
+        description:
+          'Mandala painting can be approached without previous art experience. Confirm with the provider whether the available workshop is designed for beginners and what techniques will be covered.',
+      },
+      {
+        title: 'Materials and Artwork',
+        description:
+          'Confirm whether paper, drawing tools, paints, brushes, and other materials are included in the workshop fee. Ask whether participants can take their completed artwork home.',
+      },
+    ],
+    seasonalPlanning: [
+      // January-first. The document gives Year-Round: October–April is
+      // comfortable for exploring Patan, and because the workshop is indoors it
+      // remains a suitable activity through the warmer and monsoon months.
+      {
+        month: 'Jan',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'Feb',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'Mar',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'Apr',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'May',
+        condition:
+          'Warmer & Monsoon Months / Suitable Indoor Workshop Activity',
+        status: 'peak',
+      },
+      {
+        month: 'Jun',
+        condition:
+          'Warmer & Monsoon Months / Suitable Indoor Workshop Activity',
+        status: 'peak',
+      },
+      {
+        month: 'Jul',
+        condition:
+          'Warmer & Monsoon Months / Suitable Indoor Workshop Activity',
+        status: 'peak',
+      },
+      {
+        month: 'Aug',
+        condition:
+          'Warmer & Monsoon Months / Suitable Indoor Workshop Activity',
+        status: 'peak',
+      },
+      {
+        month: 'Sep',
+        condition:
+          'Warmer & Monsoon Months / Suitable Indoor Workshop Activity',
+        status: 'peak',
+      },
+      {
+        month: 'Oct',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'Nov',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+      {
+        month: 'Dec',
+        condition: "Comfortable Conditions / Exploring Patan's Historic Centre",
+        status: 'peak',
+      },
+    ],
+    // The document has no "Before You Go" section.
+    beforeYouGo: [],
+    // The document's usable images, resized only (no crop). The hero is the
+    // cited Wikimedia Commons photo; the second is the operator's embedded
+    // Unsplash image. The document's remaining mandala images had no resolvable
+    // free-licence source (one is marked AI-generated), so they are left out.
+    gallery: [
+      {
+        id: 'img_01',
+        url: '/images/patan-mandala-painting/mandala-cover.jpg',
+        alt: 'An artist painting a detailed mandala with fine brushwork',
+        type: 'hero',
+        credit: {
+          text: 'Photo: Jean-Pierre Dalbéra · CC BY 2.0',
+          url: 'https://commons.wikimedia.org/wiki/File:Apprenti_Peintre_de_Thanka_(Bhaktapur,_N%C3%A9pal)_(8531738177).jpg',
+        },
+      },
+      {
+        id: 'img_02',
+        url: '/images/patan-mandala-painting/mandala-1.jpg',
+        alt: 'A traditional art and crafts shop in the Kathmandu Valley with paintings and handmade items on display',
+        type: 'landscape',
+        credit: {
+          text: 'Photo: Bishan Thapa Magar · Unsplash',
+          url: 'https://unsplash.com/photos/a-man-walking-past-a-store-with-a-lot-of-items-on-display-6LxjLHYGkv0',
+        },
+      },
+    ],
+  },
 };
