@@ -84,7 +84,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         day: 'Workshop',
         id: 'workshop',
         title: 'Bhaktapur Pottery Square',
-        color: '#B45309',
+        color: '#84b829',
         description:
           "Discover Bhaktapur's traditional pottery-making heritage at Pottery Square, where local artisans shape clay using techniques passed down through generations. Observe the craft, join a hands-on workshop, and explore the surrounding historic neighbourhood.",
         transport: 'Road transport + walking',
@@ -462,7 +462,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         day: 'Workshop',
         id: 'workshop',
         title: 'Nyatapola Crafts — Woodcarving Workshop',
-        color: '#B45309',
+        color: '#84b829',
         description:
           "Learn traditional Newari woodcarving at a local workshop in Pottery Square. Work alongside skilled artisans, practise basic chisel techniques, and explore the craft behind Bhaktapur's intricately carved wooden designs.",
         transport: 'Road transport + walking',
@@ -549,8 +549,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     // removed). They search by name rather than pin a point.
     alternatives: {
       title: 'Alternative Woodcarving Experiences',
-      // Stacked full-width rather than side-by-side cards.
-      columns: 1,
       intro:
         'Visitors interested in exploring woodcarving beyond the main workshop can consider other destinations in the Kathmandu Valley. These locations offer opportunities to discover traditional craftsmanship, although hands-on workshop availability should be confirmed directly.',
       places: [
@@ -813,7 +811,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         day: 'Workshop',
         id: 'workshop',
         title: 'The Precious Arts — Mandala Painting Workshop',
-        color: '#B45309',
+        color: '#84b829',
         description:
           'Visit The Precious Arts near Patan Durbar Square to enquire about its mandala art workshops. The studio offers various art classes and occasional special workshops. Contact the provider to confirm the schedule and arrange your session.',
         transport: 'Local transport + walking',

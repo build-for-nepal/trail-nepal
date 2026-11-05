@@ -114,7 +114,7 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           <CraftPlaceList
             section={tour.alternatives}
             id="alternatives"
-            columns={tour.alternatives.columns ?? 3}
+            columns={tour.alternatives.columns ?? 1}
           />
         )}
         <Gallery images={tour.gallery} />
