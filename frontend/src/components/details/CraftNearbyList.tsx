@@ -31,7 +31,7 @@ const CraftNearbyList = ({
               <button
                 type="button"
                 onClick={() => onSelect?.(place.title)}
-                className="w-fit cursor-pointer text-left text-sm font-semibold text-black/85 hover:underline"
+                className="w-fit cursor-pointer text-left text-sm font-semibold text-black/85"
               >
                 {place.title}
               </button>
