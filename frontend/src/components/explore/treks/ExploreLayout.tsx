@@ -6,13 +6,14 @@ import FilterSidebar from '../filter/FilterSidebar';
 import TrekCard from './TrekCard';
 import { TRAILS } from '@/static/trek';
 import { TREK_DETAILS } from 'src/static/trekDetails';
-import { isCultural, isHike, isNature, trailHref } from '@/lib/trail';
+import { isCraft, isCultural, isHike, isNature, trailHref } from '@/lib/trail';
 
 // Maps a trail card to the label used by the "Type" filter group.
 const typeLabel = (t: (typeof TRAILS)[number]) => {
   if (isHike(t)) return 'Day Hike';
   if (isCultural(t)) return 'Cultural Tour';
   if (isNature(t)) return 'Nature & Wildlife';
+  if (isCraft(t)) return 'Arts & Crafts';
   return 'Trek';
 };
 
@@ -29,7 +30,11 @@ export default function ExploreLayout() {
 
     // 1. Region
     if (f.regions.length > 0) {
-      result = result.filter((t) => f.regions.includes(t.region));
+      // A craft trip's region is "Bhaktapur, Kathmandu Valley", so also match a
+      // broader selected region ("Kathmandu Valley") that it sits within.
+      result = result.filter((t) =>
+        f.regions.some((r) => t.region === r || t.region.endsWith(', ' + r)),
+      );
     }
 
     // 2. Difficulty
@@ -40,8 +45,11 @@ export default function ExploreLayout() {
     // 3. Duration
     if (f.durations.length > 0) {
       result = result.filter((t) => {
+        // Craft workshops are measured in hours/minutes, not days — count them
+        // as 0 days so they fall into the "0-3 days" bucket.
+        const isSubDay = /hour|minute|min\b/i.test(t.duration);
         const daysMatch = t.duration.match(/\d+/);
-        const days = daysMatch ? parseInt(daysMatch[0], 10) : 0;
+        const days = isSubDay ? 0 : daysMatch ? parseInt(daysMatch[0], 10) : 0;
 
         return f.durations.some((bucket) => {
           if (bucket === '0-3 days') return days >= 0 && days <= 3;
@@ -91,7 +99,10 @@ export default function ExploreLayout() {
                 // Only treks look up the richer summary from the trek detail
                 // model; every other type carries its own.
                 const description =
-                  isHike(trek) || isCultural(trek) || isNature(trek)
+                  isHike(trek) ||
+                  isCultural(trek) ||
+                  isNature(trek) ||
+                  isCraft(trek)
                     ? trek.description
                     : (TREK_DETAILS[trek.id]?.summary ?? trek.description);
 
@@ -104,6 +115,7 @@ export default function ExploreLayout() {
                     isHike={isHike(trek)}
                     isCultural={isCultural(trek)}
                     isNature={isNature(trek)}
+                    isCraft={isCraft(trek)}
                   />
                 );
               })

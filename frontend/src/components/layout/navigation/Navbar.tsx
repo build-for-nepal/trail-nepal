@@ -17,7 +17,8 @@ export function Navbar() {
     pathname.startsWith('/treks/') ||
     pathname.startsWith('/hikes/') ||
     pathname.startsWith('/cultural-tours/') ||
-    pathname.startsWith('/nature-wildlife/');
+    pathname.startsWith('/nature-wildlife/') ||
+    pathname.startsWith('/arts-crafts/');
 
   const isFixed = !isDetailPage;
 

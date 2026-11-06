@@ -28,7 +28,7 @@ export type TrekRouteCollection = FeatureCollection<
 // The listing card is shared across content types. `type` discriminates a
 // multi-day trek from a single-day hike; treat an absent `type` as 'trek' so
 // existing trek data needs no migration.
-export type TrailType = 'trek' | 'hike' | 'cultural' | 'nature';
+export type TrailType = 'trek' | 'hike' | 'cultural' | 'nature' | 'craft';
 
 export interface Trek {
   id: string;
@@ -51,6 +51,7 @@ export interface ExploreTrekCardProps extends Trek {
   isHike?: boolean;
   isCultural?: boolean;
   isNature?: boolean;
+  isCraft?: boolean;
 }
 
 //TREK DETAIL PAGE TYPES
@@ -91,6 +92,9 @@ export interface TrekImage {
   alt: string;
   type: 'hero' | 'landscape' | 'portrait';
   order?: number;
+  /** Attribution shown on the gallery tile, for licences that require it
+   *  (e.g. CC BY-SA). `url` is the source file page. */
+  credit?: { text: string; url: string };
 }
 
 export interface GearItem {

@@ -433,14 +433,107 @@ export const NATURE_TOURS: Trek[] = [
   },
 ];
 
+export const CRAFT_TOURS: Trek[] = [
+  // `description` must match CRAFT_TOUR_DETAILS[id].summary exactly.
+  {
+    id: 'bhaktapur-pottery',
+    title: 'Pottery Making in Bhaktapur',
+    region: 'Bhaktapur, Kathmandu Valley',
+    description:
+      "Discover traditional pottery-making in Bhaktapur's historic Pottery Square. Meet local artisans, learn traditional clay-shaping techniques, and try making your own pottery piece while exploring the city's living Newari craft heritage.",
+    difficulty: 'Easy',
+    duration: '1–2 Hours',
+    altitude: '1400m',
+    season: 'Year-Round',
+    imageUrl: '/images/bhaktapur-pottery/pottery-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'pottery',
+      'pottery making',
+      'pottery workshop',
+      'pottery square',
+      'talako',
+      'bhaktapur',
+      'clay',
+      'pottery wheel',
+      'newari craft',
+      'artisan workshop',
+      'arts and crafts',
+      'hands-on workshop',
+      'kathmandu valley',
+    ],
+    type: 'craft',
+  },
+  {
+    id: 'bhaktapur-woodcarving',
+    title: 'Traditional Woodcarving in Bhaktapur',
+    region: 'Bhaktapur, Kathmandu Valley',
+    description:
+      "Discover the art of traditional Newari woodcarving in Bhaktapur. Meet local artisans, learn basic carving techniques, and create your own design while exploring the intricate woodwork that decorates the city's historic temples, windows, and buildings.",
+    difficulty: 'Easy',
+    duration: '2–3 Hours',
+    altitude: '1400m',
+    season: 'Year-Round',
+    imageUrl: '/images/bhaktapur-woodcarving/woodcarving-cover.jpg',
+    isPopular: false,
+    keywords: [
+      'woodcarving',
+      'wood carving',
+      'woodcarving workshop',
+      'newari woodcarving',
+      'nyatapola crafts',
+      'pottery square',
+      'bhaktapur',
+      'carving',
+      'chisel',
+      'newari craft',
+      'artisan workshop',
+      'arts and crafts',
+      'hands-on workshop',
+      'kathmandu valley',
+    ],
+    type: 'craft',
+  },
+  {
+    id: 'patan-mandala-painting',
+    title: 'Mandala Painting Workshop',
+    region: 'Patan, Kathmandu Valley',
+    description:
+      "Explore the art of mandala painting in a guided creative workshop. Learn to build intricate patterns, work with shapes and colours, and create your own mandala artwork while discovering this art form's cultural and artistic significance.",
+    difficulty: 'Easy',
+    duration: '2–3 Hours',
+    altitude: '1350m',
+    season: 'Year-Round',
+    imageUrl: '/images/patan-mandala-painting/mandala-5.jpg',
+    isPopular: false,
+    keywords: [
+      'mandala',
+      'mandala painting',
+      'mandala workshop',
+      'painting workshop',
+      'the precious arts',
+      'patan',
+      'lalitpur',
+      'buddhist art',
+      'newari art',
+      'creative workshop',
+      'arts and crafts',
+      'hands-on workshop',
+      'kathmandu valley',
+    ],
+    type: 'craft',
+  },
+];
+
 // Shared discovery set: multi-day treks + single-day hikes + cultural tours +
-// nature tours. Explore, search, and the homepage should iterate TRAILS to
-// surface all content types.
+// nature tours + arts & crafts workshops. Explore, search, and the homepage
+// should iterate TRAILS to surface all content types.
 export const TRAILS: Trek[] = [
   ...TREKS,
   ...HIKES,
   ...CULTURAL_TOURS,
   ...NATURE_TOURS,
+  ...CRAFT_TOURS,
 ];
 
 export const POPULAR_TREKS = TRAILS.filter((trek) => trek.isPopular);

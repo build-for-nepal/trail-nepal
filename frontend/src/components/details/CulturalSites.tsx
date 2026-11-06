@@ -1,12 +1,20 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import {
   ChevronDown,
   ChevronsDownUp,
   ChevronsUpDown,
+  ExternalLink,
   Route,
 } from 'lucide-react';
 
@@ -181,7 +189,7 @@ const DayItem = ({
           className="flex-1 text-sm font-semibold tracking-tight text-black/80 sm:text-base"
           style={{ fontFamily: 'var(--font-poppins), serif' }}
         >
-          {day.day} : {day.title}
+          {day.day ? `${day.day} : ${day.title}` : day.title}
         </span>
 
         <span
@@ -216,6 +224,18 @@ const DayItem = ({
             </div>
           )}
 
+          {day.link && (
+            <a
+              href={day.link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-fit items-center gap-2 text-xs font-medium text-[#376BB6] hover:underline"
+            >
+              <ExternalLink size={14} strokeWidth={2} className="shrink-0" />
+              {day.link.label}
+            </a>
+          )}
+
           {day.highlights.length > 0 && (
             <>
               <div className="h-px w-full bg-[#E2E8F0]" />
@@ -234,7 +254,23 @@ const DayItem = ({
   );
 };
 
-const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
+/** Map helpers handed to `listFooter` so, e.g., nearby places can frame the
+ *  map on a site the same way the itinerary and pins do. */
+export type SiteListApi = { focusSiteByName: (name: string) => void };
+
+const CulturalSites = ({
+  tour,
+  listFooter,
+  itineraryTitle,
+}: {
+  tour: CulturalTourDetail;
+  /** Replaces the default "N - days itinerary" heading, e.g. a single-stop
+   *  workshop shows "Location". */
+  itineraryTitle?: string;
+  /** Extra content at the end of the itinerary list, e.g. nearby places.
+   *  Receives map helpers so its items can drive the map. */
+  listFooter?: (api: SiteListApi) => ReactNode;
+}) => {
   const { sites, itinerary } = tour;
 
   // Pin colour per site, inherited from the itinerary day that covers it.
@@ -308,6 +344,30 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
     [dayIndexBySite, focusDay],
   );
 
+  // Site position by name, so list items (e.g. nearby places) can find the pin.
+  const siteIndexByName = useMemo(() => {
+    const map = new Map<string, number>();
+    sites.forEach((site, index) => map.set(site.name, index));
+    return map;
+  }, [sites]);
+
+  // Frame the map on a single site by name: a site that belongs to a day opens
+  // that day like a pin click; a standalone site (e.g. a nearby place) is just
+  // framed on its own marker.
+  const focusSiteByName = useCallback(
+    (name: string) => {
+      const index = siteIndexByName.get(name);
+      if (index === undefined) return;
+      if (dayIndexBySite[index] >= 0) openFromMap(index);
+      else
+        setFocus((prev) => ({
+          indices: [index],
+          nonce: (prev?.nonce ?? 0) + 1,
+        }));
+    },
+    [siteIndexByName, dayIndexBySite, openFromMap],
+  );
+
   const suppressScrollRef = useRef(false);
   const toggleAll = () => {
     suppressScrollRef.current = true;
@@ -353,7 +413,7 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                 className="text-xl font-bold tracking-tight text-black/90"
                 style={{ fontFamily: 'var(--font-poppins), serif' }}
               >
-                {itinerary.length} - days itinerary
+                {itineraryTitle ?? `${itinerary.length} - days itinerary`}
               </h3>
 
               <button
@@ -387,6 +447,12 @@ const CulturalSites = ({ tour }: { tour: CulturalTourDetail }) => {
                   />
                 </div>
               ))}
+
+              {listFooter && (
+                <div className="cultural-site-item">
+                  {listFooter({ focusSiteByName })}
+                </div>
+              )}
             </div>
           </div>
 

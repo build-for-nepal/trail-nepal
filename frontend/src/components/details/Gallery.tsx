@@ -89,6 +89,17 @@ export const Gallery = ({ images }: Props) => {
                   sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                {image.credit && (
+                  <a
+                    href={image.credit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute right-3 bottom-2 max-w-[calc(100%-1.5rem)] truncate text-[9px] text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] hover:underline"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {image.credit.text}
+                  </a>
+                )}
               </div>
             );
           })}
