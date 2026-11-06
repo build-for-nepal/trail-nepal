@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 
 import { AdminCreatePage } from '@/components/admin/AdminCreatePage';
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function AdminAddRoute() {
-  return <AdminCreatePage />;
+  return (
+    <Suspense>
+      <AdminCreatePage />
+    </Suspense>
+  );
 }

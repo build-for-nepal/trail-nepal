@@ -24,6 +24,17 @@ export const trekCardColor = {
   placeholder: '#55685F',
 } as const;
 
+// The detail screen's stat, fact and back-button icons, and the photo placeholder.
+export const tripDetailColor = {
+  icon: '#0C1B16',
+  placeholder: '#55685F',
+} as const;
+
+// The gear checklist's tick, drawn on a bg-primary box.
+export const packingColor = {
+  check: '#FFFFFF',
+} as const;
+
 // @gorhom/bottom-sheet styles its animated views through props, not className.
 export const bottomSheetColor = {
   surface: '#FFFFFF',
@@ -36,4 +47,64 @@ export const sliderColor = {
   fill: '#0C1B16',
   track: '#E4E0D8',
   thumb: '#0C1B16',
+} as const;
+
+export const seasonColor = {
+  containerBg: '#EBF0F8',
+  cardBg: '#FFFFFF',
+  ringColor: '#376BB6',
+  ringOffset: '#EEF2F8',
+  currentBadgeBorder: 'rgba(55, 107, 182, 0.25)',
+  currentBadgeText: '#376BB6',
+  currentDot: '#376BB6',
+} as const;
+
+// White on the web's forecast blue (--color-forecast-card), 5.3:1. Secondary text is 90%
+// white, 4.66:1; 85% is 4.36:1 and the web's 55-70% lower still, all short of AA's 4.5:1.
+// Controls darken the blue, so white on them is 6.8:1, where a white tint gave 4.0:1.
+export const forecastColor = {
+  card: '#376BB6',
+  text: '#FFFFFF',
+  muted: 'rgba(255, 255, 255, 0.9)',
+  divider: 'rgba(255, 255, 255, 0.18)',
+  control: 'rgba(0, 0, 0, 0.15)',
+  controlBorder: 'rgba(255, 255, 255, 0.45)',
+  placeholder: 'rgba(255, 255, 255, 0.16)',
+  fresh: '#6EE7B7',
+  stale: '#FCD34D',
+} as const;
+
+// The map screen's round control buttons: ink icons on white.
+export const mapControlColor = {
+  icon: '#0C1B16',
+} as const;
+
+// The trivia game's icons, and the wash behind its explanation. The tick is ink on the
+// right-answer tile (bg-trivia-right-tile), 8.7:1, where the web's white is 2.1:1; the
+// cross stays white on the red, 3.6:1. The web blurs the game behind the explanation, and
+// React Native can't blur a view, so a light wash stands in.
+export const triviaColor = {
+  icon: '#0C1B16',
+  tick: '#0C1B16',
+  cross: '#FFFFFF',
+  scrim: 'rgba(255, 255, 255, 0.45)',
+  // The dashed route Himal walks on the result screen, as the web draws it.
+  route: '#263C2E',
+  // The web's confetti, in its order.
+  confetti: ['#88B112', '#EE5A63', '#376BB6', '#FFCC49'],
+} as const;
+
+// Altitude & Safety's icons and the risk dot, which take colours as props. tailwind.config.js
+// has the same values as the altitude tokens; keep the two in step. The chevron is muted,
+// 5.2:1 on the panel, where the web's gray-400 is 2.2:1.
+export const altitudeColor = {
+  onDark: '#FFFFFF',
+  tip: '#3B82F6',
+  chevron: '#55685F',
+  risk: {
+    low: '#15803D',
+    moderate: '#2563EB',
+    high: '#B12013',
+    extreme: '#B11F12',
+  },
 } as const;

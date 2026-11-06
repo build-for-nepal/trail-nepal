@@ -2,8 +2,8 @@ import { isCultural, isHike } from '@/lib/trail';
 import type { Trek } from '@/types/trek';
 
 /**
- * DEMO DATA: used only by the development fallback in recommendations.ts
- * when NEXT_PUBLIC_API_URL is unset.
+ * DEMO DATA: used by the fallback in recommendations.ts while
+ * NEXT_PUBLIC_API_URL is unset (no backend deployed yet).
  */
 export const TRIP_OPTIONS: Trek[] = [
   {

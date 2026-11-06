@@ -1,3 +1,5 @@
+import { db } from '../../config/db.js';
+import { AppError } from '../../middleware/errorHandler.js';
 import { findExperienceDetail } from './experience.service.js';
 import {
   createDetails,
@@ -71,4 +73,14 @@ export async function updateExperience(
   });
 
   return findExperienceDetail({ id });
+}
+
+// DELETE /api/experiences/:id - hard delete. Child rows (details, timeline
+// items, images, route) are removed by the database's ON DELETE CASCADE.
+export async function deleteExperience(id: string): Promise<void> {
+  const { count } = await db.experience.deleteMany({ where: { id } });
+
+  if (count === 0) {
+    throw new AppError(404, 'Experience not found');
+  }
 }

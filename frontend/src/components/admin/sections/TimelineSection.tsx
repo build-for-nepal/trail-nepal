@@ -11,7 +11,8 @@ import { Separator } from '@/components/ui/separator';
 import type { AdminTimelineItem } from '../admin-helper';
 import type { AdminFormValues } from '../admin-helper';
 
-import { TextField, TextareaField, JsonField } from '../fields/FormFields';
+import { TextField, TextareaField } from '../fields/FormFields';
+import { DataField } from '../fields/DataField';
 import { AdminSection } from '../AdminSection';
 
 import { ACCENT_OUTLINE } from '../admin-helper';
@@ -20,7 +21,7 @@ const emptyItem = (): AdminTimelineItem => ({
   order: '',
   dayNumber: '',
   title: '',
-  data: '',
+  data: undefined,
 });
 
 export function TimelineSection() {
@@ -29,10 +30,32 @@ export function TimelineSection() {
     control,
     name: 'timeline.items',
   });
+  // Days start collapsed so editing a long itinerary stays compact.
   const [collapsed, setCollapsed] = React.useState<Record<number, boolean>>({});
 
   const toggle = (index: number) =>
-    setCollapsed((prev) => ({ ...prev, [index]: !prev[index] }));
+    setCollapsed((prev) => ({ ...prev, [index]: !(prev[index] ?? true) }));
+
+  // Collapse every existing day and open the one that was just added.
+  const addDay = () => {
+    const nextIndex = fields.length;
+    append(emptyItem());
+    setCollapsed({ [nextIndex]: false });
+  };
+
+  // Keep the open/closed state aligned when a day is removed.
+  const removeDay = (index: number) => {
+    remove(index);
+    setCollapsed((prev) => {
+      const next: Record<number, boolean> = {};
+      for (const [key, value] of Object.entries(prev)) {
+        const i = Number(key);
+        if (i < index) next[i] = value;
+        else if (i > index) next[i - 1] = value;
+      }
+      return next;
+    });
+  };
 
   return (
     <AdminSection
@@ -44,7 +67,7 @@ export function TimelineSection() {
           variant="outline"
           size="sm"
           className={ACCENT_OUTLINE}
-          onClick={() => append(emptyItem())}
+          onClick={addDay}
         >
           <Plus className="size-4" /> Add day
         </Button>
@@ -66,15 +89,15 @@ export function TimelineSection() {
           </p>
         )}
         {fields.map((field, index) => {
-          const isCollapsed = collapsed[index] ?? false;
+          const isCollapsed = collapsed[index] ?? true;
           return (
             <div key={field.id} className="rounded-lg border border-dashed">
-              <div className="flex items-center justify-between gap-2 p-3">
+              <div className="flex items-center justify-between gap-1 pr-2">
                 <button
                   type="button"
                   onClick={() => toggle(index)}
                   aria-expanded={!isCollapsed}
-                  className="flex min-w-0 cursor-pointer items-center gap-2 text-left"
+                  className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-lg p-3 text-left transition-colors hover:bg-muted/50"
                 >
                   <ChevronDown
                     className={cn(
@@ -95,7 +118,7 @@ export function TimelineSection() {
                     type="button"
                     variant="ghost"
                     size="sm"
-                    onClick={() => remove(index)}
+                    onClick={() => removeDay(index)}
                     aria-label={`Remove day ${index + 1}`}
                   >
                     <Trash2 className="size-4 text-destructive" />
@@ -120,12 +143,10 @@ export function TimelineSection() {
                     label="Day number"
                     placeholder="1"
                   />
-                  <JsonField<AdminFormValues>
+                  <DataField
                     name={`timeline.items.${index}.data`}
-                    label="Data (JSON)"
-                    description="Optional — day-specific facts or lat/lng."
-                    placeholder='{ "altitude": 1070, "lat": 28.21, "lng": 83.71 }'
-                    rows={2}
+                    label="Data"
+                    description="Optional — day-specific facts such as altitude or distance."
                     className="sm:col-span-3"
                   />
                 </div>

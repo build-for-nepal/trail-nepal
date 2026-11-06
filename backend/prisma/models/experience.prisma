@@ -27,6 +27,7 @@ enum ExperienceRegion {
   MANASLU
   KATHMANDU_VALLEY
   POKHARA
+  LUMBINI
   Khumbu
 }
 

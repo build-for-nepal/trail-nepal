@@ -3,6 +3,7 @@ import { TRAILS } from '@/static/trek';
 import type { Trek } from '@/types/trek';
 import { TRIP_OPTIONS } from './tripOptions';
 import type { RecommendationRequest } from '@/lib/tripPreferences';
+import { logEnv } from '@/lib/envLog';
 
 /**
  * Recommendation response: ranked options, strongest first. Each option lists
@@ -40,26 +41,29 @@ function resolveOptions(
 /**
  * POST `${NEXT_PUBLIC_API_URL}/api/recommendations`. No sign-in required.
  *
- * Outside development an unset API URL is an error rather than fake results;
- * `next dev` falls back to the demo catalogue so the flow stays testable.
+ * While no backend is configured (NEXT_PUBLIC_API_URL unset, e.g. local dev
+ * and the static staging deploy) this falls back to the demo catalogue so the
+ * flow stays usable. Independent of NODE_ENV.
  */
 export async function fetchRecommendations(
   request: RecommendationRequest,
   signal?: AbortSignal,
 ): Promise<TripOption[]> {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  logEnv('fetchRecommendations', {
+    NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_API_URL: baseUrl || '(unset)',
+    NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH || '(empty)',
+  });
 
   if (!baseUrl) {
-    if (process.env.NODE_ENV === 'development') {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      signal?.throwIfAborted();
-      return [
-        { totalDays: request.days, trails: TRIP_OPTIONS.slice(0, 2) },
-        { totalDays: request.days, trails: TRIP_OPTIONS },
-        { totalDays: request.days, trails: TRIP_OPTIONS.slice(1, 2) },
-      ];
-    }
-    throw new RecommendationError('Trip planning is not available yet.');
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    signal?.throwIfAborted();
+    return [
+      { totalDays: request.days, trails: TRIP_OPTIONS.slice(0, 2) },
+      { totalDays: request.days, trails: TRIP_OPTIONS },
+      { totalDays: request.days, trails: TRIP_OPTIONS.slice(1, 2) },
+    ];
   }
 
   let response: Response;

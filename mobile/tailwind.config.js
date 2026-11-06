@@ -33,6 +33,78 @@ module.exports = {
           moderate: '#4D7C0F',
           challenging: '#B45309',
         },
+        // Pack-weight bands on the gear checklist, all AA on white. Light keeps the web's
+        // blue; the web's green and amber (#22c55e, #f59e0b) fail AA, so darker shades.
+        load: {
+          light: '#376BB6',
+          optimal: '#047857',
+          heavy: '#B45309',
+          over: '#DC2626',
+        },
+        // The trivia game's sky and answer states. Fills and borders are the web's; its
+        // green and red text on the sky (#5F7C0D 3.6:1, #EB542D 2.7:1) fail AA, so text
+        // takes the -text shades, 4.6:1 and 4.9:1. Buttons are bg-brand with ink text,
+        // since white on the web's #88B112 is 2.5:1.
+        trivia: {
+          sky: '#BDE4FA',
+          // The hub's paler sky, as the web's home-page trivia.
+          'hub-sky': '#C2E6FE',
+          right: '#88B112',
+          'right-tile': '#9BC331',
+          'right-tint': '#F3F7E7',
+          'right-text': '#4A6B00',
+          wrong: '#EB542D',
+          'wrong-tint': '#FFF0ED',
+          'wrong-text': '#A8361A',
+          // "OOPS" and the explanation's copy, 5.9:1 on the sky; muted is 4.4:1 there.
+          slate: '#40545A',
+          // Questions not reached yet, on the progress bar.
+          pending: '#9CA3AF',
+        },
+        // Altitude & Safety, from the web's altitudeSickness components. Where the web's
+        // colour fails AA, a darker shade stands in: mild and moderate icon circles
+        // (#22C55E 2.3:1, #EAB308 1.9:1 under white), the low and moderate risk badges
+        // (#22C55E 2.3:1, #3B82F6 3.7:1 on white) and the grey contact labels (#6B7280,
+        // #9CA3AF), which take muted.
+        altitude: {
+          panel: '#EBF0F8',
+          card: '#3E6DB5',
+          label: '#30628A',
+          body: '#434843',
+          tip: '#4B5563',
+          link: '#376BB6',
+          name: '#2D2F27',
+          detail: '#606359',
+          emergency: '#B11F12',
+          helicopter: '#2E3028',
+          mild: {
+            tint: '#F0FDF4',
+            edge: '#BBF7D0',
+            title: '#14532D',
+            text: '#166534',
+            icon: '#16A34A',
+          },
+          moderate: {
+            tint: '#FEFCE8',
+            edge: '#FEF08A',
+            title: '#713F12',
+            text: '#854D0E',
+            icon: '#A16207',
+          },
+          severe: {
+            tint: '#FEF2F2',
+            edge: '#FECACA',
+            title: '#7F1D1D',
+            text: '#991B1B',
+            icon: '#EF4444',
+          },
+          risk: {
+            low: '#15803D',
+            moderate: '#2563EB',
+            high: '#B12013',
+            extreme: '#B11F12',
+          },
+        },
       },
       // One family per weight: don't add font-bold or font-medium on top.
       fontFamily: {

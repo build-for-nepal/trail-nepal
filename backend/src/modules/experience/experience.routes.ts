@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { validate } from '../../middleware/validate.js';
 import {
   createExperienceController,
+  deleteExperienceController,
   getExperienceController,
   listExperiencesController,
   updateExperienceController,
@@ -35,4 +36,10 @@ experienceRouter.patch(
   '/:id',
   validate({ params: getExperienceParamsSchema, body: updateExperienceSchema }),
   updateExperienceController,
+);
+
+experienceRouter.delete(
+  '/:id',
+  validate({ params: getExperienceParamsSchema }),
+  deleteExperienceController,
 );

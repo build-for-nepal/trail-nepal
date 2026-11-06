@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 
 import { AdminPanelPage } from '@/components/admin/AdminPanelPage';
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPanelRoute() {
-  return <AdminPanelPage />;
+  return (
+    <Suspense>
+      <AdminPanelPage />
+    </Suspense>
+  );
 }

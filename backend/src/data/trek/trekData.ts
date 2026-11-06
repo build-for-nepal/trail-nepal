@@ -528,7 +528,7 @@ export const TREK_DATA: Record<string, TrekExperience> = {
     interest: ['nature', 'culture', 'mountains'],
     activity: ['trekking'],
     isActive: true,
-    isPopular: false,
+    isPopular: true,
     details: [
       {
         key: 'overview',
@@ -1038,7 +1038,7 @@ export const TREK_DATA: Record<string, TrekExperience> = {
     interest: ['nature', 'culture', 'wildlife', 'mountains'],
     activity: ['trekking'],
     isActive: true,
-    isPopular: false,
+    isPopular: true,
     details: [
       {
         key: 'overview',

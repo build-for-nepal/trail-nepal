@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
 import ChangePasswordForm from './ChangePasswordForm';
@@ -16,7 +15,6 @@ const TABS = [
 type TabKey = (typeof TABS)[number]['key'];
 
 export default function AccountSettings() {
-  const { status } = useSession();
   const user = useAuthStore((state) => state.user);
   const [tab, setTab] = useState<TabKey>('profile');
 
@@ -34,20 +32,14 @@ export default function AccountSettings() {
 
       {!user ? (
         <p className="mt-12 font-poppins text-sm text-[#404337]">
-          {status === 'loading' ? (
-            'Loading your account…'
-          ) : (
-            <>
-              Please{' '}
-              <Link
-                href="/login/"
-                className="font-semibold text-[#88B112] hover:underline"
-              >
-                log in
-              </Link>{' '}
-              to manage your account settings.
-            </>
-          )}
+          Please{' '}
+          <Link
+            href="/login/"
+            className="font-semibold text-[#88B112] hover:underline"
+          >
+            log in
+          </Link>{' '}
+          to manage your account settings.
         </p>
       ) : (
         <div className="mt-8 flex flex-col md:mt-12 lg:flex-row">

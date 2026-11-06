@@ -12,6 +12,7 @@ import {
   useTrekFilters,
 } from '@/features/explore';
 import type { TripType } from '@/features/explore';
+import { TriviaExploreCard } from '@/features/trivia';
 
 export default function Explore() {
   const insets = useSafeAreaInsets();
@@ -36,7 +37,7 @@ export default function Explore() {
         <TypeToggle value={type} onValueChange={setType} />
       </View>
 
-      <TrekList type={type} />
+      <TrekList type={type} header={<TriviaExploreCard />} />
 
       <FilterSheet controller={filters} />
     </View>

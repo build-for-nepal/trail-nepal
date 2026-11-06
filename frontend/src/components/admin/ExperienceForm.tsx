@@ -2,22 +2,24 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Eye, Clipboard, ArrowLeft } from 'lucide-react';
+import type { UseFormReturn } from 'react-hook-form';
+import { ArrowLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 
 import type { ExperienceTypeConfig } from './admin-helper';
 import type { AdminFormValues } from './admin-helper';
+import { useAdminToast } from './AdminToast';
+import { ApiError } from './api/client';
+import { toFormValues } from './api/experiences.mappers';
+import {
+  useCreateExperience,
+  useUpdateExperience,
+} from './hooks/useAdminExperiences';
 
 import {
   ACCENT_BACK,
@@ -28,6 +30,7 @@ import {
   adminExperienceSchema,
   buildCreatePayload,
   buildDefaultValues,
+  buildUpdatePayload,
 } from './admin-helper';
 
 import {
@@ -40,45 +43,147 @@ import {
 import { TagsField } from './fields/TagsField';
 import { PeakSeasonField } from './fields/PeakSeasonField';
 import { DetailsSection } from './sections/DetailsSection';
-import { ImagesSection } from './sections/ImagesSection';
 import { TimelineSection } from './sections/TimelineSection';
 import { RouteSection } from './sections/RouteSection';
+
+// The API reports route coordinates as [lng, lat] tuples; the form has four
+// inputs for them.
+const SERVER_FIELD_MAP: Record<string, string> = {
+  'route.startCoords.0': 'route.startLng',
+  'route.startCoords.1': 'route.startLat',
+  'route.endCoords.0': 'route.endLng',
+  'route.endCoords.1': 'route.endLat',
+};
+
+type Notice = { tone: 'success' | 'error' | 'info'; text: string };
+
+const NOTICE_TONE: Record<Notice['tone'], string> = {
+  success: 'text-emerald-700',
+  error: 'text-destructive',
+  info: 'text-muted-foreground',
+};
+
+// Pins backend validation messages to the matching inputs. Returns the ones
+// that have no input so they can still be shown.
+function applyServerErrors(
+  form: UseFormReturn<AdminFormValues>,
+  error: ApiError,
+): string[] {
+  const unmapped: string[] = [];
+  for (const item of error.fieldErrors) {
+    const path = SERVER_FIELD_MAP[item.field] ?? item.field;
+    const known = path
+      .split('.')
+      .reduce<unknown>(
+        (node, part) =>
+          node && typeof node === 'object'
+            ? (node as Record<string, unknown>)[part]
+            : undefined,
+        form.getValues(),
+      );
+    if (known === undefined) {
+      unmapped.push(`${item.field}: ${item.message}`);
+      continue;
+    }
+    form.setError(path as 'slug', { type: 'server', message: item.message });
+  }
+  return unmapped;
+}
 
 export function ExperienceForm({
   config,
   initialValues,
+  experienceId,
   backHref,
 }: {
   config: ExperienceTypeConfig;
   initialValues?: Partial<AdminFormValues>;
+  // Present when editing; the form PATCHes this id instead of POSTing.
+  experienceId?: string;
   backHref: string;
 }) {
-  const [payload, setPayload] = React.useState<string>('');
+  const [notice, setNotice] = React.useState<Notice | null>(null);
+
+  const router = useRouter();
+  const { toast } = useAdminToast();
+
+  const isEdit = !!experienceId;
+  const createMutation = useCreateExperience();
+  const updateMutation = useUpdateExperience(experienceId ?? '');
+  const isSaving = createMutation.isPending || updateMutation.isPending;
+
+  // What the server currently has; PATCH only sends the difference.
+  const [baseline, setBaseline] = React.useState(() =>
+    buildDefaultValues(config, initialValues),
+  );
 
   const form = useForm<AdminFormValues>({
     resolver: zodResolver(adminExperienceSchema),
-    defaultValues: buildDefaultValues(config, initialValues),
+    defaultValues: baseline,
     mode: 'onChange',
   });
 
-  const onSubmit = (values: AdminFormValues) => {
+  const onSubmit = async (values: AdminFormValues) => {
+    setNotice(null);
     try {
-      const body = buildCreatePayload(values);
-      setPayload(JSON.stringify(body, null, 2));
-    } catch {
-      // Field-level errors are shown by the resolver; this is a safety net.
+      if (isEdit) {
+        const body = buildUpdatePayload(values, baseline);
+        if (!body) {
+          setNotice({ tone: 'info', text: 'No changes to save.' });
+          return;
+        }
+        const saved = await updateMutation.mutateAsync(body);
+        // The response omits status / isActive, so keep what was submitted.
+        const next = buildDefaultValues(config, {
+          ...toFormValues(saved),
+          status: values.status,
+          isActive: values.isActive,
+        });
+        setBaseline(next);
+        form.reset(next);
+        setNotice({ tone: 'success', text: 'Changes saved.' });
+      } else {
+        const body = buildCreatePayload(values);
+        await createMutation.mutateAsync(body);
+        toast({
+          tone: 'success',
+          title: 'Experience created',
+          description:
+            values.status === 'PUBLISHED'
+              ? `${values.name.trim()} is now live.`
+              : `${values.name.trim()} was saved as a draft. Only published experiences appear in the list.`,
+        });
+        router.push(backHref);
+      }
+    } catch (error) {
+      if (!(error instanceof ApiError)) {
+        setNotice({ tone: 'error', text: 'Something went wrong. Try again.' });
+        return;
+      }
+      if (error.status === 409) {
+        form.setError('slug', {
+          type: 'server',
+          message: 'This slug is already in use.',
+        });
+      }
+      const unmapped = applyServerErrors(form, error);
+      setNotice({
+        tone: 'error',
+        text: [error.message, ...unmapped].join(' · '),
+      });
     }
   };
 
-  const copyPayload = async () => {
-    if (!payload) return;
-    await navigator.clipboard.writeText(payload);
-  };
+  const onInvalid = () =>
+    setNotice({
+      tone: 'error',
+      text: 'Fix the highlighted fields to continue.',
+    });
 
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, onInvalid)}
         className="space-y-4"
         noValidate
       >
@@ -94,17 +199,14 @@ export function ExperienceForm({
               <ArrowLeft className="size-4" /> Back to list
             </Link>
           </Button>
-          <span className="text-sm text-muted-foreground">
-            {initialValues?.name ?? `New ${config.label} Experience`}
-          </span>
+          <span className="text-sm text-muted-foreground">{config.label}</span>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3">
           <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle className="font-heading text-lg">
-                {initialValues ? `Edit — ${config.label}` : config.label}{' '}
-                Experience
+                {initialValues?.name ?? `New ${config.label} experience`}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -130,12 +232,6 @@ export function ExperienceForm({
                   options={STATUS_OPTIONS}
                 />
               </div>
-              <SelectField<AdminFormValues>
-                name="type"
-                label="Type"
-                required
-                options={[{ value: config.typeValue, label: config.label }]}
-              />
               <TextareaField<AdminFormValues>
                 name="shortDescription"
                 label="Short description"
@@ -162,14 +258,6 @@ export function ExperienceForm({
                 name="isPopular"
                 label="Popular"
                 description="Featured on the homepage."
-              />
-              <NumberField<AdminFormValues>
-                name="ratingAvg"
-                label="Average rating (0–5)"
-                placeholder="4.5"
-                min={0}
-                max={5}
-                step={0.1}
               />
             </CardContent>
           </Card>
@@ -207,7 +295,6 @@ export function ExperienceForm({
                 <NumberField<AdminFormValues>
                   name="maxElevationM"
                   label="Max elevation (m)"
-                  required
                   placeholder="4130"
                   min={0}
                 />
@@ -230,8 +317,10 @@ export function ExperienceForm({
                   name="difficulty"
                   label="Difficulty"
                   required
-                  options={DIFFICULTY_OPTIONS.filter((option) =>
-                    config.difficultyOptions.includes(option.value),
+                  options={DIFFICULTY_OPTIONS.filter(
+                    (option) =>
+                      config.difficultyOptions.includes(option.value) ||
+                      option.value === initialValues?.difficulty,
                   )}
                 />
                 <TextField<AdminFormValues>
@@ -243,8 +332,10 @@ export function ExperienceForm({
                   name="region"
                   label="Region"
                   required
-                  options={REGION_OPTIONS.filter((r) =>
-                    config.regions.includes(r.value),
+                  options={REGION_OPTIONS.filter(
+                    (r) =>
+                      config.regions.includes(r.value) ||
+                      r.value === initialValues?.region,
                   )}
                 />
                 <TextField<AdminFormValues>
@@ -284,50 +375,35 @@ export function ExperienceForm({
 
         <div className="space-y-4">
           <DetailsSection />
-          <ImagesSection />
           <TimelineSection />
-          <RouteSection />
+          {/* <RouteSection /> */}
         </div>
 
+        {notice && (
+          <p
+            role={notice.tone === 'error' ? 'alert' : 'status'}
+            className={`text-right text-sm ${NOTICE_TONE[notice.tone]}`}
+          >
+            {notice.text}
+          </p>
+        )}
+
         <div className="flex flex-wrap items-center justify-end gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() =>
-              form.reset(buildDefaultValues(config, initialValues))
-            }
-          >
-            Reset
-          </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button type="button" variant="secondary">
-                <Eye className="size-4" /> Preview
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-3xl">
-              <DialogHeader>
-                <DialogTitle>Payload preview</DialogTitle>
-              </DialogHeader>
-              <pre className="max-h-[60vh] overflow-auto rounded-lg border bg-muted p-4 text-xs">
-                {payload || 'Submit the form to build the payload.'}
-              </pre>
-              <Button
-                type="button"
-                className={ACCENT_BTN}
-                onClick={copyPayload}
-                disabled={!payload}
-              >
-                <Clipboard className="size-4" /> Copy payload
-              </Button>
-            </DialogContent>
-          </Dialog>
-          <Button
-            type="submit"
-            className={ACCENT_BTN}
-            onClick={() => form.handleSubmit(onSubmit)()}
-          >
-            {initialValues ? 'Save changes' : 'Create'}
+          {!isEdit && (
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSaving}
+              onClick={() => {
+                form.reset(baseline);
+                setNotice(null);
+              }}
+            >
+              Reset
+            </Button>
+          )}
+          <Button type="submit" className={ACCENT_BTN} disabled={isSaving}>
+            {isSaving ? 'Saving…' : isEdit ? 'Save changes' : 'Create'}
           </Button>
         </div>
       </form>

@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button';
 import type { AdminImageRow, ImageTypeValue } from '../admin-helper';
 import type { AdminFormValues } from '../admin-helper';
 
-import { TextField, SelectField, JsonField } from '../fields/FormFields';
+import { TextField, SelectField } from '../fields/FormFields';
+import { DataField } from '../fields/DataField';
 import { AdminSection } from '../AdminSection';
 
 import { IMAGE_TYPE_LABELS, ACCENT_OUTLINE } from '../admin-helper';
@@ -22,7 +23,7 @@ const emptyImage = (): AdminImageRow => ({
   storageKey: '',
   alt: '',
   type: 'GALLERY',
-  metadata: '',
+  metadata: undefined,
 });
 
 export function ImagesSection() {
@@ -91,11 +92,10 @@ export function ImagesSection() {
                 label="Alt text"
                 placeholder="ABC at sunrise"
               />
-              <JsonField<AdminFormValues>
+              <DataField
                 name={`images.${index}.metadata`}
-                label="Metadata (JSON)"
-                placeholder='{ "width": 1600 }'
-                rows={2}
+                label="Metadata"
+                description="Optional, e.g. width, height."
                 className="sm:col-span-2"
               />
             </div>
