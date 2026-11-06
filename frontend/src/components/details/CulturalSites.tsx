@@ -261,8 +261,12 @@ export type SiteListApi = { focusSiteByName: (name: string) => void };
 const CulturalSites = ({
   tour,
   listFooter,
+  itineraryTitle,
 }: {
   tour: CulturalTourDetail;
+  /** Replaces the default "N - days itinerary" heading, e.g. a single-stop
+   *  workshop shows "Location". */
+  itineraryTitle?: string;
   /** Extra content at the end of the itinerary list, e.g. nearby places.
    *  Receives map helpers so its items can drive the map. */
   listFooter?: (api: SiteListApi) => ReactNode;
@@ -409,7 +413,7 @@ const CulturalSites = ({
                 className="text-xl font-bold tracking-tight text-black/90"
                 style={{ fontFamily: 'var(--font-poppins), serif' }}
               >
-                {itinerary.length} - days itinerary
+                {itineraryTitle ?? `${itinerary.length} - days itinerary`}
               </h3>
 
               <button

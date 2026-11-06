@@ -19,9 +19,9 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       tripFacts: {
         start: 'Pottery Square, Bhaktapur',
         cities: 'Bhaktapur',
-        tourType: 'Short Experience · Arts & Crafts · Cultural Heritage',
+        tourType: 'Arts and Crafts',
         transport: 'Walking',
-        terrain: 'Brick-paved streets · Traditional courtyards',
+        terrain: 'Brick-paved streets',
       },
     },
     overview:
@@ -38,7 +38,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         // OSM node/12287948902 (tourism=attraction, "Pottery Square (Talako Tole)")
         coordinates: [27.669897, 85.427743],
         description:
-          "Discover Bhaktapur's traditional pottery-making heritage at Pottery Square, where local artisans shape clay using techniques passed down through generations. Observe the craft, join a hands-on workshop, and explore the surrounding historic neighbourhood.",
+          'Pottery Square is a historic Bhaktapur neighbourhood known for its traditional pottery-making heritage.',
         isHighlight: true,
         dayId: 'workshop',
       },
@@ -94,7 +94,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           'Newari craft heritage',
         ],
         coordinates: [27.669897, 85.427743],
-        link: { label: 'potterysquare.com', url: 'https://potterysquare.com/' },
       },
     ],
     // The document's price column is left out (indicative figures only).
@@ -170,7 +169,8 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     alternatives: {
       title: 'Alternative Pottery Experiences',
       intro:
-        'Visitors interested in exploring pottery beyond the main square can consider other traditional pottery-producing areas in the Kathmandu Valley. These are alternative locations, not confirmed Trails Nepal workshop partners. Hands-on sessions should be arranged directly with local artisans.',
+        'Visitors interested in exploring pottery beyond the main square can consider other traditional pottery-producing areas in the Kathmandu Valley.',
+      columns: 3,
       places: [
         {
           order: 1,
@@ -188,12 +188,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           description: [
             'Discover Madhyapur Thimi, a traditional craft town in the Kathmandu Valley known for its pottery-making heritage. Learn about the techniques used by local artisans to shape clay into household vessels and other handmade objects.',
             "An opportunity to explore a different pottery-producing community and learn about the craft beyond Bhaktapur's historic centre.",
-            'Arrange a visit or hands-on session directly with a local pottery workshop. Availability and pricing need to be confirmed.',
           ],
-          reference: {
-            label: 'Visit Madhyapur — Pottery',
-            url: 'https://visitmadhyapur.com/en/pesa/pottery/',
-          },
           mapUrl:
             'https://www.google.com/maps/search/?api=1&query=Traditional+Pottery+Madhyapur+Thimi+Nepal',
         },
@@ -204,15 +199,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
             "Explore Khokana, a traditional Newari village in Lalitpur. The wider Lalitpur area has a documented heritage of pottery and brick-making, including Khokana, Bungamati, Harsiddhi, Sunakothi, and Khapinche. Discover the region's traditional craftsmanship and historic architecture.",
             'Experience the cultural heritage of a traditional Newari settlement beyond the main pottery destinations.',
           ],
-          note: {
-            title: 'Workshop Availability',
-            description:
-              "Khokana's specific pottery workshops and hands-on activities have not been verified. Contact local artisans before planning a pottery-making session.",
-          },
-          reference: {
-            label: 'Lalitpur Metropolitan City — Intangible Heritage Report',
-            url: 'https://www.lmc.gov.np/sites/lalitpurmun.gov.np/files/documents/Report%20On%20Intangible%20Heritage%20of%20Lalitpur.pdf',
-          },
           mapUrl:
             'https://www.google.com/maps/search/?api=1&query=Khokana+Lalitpur+Nepal',
         },
@@ -397,13 +383,13 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       // Not in the document; same valley elevation as the pottery workshop.
       maxElevation: '~1400m',
       bestSeasons: 'Year-Round',
-      startingPoint: 'Nyatapola Crafts, Pottery Square, Bhaktapur',
+      startingPoint: 'Nyatapola Crafts, Bhaktapur',
       tripFacts: {
-        start: 'Nyatapola Crafts, Pottery Square, Bhaktapur',
+        start: 'Nyatapola Crafts, Bhaktapur',
         cities: 'Bhaktapur',
-        tourType: 'Short Experience · Arts & Crafts · Cultural Heritage',
+        tourType: 'Arts and Crafts',
         transport: 'Walking',
-        terrain: 'Brick-paved streets · Traditional courtyards',
+        terrain: 'Brick-paved streets',
       },
     },
     overview:
@@ -418,7 +404,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         // Not in OSM; the provider's published studio location in Pottery Square.
         coordinates: [27.6700913, 85.4283848],
         description:
-          "Learn traditional Newari woodcarving at a local workshop in Pottery Square. Work alongside skilled artisans, practise basic chisel techniques, and explore the craft behind Bhaktapur's intricately carved wooden designs.",
+          "Nyatapola Crafts is a traditional craft destination near Bhaktapur's iconic Nyatapola Temple, known for its intricate woodwork.",
         isHighlight: true,
         dayId: 'workshop',
       },
@@ -482,10 +468,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           'Newari craftsmanship',
         ],
         coordinates: [27.6700913, 85.4283848],
-        link: {
-          label: 'nyatapolacrafts.com.np',
-          url: 'https://nyatapolacrafts.com.np/index.html',
-        },
       },
     ],
     // The document's "What You'll Learn" column has no field in the table, so
@@ -560,7 +542,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     alternatives: {
       title: 'Alternative Woodcarving Experiences',
       intro:
-        'Visitors interested in exploring woodcarving beyond the main workshop can consider other destinations in the Kathmandu Valley. These locations offer opportunities to discover traditional craftsmanship, although hands-on workshop availability should be confirmed directly.',
+        "Visitors interested in exploring woodcarving beyond the main workshop can discover other destinations across the Kathmandu Valley. These places offer opportunities to appreciate traditional woodwork, intricate carvings, and Nepal's rich craftsmanship.",
       places: [
         {
           order: 1,
@@ -578,10 +560,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
             "Patan is renowned for its Newari architecture, featuring intricately carved wooden windows, doors, and decorative details. Explore its historic squares, temples, and local craft businesses to discover how woodcarving contributes to the city's architectural heritage.",
             'For a more hands-on experience, contact local artisans or workshop providers to check whether woodcarving sessions are available.',
           ],
-          reference: {
-            label: 'Newa Wood Carving Industry',
-            url: 'https://newawoodcarving.com/contact/',
-          },
           mapUrl:
             'https://www.google.com/maps/search/?api=1&query=Traditional+Woodcarving+Patan+Lalitpur+Nepal',
         },
@@ -762,13 +740,13 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       tripFacts: {
         start: 'The Precious Arts, Patan',
         cities: 'Patan, Kathmandu Valley',
-        tourType: 'Short Experience · Arts & Crafts · Cultural Heritage',
+        tourType: 'Arts and Crafts',
         transport: 'Walking',
         terrain: 'Urban streets and traditional neighbourhoods',
       },
     },
     overview:
-      'Mandala art uses geometric patterns and repeating shapes to create intricate, balanced designs. In this hands-on experience, participants are introduced to basic mandala techniques and guided through creating their own artwork.\n\nThe Precious Arts, located near Patan Durbar Square, offers a variety of art classes and special workshops, including mandala art. Contact the studio to confirm upcoming sessions, materials, and booking arrangements.',
+      "Discover the intricate art of mandala painting through a creative workshop in Patan, Kathmandu Valley. A mandala is a geometric design arranged around a central point, often representing harmony, balance, and the structure of the universe.\n\nMandala art has deep roots in Buddhist and Hindu traditions, where it is used in spiritual practice, meditation, and artistic expression.\n\nDuring this experience, explore the patterns, shapes, and colours that make mandalas distinctive, and learn about their cultural significance. The workshop offers an opportunity to engage with this traditional art form and create your own mandala-inspired artwork while experiencing Patan's rich artistic heritage.",
     // Workshop pin plus the document's "Places to Explore Nearby".
     // Coordinates are OpenStreetMap values (lat, lng) resolved via Nominatim;
     // the Patan sites reuse the Kathmandu Valley cultural tour's verified pins.
@@ -802,7 +780,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       },
       {
         order: 4,
-        name: 'Golden Temple (Hiranya Varna Mahavihar)',
+        name: 'Golden Temple',
         // OSM relation/4624856 (amenity=place_of_worship)
         coordinates: [27.6752237, 85.3247105],
         description:
@@ -830,7 +808,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       {
         day: 'Workshop',
         id: 'workshop',
-        title: 'The Precious Arts — Mandala Painting Workshop',
+        title: 'The Precious Arts - Mandala Painting Workshop',
         color: '#84b829',
         description:
           'Visit The Precious Arts near Patan Durbar Square to enquire about its mandala art workshops. The studio offers various art classes and occasional special workshops. Contact the provider to confirm the schedule and arrange your session.',
@@ -866,7 +844,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         },
         {
           order: 3,
-          title: 'Golden Temple (Hiranya Varna Mahavihar)',
+          title: 'Golden Temple',
           description: [
             'Discover a historic Buddhist monastery known for its traditional architecture, religious artwork, and intricate decorative details.',
           ],
@@ -894,7 +872,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     alternatives: {
       title: 'Alternative Experiences',
       intro:
-        'Visitors interested in exploring other traditional painting practices can consider these experiences in the Kathmandu Valley. Workshop details, availability, and pricing should be confirmed with the respective providers.',
+        'Visitors interested in exploring other traditional painting practices can consider these experiences in the Kathmandu Valley.',
       places: [
         {
           order: 1,
@@ -903,10 +881,6 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
             'Discover Paubha, a traditional Newari religious painting practice. Learn about its imagery, symbolism, and painting techniques in a guided session with a local artist.',
             'The listed experience includes an introduction to Paubha painting and a practical painting session. The provider describes a workshop lasting approximately 2–3 hours, with materials and other inclusions depending on the booking arrangement.',
           ],
-          reference: {
-            label: 'Paubha Painting Workshop — Royal Mountain Travel',
-            url: 'https://royalmt.com.np/experiences/paubha-painting-workshop/',
-          },
           mapUrl:
             'https://www.google.com/maps/search/?api=1&query=Patan+Durbar+Square+Lalitpur+Nepal',
         },
@@ -915,12 +889,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
           title: 'Thangka Painting Experience, Kathmandu Valley',
           description: [
             'Explore traditional Tibetan Buddhist painting through its detailed imagery, symbolic motifs, and carefully developed compositions. Thangka painting offers a different artistic experience, with an emphasis on traditional religious art and painting techniques.',
-            'Visitors interested in a hands-on session should contact local studios to confirm whether introductory workshops are available.',
           ],
-          reference: {
-            label: 'Himalayan Arts Gallery',
-            url: 'https://himalayanthanka.com/about-us',
-          },
           mapUrl:
             'https://www.google.com/maps/search/?api=1&query=Himalayan+Arts+Gallery+Thamel+Kathmandu',
         },

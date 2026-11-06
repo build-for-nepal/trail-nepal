@@ -16,7 +16,6 @@ import CulturalHero from './CulturalHero';
 import CulturalSites, { toSiteWaypoints } from './CulturalSites';
 import CraftNearbyList from './CraftNearbyList';
 import CraftPlaceList from './CraftPlaceList';
-import CraftWorkshopOptions from './CraftWorkshopOptions';
 
 type Props = {
   tourId: string;
@@ -57,8 +56,9 @@ const CraftDetailsContent = ({ tourId }: Props) => {
 
   // Craft-only sections are optional per workshop, so their anchors are added
   // only when the section renders (same approach as the cultural Entry Fees).
+  // Workshop options are hidden while their design is revisited; the data and
+  // CraftWorkshopOptions component are kept so the section can come back.
   const extraNavAfter: Record<string, { label: string; id: string } | null> = {
-    overview: tour.workshopOptions ? { label: 'Options', id: 'options' } : null,
     whattoexpect: tour.alternatives
       ? { label: 'Alternatives', id: 'alternatives' }
       : null,
@@ -87,13 +87,10 @@ const CraftDetailsContent = ({ tourId }: Props) => {
           <CulturalHero tour={tour} />
         </div>
 
-        {tour.workshopOptions && (
-          <CraftWorkshopOptions options={tour.workshopOptions} />
-        )}
-
         <Suspense fallback={null}>
           <CulturalSites
             tour={tour}
+            itineraryTitle="Location"
             listFooter={
               nearby
                 ? (api) => (
