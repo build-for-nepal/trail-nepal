@@ -81,7 +81,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     // One entry: the document's "Map Points" stop and its "Day Facts".
     itinerary: [
       {
-        day: 'Workshop',
+        day: '',
         id: 'workshop',
         title: 'Bhaktapur Pottery Square',
         color: '#84b829',
@@ -455,7 +455,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     // One entry: the document's "Map Points" stop and its "Day Facts".
     itinerary: [
       {
-        day: 'Workshop',
+        day: '',
         id: 'workshop',
         title: 'Nyatapola Crafts — Woodcarving Workshop',
         color: '#84b829',
@@ -543,6 +543,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       title: 'Alternative Woodcarving Experiences',
       intro:
         "Visitors interested in exploring woodcarving beyond the main workshop can discover other destinations across the Kathmandu Valley. These places offer opportunities to appreciate traditional woodwork, intricate carvings, and Nepal's rich craftsmanship.",
+      columns: 3,
       places: [
         {
           order: 1,
@@ -806,7 +807,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     // One entry: the document's "Map Points" stop and its "Day Facts".
     itinerary: [
       {
-        day: 'Workshop',
+        day: '',
         id: 'workshop',
         title: 'The Precious Arts - Mandala Painting Workshop',
         color: '#84b829',
@@ -873,6 +874,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
       title: 'Alternative Experiences',
       intro:
         'Visitors interested in exploring other traditional painting practices can consider these experiences in the Kathmandu Valley.',
+      columns: 3,
       places: [
         {
           order: 1,
@@ -991,7 +993,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
     beforeYouGo: [],
     // Every image from the document, resized only (no crop) from the operator's
     // embedded files, in the order they appear in the PDF. The hero is the
-    // document's page-1 image. Credits are shown where the source is verified:
+    // last gallery image (the Stan Tuladhar mandala). Credits are shown where the source is verified:
     // the Wikimedia Commons file page and the Unsplash author. The page-1
     // mandala, the sand mandala, and the pencil sketch have no resolvable
     // free-licence source (one of them is the document's AI-generated image),
@@ -1001,7 +1003,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         id: 'img_01',
         url: '/images/patan-mandala-painting/mandala-cover.jpg',
         alt: 'A vividly coloured finished mandala with intricate concentric geometric patterns',
-        type: 'hero',
+        type: 'landscape',
       },
       {
         id: 'img_02',
@@ -1039,7 +1041,7 @@ export const CRAFT_TOUR_DETAILS: Record<string, CraftTourDetail> = {
         id: 'img_06',
         url: '/images/patan-mandala-painting/mandala-5.jpg',
         alt: 'A detailed, symmetrical mandala painting in vivid traditional colours',
-        type: 'landscape',
+        type: 'hero',
         credit: {
           text: 'Photo: Stan Tuladhar · Unsplash',
           url: 'https://unsplash.com/photos/intricate-colorful-mandala-painted-on-a-ceiling-GA5isaMG-cI',

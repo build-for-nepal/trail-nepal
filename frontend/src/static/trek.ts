@@ -504,7 +504,7 @@ export const CRAFT_TOURS: Trek[] = [
     duration: '2–3 Hours',
     altitude: '1350m',
     season: 'Year-Round',
-    imageUrl: '/images/patan-mandala-painting/mandala-cover.jpg',
+    imageUrl: '/images/patan-mandala-painting/mandala-5.jpg',
     isPopular: false,
     keywords: [
       'mandala',

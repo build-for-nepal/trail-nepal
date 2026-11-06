@@ -189,7 +189,7 @@ const DayItem = ({
           className="flex-1 text-sm font-semibold tracking-tight text-black/80 sm:text-base"
           style={{ fontFamily: 'var(--font-poppins), serif' }}
         >
-          {day.day} : {day.title}
+          {day.day ? `${day.day} : ${day.title}` : day.title}
         </span>
 
         <span

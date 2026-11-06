@@ -25,17 +25,18 @@ const CraftPlaceList = ({
       <div className="page-wrapper mx-auto flex w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-20 lg:py-20">
         <SectionHeader title={title} description={intro} id={id} />
 
-        <ul
-          className={cn(
-            'grid grid-cols-1 gap-5',
-            columns !== 1 && 'md:grid-cols-2',
-            columns === 3 && 'lg:grid-cols-3',
-          )}
-        >
+        {/* Wrapping flex rather than a grid, so a short last row (two cards
+            in a three-column section) sits centred instead of hugging the
+            left. Card widths match the old grid tracks across the gap-5. */}
+        <ul className="flex flex-wrap justify-center gap-5">
           {places.map((place) => (
             <li
               key={place.order}
-              className="flex flex-col gap-3 rounded-2xl border border-[#E2E8F0] bg-white p-6"
+              className={cn(
+                'flex w-full flex-col gap-3 rounded-2xl border border-[#E2E8F0] bg-white p-6',
+                columns !== 1 && 'md:w-[calc((100%-1.25rem)/2)]',
+                columns === 3 && 'lg:w-[calc((100%-2.5rem)/3)]',
+              )}
             >
               <h3 className="font-poppins text-base font-semibold text-gray-900">
                 {place.title}
