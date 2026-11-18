@@ -18,6 +18,8 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
 import { useAuthStore } from '@/store/authStore';
+import { useToastStore } from '@/store/toastStore';
+import { EMAIL_AUTH_ENABLED, signOutSession } from '@/lib/auth';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -25,9 +27,26 @@ export function Navbar() {
   const user = useAuthStore((state) => state.user);
   const clearUser = useAuthStore((state) => state.clearUser);
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    if (!EMAIL_AUTH_ENABLED) {
+      clearUser();
+      router.push('/');
+      return;
+    }
+    try {
+      // Deletes the DB session and clears the HttpOnly cookie server-side.
+      await signOutSession();
+    } catch {
+      // The session may still be live, so stay signed in and say so.
+      useToastStore.getState().showToast({
+        title: 'Could not log out',
+        description: 'Please check your connection and try again.',
+        tone: 'error',
+      });
+      return;
+    }
     clearUser();
-    router.push('/');
+    router.push('/login/');
   };
 
   // Disable fixed navbar on dynamic detail pages (they have a full-screen
@@ -175,7 +194,7 @@ export function Navbar() {
                   className="text-[#EF4444] focus:bg-[#FEF2F2] focus:text-[#EF4444]"
                 >
                   <LogOut className="size-4" />
-                  Sign Out
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
