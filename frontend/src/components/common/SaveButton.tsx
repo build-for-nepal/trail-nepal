@@ -1,15 +1,14 @@
 'use client';
 
-import { type MouseEvent, useState } from 'react';
+import { type MouseEvent, useRef, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { tripKey } from '@/lib/sharedTrip';
 import { MAX_DAYS, MIN_DAYS } from '@/lib/tripPreferences';
 import { useIsTripSaved } from '@/store/savedTripsStore';
 import { useAuthStore } from '@/store/authStore';
-import { stashPendingSave } from '@/lib/pendingSave';
 import { removeTripWithFeedback, saveTripWithFeedback } from '@/lib/trips';
-import { LoginToSaveModal } from './LoginToSaveModal';
+import { AuthModal } from '@/components/auth/AuthModal';
 
 /** The platform-wide heart: white circle, green heart outline (filled coral once saved).
  *  Matches the saved-trip pins on the map. Size comes from the caller. */
@@ -42,8 +41,9 @@ const SaveButton = ({
   );
   const id = tripKey([trailId], totalDays);
   const saved = useIsTripSaved(id);
-  const [loginPromptOpen, setLoginPromptOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const trip = { id, trailIds: [trailId], totalDays };
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -52,17 +52,18 @@ const SaveButton = ({
     event.stopPropagation();
 
     if (!user) {
-      setLoginPromptOpen(true);
+      setAuthOpen(true);
       return;
     }
 
     if (saved) removeTripWithFeedback(id);
-    else void saveTripWithFeedback(trip, setSaving);
+    else void saveTripWithFeedback(trip, setSaving, buttonRef.current);
   };
 
   return (
     <>
       <button
+        ref={buttonRef}
         type="button"
         aria-label={`${saved ? 'Unsave' : 'Save'} ${title}`}
         aria-pressed={saved}
@@ -84,10 +85,12 @@ const SaveButton = ({
       {/* React events bubble out of portals — keep modal clicks from
           triggering the parent card link. */}
       <span className="contents" onClick={(event) => event.stopPropagation()}>
-        <LoginToSaveModal
-          open={loginPromptOpen}
-          onOpenChange={setLoginPromptOpen}
-          onLogIn={() => stashPendingSave(trip)}
+        <AuthModal
+          open={authOpen}
+          onOpenChange={setAuthOpen}
+          onAuthenticated={() =>
+            void saveTripWithFeedback(trip, setSaving, buttonRef.current)
+          }
         />
       </span>
     </>

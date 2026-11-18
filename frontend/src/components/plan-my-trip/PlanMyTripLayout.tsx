@@ -6,6 +6,7 @@ import { Sparkles, TriangleAlert } from 'lucide-react';
 import PlanMyTripForm from './PlanMyTripForm';
 import PlanMyTripLoading from './PlanMyTripLoading';
 import PlanMyTripWelcome from './PlanMyTripWelcome';
+import { SearchSummary } from './SearchSummary';
 import {
   fetchRecommendations,
   RecommendationError,
@@ -21,20 +22,13 @@ import {
 import { AiSparkle } from 'src/assets/trivia';
 import {
   DEFAULT_PREFERENCES,
+  FLEXIBLE_MONTH,
   validatePreferences,
   type TripFieldErrors,
   type TripPreferences,
 } from '@/lib/tripPreferences';
-import { stashPlan, takePlan } from '@/lib/pendingSave';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
-
-/** The in-progress plan, kept across a detour to the login page. */
-interface PlanSnapshot {
-  preferences: TripPreferences;
-  options: TripOption[];
-  month?: string;
-}
 
 const PlanMyTripError = ({
   message,
@@ -72,7 +66,10 @@ const PlanMyTripLayout = () => {
   const [status, setStatus] = useState<Status>('idle');
   const [options, setOptions] = useState<TripOption[]>([]);
   // Month the shown results were searched for (the form may change afterwards).
-  const [searchedMonth, setSearchedMonth] = useState<string>();
+  const [searched, setSearched] = useState<TripPreferences>();
+  // A flexible month has no single month to store with a saved trip.
+  const searchedMonth =
+    searched && searched.month !== FLEXIBLE_MONTH ? searched.month : undefined;
   const [errorMessage, setErrorMessage] = useState('');
   const abortRef = useRef<AbortController | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -119,25 +116,6 @@ const PlanMyTripLayout = () => {
     setStatus('idle');
   };
 
-  const stashCurrentPlan = useCallback(
-    () => stashPlan({ preferences, options, month: searchedMonth }),
-    [preferences, options, searchedMonth],
-  );
-
-  // Coming back from login: put the form and results back as they were.
-  // Deferred (and not cancelled) so Strict Mode's double effect, which has
-  // already consumed the snapshot, still applies it.
-  useEffect(() => {
-    const plan = takePlan<PlanSnapshot>();
-    if (!plan || !Array.isArray(plan.options) || !plan.preferences) return;
-    setTimeout(() => {
-      setPreferences(plan.preferences);
-      setOptions(plan.options);
-      setSearchedMonth(plan.month);
-      setStatus(plan.options.length > 0 ? 'success' : 'idle');
-    }, 0);
-  }, []);
-
   const handleSubmit = useCallback(async () => {
     const result = validatePreferences(preferences);
     if (!result.success) {
@@ -162,7 +140,7 @@ const PlanMyTripLayout = () => {
         controller.signal,
       );
       setOptions(next);
-      setSearchedMonth(preferences.month);
+      setSearched(preferences);
       setStatus('success');
     } catch (error) {
       if (controller.signal.aborted) return;
@@ -225,6 +203,7 @@ const PlanMyTripLayout = () => {
                     Based on your travel month, time, interests, and preferred
                     difficulty, here are the experiences that fit you best.
                   </p>
+                  {searched && <SearchSummary preferences={searched} />}
                 </header>
 
                 {matchCount > 0 ? (
@@ -271,7 +250,6 @@ const PlanMyTripLayout = () => {
                           trailIds={strongest.trails.map((trek) => trek.id)}
                           totalDays={strongest.totalDays}
                           month={searchedMonth}
-                          onBeforeLogin={stashCurrentPlan}
                         />
                       </div>
                     </section>
@@ -306,7 +284,6 @@ const PlanMyTripLayout = () => {
                                 trailIds={option.trails.map((trek) => trek.id)}
                                 totalDays={option.totalDays}
                                 month={searchedMonth}
-                                onBeforeLogin={stashCurrentPlan}
                               />
                             </div>
                           </section>

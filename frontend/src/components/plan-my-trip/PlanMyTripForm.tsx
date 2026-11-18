@@ -20,6 +20,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   DIFFICULTIES,
+  FLEXIBLE_MONTH,
   MAX_DAYS,
   MIN_DAYS,
   MONTHS,
@@ -42,6 +43,7 @@ const MONTH_HINTS: Record<TripMonth, string> = {
   October: 'October is one of the best months to travel in Nepal',
   November: 'November stays clear with comfortable trekking weather',
   December: 'December is cold but clear in the lower regions',
+  Flexible: 'Not sure yet? We will look at the best trips across the year',
 };
 
 type ExperienceOption = {
@@ -56,7 +58,6 @@ const EXPERIENCES: ExperienceOption[] = [
   { key: 'culture', label: 'Culture', icon: Landmark },
   { key: 'mountains', label: 'Mountains', icon: Mountain },
   { key: 'quiet', label: 'Quiet Places', icon: Leaf },
-  { key: 'mix', label: 'Mix of all', icon: Sparkles },
 ];
 
 type Props = {
@@ -124,6 +125,17 @@ const PlanMyTripForm = ({
     onChange({ days: raw === '' ? null : Number(raw) });
   };
 
+  const allInterests = value.experiences.length === 0;
+
+  // Deselecting the last interest falls back to all interests.
+  const toggleExperience = (key: TripExperience) => {
+    onChange({
+      experiences: value.experiences.includes(key)
+        ? value.experiences.filter((current) => current !== key)
+        : [...value.experiences, key],
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit();
@@ -164,7 +176,9 @@ const PlanMyTripForm = ({
                 strokeWidth={2}
               />
               <span className="flex-1 text-left">
-                {value.month.slice(0, 3)}
+                {value.month === FLEXIBLE_MONTH
+                  ? 'Flexible'
+                  : value.month.slice(0, 3)}
               </span>
               <ChevronDown
                 className="size-4 shrink-0 text-[#8a8f83] transition-transform group-data-[state=open]:rotate-180"
@@ -195,6 +209,17 @@ const PlanMyTripForm = ({
                   </DropdownMenuPrimitive.Item>
                 );
               })}
+              <DropdownMenuPrimitive.Item
+                onSelect={() => onChange({ month: FLEXIBLE_MONTH })}
+                className={cn(
+                  'col-span-3 flex cursor-pointer select-none items-center justify-center rounded-lg border px-2 py-2 font-poppins text-sm outline-none transition-colors',
+                  value.month === FLEXIBLE_MONTH
+                    ? 'border-brand-primary bg-brand-primary/10 font-semibold text-brand-primary'
+                    : 'border-transparent font-medium text-[#40453b] data-[highlighted]:bg-[#f4f6fa] data-[highlighted]:text-[#272922]',
+                )}
+              >
+                Flexible
+              </DropdownMenuPrimitive.Item>
             </DropdownMenuPrimitive.Content>
           </DropdownMenuPrimitive.Portal>
         </DropdownMenuPrimitive.Root>
@@ -262,30 +287,56 @@ const PlanMyTripForm = ({
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />
 
-      {/* Step 3 — experiences */}
+      {/* Step 3 — interests (any number; none selected = all interests) */}
       <div className="flex flex-col gap-3">
         <StepHeading
           step={3}
           label="What do you want to experience?"
-          helper="Choose the one that sounds like your kind of trip."
+          helper="Choose as many as you like, or keep all interests."
         />
 
         <div
           role="group"
-          aria-label="Experience type"
-          aria-describedby={
-            errors.experience ? 'pmt-experience-error' : undefined
-          }
+          aria-label="Interests"
           className="grid grid-cols-2 gap-2 sm:grid-cols-3"
         >
+          <button
+            type="button"
+            aria-pressed={allInterests}
+            onClick={() => onChange({ experiences: [] })}
+            className={cn(
+              'col-span-2 flex h-[46px] items-center justify-center gap-2 rounded-xl border px-1 text-center transition-colors sm:col-span-3',
+              allInterests
+                ? 'border-brand-primary bg-brand-primary/10'
+                : 'border-[#DDE3EC] bg-white hover:border-[#c7d1e0]',
+            )}
+          >
+            <Sparkles
+              className={cn(
+                'size-[18px]',
+                allInterests ? 'text-brand-primary' : 'text-[#272922]',
+              )}
+              strokeWidth={1.9}
+            />
+            <span
+              className={cn(
+                'font-poppins text-[12px] leading-tight',
+                allInterests
+                  ? 'font-semibold text-brand-primary'
+                  : 'font-medium text-[#40453b]',
+              )}
+            >
+              All interests
+            </span>
+          </button>
           {EXPERIENCES.map(({ key, label, icon: Icon }) => {
-            const isSelected = value.experience === key;
+            const isSelected = value.experiences.includes(key);
             return (
               <button
                 key={key}
                 type="button"
                 aria-pressed={isSelected}
-                onClick={() => onChange({ experience: key })}
+                onClick={() => toggleExperience(key)}
                 className={cn(
                   'flex h-[62px] flex-col items-center justify-center gap-1 rounded-xl border px-1 text-center transition-colors',
                   isSelected
@@ -314,27 +365,36 @@ const PlanMyTripForm = ({
             );
           })}
         </div>
-        <FieldError id="pmt-experience-error" message={errors.experience} />
       </div>
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />
 
-      {/* Step 4 — difficulty */}
+      {/* Step 4 — difficulty (none selected = no preference) */}
       <div className="flex flex-col gap-3">
         <StepHeading
           step={4}
           label="How challenging should your trip feel?"
-          helper="Choose the level that feels comfortable for you."
+          helper="Choose a level, or keep no preference."
         />
 
         <div
           role="group"
           aria-label="Difficulty"
-          aria-describedby={
-            errors.difficulty ? 'pmt-difficulty-error' : undefined
-          }
           className="grid grid-cols-3 gap-2"
         >
+          <button
+            type="button"
+            aria-pressed={value.difficulty === null}
+            onClick={() => onChange({ difficulty: null })}
+            className={cn(
+              'col-span-3 h-10 rounded-xl border font-poppins text-[12.5px] transition-colors',
+              value.difficulty === null
+                ? 'border-brand-primary bg-brand-primary/10 font-semibold text-brand-primary'
+                : 'border-[#DDE3EC] bg-white font-medium text-[#40453b] hover:border-[#c7d1e0]',
+            )}
+          >
+            No preference
+          </button>
           {DIFFICULTIES.map((level) => {
             const isSelected = value.difficulty === level;
             return (
@@ -355,7 +415,6 @@ const PlanMyTripForm = ({
             );
           })}
         </div>
-        <FieldError id="pmt-difficulty-error" message={errors.difficulty} />
       </div>
 
       <div className="my-7 h-px w-full bg-[#E3EAF4]" />

@@ -43,7 +43,10 @@ const Footer = ({ isMainDisplay = false }: Props) => {
             <h3 className="font-poppins text-lg font-semibold lg:text-xl">
               Quick Links
             </h3>
-            <NavLinks className="flex-row gap-5 lg:flex-col lg:items-start lg:gap-[8px]" />
+            <NavLinks
+              showNewBadge={false}
+              className="flex-row gap-5 lg:flex-col lg:items-start lg:gap-[8px]"
+            />
           </div>
 
           {/* Center: Branding & Socials */}

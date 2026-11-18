@@ -18,7 +18,7 @@ type ShareTripModalProps = {
 };
 
 /**
- * Popup with a copyable link to the current trip. Mirrors LoginToSaveModal.
+ * Popup with a copyable link to the current trip.
  */
 export function ShareTripModal({
   open,

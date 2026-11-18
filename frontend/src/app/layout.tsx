@@ -77,8 +77,10 @@ export default function RootLayout({
       className={`${poppins.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
         {/* Production builds only, so local `next dev` visits are not counted. */}
         {process.env.NODE_ENV === 'production' && (
           <>

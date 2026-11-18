@@ -10,6 +10,8 @@ export type SavedTrip = {
   owner: string;
   trailIds: string[];
   totalDays: number;
+  /** Display name; generated from the trails when the traveller doesn't set one. */
+  name?: string;
   /** Travel month chosen in Plan My Trip; absent for trips saved elsewhere. */
   month?: string;
   savedAt: number;
@@ -19,6 +21,7 @@ type SavedTripsState = {
   trips: SavedTrip[];
   saveTrip: (trip: Omit<SavedTrip, 'savedAt'>) => void;
   removeTrip: (id: string, owner: string) => void;
+  renameTrip: (id: string, owner: string, name: string) => void;
 };
 
 /** Stable identity of a signed-in traveller, or null when signed out. */
@@ -48,6 +51,12 @@ export const useSavedTripsStore = create<SavedTripsState>()(
         set((state) => ({
           trips: state.trips.filter((t) => !(t.id === id && t.owner === owner)),
         })),
+      renameTrip: (id, owner, name) =>
+        set((state) => ({
+          trips: state.trips.map((t) =>
+            t.id === id && t.owner === owner ? { ...t, name } : t,
+          ),
+        })),
     }),
     { name: 'trails-nepal-saved-trips' },
   ),
@@ -58,12 +67,19 @@ export function useOwner(): string | null {
   return useAuthStore((state) => ownerOf(state.user));
 }
 
-/** Whether the signed-in traveller has saved this trip. */
-export function useIsTripSaved(id: string): boolean {
+/** The signed-in traveller's saved copy of this trip, if they saved it. */
+export function useSavedTrip(id: string): SavedTrip | undefined {
   const owner = useOwner();
   return useSavedTripsStore((state) =>
-    owner ? state.trips.some((t) => t.id === id && t.owner === owner) : false,
+    owner
+      ? state.trips.find((t) => t.id === id && t.owner === owner)
+      : undefined,
   );
+}
+
+/** Whether the signed-in traveller has saved this trip. */
+export function useIsTripSaved(id: string): boolean {
+  return useSavedTrip(id) !== undefined;
 }
 
 /** The signed-in traveller's saved trips; empty when signed out. */

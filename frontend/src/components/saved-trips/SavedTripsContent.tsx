@@ -10,6 +10,7 @@ import {
   Footprints,
   Heart,
   Mountain,
+  Pencil,
   Share2,
 } from 'lucide-react';
 import { Button } from 'src/components/ui/button';
@@ -18,7 +19,9 @@ import {
   SAVED_HEART_CLASS,
 } from '@/components/common/SaveButton';
 import { cn } from '@/lib/utils';
-import { removeTripWithFeedback } from '@/lib/trips';
+import { removeTripWithFeedback, renameTripWithFeedback } from '@/lib/trips';
+import { defaultTripName } from '@/lib/tripName';
+import { TripNameDialog } from '@/components/common/TripNameDialog';
 import { ShareTripModal } from '@/components/common/ShareTripModal';
 import { MatchRow } from '@/components/plan-my-trip/MatchCards';
 import { getCategory } from '@/components/plan-my-trip/tripOptions';
@@ -158,8 +161,32 @@ function CollectionCard({
   trip: ResolvedTrip;
   onShare: (trip: ResolvedTrip) => void;
 }) {
+  const [renameOpen, setRenameOpen] = useState(false);
+  const name = trip.name ?? defaultTripName(trip.trailIds, trip.totalDays);
+
   return (
     <article className="rounded-2xl bg-white p-4 shadow-sm">
+      <div className="mb-3 flex items-center gap-2">
+        <h2 className="min-w-0 truncate font-fraunces text-lg font-semibold text-[#272922]">
+          {name}
+        </h2>
+        <button
+          type="button"
+          onClick={() => setRenameOpen(true)}
+          aria-label={`Rename ${name}`}
+          title="Rename trip"
+          className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#5F7C0D] transition hover:bg-[#F3F8E8]"
+        >
+          <Pencil size={15} />
+        </button>
+      </div>
+      <TripNameDialog
+        open={renameOpen}
+        onOpenChange={setRenameOpen}
+        mode="rename"
+        initialName={name}
+        onConfirm={(next) => renameTripWithFeedback(trip.id, next)}
+      />
       <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-[#2D2F27]">
         <MetaItem icon={CalendarDays}>
           {trip.month ?? trip.treks[0].season}

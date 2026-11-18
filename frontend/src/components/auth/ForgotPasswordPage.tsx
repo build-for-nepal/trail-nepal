@@ -1,15 +1,25 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import Footer from '@/components/layout/footer/Footer';
 import { cn } from '@/lib/utils';
-import {
-  AUTH_INPUT_CLASS,
-  AUTH_LABEL_CLASS,
-  AUTH_PRIMARY_BUTTON_CLASS,
-} from './authStyles';
+import { AUTH_PRIMARY_BUTTON_CLASS } from './authStyles';
+import { TextField } from './TextField';
+import { getEmailError } from './validation';
 
 export function ForgotPasswordPage() {
+  const [email, setEmail] = useState('');
+  const [touched, setTouched] = useState(false);
+
+  const emailError = touched ? getEmailError(email) : null;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setTouched(true);
+  };
+
   return (
     <main className="flex flex-1 flex-col bg-[#EAEFF8]">
       <section className="w-full px-4 pt-24 pb-[50px] sm:px-6">
@@ -21,21 +31,17 @@ export function ForgotPasswordPage() {
             Enter your e-mail below, and we&apos;ll send you an OTP.
           </p>
 
-          <form
-            onSubmit={(event) => event.preventDefault()}
-            className="mt-8 text-left"
-          >
-            <label htmlFor="email" className={AUTH_LABEL_CLASS}>
-              Email Address
-            </label>
-            <input
-              id="email"
-              name="email"
+          <form onSubmit={handleSubmit} noValidate className="mt-8 text-left">
+            <TextField
+              id="forgot-email"
+              label="Email Address"
               type="email"
               autoComplete="email"
-              required
               placeholder="username@email.com"
-              className={cn(AUTH_INPUT_CLASS, 'mt-2')}
+              value={email}
+              onChange={setEmail}
+              onBlur={() => setTouched(true)}
+              error={emailError}
             />
 
             <button

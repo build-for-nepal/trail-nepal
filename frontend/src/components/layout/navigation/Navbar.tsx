@@ -18,16 +18,23 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
 import { useAuthStore } from '@/store/authStore';
+import { signOut } from '@/lib/auth';
+import { HEART_TARGET_ATTR } from '@/lib/flyHeart';
+import { rememberReturnTo } from '@/lib/authRedirect';
 
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const clearUser = useAuthStore((state) => state.clearUser);
 
   const handleSignOut = () => {
-    clearUser();
+    signOut();
     router.push('/');
+  };
+
+  const handleLogIn = () => {
+    rememberReturnTo();
+    router.push('/login/');
   };
 
   // Disable fixed navbar on dynamic detail pages (they have a full-screen
@@ -55,14 +62,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The auth pages are full-screen, self-contained layouts.
-  const isAuthPage =
-    pathname === '/login/' ||
-    pathname === '/login' ||
-    pathname === '/signup/' ||
-    pathname === '/signup';
-  if (isAuthPage) return null;
-
   // The admin panel is a self-contained back-office UI with no public navbar.
   if (pathname.startsWith('/admin-panel')) return null;
 
@@ -78,7 +77,9 @@ export function Navbar() {
     pathname === '/shared-trip/' ||
     pathname === '/shared-trip' ||
     pathname === '/saved-trips/' ||
-    pathname === '/saved-trips';
+    pathname === '/saved-trips' ||
+    pathname === '/settings/' ||
+    pathname === '/settings';
   const isSolid = scrolled || isLightPage;
 
   return (
@@ -122,6 +123,7 @@ export function Navbar() {
                 <button
                   type="button"
                   aria-label="Account menu"
+                  {...{ [HEART_TARGET_ATTR]: '' }}
                   className="group flex cursor-pointer items-center gap-1.5"
                 >
                   <span
@@ -181,7 +183,7 @@ export function Navbar() {
             </DropdownMenu>
           ) : (
             <Button
-              onClick={() => router.push('/login/')}
+              onClick={handleLogIn}
               className={`font-poppins px-4 py-4.5 w-[160px] bg-[#8cc63f] hover:bg-[#7ab034] text-white font-semibold rounded-full shadow-lg cursor-pointer transition-transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 `}
             >
               {' '}

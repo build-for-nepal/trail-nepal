@@ -15,64 +15,82 @@ export const MONTHS = [
   'December',
 ] as const;
 
+/** Month value for travellers who haven't settled on dates. */
+export const FLEXIBLE_MONTH = 'Flexible';
+
 export const EXPERIENCE_KEYS = [
   'trekking',
   'hiking',
   'culture',
   'mountains',
   'quiet',
-  'mix',
 ] as const;
+
+export const EXPERIENCE_LABELS: Record<TripExperience, string> = {
+  trekking: 'Trekking',
+  hiking: 'Hiking',
+  culture: 'Culture',
+  mountains: 'Mountains',
+  quiet: 'Quiet Places',
+};
 
 export const DIFFICULTIES = ['Easy', 'Moderate', 'Challenging'] as const;
 
 export const MIN_DAYS = 1;
 export const MAX_DAYS = 30;
 
-export type TripMonth = (typeof MONTHS)[number];
+export type TripMonth = (typeof MONTHS)[number] | typeof FLEXIBLE_MONTH;
 export type TripExperience = (typeof EXPERIENCE_KEYS)[number];
 export type TripDifficulty = (typeof DIFFICULTIES)[number];
 
-/** What the form holds while the traveller is still filling it in. */
+/**
+ * What the form holds while the traveller is still filling it in.
+ * An empty `experiences` means all interests; a null `difficulty` means no
+ * preference. Both are the defaults, so only `days` can be missing.
+ */
 export interface TripPreferences {
   month: TripMonth;
   days: number | null;
-  experience: TripExperience | null;
+  experiences: TripExperience[];
   difficulty: TripDifficulty | null;
 }
 
 export const DEFAULT_PREFERENCES: TripPreferences = {
   month: 'October',
   days: 3,
-  experience: null,
+  experiences: [],
   difficulty: null,
 };
 
 /**
- * Validates the form and, on success, produces the recommendation request body
- * (month as 1-12, lowercase difficulty).
+ * Validates the form and, on success, produces the recommendation request body:
+ * `month` as 1-12 (null = flexible), `experiences` as a list (empty = all
+ * interests) and lowercase `difficulty` (null = no preference).
  */
 export const tripPreferencesSchema = z.object({
-  month: z.enum(MONTHS, { error: 'Choose a travel month.' }),
+  month: z.enum([...MONTHS, FLEXIBLE_MONTH], {
+    error: 'Choose a travel month.',
+  }),
   days: z
     .number({ error: 'Enter how many days you have.' })
     .int('Days must be a whole number.')
     .min(MIN_DAYS, `Choose at least ${MIN_DAYS} day.`)
     .max(MAX_DAYS, `Trips can be up to ${MAX_DAYS} days.`),
-  experience: z.enum(EXPERIENCE_KEYS, {
-    error: 'Choose the kind of experience you want.',
-  }),
-  difficulty: z.enum(DIFFICULTIES, {
-    error: 'Choose how challenging the trip should feel.',
-  }),
+  experiences: z.array(z.enum(EXPERIENCE_KEYS)),
+  difficulty: z.enum(DIFFICULTIES).nullable(),
 });
 
 export const recommendationRequestSchema = tripPreferencesSchema.transform(
   (value) => ({
-    month: MONTHS.indexOf(value.month) + 1,
+    month:
+      value.month === FLEXIBLE_MONTH
+        ? null
+        : (MONTHS as readonly string[]).indexOf(value.month) + 1,
     days: value.days,
-    experience: value.experience,
-    difficulty: value.difficulty.toLowerCase() as Lowercase<TripDifficulty>,
+    experiences: value.experiences,
+    difficulty: value.difficulty
+      ? (value.difficulty.toLowerCase() as Lowercase<TripDifficulty>)
+      : null,
   }),
 );
 

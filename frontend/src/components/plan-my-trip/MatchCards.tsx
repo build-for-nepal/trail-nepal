@@ -2,15 +2,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { type ReactNode, useState } from 'react';
-import { LoginToSaveModal } from '@/components/common/LoginToSaveModal';
+import { type ReactNode, useRef, useState } from 'react';
+import { AuthModal } from '@/components/auth/AuthModal';
+import { TripNameDialog } from '@/components/common/TripNameDialog';
 import SaveButton from '@/components/common/SaveButton';
 import { ShareTripModal } from '@/components/common/ShareTripModal';
 import { buildShareUrl, tripKey } from '@/lib/sharedTrip';
-import { stashPendingSave } from '@/lib/pendingSave';
+import { defaultTripName } from '@/lib/tripName';
 import { removeTripWithFeedback, saveTripWithFeedback } from '@/lib/trips';
 import { useAuthStore } from '@/store/authStore';
-import { useIsTripSaved } from '@/store/savedTripsStore';
+import { useSavedTrip } from '@/store/savedTripsStore';
 import {
   ArrowUpRight,
   CalendarDays,
@@ -292,39 +293,39 @@ export function AlternativeCard({ trek }: { trek: Trek }) {
 /**
  * Shared save and share actions for one suggested trip.
  * Only signed-in travellers can save, and only a saved trip can be shared.
+ * Saving asks for a name, suggested from the trip's trails.
  */
 export function TripActions({
   trailIds,
   totalDays,
   month,
-  onBeforeLogin,
 }: {
   trailIds: string[];
   totalDays: number;
   month?: string;
-  /** Called before the visitor leaves to log in, so the page can keep its plan. */
-  onBeforeLogin?: () => void;
 }) {
   const user = useAuthStore((state) => state.user);
   const id = tripKey(trailIds, totalDays);
-  const saved = useIsTripSaved(id);
+  const savedTrip = useSavedTrip(id);
+  const saved = savedTrip !== undefined;
 
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [nameOpen, setNameOpen] = useState(false);
   const [saving, setSaving] = useState(false);
-  const trip = { id, trailIds, totalDays, month };
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+
+  const suggestedName = defaultTripName(trailIds, totalDays);
+
   const handleSave = () => {
     if (!user) {
-      setLoginOpen(true);
+      setAuthOpen(true);
       return;
     }
 
-    if (saved) {
-      removeTripWithFeedback(id);
-    } else {
-      void saveTripWithFeedback(trip, setSaving);
-    }
+    if (saved) removeTripWithFeedback(id);
+    else setNameOpen(true);
   };
 
   // Sharing needs neither a login nor a saved trip: the link carries the trip.
@@ -336,6 +337,7 @@ export function TripActions({
   return (
     <div className="flex flex-wrap justify-end gap-3">
       <button
+        ref={saveButtonRef}
         type="button"
         onClick={handleSave}
         aria-pressed={saved}
@@ -359,13 +361,23 @@ export function TripActions({
         Share
       </button>
 
-      <LoginToSaveModal
-        open={loginOpen}
-        onOpenChange={setLoginOpen}
-        onLogIn={() => {
-          stashPendingSave(trip);
-          onBeforeLogin?.();
-        }}
+      <AuthModal
+        open={authOpen}
+        onOpenChange={setAuthOpen}
+        onAuthenticated={() => setNameOpen(true)}
+      />
+      <TripNameDialog
+        open={nameOpen}
+        onOpenChange={setNameOpen}
+        mode="save"
+        initialName={suggestedName}
+        onConfirm={(name) =>
+          void saveTripWithFeedback(
+            { id, trailIds, totalDays, month, name },
+            setSaving,
+            saveButtonRef.current,
+          )
+        }
       />
       <ShareTripModal
         open={shareOpen}

@@ -2,6 +2,8 @@ import type { RefObject } from 'react';
 export interface NavLinksProps {
   className?: string;
   scrolled?: boolean;
+  /** Show the "New" tag on Plan My Trip. Off in the footer. */
+  showNewBadge?: boolean;
 }
 export interface HeroContentProps {
   slide: Slide;

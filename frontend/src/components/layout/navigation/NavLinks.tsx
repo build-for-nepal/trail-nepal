@@ -7,7 +7,11 @@ import { NAV_LINKS } from '../../../static/nav-links.config';
 import { NavLinksProps } from '@/types/homepage';
 import { useEffect, useState } from 'react';
 
-export function NavLinks({ className, scrolled = false }: NavLinksProps) {
+export function NavLinks({
+  className,
+  scrolled = false,
+  showNewBadge = true,
+}: NavLinksProps) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -44,7 +48,7 @@ export function NavLinks({ className, scrolled = false }: NavLinksProps) {
                 )}
               >
                 {label}
-                {label === 'Plan My Trip' && (
+                {showNewBadge && label === 'Plan My Trip' && (
                   <span className="absolute -right-[48px] -top-[11px] rounded-[5px] bg-[#ff4b18] px-[7px] py-[4px] text-[12px] font-semibold leading-none text-white">
                     New
                   </span>
