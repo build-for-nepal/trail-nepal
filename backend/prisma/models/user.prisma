@@ -9,14 +9,17 @@ model User {
   email         String  @unique
   emailVerified Boolean @default(false) @map("email_verified")
 
-  passwordHash String? @map("password_hash")
+  // compat only, always null(for Better Auth) - see Profile 
+  name  String?
+  image String?
 
   role        Role      @default(USER)
   isActive    Boolean   @default(true) @map("is_active")
   lastLoginAt DateTime? @map("last_login_at")
 
-  profile       Profile?
-  oauthAccounts OAuthAccount[]
+  profile  Profile?
+  accounts Account[]
+  sessions Session[]
 
   savedRecommendations SavedRecommendation[]
 
@@ -37,28 +40,71 @@ model Profile {
   lastName   String? @map("last_name")
   avatarUrl  String? @map("avatar_url")
 
+  phone       String?
+  country     String?
+  bio         String?
+  dateOfBirth DateTime? @map("date_of_birth") @db.Date
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("profile")
 }
 
-model OAuthAccount {
+model Session {
   id String @id @default(uuid()) @db.Uuid
 
   userId String @map("user_id") @db.Uuid
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  provider          String
-  providerAccountId String @map("provider_account_id")
-
-  providerEmail         String? @map("provider_email")
-  providerEmailVerified Boolean @default(false) @map("provider_email_verified")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@unique([provider, providerAccountId])
   @@index([userId])
-  @@map("oauth_account")
+  @@map("session")
+}
+
+model Account {
+  id String @id @default(uuid()) @db.Uuid
+
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  accountId  String @map("account_id")
+  providerId String @map("provider_id")
+
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("account")
+}
+
+// Email verification and password reset tokens.
+model Verification {
+  id String @id @default(uuid()) @db.Uuid
+
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([identifier])
+  @@map("verification")
 }

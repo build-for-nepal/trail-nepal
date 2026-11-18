@@ -1,11 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useRef, useState } from 'react';
-import type { FocusEvent, FormEvent } from 'react';
-import { Check, Eye, EyeOff, X } from 'lucide-react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { signUp } from '@/lib/auth';
+import { useRouter } from 'next/navigation';
+import { fetchCurrentUser, signUp } from '@/lib/auth';
+import { useAuthStore } from '@/store/authStore';
+import { checkPassword, validateEmail } from '@/lib/authValidation';
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated';
+import { PasswordChecklist } from './PasswordChecklist';
 import { AuthShell } from './AuthShell';
 import {
   AUTH_INPUT_CLASS as INPUT_CLASS,
@@ -13,42 +18,14 @@ import {
   AUTH_PRIMARY_BUTTON_CLASS,
 } from './authStyles';
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const PASSWORD_RULES = [
-  {
-    key: 'length',
-    label: 'At least 8 characters',
-    test: (value: string) => value.length >= 8,
-  },
-  {
-    key: 'uppercase',
-    label: 'One uppercase letter',
-    test: (value: string) => /[A-Z]/.test(value),
-  },
-  {
-    key: 'lowercase',
-    label: 'One lowercase letter',
-    test: (value: string) => /[a-z]/.test(value),
-  },
-  {
-    key: 'number',
-    label: 'One number',
-    test: (value: string) => /\d/.test(value),
-  },
-  {
-    key: 'special',
-    label: 'One special character (! @ # $ % & *)',
-    test: (value: string) => /[!@#$%&*]/.test(value),
-  },
-] as const;
-
 export function SignUpPage() {
+  const router = useRouter();
+  useRedirectIfAuthenticated();
+  const setUser = useAuthStore((state) => state.setUser);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showRequirements, setShowRequirements] = useState(false);
   const [touched, setTouched] = useState({
     name: false,
     email: false,
@@ -57,40 +34,22 @@ export function SignUpPage() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  const passwordFieldRef = useRef<HTMLDivElement>(null);
-
   const trimmedName = name.trim();
   const trimmedEmail = email.trim();
-  const emailValid = EMAIL_PATTERN.test(trimmedEmail);
-
-  const ruleResults = useMemo(
-    () => PASSWORD_RULES.map((rule) => ({ ...rule, met: rule.test(password) })),
-    [password],
-  );
-  const passwordValid = ruleResults.every((rule) => rule.met);
+  const emailFormatError = validateEmail(trimmedEmail);
+  const passwordCheck = checkPassword(password);
+  const passwordValid = passwordCheck.valid;
 
   const nameError =
     touched.name && !trimmedName ? 'Full name is required.' : null;
-  const emailError = touched.email
-    ? !trimmedEmail
-      ? 'Email address is required.'
-      : !emailValid
-        ? 'Enter a valid email address.'
-        : null
-    : null;
+  const emailError = touched.email ? emailFormatError : null;
   const passwordError =
     touched.password && !passwordValid
       ? 'Password does not meet the requirements below.'
       : null;
 
-  const formValid = trimmedName.length > 0 && emailValid && passwordValid;
-
-  // Close the requirements dropdown when focus leaves the password area.
-  const handlePasswordBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-      setShowRequirements(false);
-    }
-  };
+  const formValid =
+    trimmedName.length > 0 && !emailFormatError && passwordValid;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -106,6 +65,10 @@ export function SignUpPage() {
         email: trimmedEmail,
         password,
       });
+      const user = await fetchCurrentUser();
+      if (!user) throw new Error('Could not load your account.');
+      setUser(user);
+      router.replace('/');
     } catch (error) {
       setFormError(
         error instanceof Error
@@ -172,7 +135,10 @@ export function SignUpPage() {
             autoComplete="email"
             placeholder="username@email.com"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              setTouched((prev) => ({ ...prev, email: true }));
+            }}
             onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
             aria-invalid={Boolean(emailError)}
             aria-describedby={emailError ? 'email-error' : undefined}
@@ -194,11 +160,7 @@ export function SignUpPage() {
         </div>
 
         {/* Password */}
-        <div
-          ref={passwordFieldRef}
-          className="relative mt-3.5"
-          onBlur={handlePasswordBlur}
-        >
+        <div className="relative mt-3.5">
           <label htmlFor="password" className={LABEL_CLASS}>
             Password
           </label>
@@ -213,13 +175,12 @@ export function SignUpPage() {
               value={password}
               onChange={(event) => {
                 setPassword(event.target.value);
-                setShowRequirements(true);
+                setTouched((prev) => ({ ...prev, password: true }));
               }}
-              onFocus={() => setShowRequirements(true)}
               aria-invalid={Boolean(passwordError)}
               aria-describedby={
                 [
-                  showRequirements && 'password-requirements',
+                  touched.password && 'password-requirements',
                   passwordError && 'password-error',
                 ]
                   .filter(Boolean)
@@ -245,38 +206,11 @@ export function SignUpPage() {
                 <Eye className="size-5" aria-hidden="true" />
               )}
             </button>
-
-            {showRequirements && (
-              <div
-                id="password-requirements"
-                onMouseDown={(event) => event.preventDefault()}
-                className="absolute inset-x-0 top-full z-20 mt-2 rounded-xl border border-[#E5E9EF] bg-white p-3 shadow-xl"
-              >
-                <ul className="grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
-                  {ruleResults.map((rule) => (
-                    <li
-                      key={rule.key}
-                      className={cn(
-                        'flex items-center gap-1.5 font-poppins text-[11px] leading-tight transition-colors',
-                        rule.met ? 'text-[#88B112]' : 'text-[#9AA1AC]',
-                      )}
-                    >
-                      {rule.met ? (
-                        <Check
-                          className="size-3.5 shrink-0"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <X className="size-3.5 shrink-0" aria-hidden="true" />
-                      )}
-                      <span>{rule.label}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
 
+          {touched.password && (
+            <PasswordChecklist id="password-requirements" password={password} />
+          )}
           {passwordError && (
             <p
               id="password-error"
@@ -302,7 +236,7 @@ export function SignUpPage() {
           disabled={submitting}
           className={cn(
             AUTH_PRIMARY_BUTTON_CLASS,
-            'mt-4 flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-60',
+            'mt-4 flex items-center justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-60',
           )}
         >
           {submitting ? 'Creating account…' : 'Sign Up'}
