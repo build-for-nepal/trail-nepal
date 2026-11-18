@@ -128,3 +128,19 @@ export async function signUp(payload: SignUpPayload): Promise<void> {
     throw new Error('Registration is not available yet.');
   await signUpWithEmail(payload.email, payload.password);
 }
+
+export type ChangePasswordPayload = {
+  currentPassword: string;
+  newPassword: string;
+};
+
+/**
+ * Password-change integration point. Like `signUp`, it does not fake success:
+ * sign-in is Google-only today and there is no backend to hold a password.
+ */
+export async function changePassword(
+  payload: ChangePasswordPayload,
+): Promise<void> {
+  void payload;
+  throw new Error('Changing your password is not available yet.');
+}

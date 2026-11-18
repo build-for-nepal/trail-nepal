@@ -20,6 +20,7 @@ import {
 import { useAuthStore } from '@/store/authStore';
 import { useToastStore } from '@/store/toastStore';
 import { EMAIL_AUTH_ENABLED, signOutSession } from '@/lib/auth';
+import { SAVED_TARGET_ATTR } from '@/lib/flyHeartToSaved';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -74,14 +75,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The auth pages are full-screen, self-contained layouts.
-  const isAuthPage =
-    pathname === '/login/' ||
-    pathname === '/login' ||
-    pathname === '/signup/' ||
-    pathname === '/signup';
-  if (isAuthPage) return null;
-
   // The admin panel is a self-contained back-office UI with no public navbar.
   if (pathname.startsWith('/admin-panel')) return null;
 
@@ -97,7 +90,9 @@ export function Navbar() {
     pathname === '/shared-trip/' ||
     pathname === '/shared-trip' ||
     pathname === '/saved-trips/' ||
-    pathname === '/saved-trips';
+    pathname === '/saved-trips' ||
+    pathname === '/settings/' ||
+    pathname === '/settings';
   const isSolid = scrolled || isLightPage;
 
   return (
@@ -141,6 +136,7 @@ export function Navbar() {
                 <button
                   type="button"
                   aria-label="Account menu"
+                  {...{ [SAVED_TARGET_ATTR]: '' }}
                   className="group flex cursor-pointer items-center gap-1.5"
                 >
                   <span
