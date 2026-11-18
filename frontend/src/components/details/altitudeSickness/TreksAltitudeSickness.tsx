@@ -325,8 +325,8 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
                           </p>
                           <ul className="flex flex-col gap-1.5">
                             {item.prevention_tips.map((tip) => (
-                              <li key={tip} className="flex items-center gap-2">
-                                <Check className="w-3 h-3 text-blue-500" />
+                              <li key={tip} className="flex items-start gap-2">
+                                <Check className="mt-1.5 h-3 w-3 shrink-0 text-blue-500" />
                                 <span className="text-md text-gray-600 leading-relaxed">
                                   {tip}
                                 </span>
