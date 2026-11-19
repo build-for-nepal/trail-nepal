@@ -29,6 +29,7 @@ enum ExperienceRegion {
   POKHARA
   LUMBINI
   Khumbu
+  DOLPO
 }
 
 model Experience {
