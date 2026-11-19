@@ -56,6 +56,14 @@ export async function getExperienceDetail(id: string): Promise<ExperienceDetail>
   return findExperienceDetail({ id, status: 'PUBLISHED', isActive: true });
 }
 
+// Same payload as getExperienceDetail, addressed by the URL slug the public
+// site uses for its routes.
+export async function getExperienceDetailBySlug(
+  slug: string,
+): Promise<ExperienceDetail> {
+  return findExperienceDetail({ slug, status: 'PUBLISHED', isActive: true });
+}
+
 // Shared loader. Writes call it without the PUBLISHED filter so a draft can be
 // read straight back after creating it, which is exactly when it is invisible
 // to getExperienceDetail.

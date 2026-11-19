@@ -12,7 +12,7 @@ import Footer from '@/components/layout/footer/Footer';
 import TreksAltitudeSickness from '@/components/details/altitudeSickness/TreksAltitudeSickness';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import SubNav from 'src/components/layout/navigation/SubNav';
-import { TREK_DETAILS } from '@/static/trekDetails';
+import { useTrekDetail } from '@/features/trip-details/useTripDetail';
 
 type Props = {
   trekId: string;
@@ -24,7 +24,7 @@ const TrekDetailsContent = ({ trekId }: Props) => {
 
   // Resolve the trek's data once here (the composition root) and pass slices as
   // props; the shared detail sections stay presentational and content-agnostic.
-  const trek = TREK_DETAILS[trekId];
+  const trek = useTrekDetail(trekId);
 
   // "What to Expect" hero: prefer a portrait gallery image, else the first.
   const expectImage =

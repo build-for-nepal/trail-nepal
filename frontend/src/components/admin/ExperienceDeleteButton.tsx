@@ -5,7 +5,7 @@ import { Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import { useAdminToast } from './AdminToast';
-import { ApiError } from './api/client';
+import { ApiError } from '@/lib/api/client';
 import { ConfirmDialog } from './ConfirmDialog';
 import { useDeleteExperience } from './hooks/useAdminExperiences';
 import { useDisclosure } from './hooks/useDisclosure';

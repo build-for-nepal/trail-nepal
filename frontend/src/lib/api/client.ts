@@ -42,7 +42,10 @@ export async function apiRequest<T>(
       body: init.body ? JSON.stringify(init.body) : undefined,
     });
   } catch {
-    throw new ApiError(0, `Could not reach the API at ${API_URL}. Make sure the backend is running.`);
+    throw new ApiError(
+      0,
+      `Could not reach the API at ${API_URL}. Make sure the backend is running.`,
+    );
   }
 
   const json = (await response.json().catch(() => null)) as

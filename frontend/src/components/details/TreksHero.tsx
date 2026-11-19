@@ -1,9 +1,11 @@
+'use client';
+
 import SectionHeader from '../common/SectionHeader';
-import { TREK_DETAILS } from '@/static/trekDetails';
+import { useTrekDetail } from '@/features/trip-details/useTripDetail';
 import { Props } from '@/types/trek';
 
 const TreksHero = ({ trekId }: Props) => {
-  const data = TREK_DETAILS[trekId];
+  const data = useTrekDetail(trekId);
   if (!data) return null;
 
   const { overview, timeline } = data;
