@@ -10,7 +10,7 @@ import Footer from '@/components/layout/footer/Footer';
 import SubNav, {
   CULTURAL_NAV_ITEMS,
 } from '@/components/layout/navigation/SubNav';
-import { CULTURAL_TOUR_DETAILS } from '@/static/culturalTours';
+import { useCulturalTourDetail } from '@/features/trip-details/useTripDetail';
 
 import CulturalEntryFees from './CulturalEntryFees';
 import CulturalHeader from './CulturalHeader';
@@ -33,7 +33,7 @@ const CulturalDetailsContent = ({ tourId }: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [showSubNav, setShowSubNav] = useState(false);
 
-  const tour = CULTURAL_TOUR_DETAILS[tourId];
+  const tour = useCulturalTourDetail(tourId);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -13,7 +13,7 @@ import {
   isTripTypeId,
 } from './admin-helper';
 import { AdminShell } from './AdminShell';
-import { ApiError } from './api/client';
+import { ApiError } from '@/lib/api/client';
 import { toFormValues } from './api/experiences.mappers';
 import { ExperienceForm } from './ExperienceForm';
 import { useExperience } from './hooks/useAdminExperiences';

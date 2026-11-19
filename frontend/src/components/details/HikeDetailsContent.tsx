@@ -9,7 +9,7 @@ import TreksExpect from '@/components/details/TreksExpect';
 import TreksSeason from '@/components/details/TreksSeason';
 import Footer from '@/components/layout/footer/Footer';
 import SubNav, { HIKE_NAV_ITEMS } from '@/components/layout/navigation/SubNav';
-import { HIKE_DETAILS } from '@/static/hikeDetails';
+import { useHikeDetail } from '@/features/trip-details/useTripDetail';
 
 import HikeHeader from './HikeHeader';
 import HikeHero from './HikeHero';
@@ -27,7 +27,7 @@ const HikeDetailsContent = ({ hikeId }: Props) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [showSubNav, setShowSubNav] = useState(false);
 
-  const hike = HIKE_DETAILS[hikeId];
+  const hike = useHikeDetail(hikeId);
 
   useEffect(() => {
     const handleScroll = () => {

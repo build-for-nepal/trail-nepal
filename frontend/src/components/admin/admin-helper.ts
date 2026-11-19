@@ -22,7 +22,8 @@ export type ExperienceRegionValue =
   | 'KATHMANDU_VALLEY'
   | 'POKHARA'
   | 'LUMBINI'
-  | 'Khumbu';
+  | 'Khumbu'
+  | 'DOLPO';
 
 export type AdminDetailRow = {
   key: string;
@@ -154,6 +155,7 @@ export const REGION_LABELS: Record<ExperienceRegionValue, string> = {
   POKHARA: 'Pokhara',
   LUMBINI: 'Lumbini',
   Khumbu: 'Khumbu',
+  DOLPO: 'Dolpo',
 };
 
 export const REGION_OPTIONS = (
@@ -194,7 +196,7 @@ export const TYPE_CONFIG: ExperienceTypeConfigMap = {
     id: 'trek',
     label: 'Trek',
     typeValue: 'TREK',
-    regions: ['EVEREST', 'ANNAPURNA', 'LANGTANG', 'MANASLU', 'Khumbu'],
+    regions: ['EVEREST', 'ANNAPURNA', 'LANGTANG', 'MANASLU', 'Khumbu', 'DOLPO'],
     defaultRegion: 'EVEREST',
     difficultyOptions: DIFFICULTY_OPTIONS.map((d) => d.value),
     interestSuggestions: [
@@ -440,6 +442,7 @@ export const adminExperienceSchema = z
       'POKHARA',
       'LUMBINI',
       'Khumbu',
+      'DOLPO',
     ]),
     startPoint: z.string().max(300).optional(),
 

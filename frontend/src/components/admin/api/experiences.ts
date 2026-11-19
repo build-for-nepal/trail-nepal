@@ -1,4 +1,4 @@
-import { apiRequest } from './client';
+import { apiRequest } from '@/lib/api/client';
 import type { ExperienceTypeValue } from '../admin-helper';
 import type { ApiExperience, ApiListItem, ApiPage } from './experiences.types';
 

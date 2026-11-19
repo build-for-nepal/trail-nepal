@@ -7,6 +7,7 @@ import Image from 'next/image';
 import callImg from '@/assets/altitudesickness/contact/call.svg';
 import helicopterImg from '@/assets/altitudesickness/contact/helicopter.svg';
 import plusImg from '@/assets/altitudesickness/contact/contactplus.svg';
+import { useTrekDetail } from '@/features/trip-details/useTripDetail';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import {
   contactHospitalsData,
@@ -26,10 +27,7 @@ const ContactInfoSidebar = ({
   setShowMore,
   className,
 }: Props) => {
-  const trekInfo =
-    trekId && TREK_DETAILS[trekId]
-      ? TREK_DETAILS[trekId]
-      : Object.values(TREK_DETAILS)[0];
+  const trekInfo = useTrekDetail(trekId) ?? Object.values(TREK_DETAILS)[0];
 
   const convertAltitudeData = (value: string) => {
     const match = value.match(/^([\d,.]+)([a-zA-Z]+)$/);

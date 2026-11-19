@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import type { ExperienceTypeValue } from '../admin-helper';
-import { ApiError } from '../api/client';
+import { ApiError } from '@/lib/api/client';
 import { toAdminListItem } from '../api/experiences.mappers';
 import {
   createExperience,

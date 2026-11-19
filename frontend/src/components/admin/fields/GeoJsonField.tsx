@@ -15,7 +15,7 @@ import {
 
 import type { AdminFormValues } from '../admin-helper';
 import { ACCENT_OUTLINE } from '../admin-helper';
-import { API_BODY_LIMIT_BYTES } from '../api/client';
+import { API_BODY_LIMIT_BYTES } from '@/lib/api/client';
 import { AnimatedFormMessage } from './FormFields';
 
 type Position = [number, number];

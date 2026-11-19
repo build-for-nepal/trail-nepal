@@ -16,7 +16,7 @@ import SectionHeader from '../common/SectionHeader';
 import { cn } from '@/lib/utils';
 import { TrekTimelineDay } from '@/types/trek';
 import { DayFocus } from '@/types/map';
-import { TREK_DETAILS } from '@/static/trekDetails';
+import { useTrekDetail } from '@/features/trip-details/useTripDetail';
 import { ACCESS_ROUTES } from '@/static/accessRoutes';
 import TrekkingMap from './map/TrekkingMap';
 // import FoodMenu from './FoodMenu';
@@ -306,8 +306,8 @@ const TrekTimeline = ({ trekId }: { trekId?: string }) => {
   // const hasFoodMenu = !!(trekId && TREK_DETAILS[trekId]?.foodMenu);
   const [hasPrice, setHasPrice] = useState(false);
 
-  const days =
-    trekId && TREK_DETAILS[trekId] ? TREK_DETAILS[trekId].timeline : [];
+  const trekDetail = useTrekDetail(trekId);
+  const days = trekDetail ? trekDetail.timeline : [];
 
   // Controlled open/closed state for every accordion item (first day open by default).
   const [openStates, setOpenStates] = useState<boolean[]>(() =>

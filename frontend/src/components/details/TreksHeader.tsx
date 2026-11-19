@@ -1,3 +1,5 @@
+'use client';
+
 import {
   CalendarDays,
   CircleDollarSign,
@@ -7,7 +9,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 
-import { TREK_DETAILS } from '@/static/trekDetails';
+import { useTrekDetail } from '@/features/trip-details/useTripDetail';
 import { cn } from '@/lib/utils';
 import { Props } from '@/types/trek';
 
@@ -55,7 +57,7 @@ const formatBestSeason = (seasons?: string): string => {
 };
 
 const TreksHeader = ({ trekId }: Props) => {
-  const data = TREK_DETAILS[trekId];
+  const data = useTrekDetail(trekId);
   if (!data) return null;
 
   const bgImage =
