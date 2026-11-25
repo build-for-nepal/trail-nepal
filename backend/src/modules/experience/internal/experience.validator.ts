@@ -51,5 +51,20 @@ export const getExperienceParamsSchema = z.object({
   id: z.uuid({ message: 'id must be a UUID' }),
 });
 
+// Same slug rule the write validator enforces, so anything that can be stored
+// can be looked up. The public site addresses trips by slug, not by id.
+export const getExperienceBySlugParamsSchema = z.object({
+  slug: z
+    .string()
+    .min(1)
+    .max(160)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+      message: 'slug must be lowercase words separated by single hyphens',
+    }),
+});
+
 export type ListExperienceQuery = z.infer<typeof listExperienceQuerySchema>;
 export type GetExperienceParams = z.infer<typeof getExperienceParamsSchema>;
+export type GetExperienceBySlugParams = z.infer<
+  typeof getExperienceBySlugParamsSchema
+>;
