@@ -41,9 +41,9 @@ export function MobileMenu({ scrolled = false }: { scrolled?: boolean }) {
 
       <SheetContent
         side="top"
-        className="h-[55vh] w-full border-none bg-[#EEF1F5] p-0 rounded-b-[40px] shadow-2xl"
+        className="h-auto max-h-[90vh] w-full overflow-y-auto border-none bg-[#EEF1F5] p-0 rounded-b-[40px] shadow-2xl"
       >
-        <div className="page-wrapper flex flex-col gap-10 pt-10 pb-12 h-full">
+        <div className="page-wrapper flex flex-col gap-10 pt-10 pb-12">
           <SheetHeader className="text-left">
             <SheetTitle asChild>
               <Link href="/" className="inline-block w-fit">

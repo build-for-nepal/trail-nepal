@@ -18,6 +18,9 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
 import { useAuthStore } from '@/store/authStore';
+import { useToastStore } from '@/store/toastStore';
+import { EMAIL_AUTH_ENABLED, signOutSession } from '@/lib/auth';
+import { SAVED_TARGET_ATTR } from '@/lib/flyHeartToSaved';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -25,9 +28,26 @@ export function Navbar() {
   const user = useAuthStore((state) => state.user);
   const clearUser = useAuthStore((state) => state.clearUser);
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    if (!EMAIL_AUTH_ENABLED) {
+      clearUser();
+      router.push('/');
+      return;
+    }
+    try {
+      // Deletes the DB session and clears the HttpOnly cookie server-side.
+      await signOutSession();
+    } catch {
+      // The session may still be live, so stay signed in and say so.
+      useToastStore.getState().showToast({
+        title: 'Could not log out',
+        description: 'Please check your connection and try again.',
+        tone: 'error',
+      });
+      return;
+    }
     clearUser();
-    router.push('/');
+    router.push('/login/');
   };
 
   // Disable fixed navbar on dynamic detail pages (they have a full-screen
@@ -55,14 +75,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The auth pages are full-screen, self-contained layouts.
-  const isAuthPage =
-    pathname === '/login/' ||
-    pathname === '/login' ||
-    pathname === '/signup/' ||
-    pathname === '/signup';
-  if (isAuthPage) return null;
-
   // The admin panel is a self-contained back-office UI with no public navbar.
   if (pathname.startsWith('/admin-panel')) return null;
 
@@ -78,7 +90,9 @@ export function Navbar() {
     pathname === '/shared-trip/' ||
     pathname === '/shared-trip' ||
     pathname === '/saved-trips/' ||
-    pathname === '/saved-trips';
+    pathname === '/saved-trips' ||
+    pathname === '/settings/' ||
+    pathname === '/settings';
   const isSolid = scrolled || isLightPage;
 
   return (
@@ -122,6 +136,7 @@ export function Navbar() {
                 <button
                   type="button"
                   aria-label="Account menu"
+                  {...{ [SAVED_TARGET_ATTR]: '' }}
                   className="group flex cursor-pointer items-center gap-1.5"
                 >
                   <span
@@ -175,7 +190,7 @@ export function Navbar() {
                   className="text-[#EF4444] focus:bg-[#FEF2F2] focus:text-[#EF4444]"
                 >
                   <LogOut className="size-4" />
-                  Sign Out
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

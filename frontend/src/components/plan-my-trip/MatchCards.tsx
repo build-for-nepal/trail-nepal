@@ -9,6 +9,8 @@ import { ShareTripModal } from '@/components/common/ShareTripModal';
 import { buildShareUrl, tripKey } from '@/lib/sharedTrip';
 import { stashPendingSave } from '@/lib/pendingSave';
 import { removeTripWithFeedback, saveTripWithFeedback } from '@/lib/trips';
+import { useHeartPop } from '@/hooks/useHeartPop';
+import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
 import { useIsTripSaved } from '@/store/savedTripsStore';
 import {
@@ -311,6 +313,7 @@ export function TripActions({
 
   const [loginOpen, setLoginOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const { popping, anchorRef, pop, onAnimationEnd } = useHeartPop();
   const trip = { id, trailIds, totalDays, month };
   const [shareOpen, setShareOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -323,7 +326,9 @@ export function TripActions({
     if (saved) {
       removeTripWithFeedback(id);
     } else {
-      void saveTripWithFeedback(trip, setSaving);
+      void saveTripWithFeedback(trip, setSaving).then((stored) => {
+        if (stored) pop();
+      });
     }
   };
 
@@ -337,6 +342,7 @@ export function TripActions({
     <div className="flex flex-wrap justify-end gap-3">
       <button
         type="button"
+        ref={anchorRef}
         onClick={handleSave}
         aria-pressed={saved}
         disabled={saving}
@@ -345,7 +351,11 @@ export function TripActions({
       >
         <Heart
           size={17}
-          className={saved ? 'fill-[#F0605D] text-[#F0605D]' : undefined}
+          onAnimationEnd={onAnimationEnd}
+          className={cn(
+            saved && 'fill-[#F0605D] text-[#F0605D]',
+            saved && popping && 'animate-pop motion-reduce:animate-none',
+          )}
         />
         {saving ? 'Saving…' : saved ? 'Saved' : 'Save Trip'}
       </button>

@@ -11,7 +11,7 @@ CREATE TYPE "ExperienceType" AS ENUM ('TREK', 'HIKE', 'CULTURAL', 'SIGHTSEEING',
 CREATE TYPE "ExperienceStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'ARCHIVED');
 
 -- CreateEnum
-CREATE TYPE "ExperienceRegion" AS ENUM ('EVEREST', 'ANNAPURNA', 'LANGTANG', 'MANASLU', 'KATHMANDU_VALLEY', 'POKHARA', 'LUMBINI', 'Khumbu');
+CREATE TYPE "ExperienceRegion" AS ENUM ('EVEREST', 'ANNAPURNA', 'LANGTANG', 'MANASLU', 'KATHMANDU_VALLEY', 'POKHARA', 'LUMBINI', 'Khumbu', 'DOLPO');
 
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
@@ -138,7 +138,8 @@ CREATE TABLE "user" (
     "id" UUID NOT NULL,
     "email" TEXT NOT NULL,
     "email_verified" BOOLEAN NOT NULL DEFAULT false,
-    "password_hash" TEXT,
+    "name" TEXT,
+    "image" TEXT,
     "role" "Role" NOT NULL DEFAULT 'USER',
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "last_login_at" TIMESTAMP(3),
@@ -156,6 +157,10 @@ CREATE TABLE "profile" (
     "middle_name" TEXT,
     "last_name" TEXT,
     "avatar_url" TEXT,
+    "phone" TEXT,
+    "country" TEXT,
+    "bio" TEXT,
+    "date_of_birth" DATE,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -163,17 +168,48 @@ CREATE TABLE "profile" (
 );
 
 -- CreateTable
-CREATE TABLE "oauth_account" (
+CREATE TABLE "session" (
     "id" UUID NOT NULL,
     "user_id" UUID NOT NULL,
-    "provider" TEXT NOT NULL,
-    "provider_account_id" TEXT NOT NULL,
-    "provider_email" TEXT,
-    "provider_email_verified" BOOLEAN NOT NULL DEFAULT false,
+    "token" TEXT NOT NULL,
+    "expires_at" TIMESTAMP(3) NOT NULL,
+    "ip_address" TEXT,
+    "user_agent" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "oauth_account_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "account" (
+    "id" UUID NOT NULL,
+    "user_id" UUID NOT NULL,
+    "account_id" TEXT NOT NULL,
+    "provider_id" TEXT NOT NULL,
+    "access_token" TEXT,
+    "refresh_token" TEXT,
+    "id_token" TEXT,
+    "access_token_expires_at" TIMESTAMP(3),
+    "refresh_token_expires_at" TIMESTAMP(3),
+    "scope" TEXT,
+    "password" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "verification" (
+    "id" UUID NOT NULL,
+    "identifier" TEXT NOT NULL,
+    "value" TEXT NOT NULL,
+    "expires_at" TIMESTAMP(3) NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "verification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -219,10 +255,19 @@ CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 CREATE UNIQUE INDEX "profile_user_id_key" ON "profile"("user_id");
 
 -- CreateIndex
-CREATE INDEX "oauth_account_user_id_idx" ON "oauth_account"("user_id");
+CREATE UNIQUE INDEX "session_token_key" ON "session"("token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "oauth_account_provider_provider_account_id_key" ON "oauth_account"("provider", "provider_account_id");
+CREATE INDEX "session_user_id_idx" ON "session"("user_id");
+
+-- CreateIndex
+CREATE INDEX "account_user_id_idx" ON "account"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "account_provider_id_account_id_key" ON "account"("provider_id", "account_id");
+
+-- CreateIndex
+CREATE INDEX "verification_identifier_idx" ON "verification"("identifier");
 
 -- AddForeignKey
 ALTER TABLE "experience_detail" ADD CONSTRAINT "experience_detail_experience_id_fkey" FOREIGN KEY ("experience_id") REFERENCES "experience"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -246,4 +291,7 @@ ALTER TABLE "saved_recommendation" ADD CONSTRAINT "saved_recommendation_user_id_
 ALTER TABLE "profile" ADD CONSTRAINT "profile_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "oauth_account" ADD CONSTRAINT "oauth_account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "session" ADD CONSTRAINT "session_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "account" ADD CONSTRAINT "account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;

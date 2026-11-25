@@ -5,6 +5,18 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { checkPassword, validateEmail } from '@/lib/authValidation';
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated';
+import {
+  AuthRequestError,
+  EMAIL_AUTH_ENABLED,
+  fetchCurrentUser,
+  getGoogleSignInUrl,
+  signInWithEmail,
+} from '@/lib/auth';
+import { useAuthStore } from '@/store/authStore';
+import { PasswordChecklist } from './PasswordChecklist';
 import { AuthShell } from './AuthShell';
 import {
   AUTH_INPUT_CLASS,
@@ -35,13 +47,73 @@ function GoogleIcon() {
   );
 }
 
-export function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [notice, setNotice] = useState<string | null>(null);
+const INVALID_CREDENTIALS = 'Invalid email or password';
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+export function LoginPage() {
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+  useRedirectIfAuthenticated();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [touched, setTouched] = useState({ email: false, password: false });
+  // Backend rejection, kept apart from the live frontend validation below.
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  // Validated while typing; errors disappear as soon as the value is valid.
+  const emailError = touched.email ? validateEmail(email) : null;
+  const passwordCheck = checkPassword(password);
+  const passwordError = touched.password && !passwordCheck.valid;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setNotice('Sign-in is not available yet.');
+    if (!EMAIL_AUTH_ENABLED) {
+      setNotice('Sign-in is not available yet.');
+      return;
+    }
+    setTouched({ email: true, password: true });
+    setAuthError(null);
+    setNotice(null);
+    if (validateEmail(email) || !passwordCheck.valid) return;
+
+    setSubmitting(true);
+    try {
+      await signInWithEmail(email.trim(), password);
+      const user = await fetchCurrentUser();
+      if (!user) throw new Error('Could not load your account.');
+      setUser(user);
+      router.replace('/');
+    } catch (error) {
+      if (
+        error instanceof AuthRequestError &&
+        (error.status === 401 || error.status === 400 || error.status === 403)
+      ) {
+        // Deliberately generic: never reveal which of the two was wrong.
+        setAuthError(INVALID_CREDENTIALS);
+      } else {
+        setNotice(
+          error instanceof Error ? error.message : 'Could not sign in.',
+        );
+      }
+      setSubmitting(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setNotice(null);
+    try {
+      const url = await getGoogleSignInUrl(`${window.location.origin}/`);
+      window.location.href = url;
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : 'Google sign-in is not available yet.',
+      );
+    }
   };
 
   return (
@@ -53,7 +125,7 @@ export function LoginPage() {
         Log in to manage your listings or access your trek plans.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-8">
+      <form onSubmit={handleSubmit} noValidate className="mt-8">
         <label htmlFor="email" className={AUTH_LABEL_CLASS}>
           Email Address
         </label>
@@ -63,20 +135,43 @@ export function LoginPage() {
           type="email"
           autoComplete="email"
           placeholder="username@email.com"
-          className={cn(AUTH_INPUT_CLASS, 'mt-2')}
+          value={email}
+          onChange={(event) => {
+            setEmail(event.target.value);
+            setTouched((prev) => ({ ...prev, email: true }));
+            setAuthError(null);
+          }}
+          onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+          aria-invalid={Boolean(emailError)}
+          aria-describedby={emailError ? 'email-error' : undefined}
+          className={cn(
+            AUTH_INPUT_CLASS,
+            'mt-2',
+            emailError && 'border-[#EF4444] focus:border-[#EF4444]',
+          )}
         />
+        {emailError && (
+          <p
+            id="email-error"
+            role="alert"
+            className="mt-1 font-poppins text-[11px] text-[#EF4444]"
+          >
+            {emailError}
+          </p>
+        )}
 
         <div className="mt-4">
           <div className="flex items-center justify-between gap-2">
             <label htmlFor="password" className={AUTH_LABEL_CLASS}>
               Password
             </label>
+            {/* DISABLED (future): password reset emails are not enabled yet.
             <Link
               href="/forgot-password/"
               className="font-poppins text-[12px] text-[#2D2F27] hover:underline"
             >
               Forgot password?
-            </Link>
+            </Link> */}
           </div>
           <div className="relative mt-2">
             <input
@@ -84,7 +179,27 @@ export function LoginPage() {
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              className={cn(AUTH_INPUT_CLASS, 'pr-12')}
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                setTouched((prev) => ({ ...prev, password: true }));
+                setAuthError(null);
+              }}
+              aria-invalid={passwordError || Boolean(authError)}
+              aria-describedby={
+                authError
+                  ? 'password-error'
+                  : passwordError
+                    ? 'password-requirements'
+                    : undefined
+              }
+              className={cn(
+                AUTH_INPUT_CLASS,
+                'pr-12',
+                (passwordError || authError) &&
+                  'border-[#EF4444] focus:border-[#EF4444]',
+              )}
             />
             <button
               type="button"
@@ -95,16 +210,35 @@ export function LoginPage() {
               className="absolute inset-y-0 right-0 flex items-center px-3.5 text-[#9AA1AC] transition-colors hover:text-[#62675D]"
             >
               {showPassword ? (
-                <EyeOff className="size-5" aria-hidden="true" />
+                <EyeOff className="size-5 cursor-pointer" aria-hidden="true" />
               ) : (
-                <Eye className="size-5" aria-hidden="true" />
+                <Eye className="size-5 cursor-pointer" aria-hidden="true" />
               )}
             </button>
           </div>
+          {touched.password && (
+            <PasswordChecklist id="password-requirements" password={password} />
+          )}
+          {authError && (
+            <p
+              id="password-error"
+              role="alert"
+              className="mt-2 font-poppins text-[11px] text-[#EF4444]"
+            >
+              {authError}
+            </p>
+          )}
         </div>
 
-        <button type="submit" className={cn(AUTH_PRIMARY_BUTTON_CLASS, 'mt-6')}>
-          Log In
+        <button
+          type="submit"
+          disabled={submitting}
+          className={cn(
+            AUTH_PRIMARY_BUTTON_CLASS,
+            'cursor-pointer mt-6 disabled:cursor-not-allowed disabled:opacity-60',
+          )}
+        >
+          {submitting ? 'Logging in…' : 'Log In'}
         </button>
       </form>
 
@@ -118,8 +252,9 @@ export function LoginPage() {
 
       <button
         type="button"
-        onClick={() => setNotice('Google sign-in is not available yet.')}
-        className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
+        // onClick={() => setNotice('Google sign-in is not available yet.')}
+        onClick={handleGoogleSignIn}
+        className="flex h-12 w-full items-center justify-center gap-3 cursor-pointer rounded-full border border-[#E2E8F0] bg-white font-poppins text-sm font-medium text-[#292B25] transition-colors hover:bg-[#F7F9FC]"
       >
         <GoogleIcon />
         Continue with Google

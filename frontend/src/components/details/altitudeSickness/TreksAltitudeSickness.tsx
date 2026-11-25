@@ -368,7 +368,7 @@ const TreksAltitudeSickness = ({ trekId }: Props) => {
               <span className="font-bold">HACE</span> symptoms and preventions.
             </p>
             <a
-              href="/altitude/altitude-guide.pdf"
+              href="/altitude/altitudes-guide.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 rounded-[16px] w-fit py-2 px-4 flex items-center justify-center bg-[#88B112]"
