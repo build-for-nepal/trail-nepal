@@ -79,6 +79,12 @@ export const mapControlColor = {
   icon: '#0C1B16',
 } as const;
 
+// The onboarding permission steps' heading icon, on bg-sand. Muted rather than
+// ink, as TripNotFound draws its icon, so the heading stays the loudest thing.
+export const permissionColor = {
+  icon: '#55685F',
+} as const;
+
 // The trivia game's icons, and the wash behind its explanation. The tick is ink on the
 // right-answer tile (bg-trivia-right-tile), 8.7:1, where the web's white is 2.1:1; the
 // cross stays white on the red, 3.6:1. The web blurs the game behind the explanation, and
