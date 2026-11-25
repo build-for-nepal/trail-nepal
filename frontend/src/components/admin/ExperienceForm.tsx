@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { ExperienceTypeConfig } from './admin-helper';
 import type { AdminFormValues } from './admin-helper';
 import { useAdminToast } from './AdminToast';
-import { ApiError } from './api/client';
+import { ApiError } from '@/lib/api/client';
 import { toFormValues } from './api/experiences.mappers';
 import {
   useCreateExperience,
