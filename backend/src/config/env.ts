@@ -49,6 +49,10 @@ export const env = {
     secret: process.env['BETTER_AUTH_SECRET']!,
     cookieDomain: process.env['AUTH_COOKIE_DOMAIN'] || undefined,
     crossSiteCookies: process.env['AUTH_CROSS_SITE_COOKIES'] === 'true',
+    // Deep-link scheme the Expo app is reached at, matching `expo.scheme` in
+    // mobile/app.json. Better Auth checks OAuth redirect targets against
+    // trustedOrigins, so the app's scheme has to be listed there too.
+    mobileScheme: process.env['MOBILE_SCHEME'] || 'trailsnepal://',
     google: oauth('GOOGLE'),
     github: oauth('GITHUB'),
   },
