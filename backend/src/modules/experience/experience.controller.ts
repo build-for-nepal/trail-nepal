@@ -1,5 +1,9 @@
 import type { Request, Response } from 'express';
-import { getExperienceDetail, listExperiences } from './experience.service.js';
+import {
+  getExperienceDetail,
+  getExperienceDetailBySlug,
+  listExperiences,
+} from './experience.service.js';
 import {
   createExperience,
   deleteExperience,
@@ -14,6 +18,7 @@ import type {
   WriteExperienceResponse,
 } from './internal/experience.types.js';
 import type {
+  GetExperienceBySlugParams,
   GetExperienceParams,
   ListExperienceQuery,
 } from './internal/experience.validator.js';
@@ -42,6 +47,18 @@ export async function getExperienceController(
   const { id } = req.params as GetExperienceParams;
 
   const experience = await getExperienceDetail(id);
+
+  return handleResponse(res, experience);
+}
+
+// GET /api/experiences/slug/:slug - same payload as GET /:id, by URL slug.
+export async function getExperienceBySlugController(
+  req: Request,
+  res: Response,
+): Promise<Response<GetExperienceResponse>> {
+  const { slug } = req.params as GetExperienceBySlugParams;
+
+  const experience = await getExperienceDetailBySlug(slug);
 
   return handleResponse(res, experience);
 }
