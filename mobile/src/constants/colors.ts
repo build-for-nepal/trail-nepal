@@ -79,10 +79,12 @@ export const mapControlColor = {
   icon: '#0C1B16',
 } as const;
 
-// The onboarding permission steps' heading icon, on bg-sand. Muted rather than
-// ink, as TripNotFound draws its icon, so the heading stays the loudest thing.
-export const permissionColor = {
-  icon: '#55685F',
+// The login and sign-up fields. Icons sit inside the input, and TextInput takes
+// placeholderTextColor as a prop rather than through className.
+export const authColor = {
+  fieldIcon: '#8A94A6',
+  placeholder: '#8A94A6',
+  eye: '#8A94A6',
 } as const;
 
 // The trivia game's icons, and the wash behind its explanation. The tick is ink on the
