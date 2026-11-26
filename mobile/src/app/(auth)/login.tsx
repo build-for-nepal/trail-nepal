@@ -68,6 +68,45 @@ export default function Login() {
     router.replace('/');
   };
 
+  const signInWithGoogle = async () => {
+    setFormError(null);
+    setBusy(true);
+
+    // The expo plugin takes it from here: it asks the backend for the Google
+    // authorization URL, opens it through the backend's own
+    // /expo-authorization-proxy, and stores the session cookie that comes back
+    // on the trailsnepal:// deep link. Google only ever redirects to the
+    // backend, never to the app, so no native OAuth client is involved.
+    const { error } = await authClient.signIn.social({
+      provider: 'google',
+      // Relative on purpose: the plugin turns it into a deep link.
+      callbackURL: '/',
+    });
+
+    if (error) {
+      setBusy(false);
+      // The backend answers PROVIDER_NOT_FOUND when GOOGLE_CLIENT_ID and
+      // GOOGLE_CLIENT_SECRET are unset, which is a deployment state rather
+      // than anything the user did. "Provider not found" would mean nothing
+      // to them.
+      const unconfigured =
+        error.status === 404 || error.code === 'PROVIDER_NOT_FOUND';
+      setFormError(
+        unconfigured
+          ? 'Google sign-in is not available right now.'
+          : (error.message ?? 'Could not sign in with Google.'),
+      );
+      return;
+    }
+
+    // Dismissing the browser resolves without an error but without a session,
+    // so the session is what decides, not the absence of an error. On native
+    // the plugin never navigates for us either way.
+    const { data } = await authClient.getSession();
+    setBusy(false);
+    if (data) router.replace('/');
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -149,10 +188,7 @@ export default function Login() {
           <View className="h-px flex-1 bg-border" />
         </View>
 
-        <GoogleButton
-          busy={busy}
-          onPress={() => setFormError('Google sign-in is not available yet.')}
-        />
+        <GoogleButton busy={busy} onPress={() => void signInWithGoogle()} />
 
         <View className="mt-[28px] flex-row justify-center">
           <Text className="font-poppins text-[14px] leading-[20px] text-auth-body">
