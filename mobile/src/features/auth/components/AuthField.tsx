@@ -57,7 +57,15 @@ export function AuthField({
           // min-w-0 so the input can shrink and the toggle stays inside the
           // field: on web a flex child defaults to min-width:auto and would
           // push the toggle out of the row.
-          className="ml-[12px] min-w-0 flex-1 font-poppins text-[15px] leading-[21px] text-ink"
+          className="ml-[12px] min-w-0 flex-1 p-0 font-poppins text-[15px] leading-[21px] text-ink"
+          // Android reserves extra space above the text for font ascenders and
+          // aligns to the top, so the text rides high in the row while the icon
+          // beside it is centred. Neither has a Tailwind equivalent, and both
+          // are inert on iOS and web.
+          style={{
+            includeFontPadding: false,
+            textAlignVertical: 'center',
+          }}
         />
 
         {secure && (
