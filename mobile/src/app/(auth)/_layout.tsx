@@ -13,11 +13,12 @@ export default function AuthLayout() {
     return <Redirect href="/" />;
   }
 
-  // Render nothing until the stored session has been read, otherwise a signed-in
-  // user sees the login screen for a frame before being bounced out of it.
-  if (status === 'loading') {
-    return null;
-  }
-
+  // `loading` deliberately falls through to the screens rather than rendering
+  // null. Returning null here reads as the tidier option — it avoids a signed-in
+  // user glimpsing the login form before the redirect — but it fails badly: if
+  // the app launches straight onto this route and the session never resolves,
+  // say because the API is unreachable, there is nothing on screen and no way
+  // out, since these routes sit outside the tab bar. A brief flash of a form is
+  // a far cheaper failure than a dead end.
   return <Stack screenOptions={{ headerShown: false }} />;
 }
