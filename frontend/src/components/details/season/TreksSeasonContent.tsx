@@ -21,6 +21,8 @@ type Props = {
   }[];
   name: string;
   bestSeasons?: string;
+  /** Extra line under the season note, e.g. a booking caveat. */
+  note?: string;
   region: string;
   /** Waypoints (trek days / hike sections) used to derive weather locations. */
   waypoints: TrekTimelineDay[];
@@ -30,6 +32,7 @@ const TreksSeasonContent = ({
   seasonalPlanning,
   name,
   bestSeasons,
+  note,
   region,
   waypoints,
 }: Props) => {
@@ -89,6 +92,7 @@ const TreksSeasonContent = ({
             seasonalPlanning={seasonalPlanning}
             name={name}
             bestSeasons={bestSeasons}
+            note={note}
             today={today}
           />
 

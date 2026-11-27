@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { CRAFT_TOUR_DETAILS } from '@/static/craftTours';
 import { CULTURAL_TOUR_DETAILS } from '@/static/culturalTours';
 import { HIKE_DETAILS } from '@/static/hikeDetails';
 import { NATURE_TOUR_DETAILS } from '@/static/natureTours';
@@ -21,6 +22,7 @@ const DETAIL_ROUTES = [
   { segment: 'hikes', ids: Object.keys(HIKE_DETAILS) },
   { segment: 'cultural-tours', ids: Object.keys(CULTURAL_TOUR_DETAILS) },
   { segment: 'nature-wildlife', ids: Object.keys(NATURE_TOUR_DETAILS) },
+  { segment: 'arts-crafts', ids: Object.keys(CRAFT_TOUR_DETAILS) },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -23,6 +23,8 @@ export interface CulturalTourDay {
   color: string; // marker/pin color shared with the map
   highlights: string[];
   coordinates?: [number, number]; // [lat, lng] stored
+  /** External page for the stop, e.g. a workshop provider's website. */
+  link?: { label: string; url: string };
 }
 
 /**
