@@ -4,7 +4,9 @@ import { Check, RotateCcw, Share2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { TREK_DETAILS } from '@/static/trekDetails';
 import {
+  GENERAL_CATEGORIES_BY_EXPERIENCE,
   GENERAL_TRIVIA_QUESTIONS,
+  TRIVIA_EXPERIENCE_TYPE,
   TRIVIA_QUESTIONS_BY_TREK,
   type TriviaQuestion,
 } from '@/static/triviaQuestions';
@@ -25,8 +27,8 @@ type Props = {
 };
 type GameScreen = 'intro' | 'question' | 'result';
 
-const ROUND_SIZE = 8;
-const TREK_QUESTION_COUNT = 2;
+const ROUND_SIZE = 10;
+const TREK_QUESTION_COUNT = 8;
 const LETTERS = ['A', 'B', 'C', 'D'];
 const getTriviaName = (name: string) =>
   name.replace(/\s+(Trek|Hike|Tour)$/i, '').trim();
@@ -43,15 +45,43 @@ const shuffle = <T,>(items: T[]) => {
   return shuffled;
 };
 
-const createRound = (trekQuestions: TriviaQuestion[] = []) => {
+const questionKey = (question: TriviaQuestion) =>
+  question.question.toLowerCase().replace(/[^a-z0-9]+/g, ' ');
+
+const createRound = (trekId?: string) => {
+  const trekQuestions = trekId ? (TRIVIA_QUESTIONS_BY_TREK[trekId] ?? []) : [];
+  const experienceType = trekId ? TRIVIA_EXPERIENCE_TYPE[trekId] : undefined;
+  const relatedCategories = experienceType
+    ? GENERAL_CATEGORIES_BY_EXPERIENCE[experienceType]
+    : undefined;
   const selectedTrekQuestions = shuffle(trekQuestions).slice(
     0,
     TREK_QUESTION_COUNT,
   );
-  const selectedGeneralQuestions = shuffle(GENERAL_TRIVIA_QUESTIONS).slice(
-    0,
-    ROUND_SIZE - selectedTrekQuestions.length,
-  );
+  const usedKeys = new Set(selectedTrekQuestions.map(questionKey));
+  const unused = (question: TriviaQuestion) =>
+    !usedKeys.has(questionKey(question));
+  const relatedGeneral = relatedCategories
+    ? GENERAL_TRIVIA_QUESTIONS.filter(
+        (question) =>
+          question.category && relatedCategories.includes(question.category),
+      )
+    : GENERAL_TRIVIA_QUESTIONS;
+  const selectedGeneralQuestions: TriviaQuestion[] = [];
+  const pickGeneral = (pool: TriviaQuestion[]) => {
+    for (const question of shuffle(pool)) {
+      if (
+        selectedTrekQuestions.length + selectedGeneralQuestions.length >=
+        ROUND_SIZE
+      )
+        break;
+      if (!unused(question)) continue;
+      usedKeys.add(questionKey(question));
+      selectedGeneralQuestions.push(question);
+    }
+  };
+  pickGeneral(relatedGeneral);
+  pickGeneral(GENERAL_TRIVIA_QUESTIONS);
 
   return shuffle([...selectedGeneralQuestions, ...selectedTrekQuestions]).map(
     (question) => {
@@ -92,7 +122,7 @@ export default function TrekTrivia({
     autoStart ? 'question' : 'intro',
   );
   const [round, setRound] = useState<TriviaQuestion[]>(() =>
-    autoStart ? createRound(trekQuestions) : [],
+    autoStart ? createRound(trekId) : [],
   );
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -123,7 +153,7 @@ export default function TrekTrivia({
 
   const startGame = () => {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
-    setRound(createRound(trekQuestions));
+    setRound(createRound(trekId));
     setQuestionIndex(0);
     setSelectedAnswer(null);
     setAnswerResults(Array(ROUND_SIZE).fill(null));
@@ -213,7 +243,7 @@ export default function TrekTrivia({
               <button
                 type="button"
                 onClick={startGame}
-                className="mt-7 w-full max-w-sm rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:w-auto sm:text-base"
+                className="mt-7 cursor-pointer w-full max-w-sm rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:w-auto sm:text-base"
               >
                 Play {triviaName} Trivia
               </button>
@@ -296,7 +326,7 @@ export default function TrekTrivia({
                     type="button"
                     disabled={selectedAnswer !== null}
                     onClick={() => chooseAnswer(index)}
-                    className={`${styles.optionTilt} flex items-center gap-3 rounded-2xl border-2 px-3 py-2 text-left text-sm font-medium leading-snug text-[#272922] shadow-sm transition-all duration-300 sm:gap-4 sm:px-5 sm:py-0 ${isWrongAnswer ? 'min-h-12 sm:min-h-14' : 'min-h-16 sm:min-h-18'} ${isCorrect ? 'border-[#88B112] bg-[#F3F7E7]' : isWrong ? 'border-[#eb542d] bg-[#fff0ed]' : 'border-white bg-white hover:border-[#88B112]'}`}
+                    className={`${styles.optionTilt} flex enabled:cursor-pointer items-center gap-3 rounded-2xl border-2 px-3 py-2 text-left text-sm font-medium leading-snug text-[#272922] shadow-sm transition-all duration-300 sm:gap-4 sm:px-5 sm:py-0 ${isWrongAnswer ? 'min-h-12 sm:min-h-14' : 'min-h-16 sm:min-h-18'} ${isCorrect ? 'border-[#88B112] bg-[#F3F7E7]' : isWrong ? 'border-[#eb542d] bg-[#fff0ed]' : 'border-white bg-white hover:border-[#88B112]'}`}
                   >
                     <span
                       className={`flex size-9 shrink-0 items-center justify-center rounded-xl sm:size-10 ${isCorrect ? 'bg-[#9bc331] text-white' : isWrong ? 'bg-[#eb542d] text-white' : 'bg-[#eef0ed] text-[#72766e]'}`}
@@ -352,7 +382,7 @@ export default function TrekTrivia({
                 <button
                   type="button"
                   onClick={advanceQuestion}
-                  className="w-full shrink-0 self-start rounded-xl bg-[#88b112] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#789f00] md:w-auto md:self-auto"
+                  className="w-full cursor-pointer shrink-0 self-start rounded-xl bg-[#88b112] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#789f00] md:w-auto md:self-auto"
                 >
                   {questionIndex === ROUND_SIZE - 1
                     ? 'See results'
@@ -382,7 +412,7 @@ export default function TrekTrivia({
               <button
                 type="button"
                 onClick={startGame}
-                className="inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-xl bg-[#88b112] px-6 py-3 font-medium text-white hover:bg-[#789f00] sm:w-auto"
+                className="inline-flex cursor-pointer w-full max-w-sm items-center justify-center gap-2 rounded-xl bg-[#88b112] px-6 py-3 font-medium text-white hover:bg-[#789f00] sm:w-auto"
               >
                 <RotateCcw className="size-4" />
                 Play again

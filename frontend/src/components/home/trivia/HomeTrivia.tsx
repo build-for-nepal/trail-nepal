@@ -75,7 +75,7 @@ const HomeTrivia = () => {
           <button
             type="button"
             onClick={() => setActiveQuiz(null)}
-            className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-[#526e00] transition hover:text-[#344700]"
+            className="mb-4 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-[#526e00] transition hover:text-[#344700]"
           >
             <ArrowLeft className="size-4" />
             Choose another trivia
@@ -148,7 +148,7 @@ const HomeTrivia = () => {
                         key={trek.id}
                         type="button"
                         onClick={() => playTrekQuiz(trek)}
-                        className={`group flex shrink-0 flex-col items-center transition-all duration-300 ease-out hover:scale-110 hover:drop-shadow-[0_8px_12px_rgba(38,60,46,0.2)] focus-visible:scale-110 ${index % 2 === 0 ? 'lg:-translate-y-2' : 'lg:translate-y-2'}`}
+                        className={`group flex cursor-pointer shrink-0 flex-col items-center transition-all duration-300 ease-out hover:scale-110 hover:drop-shadow-[0_8px_12px_rgba(38,60,46,0.2)] focus-visible:scale-110 ${index % 2 === 0 ? 'lg:-translate-y-2' : 'lg:translate-y-2'}`}
                         aria-label={`Play ${trek.name} trivia`}
                       >
                         <span className="relative size-[88px] overflow-hidden rounded-full border-2 border-white bg-white shadow-[0_5px_14px_rgba(38,60,46,0.16)] sm:size-[96px]">
@@ -183,7 +183,7 @@ const HomeTrivia = () => {
                   <button
                     type="button"
                     onClick={playGeneralQuiz}
-                    className="xl:mt-14 rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:text-base"
+                    className="xl:mt-14 cursor-pointer rounded-xl bg-[#88b112] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#789f00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#526e00] sm:text-base"
                   >
                     Play Trivia
                   </button>
