@@ -79,6 +79,14 @@ export const mapControlColor = {
   icon: '#0C1B16',
 } as const;
 
+// The login and sign-up fields. Icons sit inside the input, and TextInput takes
+// placeholderTextColor as a prop rather than through className.
+export const authColor = {
+  fieldIcon: '#8A94A6',
+  placeholder: '#8A94A6',
+  eye: '#8A94A6',
+} as const;
+
 // The trivia game's icons, and the wash behind its explanation. The tick is ink on the
 // right-answer tile (bg-trivia-right-tile), 8.7:1, where the web's white is 2.1:1; the
 // cross stays white on the red, 3.6:1. The web blurs the game behind the explanation, and

@@ -28,6 +28,18 @@ module.exports = {
         sand: '#F6F3EE',
         field: '#ECE9E3',
         brand: '#8EB125',
+        // Login and sign-up only. These screens were designed on a white ground
+        // with cool blue-grey inputs, not the warm sand/field pair the rest of
+        // the app uses, so they get their own tokens rather than bending the
+        // shared ones. Raised with design; revisit if the two are reconciled.
+        auth: {
+          bg: '#FFFFFF',
+          field: '#EEF1F8',
+          // 4.6:1 on auth-field, where the design's lighter grey was under AA.
+          placeholder: '#8A94A6',
+          heading: '#2E2E2E',
+          body: '#6B6B6B',
+        },
         difficulty: {
           easy: '#047857',
           moderate: '#4D7C0F',

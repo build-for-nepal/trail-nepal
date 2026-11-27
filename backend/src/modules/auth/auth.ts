@@ -1,3 +1,4 @@
+import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
@@ -51,7 +52,17 @@ export const auth = betterAuth({
 
   // Origins allowed to call auth endpoints with cookies and to be used as
   // callbackURL / redirectTo targets (CSRF + open-redirect protection).
-  trustedOrigins: env.frontendUrls,
+  //
+  // The Expo app is not an http origin: the expo plugin below turns a relative
+  // callbackURL into a deep link, so the app's scheme has to be trusted too or
+  // social sign-in cannot redirect back into it. In development Expo serves the
+  // app from exp:// on a LAN address, which is why those patterns are added
+  // outside production only — they must never ship, as they trust any host.
+  trustedOrigins: [
+    ...env.frontendUrls,
+    env.auth.mobileScheme,
+    ...(env.isProd ? [] : ['exp://', 'exp://**']),
+  ],
 
   emailAndPassword: {
     enabled: true,
@@ -87,6 +98,12 @@ export const auth = betterAuth({
   // },
 
   socialProviders,
+
+  // Lets the Expo app hold a session: React Native has no durable cookie jar,
+  // so the matching client plugin keeps the session token in SecureStore and
+  // sends it per request instead. The web keeps using the HttpOnly cookie and
+  // is unaffected.
+  plugins: [expo()],
 
   user: {
     additionalFields: {

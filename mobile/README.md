@@ -55,6 +55,54 @@ After that, if you only changed JavaScript or TypeScript, this is enough:
 npm start
 ```
 
+### Backend and environment
+
+Trip content is bundled, so Explore and the detail screens work on their own. Signing
+in, signing up and the Profile tab need the API in `backend/` running.
+
+From `backend/`, copy `.env.example` to `.env` and fill in `DATABASE_URL` and a
+`BETTER_AUTH_SECRET` of at least 32 characters, then:
+
+```bash
+npm install
+npm run db:generate
+npx prisma migrate dev
+npm run db:seed
+npm run dev
+```
+
+From `mobile/`, copy `.env.example` to `.env` and set `EXPO_PUBLIC_API_URL` to your
+machine's address on the network, e.g. `http://192.168.0.104:4000`. `localhost` is the
+phone itself, not your computer, so it will not work from a device; keep the phone on
+the same Wi-Fi.
+
+Two things that bite when switching branches:
+
+- `backend/src/generated/prisma` is git-ignored build output. If the backend build fails
+  with type errors about `Profile` columns, run `npm run db:generate`.
+- If Prisma reports that the migration history has diverged, run
+  `npx prisma migrate reset` and reseed. That drops local data.
+
+### Google sign-in
+
+Optional — email and password need none of this.
+
+Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `backend/.env`. One OAuth client of
+type **Web application** covers web and mobile: the app reaches Google through the
+backend, so no Android or iOS client is needed.
+
+Google only accepts `localhost` or public HTTPS as a redirect URI — it rejects
+`192.168.x.x` and `10.0.2.2`. So to test on a device locally, expose the backend:
+
+```bash
+npx cloudflared tunnel --url http://localhost:4000
+```
+
+then set `BETTER_AUTH_URL` (backend) and `EXPO_PUBLIC_API_URL` (mobile) to the tunnel
+URL, and register `<tunnel-url>/api/auth/callback/google` on the client. While the
+consent screen is in Testing, only accounts listed under **Audience → Test users** can
+sign in; anyone else sees "access blocked", which looks like a bug and is not.
+
 ## Scripts
 
 - `npm start`: start the dev server
@@ -72,9 +120,9 @@ npm start
   `app.json`.
 - Trip content is copied from the website's static data in `frontend/`. Nothing syncs it,
   so copy changes across by hand. Each data file names its source in a comment at the top.
-- No environment variables or backend are needed. Maps and the weather forecast need an
-  internet connection.
-- The Shortlist, My trip and Profile tabs are placeholders, and the search box and filters
-  on Explore do not change the list yet.
+- `EXPO_PUBLIC_API_URL` is needed for anything behind an account; see "Backend and
+  environment" above. Maps and the weather forecast need an internet connection.
+- The Shortlist and My trip tabs are placeholders, and the search box and filters on
+  Explore do not change the list yet. Profile holds sign in and sign out.
 - Android only so far. iOS is not set up.
 - There are no tests. Run `npm run typecheck` and `npm run lint` before you commit.
